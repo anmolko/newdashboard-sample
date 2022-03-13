@@ -34,22 +34,28 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
-                       aria-expanded="false" aria-controls="sidebarDashboards">
-                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
+                    <a class="nav-link menu-link" href="{{route('dashboard')}}">
+                        <i class="ri-rocket-line"></i> <span data-key="t-landing">Dashboard</span>
+                        <span class="badge badge-pill bg-success" data-key="t-new">{{Auth::user()->user_type}}</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarDashboards">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-analytics"> Analytics
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-projects"> Projects </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li> <!-- end Dashboard Menu -->
+                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"--}}
+{{--                       aria-expanded="false" aria-controls="sidebarDashboards">--}}
+{{--                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>--}}
+{{--                    </a>--}}
+{{--                    <div class="collapse menu-dropdown" id="sidebarDashboards">--}}
+{{--                        <ul class="nav nav-sm flex-column">--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="#" class="nav-link" data-key="t-analytics"> Analytics--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="#" class="nav-link" data-key="t-projects"> Projects </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                </li> <!-- end Dashboard Menu -->--}}
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarApps">
@@ -415,13 +421,6 @@
                             </li>
                         </ul>
                     </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" target="_blank" href="#">
-                        <i class="ri-rocket-line"></i> <span data-key="t-landing">Landing</span>
-                        <span class="badge badge-pill bg-danger" data-key="t-new">New</span>
-                    </a>
                 </li>
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Components</span></li>

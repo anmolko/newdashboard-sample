@@ -735,7 +735,7 @@
                                                         <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6>
                                                     </a>
                                                     <div class="fs-13 text-muted">
-                                                        <p class="mb-1">Mentionned you in his comment on 📃 invoice #12501.
+                                                        <p class="mb-1">Mentioned you in his comment on 📃 invoice #12501.
                                                         </p>
                                                     </div>
                                                     <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
@@ -801,17 +801,17 @@
                         <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{asset('assets/backend/images/users/avatar-1.jpg')}}"
+                            <img class="rounded-circle header-profile-user" src="{{ (Auth::user()->image !== null) ? asset('images/users/'.Auth::user()->image) :  asset('assets/backend/images/default.png')}}"
                                  alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ucfirst(Auth::user()->name)}}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{ucfirst(Auth::user()->user_type)}}</span>
                             </span>
                         </span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <h6 class="dropdown-header">Welcome Anna!</h6>
+                            <h6 class="dropdown-header">Welcome {{Auth::user()->name}}!</h6>
                             <a class="dropdown-item"href="#"><i
                                     class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle">Profile</span></a>
@@ -821,6 +821,14 @@
                             <a class="dropdown-item" href="#"><i
                                     class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle">Taskboard</span></a>
+
+                            <form id="logout-form-header" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                            <a class="dropdown-item" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form-header').submit();"><i
+                                    class="mdi mdi-logout-variant text-muted fs-16 align-middle me-1"></i> <span
+                                    class="align-middle">logout</span></a>
                         </div>
                     </div>
                 </div>
