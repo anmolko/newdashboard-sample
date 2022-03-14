@@ -10,6 +10,7 @@
 
 @section('content')
 
+
     <!-- Start Page-content -->
         <div class="page-content">
             <div class="container-fluid">
@@ -1535,10 +1536,3 @@
 
 @endsection
 
-@section('js')
-<!-- apexcharts -->
-<script src="{{asset('assets/backend/libs/apexcharts/apexcharts.min.js')}}"></script>
-
-<!-- Dashboard init -->
-<script src="{{asset('assets/backend/js/pages/dashboard-ecommerce.init.js')}}"></script>
-@endsection

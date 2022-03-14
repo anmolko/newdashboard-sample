@@ -7,6 +7,7 @@
 
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft Technology. Lets make IT happen. @endif">
     <meta name="author" content="Canosoft Technology" />
     <!-- App favicon -->
@@ -812,7 +813,7 @@
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
                             <h6 class="dropdown-header">Welcome {{Auth::user()->name}}!</h6>
-                            <a class="dropdown-item" href="{{ route('profile') }}"><i
+                            <a class="dropdown-item"href="#"><i
                                     class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle">Profile</span></a>
                             <a class="dropdown-item" href="#"><i
