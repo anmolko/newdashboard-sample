@@ -15,6 +15,7 @@ class AddAboutToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->text('about')->nullable()->after('gender');
+            $table->string('cover')->nullable()->after('gender');
         });
     }
 
@@ -26,6 +27,7 @@ class AddAboutToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('cover');
             $table->dropColumn('about');
 
         });

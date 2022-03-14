@@ -29,6 +29,7 @@ class User extends Authenticatable
         'contact',
         'address',
         'gender',
+        'cover',
         'about',
         'status',
         'oauth_id',

@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','Dashboard')
+@section('title', "Profile | ".$user->name)
 @section('css')
     <style>
         .hidden{
@@ -14,16 +14,23 @@
         <div class="container-fluid">
             <div class="profile-foreground position-relative mx-n4 mt-n4">
                 <div class="profile-wid-bg">
-                    <img src="{{asset('assets/backend/images/profile-bg.jpg')}}" alt="" class="profile-wid-img" />
+                    <img
+                        src="{{ ($user->cover !== null) ? asset('images/user/cover/'.$user->cover) :  asset('assets/backend/images/profile-bg.jpg')}}"
+                        alt="" class="profile-wid-img" />
                 </div>
             </div>
             <div class="pt-4 mb-4 mb-lg-3 pb-lg-4">
                 <div class="row g-4">
                     <div class="col-auto">
-                        <div class="avatar-lg">
-                            <img src="{{ ($user->image !== null) ? asset('images/users/'.$user->image) :  asset('assets/backend/images/default.png')}}" alt="user-img"
-                                 class="img-thumbnail rounded-circle" />
-                        </div>
+
+                            <div class="profile-user position-relative d-inline-block mx-auto">
+                                <img
+                                    src="{{ ($user->image !== null) ? asset('images/user/'.$user->image) :  asset('assets/backend/images/default.png')}}"
+                                    class="rounded-circle avatar-x img-thumbnail user-profile-image"
+                                    alt="user-profile-image">
+                            </div>
+{{--                            <img src="{{ ($user->image !== null) ? asset('images/user/'.$user->image) :  asset('assets/backend/images/default.png')}}" alt="user-img"--}}
+{{--                                 class="img-thumbnail rounded-circle" />--}}
                     </div>
                     <!--end col-->
                     <div class="col">
@@ -98,7 +105,7 @@
                                 </li>
                             </ul>
                             <div class="flex-shrink-0">
-                                <a href="#" class="btn btn-success"><i
+                                <a href="{{route('profile.edit')}}" class="btn btn-success"><i
                                         class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
                             </div>
                         </div>
@@ -345,7 +352,7 @@
                                                     with the registered email {{@$setting_data->email}}.
                                                 </p>
                                                 @else
-                                                    {{$user->about}}
+                                                    {!! nl2br($user->about) !!}
                                                 @endif
                                                 <div class="row">
                                                     <div class="col-6 col-md-4">
@@ -2974,4 +2981,9 @@
     </div><!-- End Page-content -->
 
 
+@endsection
+
+@section('js')
+    <!-- profile init js -->
+    <script src="{{asset('assets/backend/js/pages/profile.init.js')}}"></script>
 @endsection

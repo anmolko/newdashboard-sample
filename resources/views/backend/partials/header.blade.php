@@ -11,7 +11,7 @@
     <meta name="description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft Technology. Lets make IT happen. @endif">
     <meta name="author" content="Canosoft Technology" />
     <!-- App favicon -->
-    <link rel="shortcut icon" type="image/x-icon"  href="<?php if(@$setting_data->favicon){?>{{asset('/images/uploads/settings/'.@$setting_data->favicon)}}<?php }else{ echo "/assets/backend/images/canosoft-favicon.png"; }?>">
+    <link rel="shortcut icon" type="image/x-icon"  href="<?php if(@$setting_data->favicon){?>{{asset('/images/settings/'.@$setting_data->favicon)}}<?php }else{ echo "/assets/backend/images/canosoft-favicon.png"; }?>">
 
     <!-- jsvectormap css -->
     <link href="{{asset('assets/backend/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
@@ -50,7 +50,7 @@
                                 <img src="{{asset('assets/backend/images/canosoft-favicon.png')}}" alt="" height="25">
                             </span>
                             <span class="logo-lg">
-                                    <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/uploads/settings/'.@$setting_data->logo_white)}}<?php }else{ echo '/assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="40">
+                                    <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/settings/'.@$setting_data->logo_white)}}<?php }else{ echo '/assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="40">
                             </span>
                         </a>
 
@@ -59,7 +59,7 @@
                                 <img src="{{asset('assets/backend/images/canosoft-favicon.png')}}" alt="" height="25">
                             </span>
                             <span class="logo-lg">
-                                <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/uploads/settings/'.@$setting_data->logo_white)}}<?php }else{ echo '/assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="40">
+                                <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/settings/'.@$setting_data->logo_white)}}<?php }else{ echo '/assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="40">
 
                             </span>
                         </a>
@@ -802,7 +802,7 @@
                         <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{ (Auth::user()->image !== null) ? asset('images/users/'.Auth::user()->image) :  asset('assets/backend/images/default.png')}}"
+                            <img class="rounded-circle header-profile-user" src="{{ (Auth::user()->image !== null) ? asset('images/user/'.Auth::user()->image) :  asset('assets/backend/images/default.png')}}"
                                  alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ucfirst(Auth::user()->name)}}</span>
