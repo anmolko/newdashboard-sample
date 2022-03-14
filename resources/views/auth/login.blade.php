@@ -46,7 +46,7 @@
                 <div class="col-lg-12">
                     <div class="text-center mt-sm-5 mb-4 text-white-50">
                         <div>
-                            <a href="#" class="d-inline-block auth-logo">
+                            <a href="/" class="d-inline-block auth-logo">
                                 <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/uploads/settings/'.@$setting_data->logo_white)}}<?php }else{ echo 'assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="60">
                             </a>
                         </div>
