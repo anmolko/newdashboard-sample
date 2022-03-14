@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -45,7 +47,28 @@ class LoginController extends Controller
             $request->session()->flush();
             return redirect()->route('login')->with('error', 'Account not activated. Contact the administrator.');
         }else if($user->status == 1){
+            date_default_timezone_set("Asia/Kathmandu");
+            activity('User')->causedBy(Auth::user())->log("The User " . ucfirst(Auth::user()->name). " has signed in the ". ucfirst(Auth::user()->user_type). " dashboard at ". date("h:ia") );
             return redirect()->intended($this->redirectPath());
         }
+    }
+
+    public function logout(Request $request)
+    {
+        date_default_timezone_set("Asia/Kathmandu");
+        activity('User')->causedBy(Auth::user())->log("The User " . ucfirst(Auth::user()->name). " has signed out from the ". ucfirst(Auth::user()->user_type). " dashboard at ". date("h:ia") );
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
     }
 }

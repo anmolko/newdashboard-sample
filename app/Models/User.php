@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use LogsActivity;
+
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +25,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
+        'contact',
+        'address',
+        'gender',
+        'status',
+        'oauth_id',
+        'oauth_type',
+        'user_type',
     ];
 
     /**
@@ -41,4 +53,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // protected static $logAttributes = ['*'];
+    protected static $logOnlyDirty = true;
+    protected static $logName = 'User';
+    protected static $recordEvents = ['created'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This :subject.name Details has been {$eventName} by :causer.name ";
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'email']);
+    }
 }
