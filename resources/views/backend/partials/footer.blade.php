@@ -393,8 +393,7 @@
 <script src="{{asset('assets/backend/js/pages/plugins/lord-icon-2.1.0.js')}}"></script>
 <script src="{{asset('assets/backend/js/plugins.js')}}"></script>
 
-<!-- apexcharts -->
-<script src="{{asset('assets/backend/libs/apexcharts/apexcharts.min.js')}}"></script>
+
 
 <!-- Vector map-->
 <script src="{{asset('assets/backend/libs/jsvectormap/js/jsvectormap.min.js')}}"></script>
@@ -403,8 +402,7 @@
 <!--Swiper slider js-->
 <script src="{{asset('assets/backend/libs/swiper/swiper-bundle.min.js')}}"></script>
 
-<!-- Dashboard init -->
-<script src="{{asset('assets/backend/js/pages/dashboard-ecommerce.init.js')}}"></script>
+
 
 <!-- App js -->
 <script src="{{asset('assets/backend/js/app.js')}}"></script>

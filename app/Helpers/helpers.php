@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 if (!function_exists('getNepaliMonth')) {
     $selected_month;
     function getNepaliMonth($month){
@@ -58,6 +60,42 @@ if (!function_exists('greeting_msg')) {
             $greetings = "Good Morning";
         }
         return $greetings;
+    }
+}
+
+if (!function_exists('profile_percentage')) {
+    function profile_percentage($id){
+        $user       = User::find($id);
+        $name       = 20;
+        $email      = 20;
+        $contact    = 20;
+        $image      = 15;
+        $gender     = 10;
+        $address    = 10;
+        $about      = 5;
+        $percetage = 0;
+        if ($user->name !== null) {
+            $percetage += $name;
+        }
+        if ($user->email !== null) {
+            $percetage += $email;
+        }
+        if ($user->contact !== null) {
+            $percetage += $contact;
+        }
+        if ($user->address !== null) {
+            $percetage += $address;
+        }
+        if ($user->image !== null) {
+            $percetage += $image;
+        }
+        if ($user->gender !== null) {
+            $percetage += $gender;
+        }
+        if ($user->about !== null) {
+            $percetage += $about;
+        }
+        return $percetage;
     }
 }
 
