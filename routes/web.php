@@ -37,7 +37,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::get('/filemanager', 'App\Http\Controllers\HomeController@filemanager')->name('filemanager');
     Route::get('/profile/edit/{id?}', 'App\Http\Controllers\UserController@profileEdit')->name('profile.edit');
     Route::put('/profile/{id}/update', 'App\Http\Controllers\UserController@profileUpdate')->name('user.update');
-//    Route::put('/profileimage/{id}/update', 'App\Http\Controllers\UserController@imageupdate')->name('user.imageupdate');
+    Route::post('/user-image/update/', 'App\Http\Controllers\UserController@imageupdate')->name('user.imageupdate');
 //    Route::put('/profile/password', 'App\Http\Controllers\UserController@profilepassword')->name('user.password');
     //end of signed-in user routes
 

@@ -110,6 +110,54 @@ class UserController extends Controller
         }
     }
 
+    public function imageupdate(Request $request)
+    {
+        $id        = Auth::user()->id;
+        $user      = User::find($id);
+        $name      = $request->input('name');
+        if (!empty($request->file('image')) && $name =='image' ){
+            $oldimage  = $user->image;
+            $image       = $request->file('image');
+            $name1       = uniqid().'_user_'.$image->getClientOriginalName();
+            $path        = base_path().'/public/images/user/';
+            $moved       = Image::make($image->getRealPath())->fit(200, 200, function ($constraint) {
+                $constraint->aspectRatio(); //maintain image ratio
+                $constraint->upsize();
+            })->orientate()->save($path.$name1);
+
+            if ($moved){
+                $user->image = $name1;
+                if (!empty($oldimage) && file_exists(public_path().'/images/user/'.$oldimage)){
+                    @unlink(public_path().'/images/user/'.$oldimage);
+                }
+            }
+        }
+
+        if (!empty($request->file('image')) && $name =='cover'){
+            $oldimage  = $user->cover;
+            $image       = $request->file('image');
+            $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
+            $path        = base_path().'/public/images/user/cover/';
+            $moved       = Image::make($image->getRealPath())->fit(2000, 850)->orientate()->save($path.$name1);
+
+            if ($moved){
+                $user->cover= $name1;
+                if (!empty($oldimage) && file_exists(public_path().'/images/user/cover/'.$oldimage)){
+                    @unlink(public_path().'/images/user/cover/'.$oldimage);
+                }
+            }
+        }
+
+        $status = $user->update();
+        if($status){
+            $status = 'success';
+        }else{
+            $status = 'failed';
+        }
+         return response()->json(['status'=>$status,'image'=>$name1]);
+
+    }
+
     public function profileUpdate(Request $request, $id)
     {
         $user                 =  User::find($id);

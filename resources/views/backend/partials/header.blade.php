@@ -802,7 +802,7 @@
                         <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{ (Auth::user()->image !== null) ? asset('images/user/'.Auth::user()->image) :  asset('assets/backend/images/default.png')}}"
+                            <img class="rounded-circle header-profile-user" id="header-profile-user-updates" src="{{ (Auth::user()->image !== null) ? asset('images/user/'.Auth::user()->image) :  asset('assets/backend/images/default.png')}}"
                                  alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ucfirst(Auth::user()->name)}}</span>
