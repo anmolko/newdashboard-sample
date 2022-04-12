@@ -91,10 +91,10 @@
                                 <div class="flex-grow-1">
                                     <h5 class="card-title mb-0">Portfolio</h5>
                                 </div>
-{{--                                <div class="flex-shrink-0">--}}
-{{--                                    <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i--}}
-{{--                                            class="ri-add-fill align-bottom me-1"></i> Add</a>--}}
-{{--                                </div>--}}
+                                <div class="flex-shrink-0">
+                                    <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i
+                                            class="ri-add-fill align-bottom me-1"></i> Add</a>
+                                </div>
                             </div>
                             <div class="mb-3 d-flex">
                                 <div class="avatar-xs d-block flex-shrink-0 me-3">
@@ -163,8 +163,8 @@
                                     </ul>
                                 </div>
                                 <div class="card-body p-4">
+                                    {!! Form::open(['route' => ['user.update', $user->id],'method'=>'PUT','class'=>'row g-3 needs-validation','enctype'=>'multipart/form-data','novalidate'=>'']) !!}
                                     <div class="tab-content">
-                                        {!! Form::open(['route' => ['user.update', $user->id],'method'=>'PUT','class'=>'row g-3 needs-validation','enctype'=>'multipart/form-data','novalidate'=>'']) !!}
                                             <div class="tab-pane active" id="personalDetails" role="tabpanel">
                                             <div class="row">
                                                 <div class="col-lg-12">
@@ -273,9 +273,8 @@
                                                 </div>
                                                 <!--end col-->
                                             </div>
-                                        {!! Form::close() !!}
-                                        </div>
-
+                                    </div>
+                                    {!! Form::close() !!}
 
                                 <!--end personal details tab-pane-->
                                 <div class="tab-pane" id="changePassword" role="tabpanel">
@@ -564,86 +563,7 @@
     <script src="{{asset('assets/backend/js/pages/profile-setting.init.js')}}"></script>
     <!-- Sweet Alerts js -->
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
-    <!-- Sweet alert init js-->
-    <script type="text/javascript">
+    <!-- custom profile js-->
+    <script src="{{asset('assets/backend/custom_js/profile.js')}}"></script>
 
-        $('#profile-foreground-img-file-input, #profile-img-file-input').on('change', function() {
-            var cover  = this.files[0];
-            var userID = "{{$user->id}}";
-            var name   = $(this).attr("name");
-            var url    = $(this).attr("cs-update-route");
-            var imagereplaceID = '#header-profile-user-updates';
-            var formData = new FormData();
-            formData.append('name', name);
-            formData.append('image', cover);
-            $.ajax({
-                type : 'POST',
-                url : url,
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                },
-                cache: false,
-                contentType: false,
-                processData: false,
-                data : formData,
-                success: function(response){
-                    console.log(response);
-
-                    if(response.status=='success'){
-                        if(name == 'image'){
-                            var imagename = 'profile image';
-                            $(imagereplaceID).attr("src",'/images/user/'+response.image );
-                        }else{
-                            var imagename = 'cover photo';
-                        }
-                        Swal.fire({
-                            imageUrl: "/assets/backend/images/canosoft-logo.png",
-                            imageHeight: 40,
-                            html: '<div class="mt-2">' +
-                                '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
-                                'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
-                                '</lord-icon>' +
-                                '<div class="mt-4 pt-2 fs-15">' +
-                                '<h4>Success !</h4>' +
-                                '<p class="text-muted mx-4 mb-0">' +
-                                'Your '+ imagename +' has been changed .</p>'
-                                + '</div>' +
-                                '</div>',
-                            animation: !1,
-                            timerProgressBar: !0,
-                            timer: 2e3,
-                            showConfirmButton: !1
-                        });
-                    }else{
-                        Swal.fire({
-                            imageUrl: "/assets/backend/images/canosoft-logo.png",
-                            imageHeight: 40,
-                            html: '<div class="mt-2">' +
-                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
-                                ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
-                                'style="width:120px;height:120px"></lord-icon>' +
-                                '<div class="mt-4 pt-2 fs-15">' +
-                                '<h4>Oops...!</h4>' +
-                                '<p class="text-muted mx-4 mb-0">' +
-                                'Your'+ imagename +' could not be changed at the moment .</p>'
-                                + '</div>' +
-                                '</div>',
-                            animation: !1,
-                            timerProgressBar: !0,
-                            timer: 3000,
-                            showConfirmButton: !1
-                        });
-                    }
-                },
-                error: function(response) {
-                   console.log(response);
-                }
-            })
-
-
-        });
-
-
-
-    </script>
 @endsection

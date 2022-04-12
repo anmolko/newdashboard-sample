@@ -31,6 +31,7 @@
     <link href="{{asset('assets/backend/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
 
     @yield('css')
+    <meta name="_token" content="{{ csrf_token() }}">
 
 </head>
 
