@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
@@ -112,8 +114,7 @@ class UserController extends Controller
 
     public function imageupdate(Request $request)
     {
-        $id        = Auth::user()->id;
-        $user      = User::find($id);
+        $user      = User::find($request->input('userid'));
         $name      = $request->input('name');
         if (!empty($request->file('image')) && $name =='image' ){
             $oldimage  = $user->image;
@@ -155,7 +156,22 @@ class UserController extends Controller
             $status = 'failed';
         }
          return response()->json(['status'=>$status,'image'=>$name1]);
+    }
 
+    public function checkoldpassword(Request $request){
+        $user          = User::find($request->input('userid'));
+        $incoming_pass = $request->input('oldpassword');
+        if($incoming_pass == null){
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'Please enter old password for verification first !']);
+        }
+        if (!Hash::check($incoming_pass, $user->password)) {
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'The old password does not match our records.']);
+        }else{
+            $status ='success';
+            return response()->json(['status'=>$status,'message'=>'Password check completed. Its a match !']);
+        }
     }
 
     public function profileUpdate(Request $request, $id)
@@ -210,5 +226,20 @@ class UserController extends Controller
             Session::flash('error','Something Went Wrong. Changes could not be applied.');
         }
         return redirect()->route('profile');
+    }
+
+    public function profilepassword(Request $request){
+        $id                 = $request->input('userid');
+        $user               = User::find($id);
+        $password           = Hash::make($request->input('password'));
+        $user->password     = $password;
+        $status             = User::where('id', $id)->update(array('password' => $password));
+        if($status){
+            $status ='success';
+            return response()->json(['status'=>$status,'message'=>'Password has been changed !']);        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'Your password could not be updated. Try Again later !']);
+        }
     }
 }
