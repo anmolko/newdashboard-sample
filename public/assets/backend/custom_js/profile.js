@@ -1,10 +1,11 @@
 //setup before functions
 var typingTimer;                //timer identifier
-var doneTypingInterval = 1000;  //time in ms, 1 second for example
-var $input     = $('#oldpasswordInput');
-var allclearpass = 'no';
-var $inputPass = $('#confirmpasswordInput');
-var request_method  = 'POST'; //get form GET/POST method
+var doneTypingInterval  = 1000;  //time in ms, 1 second for example
+var $input              = $('#oldpasswordInput');
+var $input2             = $('#removeaccountPassword');
+var allclearpass        = 'no';
+var $inputPass          = $('#confirmpasswordInput');
+var request_method      = 'POST'; //get form GET/POST method
 
 
 //on keyup, start the countdown
@@ -18,14 +19,25 @@ $input.on('keydown blur', function () {
     typingTimer = setTimeout(doneTyping, doneTypingInterval);
 });
 
+$input2.on('keyup click', function () {
+    clearTimeout(typingTimer);
+});
+
+//on keydown, clear the countdown
+$input2.on('keydown blur', function () {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(removeAcc, doneTypingInterval);
+});
+
 $inputPass.on('keyup click', function () {
     checkPasswordMatch();
 });
 
+
 //user is "finished typing," do something
-function doneTyping () {
+function doneTyping() {
     var value  = $input.val();
-    var userID = $input.attr("cs-user-id");
+    var userID = $('#userid').val();
     var url = $input.attr("cs-check-route");
     var formData = new FormData();
     formData.append('oldpassword', value);
@@ -63,6 +75,44 @@ function doneTyping () {
     })
 }
 
+function removeAcc() {
+    var value  = $input2.val();
+    var userID = $('#userid').val();
+    var url = $input2.attr("cs-check-route");
+    var formData = new FormData();
+    formData.append('oldpassword', value);
+    formData.append('userid', userID);
+
+    $.ajax({
+        type : request_method,
+        url : url,
+        headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        data : formData,
+        success: function(response){
+            if(response.status =='error'){
+                $('#close-acc-btn').prop('disabled', true);
+                $('#remove-acc-error').css('display', 'block');
+                $('#remove-acc-error').css('color', '');
+                $('#remove-acc-error').text(response.message);
+                // old-password-error
+            }else{
+                $('#close-acc-btn').prop('disabled', false);
+                $('#remove-acc-error').css('display', 'block');
+                $('#remove-acc-error').css('color', '#0ab39c');
+                $('#remove-acc-error').text(response.message);
+            }
+        },
+        error: function(response) {
+            console.log(response);
+        }
+    })
+}
+
 function checkPasswordMatch() {
     var password = $('#newpasswordInput').val();
     var confirmPassword = $inputPass.val();
@@ -83,7 +133,7 @@ function checkPasswordMatch() {
 
 $('#profile-foreground-img-file-input, #profile-img-file-input').on('change', function() {
     var cover  = this.files[0];
-    var userID = $(this).attr("cs-user-id");
+    var userID = $('#userid').val();
     var name   = $(this).attr("name");
     var url    = $(this).attr("cs-update-route");
     var imagereplaceID = '#header-profile-user-updates';
@@ -111,7 +161,7 @@ $('#profile-foreground-img-file-input, #profile-img-file-input').on('change', fu
                 }
                 Swal.fire({
                     imageUrl: "/assets/backend/images/canosoft-logo.png",
-                    imageHeight: 50,
+                    imageHeight: 60,
                     html: '<div class="mt-2">' +
                         '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
                         'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
@@ -131,7 +181,7 @@ $('#profile-foreground-img-file-input, #profile-img-file-input').on('change', fu
             else{
                 Swal.fire({
                     imageUrl: "/assets/backend/images/canosoft-logo.png",
-                    imageHeight: 50,
+                    imageHeight: 60,
                     html: '<div class="mt-2">' +
                         '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
                         ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
@@ -177,7 +227,7 @@ $('#profile-password-btn').on('click', function() {
             if(response.status=='success'){
                 Swal.fire({
                     imageUrl: "/assets/backend/images/canosoft-logo.png",
-                    imageHeight: 50,
+                    imageHeight: 60,
                     html: '<div class="mt-2">' +
                         '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
                         'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
@@ -201,7 +251,7 @@ $('#profile-password-btn').on('click', function() {
             else{
                 Swal.fire({
                     imageUrl: "/assets/backend/images/canosoft-logo.png",
-                    imageHeight: 50,
+                    imageHeight: 60,
                     html: '<div class="mt-2">' +
                         '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
                         ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +

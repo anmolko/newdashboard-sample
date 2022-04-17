@@ -40,6 +40,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::post('/user-image/update/', 'App\Http\Controllers\UserController@imageupdate')->name('user.imageupdate');
     Route::post('/profile/oldpassword', 'App\Http\Controllers\UserController@checkoldpassword')->name('user.oldpassword');
     Route::post('/profile/password', 'App\Http\Controllers\UserController@profilepassword')->name('user.password');
+    Route::post('/user/removeaccount', 'App\Http\Controllers\UserController@removeAccount')->name('user.removeaccount');
     //end of signed-in user routes
 
 

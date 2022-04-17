@@ -55,8 +55,11 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        date_default_timezone_set("Asia/Kathmandu");
-        activity('User')->causedBy(Auth::user())->log("The User " . ucfirst(Auth::user()->name). " has signed out from the ". ucfirst(Auth::user()->user_type). " dashboard at ". date("h:ia") );
+        if(Auth::user()){
+            date_default_timezone_set("Asia/Kathmandu");
+            activity('User')->causedBy(Auth::user())->log("The User " . ucfirst(Auth::user()->name). " has signed out from the ". ucfirst(Auth::user()->user_type). " dashboard at ". date("h:ia") );
+        }
+
         $this->guard()->logout();
 
         $request->session()->invalidate();

@@ -23,7 +23,7 @@
                         <div class="text-end p-3">
                             <div class="p-0 ms-auto rounded-circle profile-photo-edit">
                                 <input id="profile-foreground-img-file-input" type="file"
-                                       name="cover" cs-update-route="{{route('user.imageupdate')}}" cs-user-id="{{$user->id}}"
+                                       name="cover" cs-update-route="{{route('user.imageupdate')}}"
                                        class="profile-foreground-img-file-input">
                                 <label for="profile-foreground-img-file-input"
                                        class="profile-photo-edit btn btn-light">
@@ -48,7 +48,7 @@
                                          id="profile-img-file-input-updated"
                                          alt="user-profile-image">
                                     <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
-                                        <input id="profile-img-file-input" type="file" name="image" cs-user-id="{{$user->id}}"
+                                        <input id="profile-img-file-input" type="file" name="image"
                                                cs-update-route="{{route('user.imageupdate')}}"
                                                class="profile-img-file-input">
                                         <label for="profile-img-file-input"
@@ -281,7 +281,7 @@
                                                     Password*</label>
                                                 <input type="password" class="form-control"
                                                        id="oldpasswordInput" name="oldpassword"
-                                                       cs-user-id="{{$user->id}}"  cs-check-route="{{route('user.oldpassword')}}"
+                                                       cs-check-route="{{route('user.oldpassword')}}"
                                                        placeholder="Enter current password" required />
                                                 <div class="invalid-feedback" id="old-password-error">
                                                     please enter the old password
@@ -294,7 +294,7 @@
                                                     Password*</label>
                                                 <input type="password" class="form-control" name="password"
                                                        id="newpasswordInput" placeholder="Enter new password" required/>
-                                                <input type="hidden" class="form-control" name="userid" value="{{$user->id}}" />
+                                                <input type="hidden" class="form-control" name="userid" id="userid" value="{{$user->id}}" />
                                                 <div class="invalid-feedback">
                                                     Please enter the new password
                                                 </div>
@@ -394,151 +394,158 @@
                                 <!--end tab-pane-->
 
                                 <div class="tab-pane" id="privacy" role="tabpanel">
-                                    <div class="mb-4 pb-2">
-                                        <h5 class="card-title text-decoration-underline mb-3">Security:</h5>
-                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0">
-                                            <div class="flex-grow-1">
-                                                <h6 class="fs-14 mb-1">Two-factor Authentication</h6>
-                                                <p class="text-muted">Two-factor authentication is an enhanced
-                                                    security meansur. Once enabled, you'll be required to give
-                                                    two types of identification when you log into Google
-                                                    Authentication and SMS are Supported.</p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-sm-3">
-                                                <a href="javascript:void(0);"
-                                                   class="btn btn-sm btn-primary">Enable Two-facor
-                                                    Authentication</a>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
-                                            <div class="flex-grow-1">
-                                                <h6 class="fs-14 mb-1">Secondary Verification</h6>
-                                                <p class="text-muted">The first factor is a password and the
-                                                    second commonly includes a text with a code sent to your
-                                                    smartphone, or biometrics using your fingerprint, face, or
-                                                    retina.</p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-sm-3">
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary">Set
-                                                    up secondary method</a>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
-                                            <div class="flex-grow-1">
-                                                <h6 class="fs-14 mb-1">Backup Codes</h6>
-                                                <p class="text-muted mb-sm-0">A backup code is automatically
-                                                    generated for you when you turn on two-factor authentication
-                                                    through your iOS or Android Twitter app. You can also
-                                                    generate a backup code on twitter.com.</p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-sm-3">
-                                                <a href="javascript:void(0);"
-                                                   class="btn btn-sm btn-primary">Generate backup codes</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <h5 class="card-title text-decoration-underline mb-3">Application
-                                            Notifications:</h5>
-                                        <ul class="list-unstyled mb-0">
-                                            <li class="d-flex">
-                                                <div class="flex-grow-1">
-                                                    <label for="directMessage"
-                                                           class="form-check-label fs-14">Direct messages</label>
-                                                    <p class="text-muted">Messages from people you follow</p>
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               role="switch" id="directMessage" checked />
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex mt-2">
-                                                <div class="flex-grow-1">
-                                                    <label class="form-check-label fs-14"
-                                                           for="desktopNotification">
-                                                        Show desktop notifications
-                                                    </label>
-                                                    <p class="text-muted">Choose the option you want as your
-                                                        default setting. Block a site: Next to "Not allowed to
-                                                        send notifications," click Add.</p>
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               role="switch" id="desktopNotification" checked />
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex mt-2">
-                                                <div class="flex-grow-1">
-                                                    <label class="form-check-label fs-14"
-                                                           for="emailNotification">
-                                                        Show email notifications
-                                                    </label>
-                                                    <p class="text-muted"> Under Settings, choose Notifications.
-                                                        Under Select an account, choose the account to enable
-                                                        notifications for. </p>
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               role="switch" id="emailNotification" />
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex mt-2">
-                                                <div class="flex-grow-1">
-                                                    <label class="form-check-label fs-14"
-                                                           for="chatNotification">
-                                                        Show chat notifications
-                                                    </label>
-                                                    <p class="text-muted">To prevent duplicate mobile
-                                                        notifications from the Gmail and Chat apps, in settings,
-                                                        turn off Chat notifications.</p>
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               role="switch" id="chatNotification" />
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex mt-2">
-                                                <div class="flex-grow-1">
-                                                    <label class="form-check-label fs-14"
-                                                           for="purchaesNotification">
-                                                        Show purchase notifications
-                                                    </label>
-                                                    <p class="text-muted">Get real-time purchase alerts to
-                                                        protect yourself from fraudulent charges.</p>
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               role="switch" id="purchaesNotification" />
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+{{--                                    <div class="mb-4 pb-2">--}}
+{{--                                        <h5 class="card-title text-decoration-underline mb-3">Security:</h5>--}}
+{{--                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0">--}}
+{{--                                            <div class="flex-grow-1">--}}
+{{--                                                <h6 class="fs-14 mb-1">Two-factor Authentication</h6>--}}
+{{--                                                <p class="text-muted">Two-factor authentication is an enhanced--}}
+{{--                                                    security meansur. Once enabled, you'll be required to give--}}
+{{--                                                    two types of identification when you log into Google--}}
+{{--                                                    Authentication and SMS are Supported.</p>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="flex-shrink-0 ms-sm-3">--}}
+{{--                                                <a href="javascript:void(0);"--}}
+{{--                                                   class="btn btn-sm btn-primary">Enable Two-facor--}}
+{{--                                                    Authentication</a>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">--}}
+{{--                                            <div class="flex-grow-1">--}}
+{{--                                                <h6 class="fs-14 mb-1">Secondary Verification</h6>--}}
+{{--                                                <p class="text-muted">The first factor is a password and the--}}
+{{--                                                    second commonly includes a text with a code sent to your--}}
+{{--                                                    smartphone, or biometrics using your fingerprint, face, or--}}
+{{--                                                    retina.</p>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="flex-shrink-0 ms-sm-3">--}}
+{{--                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary">Set--}}
+{{--                                                    up secondary method</a>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">--}}
+{{--                                            <div class="flex-grow-1">--}}
+{{--                                                <h6 class="fs-14 mb-1">Backup Codes</h6>--}}
+{{--                                                <p class="text-muted mb-sm-0">A backup code is automatically--}}
+{{--                                                    generated for you when you turn on two-factor authentication--}}
+{{--                                                    through your iOS or Android Twitter app. You can also--}}
+{{--                                                    generate a backup code on twitter.com.</p>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="flex-shrink-0 ms-sm-3">--}}
+{{--                                                <a href="javascript:void(0);"--}}
+{{--                                                   class="btn btn-sm btn-primary">Generate backup codes</a>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <h5 class="card-title text-decoration-underline mb-3">Application--}}
+{{--                                            Notifications:</h5>--}}
+{{--                                        <ul class="list-unstyled mb-0">--}}
+{{--                                            <li class="d-flex">--}}
+{{--                                                <div class="flex-grow-1">--}}
+{{--                                                    <label for="directMessage"--}}
+{{--                                                           class="form-check-label fs-14">Direct messages</label>--}}
+{{--                                                    <p class="text-muted">Messages from people you follow</p>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="flex-shrink-0">--}}
+{{--                                                    <div class="form-check form-switch">--}}
+{{--                                                        <input class="form-check-input" type="checkbox"--}}
+{{--                                                               role="switch" id="directMessage" checked />--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </li>--}}
+{{--                                            <li class="d-flex mt-2">--}}
+{{--                                                <div class="flex-grow-1">--}}
+{{--                                                    <label class="form-check-label fs-14"--}}
+{{--                                                           for="desktopNotification">--}}
+{{--                                                        Show desktop notifications--}}
+{{--                                                    </label>--}}
+{{--                                                    <p class="text-muted">Choose the option you want as your--}}
+{{--                                                        default setting. Block a site: Next to "Not allowed to--}}
+{{--                                                        send notifications," click Add.</p>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="flex-shrink-0">--}}
+{{--                                                    <div class="form-check form-switch">--}}
+{{--                                                        <input class="form-check-input" type="checkbox"--}}
+{{--                                                               role="switch" id="desktopNotification" checked />--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </li>--}}
+{{--                                            <li class="d-flex mt-2">--}}
+{{--                                                <div class="flex-grow-1">--}}
+{{--                                                    <label class="form-check-label fs-14"--}}
+{{--                                                           for="emailNotification">--}}
+{{--                                                        Show email notifications--}}
+{{--                                                    </label>--}}
+{{--                                                    <p class="text-muted"> Under Settings, choose Notifications.--}}
+{{--                                                        Under Select an account, choose the account to enable--}}
+{{--                                                        notifications for. </p>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="flex-shrink-0">--}}
+{{--                                                    <div class="form-check form-switch">--}}
+{{--                                                        <input class="form-check-input" type="checkbox"--}}
+{{--                                                               role="switch" id="emailNotification" />--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </li>--}}
+{{--                                            <li class="d-flex mt-2">--}}
+{{--                                                <div class="flex-grow-1">--}}
+{{--                                                    <label class="form-check-label fs-14"--}}
+{{--                                                           for="chatNotification">--}}
+{{--                                                        Show chat notifications--}}
+{{--                                                    </label>--}}
+{{--                                                    <p class="text-muted">To prevent duplicate mobile--}}
+{{--                                                        notifications from the Gmail and Chat apps, in settings,--}}
+{{--                                                        turn off Chat notifications.</p>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="flex-shrink-0">--}}
+{{--                                                    <div class="form-check form-switch">--}}
+{{--                                                        <input class="form-check-input" type="checkbox"--}}
+{{--                                                               role="switch" id="chatNotification" />--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </li>--}}
+{{--                                            <li class="d-flex mt-2">--}}
+{{--                                                <div class="flex-grow-1">--}}
+{{--                                                    <label class="form-check-label fs-14"--}}
+{{--                                                           for="purchaesNotification">--}}
+{{--                                                        Show purchase notifications--}}
+{{--                                                    </label>--}}
+{{--                                                    <p class="text-muted">Get real-time purchase alerts to--}}
+{{--                                                        protect yourself from fraudulent charges.</p>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="flex-shrink-0">--}}
+{{--                                                    <div class="form-check form-switch">--}}
+{{--                                                        <input class="form-check-input" type="checkbox"--}}
+{{--                                                               role="switch" id="purchaesNotification" />--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </li>--}}
+{{--                                        </ul>--}}
+{{--                                    </div>--}}
                                     <div>
                                         <h5 class="card-title text-decoration-underline mb-3">Delete This
                                             Account:</h5>
-                                        <p class="text-muted">Go to the Data & Privacy section of your profile
-                                            Account. Scroll to "Your data & privacy options." Delete your
-                                            Profile Account. Follow the instructions to delete your account :
+                                        <p class="text-muted">Please be aware that once you remove your account, its data and activities cannot be retrieved. Proceed with caution.
+                                            Follow the instructions to delete your account :
+                                            <br/> Enter your current password to verify its you and click on "close & delete this account".
                                         </p>
                                         <div>
-                                            <input type="password" class="form-control" id="passwordInput"
-                                                   placeholder="Enter your password" value="make@321654987"
+                                            <input type="password" class="form-control"
+                                                   id="removeaccountPassword"
+                                                   cs-check-route="{{route('user.oldpassword')}}"
+                                                   placeholder="Enter your password"
                                                    style="max-width: 265px;">
+                                            <div class="invalid-feedback" id="remove-acc-error">
+                                                please enter the old password
+                                            </div>
                                         </div>
                                         <div class="hstack gap-2 mt-3">
-                                            <a href="javascript:void(0);" class="btn btn-soft-danger">Close &
-                                                Delete This Account</a>
-                                            <a href="javascript:void(0);" class="btn btn-light">Cancel</a>
+                                            <button type="button" id="close-acc-btn"
+                                                    cs-remove-route="{{route('user.removeaccount')}}"
+                                                    class="btn btn-soft-danger">Close &
+                                                    Delete This Account</button>
+{{--                                            <a href="javascript:void(0);" class="btn btn-light">Cancel</a>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -563,5 +570,112 @@
     <!-- custom profile js-->
 
     <script src="{{asset('assets/backend/custom_js/profile.js')}}"></script>
+
+    <script type="text/javascript">
+        $('#close-acc-btn').on('click', function() {
+            var userID          = $('#userid').val();
+            var formData        = new FormData(); //Creates new FormData object
+            formData.append('userid', userID);
+            var url             = $(this).attr("cs-remove-route");
+            var request_method  = 'POST'; //get form GET/POST method
+
+            Swal.fire({
+                imageUrl: "/assets/backend/images/canosoft-logo.png",
+                imageHeight: 60,
+                html: '<div class="mt-3">' +
+                    '<lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" ' +
+                    'trigger="loop" colors="primary:#f7b84b,secondary:#f06548" ' +
+                    'style="width:100px;height:100px">' +
+                    '</lord-icon>' +
+                    '<div class="mt-4 pt-2 fs-15 mx-5">' +
+                    '<h4>Are you Sure ?</h4>' +
+                    '<p class="text-muted mx-4 mb-0">You will not be able to revert this!' +
+                    '</p>' +
+                    '</div>' +
+                    '</div>',
+                showCancelButton: !0,
+                confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                cancelButtonClass: "btn btn-danger w-xs mt-2",
+                confirmButtonText: "Yes, delete it!",
+                buttonsStyling: !1,
+                showCloseButton: !0
+            }).then(function(t)
+            {
+                t.value
+                ?
+                    $.ajax({
+                        type : request_method,
+                        url : url,
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data : formData,
+                        success: function(response){
+                            if(response.status=='success'){
+                                Swal.fire({
+                                    imageUrl: "/assets/backend/images/canosoft-logo.png",
+                                    imageHeight: 50,
+                                    html: '<div class="mt-2">' +
+                                        '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
+                                        'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
+                                        '</lord-icon>' +
+                                        '<div class="mt-4 pt-2 fs-15">' +
+                                        '<h4>Success !</h4>' +
+                                        '<p class="text-muted mx-4 mb-0">' +
+                                        response.message +
+                                        '</p>' +
+                                        '</div>' +
+                                        '</div>',
+                                    timerProgressBar: !0,
+                                    timer: 2e3,
+                                    showConfirmButton: !1
+                                });
+                                $('#removeaccountPassword').val('');
+                                $('#remove-acc-error').css('display', 'none');
+                                setTimeout(function() {
+                                    $('#logout-header').click();
+                                }, 2800);
+                            }
+                            else{
+                                Swal.fire({
+                                    imageUrl: "/assets/backend/images/canosoft-logo.png",
+                                    imageHeight: 60,
+                                    html: '<div class="mt-2">' +
+                                        '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                                        ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                                        'style="width:120px;height:120px"></lord-icon>' +
+                                        '<div class="mt-4 pt-2 fs-15">' +
+                                        '<h4>Oops...! </h4>' +
+                                        '<p class="text-muted mx-4 mb-0">' +
+                                        response.message +'</p>' +
+                                        '</div>' +
+                                        '</div>',
+                                    timerProgressBar: !0,
+                                    timer: 3000,
+                                    showConfirmButton: !1
+                                });
+                            }
+                        },
+                        error: function(response) {
+                            console.log(response);
+                        }
+                    })
+                :
+                    t.dismiss === Swal.DismissReason.cancel &&
+                Swal.fire({
+                    title: "Cancelled",
+                    text: "Phew, your credentials are safe. ",
+                    icon: "error",
+                    confirmButtonClass: "btn btn-primary mt-2",
+                    buttonsStyling: !1
+                });
+            });
+
+        });
+
+    </script>
 
 @endsection

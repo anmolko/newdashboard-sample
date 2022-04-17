@@ -827,7 +827,7 @@
                             <form id="logout-form-header" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
-                            <a class="dropdown-item" onclick="event.preventDefault();
+                            <a class="dropdown-item" id="logout-header" onclick="event.preventDefault();
                                                     document.getElementById('logout-form-header').submit();"><i
                                     class="mdi mdi-logout-variant text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle" style="cursor: pointer">logout</span></a>

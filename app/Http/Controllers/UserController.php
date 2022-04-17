@@ -184,40 +184,39 @@ class UserController extends Controller
         $user->user_type      =  $request->input('user_type');
         $user->address        =  $request->input('address');
         $user->about          =  $request->input('about');
-        $oldimage             =  $user->image;
 
-        if (!empty($request->file('image'))){
-            $image       = $request->file('image');
-            $name1       = uniqid().'_user_'.$image->getClientOriginalName();
-            $path        = base_path().'/public/images/user/';
-            $moved       = Image::make($image->getRealPath())->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio(); //maintain image ratio
-                $constraint->upsize();
-            })->orientate()->save($path.$name1);
-
-            if ($moved){
-                $user->image= $name1;
-                if (!empty($oldimage) && file_exists(public_path().'/images/user/'.$oldimage)){
-                    @unlink(public_path().'/images/user/'.$oldimage);
-                }
-            }
-        }
-        if (!empty($request->file('cover'))){
-            $image       = $request->file('cover');
-            $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
-            $path        = base_path().'/public/images/user/cover/';
-            $moved       = Image::make($image->getRealPath())->resize(2000, 850, function ($constraint) {
-                $constraint->aspectRatio(); //maintain image ratio
-                $constraint->upsize();
-            })->orientate()->save($path.$name1);
-
-            if ($moved){
-                $user->cover= $name1;
-                if (!empty($oldimage) && file_exists(public_path().'/images/user/cover/'.$oldimage)){
-                    @unlink(public_path().'/images/user/cover/'.$oldimage);
-                }
-            }
-        }
+//        if (!empty($request->file('image'))){
+//            $image       = $request->file('image');
+//            $name1       = uniqid().'_user_'.$image->getClientOriginalName();
+//            $path        = base_path().'/public/images/user/';
+//            $moved       = Image::make($image->getRealPath())->resize(200, 200, function ($constraint) {
+//                $constraint->aspectRatio(); //maintain image ratio
+//                $constraint->upsize();
+//            })->orientate()->save($path.$name1);
+//
+//            if ($moved){
+//                $user->image= $name1;
+//                if (!empty($oldimage) && file_exists(public_path().'/images/user/'.$oldimage)){
+//                    @unlink(public_path().'/images/user/'.$oldimage);
+//                }
+//            }
+//        }
+//        if (!empty($request->file('cover'))){
+//            $image       = $request->file('cover');
+//            $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
+//            $path        = base_path().'/public/images/user/cover/';
+//            $moved       = Image::make($image->getRealPath())->resize(2000, 850, function ($constraint) {
+//                $constraint->aspectRatio(); //maintain image ratio
+//                $constraint->upsize();
+//            })->orientate()->save($path.$name1);
+//
+//            if ($moved){
+//                $user->cover= $name1;
+//                if (!empty($oldimage) && file_exists(public_path().'/images/user/cover/'.$oldimage)){
+//                    @unlink(public_path().'/images/user/cover/'.$oldimage);
+//                }
+//            }
+//        }
         $status = $user->update();
         if($status){
             Session::flash('success','Changes were applied successfully');
@@ -240,6 +239,27 @@ class UserController extends Controller
         else{
             $status ='error';
             return response()->json(['status'=>$status,'message'=>'Your password could not be updated. Try Again later !']);
+        }
+    }
+
+    public function removeAccount(Request $request){
+        $id               = $request->input('userid');
+        $user             = User::find($id);
+        $cover            = $user->cover;
+        $image            = $user->image;
+        if (!empty($image) && file_exists(public_path().'/images/user/'.$image)){
+            @unlink(public_path().'/images/user/'.$image);
+        }
+        if (!empty($cover) && file_exists(public_path().'/images/user/cover/'.$cover)){
+            @unlink(public_path().'/images/user/cover/'.$cover);
+        }
+        $removeacc          = $user->delete();
+        if($removeacc){
+            $status ='success';
+            return response()->json(['status'=>$status,'message'=>'Your account information has been removed! You will be logged out now.']);        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'Account could not be removed. Try Again later !']);
         }
     }
 }
