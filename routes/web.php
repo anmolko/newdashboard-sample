@@ -43,6 +43,8 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::post('/user/removeaccount', 'App\Http\Controllers\UserController@removeAccount')->name('user.removeaccount');
     //end of signed-in user routes
 
+    Route::get('/user-management', 'App\Http\Controllers\UserController@alluser')->name('alluser');
+
 
 });
 

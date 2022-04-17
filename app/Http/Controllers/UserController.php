@@ -100,6 +100,12 @@ class UserController extends Controller
         return view('backend.user.profile',compact('user'));
     }
 
+    public function alluser(){
+        $users          = User::all();
+        return view('backend.user.alluser',compact('users'));
+    }
+
+
     public function profileEdit($id=''){
         if($id == ''){
             $user_id        = Auth::user()->id;
@@ -184,39 +190,41 @@ class UserController extends Controller
         $user->user_type      =  $request->input('user_type');
         $user->address        =  $request->input('address');
         $user->about          =  $request->input('about');
+        $oldimage             = $user->image;
+        $oldcover             = $user->cover;
 
-//        if (!empty($request->file('image'))){
-//            $image       = $request->file('image');
-//            $name1       = uniqid().'_user_'.$image->getClientOriginalName();
-//            $path        = base_path().'/public/images/user/';
-//            $moved       = Image::make($image->getRealPath())->resize(200, 200, function ($constraint) {
-//                $constraint->aspectRatio(); //maintain image ratio
-//                $constraint->upsize();
-//            })->orientate()->save($path.$name1);
-//
-//            if ($moved){
-//                $user->image= $name1;
-//                if (!empty($oldimage) && file_exists(public_path().'/images/user/'.$oldimage)){
-//                    @unlink(public_path().'/images/user/'.$oldimage);
-//                }
-//            }
-//        }
-//        if (!empty($request->file('cover'))){
-//            $image       = $request->file('cover');
-//            $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
-//            $path        = base_path().'/public/images/user/cover/';
-//            $moved       = Image::make($image->getRealPath())->resize(2000, 850, function ($constraint) {
-//                $constraint->aspectRatio(); //maintain image ratio
-//                $constraint->upsize();
-//            })->orientate()->save($path.$name1);
-//
-//            if ($moved){
-//                $user->cover= $name1;
-//                if (!empty($oldimage) && file_exists(public_path().'/images/user/cover/'.$oldimage)){
-//                    @unlink(public_path().'/images/user/cover/'.$oldimage);
-//                }
-//            }
-//        }
+        if (!empty($request->file('image'))){
+            $image       = $request->file('image');
+            $name1       = uniqid().'_user_'.$image->getClientOriginalName();
+            $path        = base_path().'/public/images/user/';
+            $moved       = Image::make($image->getRealPath())->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio(); //maintain image ratio
+                $constraint->upsize();
+            })->orientate()->save($path.$name1);
+
+            if ($moved){
+                $user->image= $name1;
+                if (!empty($oldimage) && file_exists(public_path().'/images/user/'.$oldimage)){
+                    @unlink(public_path().'/images/user/'.$oldimage);
+                }
+            }
+        }
+        if (!empty($request->file('cover'))){
+            $image       = $request->file('cover');
+            $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
+            $path        = base_path().'/public/images/user/cover/';
+            $moved       = Image::make($image->getRealPath())->resize(2000, 850, function ($constraint) {
+                $constraint->aspectRatio(); //maintain image ratio
+                $constraint->upsize();
+            })->orientate()->save($path.$name1);
+
+            if ($moved){
+                $user->cover= $name1;
+                if (!empty($oldcover) && file_exists(public_path().'/images/user/cover/'.$oldcover)){
+                    @unlink(public_path().'/images/user/cover/'.$oldcover);
+                }
+            }
+        }
         $status = $user->update();
         if($status){
             Session::flash('success','Changes were applied successfully');
