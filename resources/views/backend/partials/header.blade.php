@@ -830,7 +830,7 @@
                             <a class="dropdown-item" onclick="event.preventDefault();
                                                     document.getElementById('logout-form-header').submit();"><i
                                     class="mdi mdi-logout-variant text-muted fs-16 align-middle me-1"></i> <span
-                                    class="align-middle">logout</span></a>
+                                    class="align-middle" style="cursor: pointer">logout</span></a>
                         </div>
                     </div>
                 </div>
