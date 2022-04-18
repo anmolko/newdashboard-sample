@@ -98,8 +98,8 @@
 
 
 	    					<!-- HEADER LOGO -->
-	    					<div class="desktoplogo"><a href="#hero-19" class="logo-black"><img src="{{asset('assets/frontend/images/logo-01.png')}}" alt="header-logo"></a></div>
-	    					<div class="desktoplogo"><a href="#hero-19" class="logo-white"><img src="{{asset('assets/frontend/images/logo-02.png')}}" alt="header-logo"></a></div>
+	    					<div class="desktoplogo"><a href="/" class="logo-black"><img src="{{asset('assets/frontend/images/logo-01.png')}}" alt="header-logo"></a></div>
+	    					<div class="desktoplogo"><a href="/" class="logo-white"><img src="{{asset('assets/frontend/images/logo-02.png')}}" alt="header-logo"></a></div>
 
 
 	    					<!-- MAIN MENU -->

@@ -28,6 +28,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/contact-us', 'App\Http\Controllers\FrontController@contact')->name('contact');
+Route::post('/contact-us', 'App\Http\Controllers\FrontController@contactStore')->name('contact.store');
+
+
+Route::get('/', 'App\Http\Controllers\FrontController@index')->name('home');
+
+//blog
+Route::get('blog/search/', 'App\Http\Controllers\FrontController@searchBlog')->name('searchBlog');
+
+Route::get('blog/{slug}','App\Http\Controllers\FrontController@blogSingle')->name('blog.single');
+Route::get('/blog/categories/{slug}', 'App\Http\Controllers\FrontController@blogCategories')->name('blog.category');
+Route::get('/blog', 'App\Http\Controllers\FrontController@blogs')->name('blog.frontend');
+//end blog
 
 Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
@@ -52,3 +65,5 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
 });
 
 
+Route::get('/{page}', 'App\Http\Controllers\FrontController@page')
+    ->name('page');

@@ -1017,7 +1017,7 @@ body {
 }
 
 .bg-skyblue {
-    background-color: #0195ff;
+    background-color: #51cbce;
 }
 
 .bg-stateblue {
@@ -2127,8 +2127,8 @@ ol.digit-list p {
 .scroll .skyblue-hover:hover,
 .white-color .skyblue-hover:hover {
     color: #fff!important;
-    background-color: #0195ff!important;
-    border-color: #0195ff!important;
+    background-color: #51cbce!important;
+    border-color: #51cbce!important;
 }
 
 .btn-tra-skyblue,
@@ -2137,9 +2137,9 @@ ol.digit-list p {
 .tra-skyblue-hover:hover,
 .scroll .tra-skyblue-hover:hover,
 .white-color .tra-skyblue-hover:hover {
-    color: #0195ff!important;
+    color: #51cbce!important;
     background-color: transparent!important;
-    border-color: #0195ff!important;
+    border-color: #51cbce!important;
 }
 
 .btn-stateblue,
@@ -3202,7 +3202,7 @@ span.os-version {
 .skyblue-color i,
 .skyblue-color span,
 .white-color .skyblue-color {
-    color: #0195ff;
+    color: #51cbce;
 }
 
 .cadetblue-color,
@@ -3679,7 +3679,7 @@ p.terms-txt a,
 }
 
 .skyblue-loading .object {
-    background-color: #4fb39a;
+    background-color: #51cbce;
 }
 
 .stateblue-loading .object {
@@ -4257,7 +4257,7 @@ p.terms-txt a,
 .wsmenu>.wsmenu-list.nav-skyblue-hover>li>ul.sub-menu>li>a:hover,
 .wsmenu>.wsmenu-list.nav-skyblue-hover>li>.wsmegamenu.w-75 ul.link-list>li>a:hover,
 .wsmenu>.wsmenu-list.nav-skyblue-hover>li>.wsmegamenu.halfmenu ul.link-list>li>a:hover {
-    color: #0195ff!important;
+    color: #51cbce!important;
 }
 
 .wsmenu>.wsmenu-list.nav-stateblue-hover>li>ul.sub-menu>li>a:hover,
