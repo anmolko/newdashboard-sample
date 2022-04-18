@@ -34,8 +34,8 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('dashboard')}}">
-                        <i class="ri-rocket-line"></i> <span data-key="t-landing">Dashboard</span>
+                    <a class="nav-link menu-link" href="/" target="_blank">
+                        <i class="ri-rocket-line"></i> <span data-key="t-landing">Landing</span>
                         <span class="badge badge-pill bg-success" data-key="t-new">{{Auth::user()->user_type}}</span>
                     </a>
                 </li>
