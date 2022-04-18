@@ -88,51 +88,52 @@
                     <!--portfolio card-->
                     <div class="card">
                         <div class="card-body">
+                            {!! Form::open(['id'=>'socials-form','method'=>'POST','class'=>'needs-validation','novalidate'=>'']) !!}
+
                             <div class="d-flex align-items-center mb-4">
                                 <div class="flex-grow-1">
-                                    <h5 class="card-title mb-0">Portfolio</h5>
+                                    <h5 class="card-title mb-0">Socials</h5>
                                 </div>
                                 <div class="flex-shrink-0">
-                                    <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i
-                                            class="ri-add-fill align-bottom me-1"></i> Add</a>
+                                    <a id="socials-update" cs-create-route="{{route('profile.socials')}}"
+                                       class="badge bg-light text-primary fs-12" style="cursor: pointer"><i
+                                            class="ri-add-fill align-bottom me-1"></i> Update</a>
                                 </div>
                             </div>
                             <div class="mb-3 d-flex">
                                 <div class="avatar-xs d-block flex-shrink-0 me-3">
-                                            <span class="avatar-title rounded-circle fs-16 bg-dark text-light">
-                                                <i class="ri-github-fill"></i>
+                                            <span class="avatar-title rounded-circle fs-16 bg-gradient text-light">
+                                                <i class="ri-facebook-fill"></i>
                                             </span>
                                 </div>
-                                <input type="email" class="form-control" id="gitUsername" placeholder="Username"
-                                       value="@daveadame">
+                                <input type="url" class="form-control" id="fbUsername" name="fb" placeholder="facebook profile link" value="{{@$user->fb}}"/>
                             </div>
                             <div class="mb-3 d-flex">
                                 <div class="avatar-xs d-block flex-shrink-0 me-3">
-                                            <span class="avatar-title rounded-circle fs-16 bg-primary">
-                                                <i class="ri-global-fill"></i>
+                                            <span class="avatar-title rounded-circle fs-16 bg-twitter">
+                                                <i class="ri-twitter-fill"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control" id="websiteInput"
-                                       placeholder="www.example.com" value="www.velzon.com">
+                                <input type="url" class="form-control" id="twitterUsername" name="twitter" placeholder="Twitter profile link" value="{{@$user->twitter}}">
                             </div>
                             <div class="mb-3 d-flex">
                                 <div class="avatar-xs d-block flex-shrink-0 me-3">
-                                            <span class="avatar-title rounded-circle fs-16 bg-success">
-                                                <i class="ri-dribbble-fill"></i>
+                                            <span class="avatar-title rounded-circle fs-16 bg-instagram">
+                                                <i class="ri-instagram-fill"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control" id="dribbleName" placeholder="Username"
-                                       value="@dave_adame">
+                                <input type="url" class="form-control" id="instaUsername" name="insta" placeholder="Instagram profile link" value="{{@$user->insta}}">
                             </div>
                             <div class="d-flex">
                                 <div class="avatar-xs d-block flex-shrink-0 me-3">
-                                            <span class="avatar-title rounded-circle fs-16 bg-danger">
-                                                <i class="ri-pinterest-fill"></i>
+                                            <span class="avatar-title rounded-circle fs-16 bg-linkedin">
+                                                <i class="ri-linkedin-fill"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control" id="pinterestName"
-                                       placeholder="Username" value="Advance Dave">
+                                <input type="url" class="form-control" id="linkedinUsername" name="linkedin" placeholder="Linkedin profile link" value="{{@$user->linkedin}}">
                             </div>
+                            {!! Form::close() !!}
+
                         </div>
                     </div>
                     <!--end card-->
@@ -394,135 +395,6 @@
                                 <!--end tab-pane-->
 
                                 <div class="tab-pane" id="privacy" role="tabpanel">
-{{--                                    <div class="mb-4 pb-2">--}}
-{{--                                        <h5 class="card-title text-decoration-underline mb-3">Security:</h5>--}}
-{{--                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0">--}}
-{{--                                            <div class="flex-grow-1">--}}
-{{--                                                <h6 class="fs-14 mb-1">Two-factor Authentication</h6>--}}
-{{--                                                <p class="text-muted">Two-factor authentication is an enhanced--}}
-{{--                                                    security meansur. Once enabled, you'll be required to give--}}
-{{--                                                    two types of identification when you log into Google--}}
-{{--                                                    Authentication and SMS are Supported.</p>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="flex-shrink-0 ms-sm-3">--}}
-{{--                                                <a href="javascript:void(0);"--}}
-{{--                                                   class="btn btn-sm btn-primary">Enable Two-facor--}}
-{{--                                                    Authentication</a>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">--}}
-{{--                                            <div class="flex-grow-1">--}}
-{{--                                                <h6 class="fs-14 mb-1">Secondary Verification</h6>--}}
-{{--                                                <p class="text-muted">The first factor is a password and the--}}
-{{--                                                    second commonly includes a text with a code sent to your--}}
-{{--                                                    smartphone, or biometrics using your fingerprint, face, or--}}
-{{--                                                    retina.</p>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="flex-shrink-0 ms-sm-3">--}}
-{{--                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary">Set--}}
-{{--                                                    up secondary method</a>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">--}}
-{{--                                            <div class="flex-grow-1">--}}
-{{--                                                <h6 class="fs-14 mb-1">Backup Codes</h6>--}}
-{{--                                                <p class="text-muted mb-sm-0">A backup code is automatically--}}
-{{--                                                    generated for you when you turn on two-factor authentication--}}
-{{--                                                    through your iOS or Android Twitter app. You can also--}}
-{{--                                                    generate a backup code on twitter.com.</p>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="flex-shrink-0 ms-sm-3">--}}
-{{--                                                <a href="javascript:void(0);"--}}
-{{--                                                   class="btn btn-sm btn-primary">Generate backup codes</a>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="mb-3">--}}
-{{--                                        <h5 class="card-title text-decoration-underline mb-3">Application--}}
-{{--                                            Notifications:</h5>--}}
-{{--                                        <ul class="list-unstyled mb-0">--}}
-{{--                                            <li class="d-flex">--}}
-{{--                                                <div class="flex-grow-1">--}}
-{{--                                                    <label for="directMessage"--}}
-{{--                                                           class="form-check-label fs-14">Direct messages</label>--}}
-{{--                                                    <p class="text-muted">Messages from people you follow</p>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="flex-shrink-0">--}}
-{{--                                                    <div class="form-check form-switch">--}}
-{{--                                                        <input class="form-check-input" type="checkbox"--}}
-{{--                                                               role="switch" id="directMessage" checked />--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </li>--}}
-{{--                                            <li class="d-flex mt-2">--}}
-{{--                                                <div class="flex-grow-1">--}}
-{{--                                                    <label class="form-check-label fs-14"--}}
-{{--                                                           for="desktopNotification">--}}
-{{--                                                        Show desktop notifications--}}
-{{--                                                    </label>--}}
-{{--                                                    <p class="text-muted">Choose the option you want as your--}}
-{{--                                                        default setting. Block a site: Next to "Not allowed to--}}
-{{--                                                        send notifications," click Add.</p>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="flex-shrink-0">--}}
-{{--                                                    <div class="form-check form-switch">--}}
-{{--                                                        <input class="form-check-input" type="checkbox"--}}
-{{--                                                               role="switch" id="desktopNotification" checked />--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </li>--}}
-{{--                                            <li class="d-flex mt-2">--}}
-{{--                                                <div class="flex-grow-1">--}}
-{{--                                                    <label class="form-check-label fs-14"--}}
-{{--                                                           for="emailNotification">--}}
-{{--                                                        Show email notifications--}}
-{{--                                                    </label>--}}
-{{--                                                    <p class="text-muted"> Under Settings, choose Notifications.--}}
-{{--                                                        Under Select an account, choose the account to enable--}}
-{{--                                                        notifications for. </p>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="flex-shrink-0">--}}
-{{--                                                    <div class="form-check form-switch">--}}
-{{--                                                        <input class="form-check-input" type="checkbox"--}}
-{{--                                                               role="switch" id="emailNotification" />--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </li>--}}
-{{--                                            <li class="d-flex mt-2">--}}
-{{--                                                <div class="flex-grow-1">--}}
-{{--                                                    <label class="form-check-label fs-14"--}}
-{{--                                                           for="chatNotification">--}}
-{{--                                                        Show chat notifications--}}
-{{--                                                    </label>--}}
-{{--                                                    <p class="text-muted">To prevent duplicate mobile--}}
-{{--                                                        notifications from the Gmail and Chat apps, in settings,--}}
-{{--                                                        turn off Chat notifications.</p>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="flex-shrink-0">--}}
-{{--                                                    <div class="form-check form-switch">--}}
-{{--                                                        <input class="form-check-input" type="checkbox"--}}
-{{--                                                               role="switch" id="chatNotification" />--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </li>--}}
-{{--                                            <li class="d-flex mt-2">--}}
-{{--                                                <div class="flex-grow-1">--}}
-{{--                                                    <label class="form-check-label fs-14"--}}
-{{--                                                           for="purchaesNotification">--}}
-{{--                                                        Show purchase notifications--}}
-{{--                                                    </label>--}}
-{{--                                                    <p class="text-muted">Get real-time purchase alerts to--}}
-{{--                                                        protect yourself from fraudulent charges.</p>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="flex-shrink-0">--}}
-{{--                                                    <div class="form-check form-switch">--}}
-{{--                                                        <input class="form-check-input" type="checkbox"--}}
-{{--                                                               role="switch" id="purchaesNotification" />--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </li>--}}
-{{--                                        </ul>--}}
-{{--                                    </div>--}}
                                     <div>
                                         <h5 class="card-title text-decoration-underline mb-3">Delete This
                                             Account:</h5>
@@ -571,6 +443,71 @@
     <script src="{{asset('assets/backend/custom_js/profile.js')}}"></script>
 
     <script type="text/javascript">
+        $('#socials-update').on('click', function(e) {
+            e.preventDefault();
+            var userID          = $('#userid').val();
+            var form            = $('#socials-form')[0]; //get the form using ID
+            if (!form.reportValidity()) { return false;}
+            var formData        = new FormData(form); //Creates new FormData object
+            formData.append('userid', userID);
+            var url             = $(this).attr("cs-create-route");
+            var request_method  = 'POST'; //get form GET/POST method
+            $.ajax({
+                type : request_method,
+                url : url,
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                data : formData,
+                success: function(response){
+                    if(response.status=='success'){
+                        Swal.fire({
+                            imageUrl: "/assets/backend/images/canosoft-logo.png",
+                            imageHeight: 60,
+                            html: '<div class="mt-2">' +
+                                '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
+                                'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
+                                '</lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Success !</h4>' +
+                                '<p class="text-muted mx-4 mb-0">' +
+                                response.message +
+                                '</p>' +
+                                '</div>' +
+                                '</div>',
+                            timerProgressBar: !0,
+                            timer: 2e3,
+                            showConfirmButton: !1
+                        });
+                    }
+                    else{
+                        Swal.fire({
+                            imageUrl: "/assets/backend/images/canosoft-logo.png",
+                            imageHeight: 60,
+                            html: '<div class="mt-2">' +
+                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                                ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                                'style="width:120px;height:120px"></lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Oops...! </h4>' +
+                                '<p class="text-muted mx-4 mb-0">' + response.message +
+                                '</p>' +
+                                '</div>' +
+                                '</div>',
+                            timerProgressBar: !0,
+                            timer: 3000,
+                            showConfirmButton: !1
+                        });
+                    }
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+        });
 
 
     </script>

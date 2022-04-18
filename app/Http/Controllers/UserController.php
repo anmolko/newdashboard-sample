@@ -228,6 +228,25 @@ class UserController extends Controller
         return redirect()->route('profile',$user->slug);
     }
 
+    public function socialsUpdate(Request $request)
+    {
+        $user                 =  User::find( $request->input('userid'));
+        $user->fb             =  $request->input('fb');
+        $user->insta          =  $request->input('insta');
+        $user->linkedin       =  $request->input('linkedin');
+        $user->twitter        =  $request->input('twitter');
+        $status               = $user->update();
+        if ($status) {
+            $status ='success';
+            return response()->json(['status'=>$status,'message'=>'Your socials are updated.']);
+
+        }else{
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'Social information could not updated']);
+        }
+    }
+
+
     public function profilepassword(Request $request){
         $id                 = $request->input('userid');
         $user               = User::find($id);
