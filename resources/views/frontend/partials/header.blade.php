@@ -17,13 +17,13 @@
             <title>@yield('title') | @if(!empty(@$setting_data->website_name)) {{ucwords(@$setting_data->website_name)}} @else Canosoft - Let's make IT happen @endif </title>
 		@endif			
 		<!-- FAVICON AND TOUCH ICONS -->
-		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
-		<link rel="apple-touch-icon" sizes="152x152" href="images/apple-touch-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="images/apple-touch-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="images/apple-touch-icon-76x76.png">
-		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-		<link rel="icon" href="images/apple-touch-icon.png" type="image/x-icon">
+
+
+		<link rel="apple-touch-icon" sizes="180x180" href="{{asset('assets/frontend/images/apple-touch-icon.png')}}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{asset('assets/frontend/images/favicon-32x32.png')}}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/frontend/images/favicon-16x16.png')}}">
+		<link rel="manifest" href="{{asset('assets/frontend/images/site.webmanifest')}}">
+
 
 		<!-- GOOGLE FONTS -->
 		<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
@@ -87,7 +87,7 @@
 
 					<!-- MOBILE HEADER -->
 				    <div class="wsmobileheader clearfix">	  	
-				    	<span class="smllogo"><img src="images/logo-01.png" alt="mobile-logo"/></span>
+				    	<span class="smllogo"><img src="{{asset('assets/frontend/images/logo-01.png')}}" alt="mobile-logo"/></span>
 				    	<a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>	
 				 	</div>
 
@@ -98,8 +98,8 @@
 
 
 	    					<!-- HEADER LOGO -->
-	    					<div class="desktoplogo"><a href="#hero-19" class="logo-black"><img src="images/logo-01.png" alt="header-logo"></a></div>
-	    					<div class="desktoplogo"><a href="#hero-19" class="logo-white"><img src="images/logo-02.png" alt="header-logo"></a></div>
+	    					<div class="desktoplogo"><a href="#hero-19" class="logo-black"><img src="{{asset('assets/frontend/images/logo-01.png')}}" alt="header-logo"></a></div>
+	    					<div class="desktoplogo"><a href="#hero-19" class="logo-white"><img src="{{asset('assets/frontend/images/logo-02.png')}}" alt="header-logo"></a></div>
 
 
 	    					<!-- MAIN MENU -->

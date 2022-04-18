@@ -14,11 +14,10 @@
 							<div class="footer-info mb-40">
 
 								<!-- Footer Logo -->	
-								<img class="footer-logo mb-25" src="images/logo-01.png" alt="footer-logo">
+								<img class="footer-logo mb-25" src="{{asset('assets/frontend/images/logo-01.png')}}" alt="footer-logo">
 
 								<!-- Text -->	
-								<p class="p-md">Aliquam nullam tempor sapien donec and gravida congue an ipsum porta justo 
-								   velna auctor magna and laoreet augue an auctor gravida donec
+								<p class="p-md">@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft - Let's make IT happen @endif 
 								</p>
 
 							</div>	
@@ -115,7 +114,7 @@
 							<!-- FOOTER COPYRIGHT -->
 							<div class="col">
 								<div class="footer-copyright">
-									<p>&copy; 2010 - 2021 OLMO. All Rights Reserved</p>
+									<p>&copy; 2022 Canosoft Technology. All Rights Reserved</p>
 								</div>
 							</div>
 
@@ -123,10 +122,15 @@
 							<!-- BOTTOM FOOTER LINKS -->
 							<div class="col">
 								<ul class="bottom-footer-list text-secondary text-end">
-									<li class="first-li"><p><a href="#">Facebook</a></p></li>
-									<li><p><a href="#">Twitter</a></p></li>
-									<li><p><a href="#">LinkedIn</a></p></li>	
-									<li class="last-li"><p><a href="#">Dribbble</a></p></li>
+									@if(!empty(@$setting_data->facebook))
+										<li class="first-li"><p><a href="@if(!empty(@$setting_data->facebook)) {{@$setting_data->facebook}} @endif" target="_blank">Facebook</a></p></li>
+									@endif
+									@if(!empty(@$setting_data->youtube))
+										<li><p><a href="@if(!empty(@$setting_data->youtube)) {{@$setting_data->youtube}} @endif" target="_blank">Youtube</a></p></li>
+									@endif
+									@if(!empty(@$setting_data->linkedin))
+										<li class="last-li"><p><a href="@if(!empty(@$setting_data->linkedin)) {{@$setting_data->linkedin}} @endif" target="_blank">LinkedIn</a></p></li>
+									@endif
 								</ul>
 							</div>
 
