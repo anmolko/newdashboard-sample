@@ -132,60 +132,6 @@
                             </div>
                         </div><!--end row-->
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="addmembers" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="myModalLabel">Add New Members</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        <label for="teammembersName" class="form-label">Name</label>
-                                                        <input type="text" class="form-control" id="teammembersName" placeholder="Enter name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        <label for="designation" class="form-label">Designation</label>
-                                                        <input type="text" class="form-control" id="designation" placeholder="Enter designation">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="totalProjects" class="form-label">Projects</label>
-                                                        <input type="number" class="form-control" id="totalProjects" placeholder="Total projects">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="totalTasks" class="form-label">Tasks</label>
-                                                        <input type="number" class="form-control" id="totalTasks" placeholder="Total tasks">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-4">
-                                                        <label for="formFile" class="form-label">Profile Images</label>
-                                                        <input class="form-control" type="file" id="formFile">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success">Add Member</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div><!--end modal-content-->
-                            </div><!--end modal-dialog-->
-                        </div><!--end modal-->
-
                     </div>
                 </div><!-- end col -->
             </div><!--end row-->
@@ -196,11 +142,83 @@
 
         </div><!-- container-fluid -->
     </div><!-- End Page-content -->
-
-
+    @include('backend.user.modal.add')
 @endsection
 
 @section('js')
+    <script src="{{asset('assets/backend/js/pages/form-validation.init.js')}}"></script>
     <!-- profile init js -->
     <script src="{{asset('assets/backend/js/pages/team.init.js')}}"></script>
+    <!-- password -->
+    <script src="{{asset('assets/backend/js/pages/password-addon.init.js')}}"></script>
+    <!-- Sweet Alerts js -->
+    <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+    <script type="text/javascript">
+        $('#user-add-button').on('click', function(e) {
+            var form            = $('#user-add-form')[0]; //get the form using ID
+            if (!form.reportValidity()) { return false;}
+            var formData        = new FormData(form); //Creates new FormData object
+            var url             = $(this).attr("cs-create-route");
+            var request_method  = 'POST'; //get form GET/POST method
+            $.ajax({
+                type : request_method,
+                url : url,
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                data : formData,
+                success: function(response){
+                    console.log(response.status);
+                    if(response.status=='success'){
+                        $('#addmembers').modal('hide');
+                        Swal.fire({
+                            imageUrl: "/assets/backend/images/canosoft-logo.png",
+                            imageHeight: 60,
+                            html: '<div class="mt-2">' +
+                                '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
+                                'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
+                                '</lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Success !</h4>' +
+                                '<p class="text-muted mx-4 mb-0">' +
+                                response.message +
+                                '</p>' +
+                                '</div>' +
+                                '</div>',
+                            timerProgressBar: !0,
+                            timer: 2e3,
+                            showConfirmButton: !1
+                        });
+                    }
+                    else{
+                        Swal.fire({
+                            imageUrl: "/assets/backend/images/canosoft-logo.png",
+                            imageHeight: 60,
+                            html: '<div class="mt-2">' +
+                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                                ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                                'style="width:120px;height:120px"></lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Oops...! </h4>' +
+                                '<p class="text-muted mx-4 mb-0">' + response.message +
+                                '</p>' +
+                                '</div>' +
+                                '</div>',
+                            timerProgressBar: !0,
+                            timer: 3000,
+                            showConfirmButton: !1
+                        });
+                    }
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+
+    </script>
+
 @endsection

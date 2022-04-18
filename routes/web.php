@@ -45,7 +45,9 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     //end of signed-in user routes
 
     Route::get('/user-management', 'App\Http\Controllers\UserController@alluser')->name('alluser');
-
+    Route::get('/user-management/create', 'App\Http\Controllers\UserController@create')->name('user.create');
+    Route::post('/user-management/store', 'App\Http\Controllers\UserController@store')->name('user.store');
+    Route::delete('/user-management/{id}', 'App\Http\Controllers\UserController@destroy')->name('user.destroy');
 
 });
 

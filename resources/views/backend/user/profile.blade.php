@@ -163,6 +163,52 @@
 
                                         <div class="card">
                                             <div class="card-body">
+                                                <h5 class="card-title mb-4">Portfolio</h5>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    @if(@$user->fb !== null)
+                                                        <div>
+                                                            <a href="{{@$user->fb}}" target="_blank" class="avatar-xs d-block">
+                                                                         <span class="avatar-title rounded-circle fs-16 bg-gradient text-light">
+                                                                            <i class="ri-facebook-fill"></i>
+                                                                        </span>
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                    @if(@$user->twitter !== null)
+                                                        <div>
+                                                            <a href="{{@$user->twitter}}" target="_blank" class="avatar-xs d-block">
+                                                                   <span class="avatar-title rounded-circle fs-16 bg-twitter">
+                                                                        <i class="ri-twitter-fill"></i>
+                                                                    </span>
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                    @if(@$user->insta !== null)
+                                                        <div>
+                                                            <a href="{{@$user->insta}}" target="_blank" class="avatar-xs d-block">
+                                                                        <span class="avatar-title rounded-circle fs-16 bg-instagram">
+                                                                            <i class="ri-instagram-fill"></i>
+                                                                        </span>
+                                                            </a>
+                                                        </div>
+                                                    @endif
+
+                                                    @if(@$user->linkedin !== null)
+                                                        <div>
+                                                            <a href="{{@$user->linkedin}}" target="_blank" class="avatar-xs d-block">
+                                                                        <span class="avatar-title rounded-circle fs-16 bg-linkedin">
+                                                                            <i class="ri-linkedin-fill"></i>
+                                                                        </span>
+                                                            </a>
+                                                        </div>
+                                                   @endif
+
+                                                </div>
+                                            </div><!-- end card body -->
+                                        </div>
+
+                                        <div class="card">
+                                            <div class="card-body">
                                                 <h5 class="card-title mb-4">Skills</h5>
                                                 <div class="d-flex flex-wrap gap-2 fs-15">
                                                     <a href="javascript:void(0);"
