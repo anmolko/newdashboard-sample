@@ -36,6 +36,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::get('/profile/{slug?}', 'App\Http\Controllers\UserController@profile')->name('profile');
     Route::get('/filemanager', 'App\Http\Controllers\HomeController@filemanager')->name('filemanager');
     Route::get('/profile/edit/{slug}', 'App\Http\Controllers\UserController@profileEdit')->name('profile.edit');
+    Route::post('/profile/socials/', 'App\Http\Controllers\UserController@socialsUpdate')->name('profile.socials');
     Route::put('/profile/{id}/update', 'App\Http\Controllers\UserController@profileUpdate')->name('user.update');
     Route::post('/user-image/update/', 'App\Http\Controllers\UserController@imageupdate')->name('user.imageupdate');
     Route::post('/profile/oldpassword', 'App\Http\Controllers\UserController@checkoldpassword')->name('user.oldpassword');
