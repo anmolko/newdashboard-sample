@@ -23,6 +23,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
         'password',
         'image',
@@ -31,6 +32,10 @@ class User extends Authenticatable
         'gender',
         'cover',
         'about',
+        'fb',
+        'insta',
+        'twitter',
+        'linkedin',
         'status',
         'oauth_id',
         'oauth_type',

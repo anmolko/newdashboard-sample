@@ -543,9 +543,8 @@
                                         <div class="hstack gap-2 mt-3">
                                             <button type="button" id="close-acc-btn"
                                                     cs-remove-route="{{route('user.removeaccount')}}"
-                                                    class="btn btn-soft-danger">Close &
+                                                    class="btn btn-soft-danger" disabled>Close &
                                                     Delete This Account</button>
-{{--                                            <a href="javascript:void(0);" class="btn btn-light">Cancel</a>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -572,109 +571,7 @@
     <script src="{{asset('assets/backend/custom_js/profile.js')}}"></script>
 
     <script type="text/javascript">
-        $('#close-acc-btn').on('click', function() {
-            var userID          = $('#userid').val();
-            var formData        = new FormData(); //Creates new FormData object
-            formData.append('userid', userID);
-            var url             = $(this).attr("cs-remove-route");
-            var request_method  = 'POST'; //get form GET/POST method
 
-            Swal.fire({
-                imageUrl: "/assets/backend/images/canosoft-logo.png",
-                imageHeight: 60,
-                html: '<div class="mt-3">' +
-                    '<lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" ' +
-                    'trigger="loop" colors="primary:#f7b84b,secondary:#f06548" ' +
-                    'style="width:100px;height:100px">' +
-                    '</lord-icon>' +
-                    '<div class="mt-4 pt-2 fs-15 mx-5">' +
-                    '<h4>Are you Sure ?</h4>' +
-                    '<p class="text-muted mx-4 mb-0">You will not be able to revert this!' +
-                    '</p>' +
-                    '</div>' +
-                    '</div>',
-                showCancelButton: !0,
-                confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                cancelButtonClass: "btn btn-danger w-xs mt-2",
-                confirmButtonText: "Yes, delete it!",
-                buttonsStyling: !1,
-                showCloseButton: !0
-            }).then(function(t)
-            {
-                t.value
-                ?
-                    $.ajax({
-                        type : request_method,
-                        url : url,
-                        headers: {
-                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                        },
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        data : formData,
-                        success: function(response){
-                            if(response.status=='success'){
-                                Swal.fire({
-                                    imageUrl: "/assets/backend/images/canosoft-logo.png",
-                                    imageHeight: 50,
-                                    html: '<div class="mt-2">' +
-                                        '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
-                                        'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
-                                        '</lord-icon>' +
-                                        '<div class="mt-4 pt-2 fs-15">' +
-                                        '<h4>Success !</h4>' +
-                                        '<p class="text-muted mx-4 mb-0">' +
-                                        response.message +
-                                        '</p>' +
-                                        '</div>' +
-                                        '</div>',
-                                    timerProgressBar: !0,
-                                    timer: 2e3,
-                                    showConfirmButton: !1
-                                });
-                                $('#removeaccountPassword').val('');
-                                $('#remove-acc-error').css('display', 'none');
-                                setTimeout(function() {
-                                    $('#logout-header').click();
-                                }, 2800);
-                            }
-                            else{
-                                Swal.fire({
-                                    imageUrl: "/assets/backend/images/canosoft-logo.png",
-                                    imageHeight: 60,
-                                    html: '<div class="mt-2">' +
-                                        '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
-                                        ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
-                                        'style="width:120px;height:120px"></lord-icon>' +
-                                        '<div class="mt-4 pt-2 fs-15">' +
-                                        '<h4>Oops...! </h4>' +
-                                        '<p class="text-muted mx-4 mb-0">' +
-                                        response.message +'</p>' +
-                                        '</div>' +
-                                        '</div>',
-                                    timerProgressBar: !0,
-                                    timer: 3000,
-                                    showConfirmButton: !1
-                                });
-                            }
-                        },
-                        error: function(response) {
-                            console.log(response);
-                        }
-                    })
-                :
-                    t.dismiss === Swal.DismissReason.cancel &&
-                Swal.fire({
-                    title: "Cancelled",
-                    text: "Phew, your credentials are safe. ",
-                    icon: "error",
-                    confirmButtonClass: "btn btn-primary mt-2",
-                    buttonsStyling: !1
-                });
-            });
-
-        });
 
     </script>
 

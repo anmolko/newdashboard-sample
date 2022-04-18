@@ -94,9 +94,8 @@ class UserController extends Controller
         //
     }
 
-    public function profile(){
-        $user_id        = Auth::user()->id;
-        $user           = User::find($user_id);
+    public function profile($slug){
+        $user           = User::where('slug',$slug)->first();
         return view('backend.user.profile',compact('user'));
     }
 
@@ -106,16 +105,9 @@ class UserController extends Controller
     }
 
 
-    public function profileEdit($id=''){
-        if($id == ''){
-            $user_id        = Auth::user()->id;
-            $user           = User::find($user_id);
-            return view('backend.user.profile-edit',compact('user'));
-        }else{
-            $user_id        = $id;
-            $user           = User::find($user_id);
-            return view('backend.user.profile-edit',compact('user'));
-        }
+    public function profileEdit($slug){
+        $user           =  User::where('slug',$slug)->first();
+        return view('backend.user.profile-edit',compact('user'));
     }
 
     public function imageupdate(Request $request)
@@ -184,6 +176,7 @@ class UserController extends Controller
     {
         $user                 =  User::find($id);
         $user->name           =  $request->input('name');
+        $user->slug           =  strtolower(str_replace(' ','-',$request->input('name')));
         $user->email          =  $request->input('email');
         $user->gender         =  $request->input('gender');
         $user->contact        =  $request->input('contact');
@@ -232,7 +225,7 @@ class UserController extends Controller
         else{
             Session::flash('error','Something Went Wrong. Changes could not be applied.');
         }
-        return redirect()->route('profile');
+        return redirect()->route('profile',$user->slug);
     }
 
     public function profilepassword(Request $request){

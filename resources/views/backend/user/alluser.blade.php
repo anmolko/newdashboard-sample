@@ -117,7 +117,7 @@
                                             </div>
                                             <div class="col-lg-2 col">
                                                 <div class="text-end">
-                                                    <a href="#" class="btn btn-light view-btn">View Profile</a>
+                                                    <a href="{{route('profile',$user->slug)}}" class="btn btn-light view-btn">View Profile</a>
                                                 </div>
                                             </div>
                                         </div>

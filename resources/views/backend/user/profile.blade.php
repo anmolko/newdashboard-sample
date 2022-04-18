@@ -105,7 +105,7 @@
                                 </li>
                             </ul>
                             <div class="flex-shrink-0">
-                                <a href="{{route('profile.edit')}}" class="btn btn-success"><i
+                                <a href="{{route('profile.edit',$user->slug)}}" class="btn btn-success"><i
                                         class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
                             </div>
                         </div>

@@ -1538,11 +1538,11 @@
 
 @section('js')
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#theme-settings-offcanvas').css('visibility','hidden');
-            $('#theme-settings-offcanvas').removeClass('show');
-            $('.offcanvas-backdrop').removeClass('show');
-        });
+        // $(document).ready(function () {
+        //     $('#theme-settings-offcanvas').css('visibility','hidden');
+        //     $('#theme-settings-offcanvas').removeClass('show');
+        //     $('.offcanvas-backdrop').removeClass('show');
+        // });
     </script>
 @endsection
 
