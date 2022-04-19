@@ -27,12 +27,11 @@ $('#user-add-button').on('click', function(e) {
             var cover = (response.user.cover !== null) ? "/images/user/cover/"+response.user.cover :  "/assets/backend/images/profile-bg.jpeg";
             var image = (response.user.image !== null) ? "/images/user/"+response.user.image :  "/assets/backend/images/default.png";
             var status = (response.user.status == 0) ? "Inactive" :  "Active";
-            var status_icon = (response.user.status == 0) ? "ri-close-circle-line" :  "ri-checkbox-circle-line";
-            var status_type = (response.user.status == 0) ? "text-warning" :  "text-success";
+            var status_options = (response.user.status == 0) ? '<li><a class="dropdown-item change-status" href="javascript:void(0);">Active</a></li>':  '<li><a class="dropdown-item change-status" href="javascript:void(0);">Inactive</a></li>';
             var contact = (response.user.contact == null) ? "Not Added":response.user.contact;
             var slug = '/profile/'+ response.user.slug;
             $('#addmembers').modal('hide');
-            if(response.status=='success'){
+            if(response.status=='success') {
                 console.log(response.user);
                 Swal.fire({
                     imageUrl: "/assets/backend/images/canosoft-logo.png",
@@ -55,25 +54,21 @@ $('#user-add-button').on('click', function(e) {
                 var append = '<div class="col" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">' +
                     '<div class="card team-box"> ' +
                     '<div class="team-cover"> ' +
-                    '<img  src="'+cover+'" alt="user-cover" class="img-fluid" />' +
+                    '<img  src="' + cover + '" alt="user-cover" class="img-fluid" />' +
                     '</div>' +
                     '<div class="card-body p-4">' +
                     '<div class="row align-items-center team-row">' +
                     '<div class="col-lg-4 col team-settings">' +
                     '<div class="row">' +
-                    '<div class="col '+status_type+'" style="font-weight: 500">' +
-                    '<i class=" '+status_icon+' fs-16 align-middle"></i> '+
-                    status
-                    +
                     '</div>' +
                     '<div class="col text-end dropdown">' +
                     '<a href="javascript:void(0);" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">' +
                     '<i class="ri-more-fill fs-17"></i>' +
                     '</a>' +
                     '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">' +
-                    '<li><a class="dropdown-item cs-status-change"><i class="ri-bar-chart-line me-2 align-middle"></i>Status</a></li>'+
-                    '<li><a class="dropdown-item cs-role-change"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li>'+
-                    '<li><a class="dropdown-item cs-user-remove"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>'+
+                    '<li><a class="dropdown-item" href="'+slug+'"><i class="ri-eye-line me-2 align-middle"></i>Profile</a></li>' +
+                    '<li><a class="dropdown-item cs-role-change"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li>' +
+                    '<li><a class="dropdown-item cs-user-remove"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>' +
                     '</ul>' +
                     '</div>' +
                     '</div>' +
@@ -81,28 +76,34 @@ $('#user-add-button').on('click', function(e) {
                     '<div class="col-lg-4 col">' +
                     '<div class="team-profile-img">' +
                     '<div class="avatar-lg img-thumbnail rounded-circle flex-shrink-0">' +
-                    '<img  src="'+image+'" alt="" class="img-fluid d-block rounded-circle" /> ' +
+                    '<img  src="' + image + '" alt="" class="img-fluid d-block rounded-circle" /> ' +
                     '</div>' +
                     '<div class="team-content">' +
-                    '<h5 class="fs-16 mb-1" style="text-transform:capitalize;">'+ response.user.name +'<span class="badge bg-success ms-1">Recently added</span></h5>' +
-                    '<p class="text-muted mb-0">'+ response.user.email +'</p>' +
+                    '<h5 class="fs-16 mb-1" style="text-transform:capitalize;">' + response.user.name + '<span class="badge bg-success ms-1">Recently added</span></h5>' +
+                    '<p class="text-muted mb-0">' + response.user.email + '</p>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
                     '<div class="col-lg-4 col"><div class="row text-muted text-center"> ' +
                     '<div class="col-6 border-end border-end-dashed">' +
-                    '<h5 class="mb-1" style="text-transform:capitalize;">'+response.user.user_type+'</h5>'+
+                    '<h5 class="mb-1" style="text-transform:capitalize;">' + response.user.user_type + '</h5>' +
                     '<p class="text-muted mb-0">User Role</p> ' +
                     '</div> ' +
                     '<div class="col-6"> ' +
-                    '<h5 class="mb-1">'+ contact +'</h5>'+
-                    '<p class="text-muted mb-0">Contact</p>'+
+                    '<h5 class="mb-1">' + contact + '</h5>' +
+                    '<p class="text-muted mb-0">Contact</p>' +
                     '</div>' +
                     '</div>' +
                     '</div> ' +
                     '<div class="col-lg-2 col">' +
                     '<div class="text-end">' +
-                    '<a href="'+slug+'" class="btn btn-light view-btn">View Profile</a> ' +
+                    '<div class="btn-group view-btn"> ' +
+                    '<button class="btn btn-light dropdown-toggle" style="width: 10em;" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside aria-expanded="false">' +
+                           status + '</button> ' +
+                    '<ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside" style="">'+
+                    status_options
+                    + '</ul>' +
+                    '</div>' +
                     '</div>' +
                     '</div> ' +
                     '</div>' +

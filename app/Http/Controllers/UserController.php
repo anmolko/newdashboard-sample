@@ -334,4 +334,17 @@ class UserController extends Controller
             return response()->json(['status'=>$status,'message'=>'Account could not be removed. Try Again later !']);
         }
     }
+
+    public function statusupdate(Request $request, $id){
+        $user          = User::find($id);
+        $user->status  = $request->status;
+        $status        = $user->update();
+        if($status){
+            $confirmed = "yes";
+        }
+        else{
+            $confirmed = "no";
+        }
+        return response()->json($confirmed);
+    }
 }
