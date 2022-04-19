@@ -1,9 +1,13 @@
 @extends('backend.layouts.master')
 @section('title', "User Management Index")
 @section('css')
+    <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <style>
         .hidden{
             display:none!important;
+        }
+        .dropdown-item{
+            cursor: pointer;
         }
     </style>
 @endsection
@@ -61,7 +65,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div>
-                        <div class="team-list list-view-filter row">
+                        <div class="team-list list-view-filter row" id="user-list">
                             @foreach($users as $user)
                             <div class="col">
                                 <div class="card team-box">
@@ -86,8 +90,9 @@
                                                             <i class="ri-more-fill fs-17"></i>
                                                         </a>
                                                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-line me-2 align-middle"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle"></i>Delete</a></li>
+                                                            <li><a class="dropdown-item cs-status-change"><i class="ri-bar-chart-line me-2 align-middle"></i>Status</a></li>
+                                                            <li><a class="dropdown-item cs-role-change"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li>
+                                                            <li><a class="dropdown-item cs-user-remove"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -135,7 +140,11 @@
                     </div>
                 </div><!-- end col -->
             </div><!--end row-->
-
+            <!-- Offset Position -->
+            <button type="button" class="btn btn-primary position-relative">
+                Mails
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">+New User</span>
+            </button>
             <svg class="bookmark-hide">
                 <symbol viewBox="0 0 24 24" stroke="currentColor" fill="var(--color-svg)" id="icon-star"><path stroke-width=".4" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></symbol>
             </svg>
@@ -143,6 +152,7 @@
         </div><!-- container-fluid -->
     </div><!-- End Page-content -->
     @include('backend.user.modal.add')
+
 @endsection
 
 @section('js')
@@ -153,71 +163,12 @@
     <script src="{{asset('assets/backend/js/pages/password-addon.init.js')}}"></script>
     <!-- Sweet Alerts js -->
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+
+    <script src="{{asset('assets/backend/custom_js/user-mgm.js')}}"></script>
     <script type="text/javascript">
-        $('#user-add-button').on('click', function(e) {
-            var form            = $('#user-add-form')[0]; //get the form using ID
-            if (!form.reportValidity()) { return false;}
-            var formData        = new FormData(form); //Creates new FormData object
-            var url             = $(this).attr("cs-create-route");
-            var request_method  = 'POST'; //get form GET/POST method
-            $.ajax({
-                type : request_method,
-                url : url,
-                headers: {
-                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                },
-                cache: false,
-                contentType: false,
-                processData: false,
-                data : formData,
-                success: function(response){
-                    console.log(response.status);
-                    if(response.status=='success'){
-                        $('#addmembers').modal('hide');
-                        Swal.fire({
-                            imageUrl: "/assets/backend/images/canosoft-logo.png",
-                            imageHeight: 60,
-                            html: '<div class="mt-2">' +
-                                '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
-                                'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
-                                '</lord-icon>' +
-                                '<div class="mt-4 pt-2 fs-15">' +
-                                '<h4>Success !</h4>' +
-                                '<p class="text-muted mx-4 mb-0">' +
-                                response.message +
-                                '</p>' +
-                                '</div>' +
-                                '</div>',
-                            timerProgressBar: !0,
-                            timer: 2e3,
-                            showConfirmButton: !1
-                        });
-                    }
-                    else{
-                        Swal.fire({
-                            imageUrl: "/assets/backend/images/canosoft-logo.png",
-                            imageHeight: 60,
-                            html: '<div class="mt-2">' +
-                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
-                                ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
-                                'style="width:120px;height:120px"></lord-icon>' +
-                                '<div class="mt-4 pt-2 fs-15">' +
-                                '<h4>Oops...! </h4>' +
-                                '<p class="text-muted mx-4 mb-0">' + response.message +
-                                '</p>' +
-                                '</div>' +
-                                '</div>',
-                            timerProgressBar: !0,
-                            timer: 3000,
-                            showConfirmButton: !1
-                        });
-                    }
-                },
-                error: function(response) {
-                    console.log(response);
-                }
-            });
-        });
+
+
+
 
     </script>
 

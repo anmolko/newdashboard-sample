@@ -55,8 +55,8 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                <label for="stats" class="form-label">Status</label>
-                                <select class="form-select mb-3" name="status" id="stats">
+                                <label for="stats" class="form-label">Status <span class="text-danger">*</span></label>
+                                <select class="form-select mb-3" name="status" id="stats" required>
                                     <option selected disabled>Select Status </option>
                                     <option value="1">Active</option>
                                     <option value="0">Inactive</option>
