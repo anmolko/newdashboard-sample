@@ -28,7 +28,7 @@ $('#user-add-button').on('click', function(e) {
             var image = (response.user.image !== null) ? "/images/user/"+response.user.image :  "/assets/backend/images/default.png";
             var status = (response.user.status == 0) ? "Inactive" :  "Active";
 
-            var status_options = (response.user.status == 0) ? '<li><a class="dropdown-item change-status" cs-update-route="/auth/status/update/'+response.user.id+'" cs-status-value="1" href="#">Active</a></li>':  '<li><a class="dropdown-item change-status" cs-update-route="/auth/status/update/'+response.user.id+'" cs-status-value="1" href="#">Inactive</a></li>';
+            var status_options = (response.user.status == 0) ? '<li><a class="dropdown-item change-status" cs-update-route="/auth/status/update/'+response.user.id+'" cs-status-value="1" href="#">Active</a></li>':  '<li><a class="dropdown-item change-status" cs-update-route="/auth/status/update/'+response.user.id+'" cs-status-value="0" href="#">Inactive</a></li>';
             var contact = (response.user.contact == null) ? "Not Added":response.user.contact;
             var slug = '/auth/profile/'+ response.user.slug;
             $('#addmembers').modal('hide');
@@ -80,7 +80,7 @@ $('#user-add-button').on('click', function(e) {
                     '<img src="'+image+'" alt="" class="img-fluid d-block rounded-circle" />'+
                     '</div> ' +
                     '<div class="team-content"> ' +
-                    '<h5 class="fs-16 mb-1">'+response.user.name+'</h5> ' +
+                    '<h5 class="fs-16 mb-1">'+response.user.name+'<span class="badge bg-success ms-1">New</span></h5> ' +
                     '<p class="text-muted mb-0">'+response.user.email+'</p> ' +
                     '</div> ' +
                     '</div> ' +
