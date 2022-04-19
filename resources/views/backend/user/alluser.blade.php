@@ -113,15 +113,15 @@
                                             </div>
                                             <div class="col-lg-2 col">
                                                 <div class="text-end">
-                                                    <div class="btn-group view-btn">
+                                                    <div class="btn-group view-btn" id="user-status-button-{{$user->id}}">
                                                         <button class="btn btn-light dropdown-toggle" style="width: 10em;" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                                             @if($user->status == 0) Inactive @else Active  @endif
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside" style="">
                                                             @if($user->status == 0)
-                                                                 <li><a class="dropdown-item change-status" cs-update-route="{{route('user-status.update',$user->id)}}" href="#" id="1">Active</a></li>
+                                                                 <li><a class="dropdown-item change-status" cs-update-route="{{route('user-status.update',$user->id)}}" href="#" cs-status-value="1">Active</a></li>
                                                             @else
-                                                                <li><a class="dropdown-item change-status" cs-update-route="{{route('user-status.update',$user->id)}}" href="#" id="0">Inactive</a></li>
+                                                                <li><a class="dropdown-item change-status" cs-update-route="{{route('user-status.update',$user->id)}}" href="#" cs-status-value="0">Inactive</a></li>
                                                             @endif
                                                         </ul>
                                                     </div>
@@ -151,6 +151,7 @@
     </div><!-- End Page-content -->
     @include('backend.user.modal.add')
 
+
 @endsection
 
 @section('js')
@@ -163,30 +164,4 @@
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
     <script src="{{asset('assets/backend/custom_js/user-mgm.js')}}"></script>
-    <script type="text/javascript">
-
-        $(document).on('click','.status-update', function (e) {
-            e.preventDefault();
-            var status = $(this).attr('id');
-            var url = $(this).attr('aurum-update-action');
-            if(status == '0'){
-                swal({
-                    title: "Are You Sure?",
-                    text: "Setting the user status to De-active will prevent them from logging in. \n \n Set their status to active to enable the login feature!",
-                    type: "info",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true,
-                }, function(){
-                    statusupdate(url,status);
-                });
-            }else{
-                statusupdate(url,status);
-            }
-
-        });
-
-
-    </script>
-
 @endsection

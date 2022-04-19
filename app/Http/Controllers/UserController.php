@@ -358,11 +358,15 @@ class UserController extends Controller
         $user          = User::find($id);
         $user->status  = $request->status;
         $status        = $user->update();
+        $new_status  = ($user->status == 0) ? "Inactive":"Active";
+        $value  = ($user->status == 0) ? 1:0;
         if($status){
-            $confirmed = "yes";
+            $status ='success';
+            return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value]);
         }
         else{
-            $confirmed = "no";
+            $status ='error';
+            return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value]);
         }
         return response()->json($confirmed);
     }
