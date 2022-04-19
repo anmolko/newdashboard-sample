@@ -74,6 +74,9 @@ class UserController extends Controller
                 $image = $request->file('image');
                 $name1 = uniqid() . '_user_' . $image->getClientOriginalName();
                 $path = base_path() . '/public/images/user/';
+                if (!is_dir($path)) {
+                    mkdir($path, 0777);
+                }
                 $moved = Image::make($image->getRealPath())->fit(200, 200)->orientate()->save($path . $name1);
                 if ($moved) {
                     $data['image'] = $name1;
@@ -84,6 +87,9 @@ class UserController extends Controller
                 $image = $request->file('cover');
                 $name1 = uniqid() . '_cover_' . $image->getClientOriginalName();
                 $path = base_path() . '/public/images/user/cover/';
+                if (!is_dir($path)) {
+                    mkdir($path, 0777);
+                }
                 $moved1 = Image::make($image->getRealPath())->fit(2000, 850)->orientate()->save($path . $name1);
                 if ($moved1) {
                     $data['cover'] = $name1;
@@ -171,7 +177,11 @@ class UserController extends Controller
             $oldimage  = $user->image;
             $image       = $request->file('image');
             $name1       = uniqid().'_user_'.$image->getClientOriginalName();
-            $path        = base_path().'/public/images/user/';
+            $path        = public_path('/images/user');
+
+            if (!is_dir($path)) {
+                mkdir($path, 0777);
+            }
             $moved       = Image::make($image->getRealPath())->fit(200, 200, function ($constraint) {
                 $constraint->aspectRatio(); //maintain image ratio
                 $constraint->upsize();
@@ -190,6 +200,9 @@ class UserController extends Controller
             $image       = $request->file('image');
             $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
             $path        = base_path().'/public/images/user/cover/';
+            if (!is_dir($path)) {
+                mkdir($path, 0777);
+            }
             $moved       = Image::make($image->getRealPath())->fit(2000, 850)->orientate()->save($path.$name1);
 
             if ($moved){
@@ -243,6 +256,9 @@ class UserController extends Controller
             $image       = $request->file('image');
             $name1       = uniqid().'_user_'.$image->getClientOriginalName();
             $path        = base_path().'/public/images/user/';
+            if (!is_dir($path)) {
+                mkdir($path, 0777);
+            }
             $moved       = Image::make($image->getRealPath())->resize(200, 200, function ($constraint) {
                 $constraint->aspectRatio(); //maintain image ratio
                 $constraint->upsize();
@@ -259,6 +275,9 @@ class UserController extends Controller
             $image       = $request->file('cover');
             $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
             $path        = base_path().'/public/images/user/cover/';
+            if (!is_dir($path)) {
+                mkdir($path, 0777);
+            }
             $moved       = Image::make($image->getRealPath())->resize(2000, 850, function ($constraint) {
                 $constraint->aspectRatio(); //maintain image ratio
                 $constraint->upsize();

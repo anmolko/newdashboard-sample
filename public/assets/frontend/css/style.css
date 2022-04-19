@@ -1017,7 +1017,7 @@ body {
 }
 
 .bg-skyblue {
-    background-color: #51cbce;
+    background-color: #2F72A3;
 }
 
 .bg-stateblue {
@@ -2127,8 +2127,8 @@ ol.digit-list p {
 .scroll .skyblue-hover:hover,
 .white-color .skyblue-hover:hover {
     color: #fff!important;
-    background-color: #51cbce!important;
-    border-color: #51cbce!important;
+    background-color: #2F72A3!important;
+    border-color: #2F72A3!important;
 }
 
 .btn-tra-skyblue,
@@ -2137,9 +2137,9 @@ ol.digit-list p {
 .tra-skyblue-hover:hover,
 .scroll .tra-skyblue-hover:hover,
 .white-color .tra-skyblue-hover:hover {
-    color: #51cbce!important;
+    color: #2F72A3!important;
     background-color: transparent!important;
-    border-color: #51cbce!important;
+    border-color: #2F72A3!important;
 }
 
 .btn-stateblue,
@@ -3202,7 +3202,7 @@ span.os-version {
 .skyblue-color i,
 .skyblue-color span,
 .white-color .skyblue-color {
-    color: #51cbce;
+    color: #2F72A3;
 }
 
 .cadetblue-color,
@@ -3580,7 +3580,7 @@ p.terms-txt a,
 /*------------------------------------------*/
 
 
-/*  Quote Avatar 
+/*  Quote Avatar
 /*------------------------------------------*/
 
 .quote-avatar {
@@ -3601,7 +3601,7 @@ p.terms-txt a,
 /*------------------------------------------*/
 
 
-/*  Quote Author 
+/*  Quote Author
 /*------------------------------------------*/
 
 .quote-author {
@@ -3679,7 +3679,7 @@ p.terms-txt a,
 }
 
 .skyblue-loading .object {
-    background-color: #51cbce;
+    background-color: #2F72A3;
 }
 
 .stateblue-loading .object {
@@ -4020,7 +4020,7 @@ p.terms-txt a,
 /*------------------------------------------*/
 
 
-/*  HEADER SOCIAL LINKS  
+/*  HEADER SOCIAL LINKS
 /*------------------------------------------*/
 
 .header-socials {
@@ -4257,7 +4257,7 @@ p.terms-txt a,
 .wsmenu>.wsmenu-list.nav-skyblue-hover>li>ul.sub-menu>li>a:hover,
 .wsmenu>.wsmenu-list.nav-skyblue-hover>li>.wsmegamenu.w-75 ul.link-list>li>a:hover,
 .wsmenu>.wsmenu-list.nav-skyblue-hover>li>.wsmegamenu.halfmenu ul.link-list>li>a:hover {
-    color: #51cbce!important;
+    color: #2F72A3!important;
 }
 
 .wsmenu>.wsmenu-list.nav-stateblue-hover>li>ul.sub-menu>li>a:hover,
@@ -6293,7 +6293,7 @@ p.cb-header {
 /*------------------------------------------*/
 
 
-/*  Image Hover Effect 
+/*  Image Hover Effect
 /*------------------------------------------*/
 
 .masonry-image:hover img {
@@ -6694,7 +6694,7 @@ h2.statistic-number {
 /*------------------------------------------*/
 
 
-/*  Testimonial Author 
+/*  Testimonial Author
 /*------------------------------------------*/
 
 .review-author {
@@ -7257,7 +7257,7 @@ h2.statistic-number {
 /*------------------------------------------*/
 
 
-/*  FAQS ACCORDION  
+/*  FAQS ACCORDION
 /*------------------------------------------*/
 
 .accordion-item {
@@ -7952,7 +7952,7 @@ p.post-tag {
 /*------------------------------------------*/
 
 
-/*    Image Hover Effect 
+/*    Image Hover Effect
 /*------------------------------------------*/
 
 .blog-1-post:hover img,
@@ -8183,7 +8183,7 @@ h5.posts-category {
 /*------------------------------------------*/
 
 
-/*  POST TAGS 
+/*  POST TAGS
 /*------------------------------------------*/
 
 .post-share-links {
@@ -8365,7 +8365,7 @@ h5.posts-category {
 /*------------------------------------------*/
 
 
-/*  Comment Reply 
+/*  Comment Reply
 /*------------------------------------------*/
 
 .btn-reply {
