@@ -44,47 +44,61 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $data=[
-            'name'              => $request->input('name'),
-            'slug'              => strtolower(str_replace(' ','-',$request->input('name'))),
-            'email'             => $request->input('email'),
-            'password'          => bcrypt($request->input('password')),
-            'contact'           => $request->input('contact'),
-            'address'           => $request->input('address'),
-            'gender'            => $request->input('gender'),
-            'status'            => $request->input('status'),
-            'user_type'         => $request->input('user_type'),
-        ];
+    public function store(Request $request){
 
-        if (!empty($request->file('image'))){
-            $image       = $request->file('image');
-            $name1       = uniqid().'_user_'.$image->getClientOriginalName();
-            $path        = base_path().'/public/images/user/';
-            $moved       = Image::make($image->getRealPath())->fit(200, 200)->orientate()->save($path.$name1);
-            if ($moved) {
-                $data['image'] = $name1;
-            }
+        $user_slug = strtolower(str_replace(' ','-',$request->input('name')));
+        $slug  = User::where('slug',$user_slug)->first();
+        $email = User::where('email',$request->input('email'))->first();
+        if ($slug !== null) {
+            $status ='slug duplicate';
+            return response()->json(['status'=>$status,'message'=>'This username is already in use. Try something different.']);
         }
-
-        if (!empty($request->file('cover'))){
-            $image       = $request->file('cover');
-            $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
-            $path        = base_path().'/public/images/user/cover/';
-            $moved1      = Image::make($image->getRealPath())->fit(2000, 850)->orientate()->save($path.$name1);
-            if ($moved1) {
-                $data['cover'] = $name1;
-            }
+        elseif ($email !== null){
+            $status ='email duplicate';
+            return response()->json(['status'=>$status,'message'=>'This email is already in use. Try something different.']);
         }
-        $status = User::create($data);
-        if ($status) {
-            $status ='success';
-            return response()->json(['status'=>$status,'message'=>'New user added to the list']);
+        else {
+            $data = [
+                'name'      => $request->input('name'),
+                'slug'      => $user_slug,
+                'email'     => $request->input('email'),
+                'password'  => bcrypt($request->input('password')),
+                'contact'   => $request->input('contact'),
+                'address'   => $request->input('address'),
+                'gender'    => $request->input('gender'),
+                'status'    => $request->input('status'),
+                'user_type' => $request->input('user_type'),
+            ];
 
-        }else{
-            $status ='error';
-            return response()->json(['status'=>$status,'message'=>'Could not create new user at the moment. Try again later.']);
+            if (!empty($request->file('image'))) {
+                $image = $request->file('image');
+                $name1 = uniqid() . '_user_' . $image->getClientOriginalName();
+                $path = base_path() . '/public/images/user/';
+                $moved = Image::make($image->getRealPath())->fit(200, 200)->orientate()->save($path . $name1);
+                if ($moved) {
+                    $data['image'] = $name1;
+                }
+            }
+
+            if (!empty($request->file('cover'))) {
+                $image = $request->file('cover');
+                $name1 = uniqid() . '_cover_' . $image->getClientOriginalName();
+                $path = base_path() . '/public/images/user/cover/';
+                $moved1 = Image::make($image->getRealPath())->fit(2000, 850)->orientate()->save($path . $name1);
+                if ($moved1) {
+                    $data['cover'] = $name1;
+                }
+            }
+            $status = User::create($data);
+            if ($status) {
+                $user = User::latest()->first();
+                $status = 'success';
+                return response()->json(['status' => $status, 'message' => 'New user added to the list', 'user' => $user]);
+
+            } else {
+                $status = 'error';
+                return response()->json(['status' => $status, 'message' => 'Could not create new user at the moment. Try again later.']);
+            }
         }
 
     }
@@ -140,7 +154,7 @@ class UserController extends Controller
     }
 
     public function alluser(){
-        $users          = User::all();
+        $users          = User::orderBy('id','desc')->get();
         return view('backend.user.alluser',compact('users'));
     }
 
