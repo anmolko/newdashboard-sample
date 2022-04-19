@@ -9,7 +9,7 @@
 		<meta name="description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft - Let's make IT happen @endif "/>
 		<meta name="keywords" content="@if(!empty(@$setting_data->website_keyword)) {{@$setting_data->website_keyword}} @else Canosoft - Let's make IT happen @endif ">	
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-				
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
   		<!-- SITE TITLE -->
         @if (\Request::is('/'))
 		    <title>@if(!empty(@$setting_data->website_name)) {{ucwords(@$setting_data->website_name)}} @else Canosoft - Let's make IT happen @endif </title>

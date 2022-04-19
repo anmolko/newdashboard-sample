@@ -62,14 +62,21 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             data: dataString,
-            url: "php/contactForm.php",
+            url: "/contact-us",
             cache: false,
             success: function(d) {
                 $(".form-control").removeClass("success");
-                if (d == 'success') // Message Sent? Show the 'Thank You' message and hide the form
+                if (d == 'success') { // Message Sent? Show the 'Thank You' message and hide the form
+                    $(".name").val(" ");
+                    $(".phone").val(" ");
+                    $(".email").val(" ");
+                    $(".subject").val(" ");
+                    $(".message").val(" ");
                     $('.loading').fadeIn('slow').html('<font color="#48af4b">Mail sent Successfully.</font>').delay(3000).fadeOut('slow');
-                else
+
+                } else {
                     $('.loading').fadeIn('slow').html('<font color="#ff5607">Mail not sent.</font>').delay(3000).fadeOut('slow');
+                }
             }
         });
         return false;

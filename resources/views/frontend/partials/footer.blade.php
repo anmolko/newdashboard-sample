@@ -165,6 +165,13 @@
 		<script src="{{asset('assets/frontend/js/wow.js')}}"></script>
 				
 		<script src="{{asset('assets/frontend/js/custom.js')}}"></script>
+		<script type="text/javascript">
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		</script>
         @yield('js')
 
 
