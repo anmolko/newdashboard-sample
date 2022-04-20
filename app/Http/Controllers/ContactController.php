@@ -13,4 +13,10 @@ class ContactController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function index()
+    {
+        $contacts           = Contact::all();
+        return view('backend.contact.index',compact('contacts'));
+    }
 }

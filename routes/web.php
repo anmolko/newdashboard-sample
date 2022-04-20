@@ -66,6 +66,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
 
     Route::get('/contact', 'App\Http\Controllers\ContactController@index')->name('contact.index');
     Route::delete('/contact/{id}', 'App\Http\Controllers\ContactController@destroy')->name('contact.destroy');
+    Route::get('/contact/edit/{slug}', 'App\Http\Controllers\ContactController@edit')->name('contact.edit');
 
 });
 
