@@ -19,4 +19,26 @@ class ContactController extends Controller
         $contacts           = Contact::all();
         return view('backend.contact.index',compact('contacts'));
     }
+
+    public function edit($id)
+    {
+        $edit   = Contact::find($id);
+        return response()->json($edit);
+    }
+
+    public function destroy($id)
+    {
+        $delete          = Contact::find($id);
+        $id              = $delete->id;
+        
+        $status = $delete->delete();
+        if($status){
+            $status ='success';
+            return response()->json(['status'=>$status,'id'=>$id,'message'=>'Customer contact info was removed!']);
+        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'id'=>$id,'message'=>'Contact info could not be removed at the moment. Try Again later !']);
+        }
+    }
 }

@@ -585,22 +585,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
-                       aria-expanded="false" aria-controls="sidebarForms">
-                        <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Forms</span>
+                    <a class="nav-link menu-link" href="{{route('contact.index')}}">
+                        <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Contact</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarForms">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-basic-elements">Basic
-                                    Elements</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" data-key="t-form-select"> Form Select </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button"
