@@ -89,6 +89,10 @@
         </div>	   <!-- End container -->	
     </section>	<!-- END CONTACTS-2 -->
 
+    @if(@$setting_data->google_map)
+    <iframe frameborder="0" width="100%" height="450px"scrolling="no" marginheight="0" marginwidth="0" src="{{@$setting_data->google_map}}"
+                title="%3$s" aria-label="%3$s"></iframe>
+    @endif
     <!-- DIVIDER LINE -->
     <hr class="divider">
 @endsection

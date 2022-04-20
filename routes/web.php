@@ -64,6 +64,9 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::patch('/status/update/{id}', 'App\Http\Controllers\UserController@statusupdate')->name('user-status.update');
     Route::patch('/role/update/{id}', 'App\Http\Controllers\UserController@roleupdate')->name('user-type.update');
 
+    Route::get('/contact', 'App\Http\Controllers\ContactController@index')->name('contact.index');
+    Route::delete('/contact/{id}', 'App\Http\Controllers\ContactController@destroy')->name('contact.destroy');
+
 });
 
 
