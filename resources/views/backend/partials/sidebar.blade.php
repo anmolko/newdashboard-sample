@@ -579,13 +579,13 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('alluser')}}">
+                    <a class="nav-link menu-link @if(\Request::route()->getName() == 'alluser') active @endif" href="{{route('alluser')}}">
                         <i class="ri-account-circle-line"></i> <span data-key="t-widgets">User Mgmt.</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('contact.index')}}">
+                    <a class="nav-link menu-link  @if(\Request::route()->getName() == 'contact.index') active @endif" href="{{route('contact.index')}}">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Contact</span>
                     </a>
                 </li>
