@@ -11,8 +11,7 @@
 
                     <div class="col-lg-12">
                         <div class="mb-3">
-                            <input type="hidden" class="form-control" name="userid" id="userid_role"/>
-
+                            <input type="hidden" class="form-control" name="userid" id="userid_role" />
                             <label for="user_type" class="form-label">User Type <span class="text-danger">*</span></label>
                             <select class="form-select mb-3" name="user_type" id="user_type_change" required>
                                 <option value="" disabled> Select User Type </option>
@@ -24,7 +23,7 @@
                     <div class="col-lg-12">
                         <div class="hstack gap-2 justify-content-end">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" id="user-role-change">Change</button>
+                            <button type="button" class="btn btn-success" id="user-role-change" cs-update-role="">Change</button>
                         </div>
                     </div>
                     {!! Form::close() !!}

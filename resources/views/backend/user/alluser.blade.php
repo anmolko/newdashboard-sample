@@ -82,7 +82,7 @@
                                                         </a>
                                                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
                                                             <li><a class="dropdown-item" href="{{route('profile',$user->slug)}}"><i class="ri-eye-line me-2 align-middle"></i>Profile</a></li>
-                                                            <li><a class="dropdown-item cs-role-change" cs-user-id="{{@$user->id}}" cs-user-role="{{@$user->user_type}}"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li>
+                                                            <li><a class="dropdown-item cs-role-change" id="cs-role-change-{{$user->id}}" cs-user-role="{{@$user->user_type}}" cs-user-id="{{@$user->id}}" cs-update-route="{{route('user-type.update',$user->id)}}"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li>
                                                             <li><a class="dropdown-item cs-user-remove"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>
                                                         </ul>
                                                     </div>
@@ -101,8 +101,8 @@
                                             </div>
                                             <div class="col-lg-4 col">
                                                 <div class="row text-muted text-center">
-                                                    <div class="col-6 border-end border-end-dashed">
-                                                        <h5 class="mb-1" id="user-role-block">{{ucwords(@$user->user_type)}}</h5>
+                                                    <div class="col-6 border-end border-end-dashed" id="user-role-block-{{$user->id}}">
+                                                        <h5 class="mb-1">{{ucwords(@$user->user_type)}}</h5>
                                                         <p class="text-muted mb-0">User Role</p>
                                                     </div>
                                                     <div class="col-6">
@@ -168,31 +168,30 @@
 
     <script type="text/javascript">
         $('.cs-role-change').on('click', function() {
-            var userid   = $(this).attr('cs-user-id');
-            var userrole = $(this).attr('cs-user-role');
+            var userrole    = $(this).attr('cs-user-role');
+            var id          = $(this).attr('cs-user-id');
+            var updateroute = $(this).attr('cs-update-route');
             $('#user_type_change option[value="'+userrole+'"]').prop('selected', true);
-            $('#userid_role').attr('value',userid);
+            $('#user-role-change').attr('cs-update-role',updateroute);
+            $('#userid_role').attr('value',id);
             $('#changestatus').modal('show');
         });
 
         $('#user-role-change').on('click', function(e) {
-            var userID = $('#userid_role').val();
+            var usertype       = $('#user_type_change').val();
+            var id             = $('#userid_role').val();
+            var url            = $(this).attr('cs-update-role');
 
-            var form            = $('#user-role-change-form')[0]; //get the form using ID
-            if (!form.reportValidity()) { return false;}
-            var formData        = new FormData(form); //Creates new FormData object
-            var url             = '/auth/role/update/'+userID;
-            var request_method  = 'PATCH'; //get form GET/POST method
             $.ajax({
-                type : request_method,
-                url : url,
                 headers: {
                     'X-CSRF-Token': $('meta[name="_token"]').attr('content')
                 },
+                url: url,
+                type: "PATCH",
                 cache: false,
-                contentType: false,
-                processData: false,
-                data : formData,
+                data:{
+                    user_type: usertype,
+                },
                 success: function(response){
                     $('#changestatus').modal('hide');
                     if(response.status=='success') {
@@ -215,8 +214,15 @@
                             showConfirmButton: !1
                         });
 
-                        var block = response.role +'<span class="badge bg-success ms-1">changed</span>';
-                        $("#user-role-block").html(block);
+                        var view_change = '#user-role-block-'+id;
+                        var popup_role_change = '#cs-role-change-'+id;
+                        var role = response.role +'<span class="badge bg-success ms-1">changed</span>';
+                        var block = ' <h5 class="mb-1" style="text-transform: capitalize">'+ role +'</h5>' +
+                            '<p class="text-muted mb-0">User Role</p>';
+                        $(view_change).html('');
+                        $(popup_role_change).removeAttr('cs-user-role');
+                        $(popup_role_change).attr('cs-user-role',response.role);
+                        $(view_change).html(block);
                     }
                     else{
                         Swal.fire({
@@ -240,8 +246,6 @@
                 }, error: function(response) {
                     console.log(response);
                 }
-
-
 
             });
 

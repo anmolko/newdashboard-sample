@@ -372,11 +372,10 @@ class UserController extends Controller
     }
 
     public function roleupdate(Request $request, $id){
-        dd($request->all());
         $user             = User::find($id);
         $user->user_type  = $request->user_type;
         $status           = $user->update();
-        $new_role         = ucwords($user->user_type);
+        $new_role         = $user->user_type;
         if($status){
             $status ='success';
             return response()->json(['status'=>$status,'message'=>'User role has been changed','role'=>$new_role]);
