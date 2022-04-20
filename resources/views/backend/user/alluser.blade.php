@@ -55,7 +55,7 @@
 {{--                                    <li><a class="dropdown-item" href="#">Last Month</a></li>--}}
 {{--                                    <li><a class="dropdown-item" href="#">Last Year</a></li>--}}
 {{--                                </ul>--}}
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addmembers"><i class="ri-add-fill me-1 align-bottom"></i> Add Members</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addmembers"><i class="ri-add-fill me-1 align-bottom"></i> Add Users</button>
                             </div>
                         </div><!--end col-->
                     </div><!--end row-->
@@ -82,7 +82,7 @@
                                                         </a>
                                                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
                                                             <li><a class="dropdown-item" href="{{route('profile',$user->slug)}}"><i class="ri-eye-line me-2 align-middle"></i>Profile</a></li>
-                                                            <li><a class="dropdown-item cs-role-change"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li>
+                                                            <li><a class="dropdown-item cs-role-change" cs-user-id="{{@$user->id}}" cs-user-role="{{@$user->user_type}}"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li>
                                                             <li><a class="dropdown-item cs-user-remove"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>
                                                         </ul>
                                                     </div>
@@ -102,7 +102,7 @@
                                             <div class="col-lg-4 col">
                                                 <div class="row text-muted text-center">
                                                     <div class="col-6 border-end border-end-dashed">
-                                                        <h5 class="mb-1">{{ucwords(@$user->user_type)}}</h5>
+                                                        <h5 class="mb-1" id="user-role-block">{{ucwords(@$user->user_type)}}</h5>
                                                         <p class="text-muted mb-0">User Role</p>
                                                     </div>
                                                     <div class="col-6">
@@ -149,8 +149,9 @@
 
         </div><!-- container-fluid -->
     </div><!-- End Page-content -->
-    @include('backend.user.modal.add')
 
+    @include('backend.user.modal.add')
+    @include('backend.user.modal.user-role')
 
 @endsection
 
@@ -164,4 +165,89 @@
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
     <script src="{{asset('assets/backend/custom_js/user-mgm.js')}}"></script>
+
+    <script type="text/javascript">
+        $('.cs-role-change').on('click', function() {
+            var userid   = $(this).attr('cs-user-id');
+            var userrole = $(this).attr('cs-user-role');
+            $('#user_type_change option[value="'+userrole+'"]').prop('selected', true);
+            $('#userid_role').attr('value',userid);
+            $('#changestatus').modal('show');
+        });
+
+        $('#user-role-change').on('click', function(e) {
+            var userID = $('#userid_role').val();
+
+            var form            = $('#user-role-change-form')[0]; //get the form using ID
+            if (!form.reportValidity()) { return false;}
+            var formData        = new FormData(form); //Creates new FormData object
+            var url             = '/auth/role/update/'+userID;
+            var request_method  = 'PATCH'; //get form GET/POST method
+            $.ajax({
+                type : request_method,
+                url : url,
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                data : formData,
+                success: function(response){
+                    $('#changestatus').modal('hide');
+                    if(response.status=='success') {
+                        Swal.fire({
+                            imageUrl: "/assets/backend/images/canosoft-logo.png",
+                            imageHeight: 60,
+                            html: '<div class="mt-2">' +
+                                '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
+                                'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
+                                '</lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Success !</h4>' +
+                                '<p class="text-muted mx-4 mb-0">' +
+                                response.message +
+                                '</p>' +
+                                '</div>' +
+                                '</div>',
+                            timerProgressBar: !0,
+                            timer: 2e3,
+                            showConfirmButton: !1
+                        });
+
+                        var block = response.role +'<span class="badge bg-success ms-1">changed</span>';
+                        $("#user-role-block").html(block);
+                    }
+                    else{
+                        Swal.fire({
+                            imageUrl: "/assets/backend/images/canosoft-logo.png",
+                            imageHeight: 60,
+                            html: '<div class="mt-2">' +
+                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                                ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                                'style="width:120px;height:120px"></lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Oops...! </h4>' +
+                                '<p class="text-muted mx-4 mb-0">' + response.message +
+                                '</p>' +
+                                '</div>' +
+                                '</div>',
+                            timerProgressBar: !0,
+                            timer: 3000,
+                            showConfirmButton: !1
+                        });
+                    }
+                }, error: function(response) {
+                    console.log(response);
+                }
+
+
+
+            });
+
+        });
+
+
+
+    </script>
 @endsection

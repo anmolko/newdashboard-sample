@@ -33,7 +33,6 @@ $('#user-add-button').on('click', function(e) {
             var slug = '/auth/profile/'+ response.user.slug;
             $('#addmembers').modal('hide');
             if(response.status=='success') {
-                console.log(response.user);
                 Swal.fire({
                     imageUrl: "/assets/backend/images/canosoft-logo.png",
                     imageHeight: 60,

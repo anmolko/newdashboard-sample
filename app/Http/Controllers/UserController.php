@@ -370,4 +370,22 @@ class UserController extends Controller
         }
         return response()->json($confirmed);
     }
+
+    public function roleupdate(Request $request, $id){
+        dd($request->all());
+        $user             = User::find($id);
+        $user->user_type  = $request->user_type;
+        $status           = $user->update();
+        $new_role         = ucwords($user->user_type);
+        if($status){
+            $status ='success';
+            return response()->json(['status'=>$status,'message'=>'User role has been changed','role'=>$new_role]);
+        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'User role could not be changed','role'=>$new_role]);
+        }
+
+    }
+
 }

@@ -62,6 +62,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::post('/user-management/store', 'App\Http\Controllers\UserController@store')->name('user.store');
     Route::delete('/user-management/{id}', 'App\Http\Controllers\UserController@destroy')->name('user.destroy');
     Route::patch('/status/update/{id}', 'App\Http\Controllers\UserController@statusupdate')->name('user-status.update');
+    Route::patch('/role/update/{id}', 'App\Http\Controllers\UserController@roleupdate')->name('user-type.update');
 
 });
 
