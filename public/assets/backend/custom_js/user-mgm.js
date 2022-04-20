@@ -27,7 +27,8 @@ $('#user-add-button').on('click', function(e) {
             var cover = (response.user.cover !== null) ? "/images/user/cover/"+response.user.cover :  "/assets/backend/images/profile-bg.jpeg";
             var image = (response.user.image !== null) ? "/images/user/"+response.user.image :  "/assets/backend/images/default.png";
             var status = (response.user.status == 0) ? "Inactive" :  "Active";
-
+            var user_type_update = '/auth/role/update/'+response.user.id;
+            var user_remove = '/auth/user-management/'+response.user.id;
             var status_options = (response.user.status == 0) ? '<li><a class="dropdown-item change-status" cs-update-route="/auth/status/update/'+response.user.id+'" cs-status-value="1" href="#">Active</a></li>':  '<li><a class="dropdown-item change-status" cs-update-route="/auth/status/update/'+response.user.id+'" cs-status-value="0" href="#">Inactive</a></li>';
             var contact = (response.user.contact == null) ? "Not Added":response.user.contact;
             var slug = '/auth/profile/'+ response.user.slug;
@@ -52,27 +53,36 @@ $('#user-add-button').on('click', function(e) {
                     showConfirmButton: !1
                 });
 
-                var block = '  <div class="col">' +
-                    '<div class="card team-box">' +
+                var block = ' <div class="col" id="user-block-cover-'+response.user.id+'">' +
+                    '<div class="card team-box" id="user-block-num-'+response.user.id+'">' +
                     '<div class="team-cover">' +
                     '<img  src="'+cover+'" alt="" class="img-fluid" />' +
                     '</div>' +
                     '<div class="card-body p-4">' +
                     '<div class="row align-items-center team-row"> ' +
                     '<div class="col-lg-4 col team-settings"> ' +
-                    '<div class="row"> ' +
+                    '<div class="row"><div class="col">' +
+                    '<div class="bookmark-icon flex-shrink-0 me-2" style="display: none">' +
+                    '<input type="checkbox" id="favourite1" class="bookmark-input bookmark-hide">' +
+                    '<label for="favourite1" class="btn-star">' +
+                    '<svg width="20" height="20">' +
+                    '<use xlink:href="#icon-star"></use>' +
+                    '</svg>' +
+                    '</label>' +
+                    '</div>' +
+                    '</div>' +
                     '<div class="col text-end dropdown"> ' +
                     '<a href="javascript:void(0);" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false"> ' +
                     '<i class="ri-more-fill fs-17"></i> ' +
                     '</a> ' +
                     '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2"> ' +
                     '<li><a class="dropdown-item" href="'+slug+'"><i class="ri-eye-line me-2 align-middle"></i>Profile</a></li> ' +
-                    '<li><a class="dropdown-item cs-role-change"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li> ' +
-                    '<li><a class="dropdown-item cs-user-remove"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li> ' +
-                    '</ul> ' +
-                    '</div> ' +
-                    '</div> ' +
-                    '</div> ' +
+                    '<li><a class="dropdown-item cs-role-change" id="cs-role-change-'+response.user.id+'" cs-user-role="'+response.user.user_type+'" cs-user-id="'+response.user.id+'" cs-update-route="'+user_type_update+'"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li> ' +
+                    '<li><a class="dropdown-item cs-user-remove" cs-delete-route="'+user_remove+'"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li> ' +
+                    '</ul>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
                     '<div class="col-lg-4 col"> ' +
                     '<div class="team-profile-img"> ' +
                     '<div class="avatar-lg img-thumbnail rounded-circle flex-shrink-0"> ' +
@@ -86,8 +96,8 @@ $('#user-add-button').on('click', function(e) {
                     '</div> ' +
                     '<div class="col-lg-4 col"> ' +
                     '<div class="row text-muted text-center"> ' +
-                    '<div class="col-6 border-end border-end-dashed"> ' +
-                    '<h5 class="mb-1">'+response.user.user_type+'</h5> ' +
+                    '<div class="col-6 border-end border-end-dashed" id="user-role-block-'+response.user.id+'"> ' +
+                    '<h5 class="mb-1" style="text-transform: capitalize">'+response.user.user_type+'</h5> ' +
                     '<p class="text-muted mb-0">User Role</p> ' +
                     '</div> ' +
                     '<div class="col-6"> ' +
@@ -273,3 +283,88 @@ function statusupdate(url,status){
         }
     });
 }
+
+$('.cs-role-change').on('click', function() {
+    var userrole    = $(this).attr('cs-user-role');
+    var id          = $(this).attr('cs-user-id');
+    var updateroute = $(this).attr('cs-update-route');
+    $('#user_type_change option[value="'+userrole+'"]').prop('selected', true);
+    $('#user-role-change').attr('cs-update-role',updateroute);
+    $('#userid_role').attr('value',id);
+    $('#changestatus').modal('show');
+});
+
+$('#user-role-change').on('click', function(e) {
+    var usertype       = $('#user_type_change').val();
+    var id             = $('#userid_role').val();
+    var url            = $(this).attr('cs-update-role');
+
+    $.ajax({
+        headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+        },
+        url: url,
+        type: "PATCH",
+        cache: false,
+        data:{
+            user_type: usertype,
+        },
+        success: function(response){
+            $('#changestatus').modal('hide');
+            if(response.status=='success') {
+                Swal.fire({
+                    imageUrl: "/assets/backend/images/canosoft-logo.png",
+                    imageHeight: 60,
+                    html: '<div class="mt-2">' +
+                        '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
+                        'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
+                        '</lord-icon>' +
+                        '<div class="mt-4 pt-2 fs-15">' +
+                        '<h4>Success !</h4>' +
+                        '<p class="text-muted mx-4 mb-0">' +
+                        response.message +
+                        '</p>' +
+                        '</div>' +
+                        '</div>',
+                    timerProgressBar: !0,
+                    timer: 2e3,
+                    showConfirmButton: !1
+                });
+
+                var view_change = '#user-role-block-'+id;
+                var popup_role_change = '#cs-role-change-'+id;
+                var role = response.role +'<span class="badge bg-success ms-1">changed</span>';
+                var block = ' <h5 class="mb-1" style="text-transform: capitalize">'+ role +'</h5>' +
+                    '<p class="text-muted mb-0">User Role</p>';
+                $(view_change).html('');
+                $(popup_role_change).removeAttr('cs-user-role');
+                $(popup_role_change).attr('cs-user-role',response.role);
+                $(view_change).html(block);
+            }
+            else{
+                Swal.fire({
+                    imageUrl: "/assets/backend/images/canosoft-logo.png",
+                    imageHeight: 60,
+                    html: '<div class="mt-2">' +
+                        '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                        ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                        'style="width:120px;height:120px"></lord-icon>' +
+                        '<div class="mt-4 pt-2 fs-15">' +
+                        '<h4>Oops...! </h4>' +
+                        '<p class="text-muted mx-4 mb-0">' + response.message +
+                        '</p>' +
+                        '</div>' +
+                        '</div>',
+                    timerProgressBar: !0,
+                    timer: 3000,
+                    showConfirmButton: !1
+                });
+            }
+        }, error: function(response) {
+            console.log(response);
+        }
+
+    });
+
+});
+

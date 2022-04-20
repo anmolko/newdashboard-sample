@@ -67,15 +67,25 @@
                     <div>
                         <div class="team-list list-view-filter row" id="user-list">
                             @foreach($users as $user)
-                            <div class="col">
-                                <div class="card team-box">
+                            <div class="col" id="user-block-cover-{{$user->id}}">
+                                <div class="card team-box" id="user-block-num-{{$user->id}}">
                                     <div class="team-cover">
-                                        <img  src="{{ ($user->cover !== null) ? asset('images/user/cover/'.$user->cover) :  asset('assets/backend/images/profile-bg.jpeg')}}" alt="" class="img-fluid" />
+                                        <img src="{{ ($user->cover !== null) ? asset('images/user/cover/'.$user->cover) :  asset('assets/backend/images/profile-bg.jpeg')}}" alt="" class="img-fluid" />
                                     </div>
                                     <div class="card-body p-4">
                                         <div class="row align-items-center team-row">
                                             <div class="col-lg-4 col team-settings">
                                                 <div class="row">
+                                                    <div class="col">
+                                                        <div class="bookmark-icon flex-shrink-0 me-2" style="display: none">
+                                                            <input type="checkbox" id="favourite1" class="bookmark-input bookmark-hide">
+                                                            <label for="favourite1" class="btn-star">
+                                                                <svg width="20" height="20">
+                                                                    <use xlink:href="#icon-star"></use>
+                                                                </svg>
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                     <div class="col text-end dropdown">
                                                         <a href="javascript:void(0);" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <i class="ri-more-fill fs-17"></i>
@@ -83,7 +93,7 @@
                                                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
                                                             <li><a class="dropdown-item" href="{{route('profile',$user->slug)}}"><i class="ri-eye-line me-2 align-middle"></i>Profile</a></li>
                                                             <li><a class="dropdown-item cs-role-change" id="cs-role-change-{{$user->id}}" cs-user-role="{{@$user->user_type}}" cs-user-id="{{@$user->id}}" cs-update-route="{{route('user-type.update',$user->id)}}"><i class="ri-shield-user-line me-2 align-middle"></i>User Type</a></li>
-                                                            <li><a class="dropdown-item cs-user-remove"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>
+                                                            <li><a class="dropdown-item cs-user-remove" cs-delete-route="{{route('user.destroy',$user->id)}}"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -138,7 +148,10 @@
                                 </div>
                             </div>
                         </div><!--end row-->
-
+                        <form action="#" method="post" id="deleted-form">
+                            {{csrf_field()}}
+                            <input name="_method" type="hidden" value="DELETE">
+                        </form>
                     </div>
                 </div><!-- end col -->
             </div><!--end row-->
@@ -167,89 +180,104 @@
     <script src="{{asset('assets/backend/custom_js/user-mgm.js')}}"></script>
 
     <script type="text/javascript">
-        $('.cs-role-change').on('click', function() {
-            var userrole    = $(this).attr('cs-user-role');
-            var id          = $(this).attr('cs-user-id');
-            var updateroute = $(this).attr('cs-update-route');
-            $('#user_type_change option[value="'+userrole+'"]').prop('selected', true);
-            $('#user-role-change').attr('cs-update-role',updateroute);
-            $('#userid_role').attr('value',id);
-            $('#changestatus').modal('show');
-        });
 
-        $('#user-role-change').on('click', function(e) {
-            var usertype       = $('#user_type_change').val();
-            var id             = $('#userid_role').val();
-            var url            = $(this).attr('cs-update-role');
+        $(document).on('click','.cs-user-remove', function (e) {
+            e.preventDefault();
+            var form = $('#deleted-form');
+            var action = $(this).attr('cs-delete-route');
+            form.attr('action',action);
+            var url = form.attr('action');
+            var form_data = form.serialize();
+            Swal.fire({
+                imageUrl: "/assets/backend/images/canosoft-logo.png",
+                imageHeight: 60,
+                html: '<div class="mt-2">' +
+                    '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                    ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                    'style="width:120px;height:120px"></lord-icon>' +
+                    '<div class="mt-4 pt-2 fs-15">' +
+                    '<h4>Are your sure? </h4>' +
+                    '<p class="text-muted mx-4 mb-0">' +
+                    'Removing user will erase all of their activiy and data</p>' +
+                    '</div>' +
+                    '</div>',
+                showCancelButton: !0,
+                confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                cancelButtonClass: "btn btn-danger w-xs mt-2",
+                confirmButtonText: "Yes!",
+                buttonsStyling: !1,
+                showCloseButton: !0
+            }).then(function(t)
+            {
+                t.value
+                    ?
+                    $.post( url, form_data)
+                        .done(function(response) {
+                            console.log(response);
+                            if(response.status == "success") {
+                                Swal.fire({
+                                    imageUrl: "/assets/backend/images/canosoft-logo.png",
+                                    imageHeight: 60,
+                                    html: '<div class="mt-2">' +
+                                        '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
+                                        'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
+                                        '</lord-icon>' +
+                                        '<div class="mt-4 pt-2 fs-15">' +
+                                        '<h4>Success !</h4>' +
+                                        '<p class="text-muted mx-4 mb-0">' + response.message +'</p>' +
+                                        '</div>' +
+                                        '</div>',
+                                    timerProgressBar: !0,
+                                    timer: 2e3,
+                                    showConfirmButton: !1
+                                });
+                                var user_block = '#user-block-num-'+response.id;
+                                var user_cover = '#user-block-cover-'+response.id;
+                                $(user_block).css('background','#ffa5a5');
+                                setTimeout(function() {
+                                    $(user_cover).remove();
+                                }, 3800);
+                            }else{
+                                Swal.fire({
+                                    imageUrl: "/assets/backend/images/canosoft-logo.png",
+                                    imageHeight: 60,
+                                    html: '<div class="mt-2">' +
+                                        '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                                        ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                                        'style="width:120px;height:120px"></lord-icon>' +
+                                        '<div class="mt-4 pt-2 fs-15">' +
+                                        '<h4>Oops...! </h4>' +
+                                        '<p class="text-muted mx-4 mb-0">' + response.message +'</p>' +
+                                        '</div>' +
+                                        '</div>',
+                                    timerProgressBar: !0,
+                                    timer: 3000,
+                                    showConfirmButton: !1
+                                });
+                            }
+                        })
+                        .fail(function(response){
+                            console.log(response)
+                        })
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                },
-                url: url,
-                type: "PATCH",
-                cache: false,
-                data:{
-                    user_type: usertype,
-                },
-                success: function(response){
-                    $('#changestatus').modal('hide');
-                    if(response.status=='success') {
-                        Swal.fire({
-                            imageUrl: "/assets/backend/images/canosoft-logo.png",
-                            imageHeight: 60,
-                            html: '<div class="mt-2">' +
-                                '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
-                                'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
-                                '</lord-icon>' +
-                                '<div class="mt-4 pt-2 fs-15">' +
-                                '<h4>Success !</h4>' +
-                                '<p class="text-muted mx-4 mb-0">' +
-                                response.message +
-                                '</p>' +
-                                '</div>' +
-                                '</div>',
-                            timerProgressBar: !0,
-                            timer: 2e3,
-                            showConfirmButton: !1
-                        });
-
-                        var view_change = '#user-role-block-'+id;
-                        var popup_role_change = '#cs-role-change-'+id;
-                        var role = response.role +'<span class="badge bg-success ms-1">changed</span>';
-                        var block = ' <h5 class="mb-1" style="text-transform: capitalize">'+ role +'</h5>' +
-                            '<p class="text-muted mb-0">User Role</p>';
-                        $(view_change).html('');
-                        $(popup_role_change).removeAttr('cs-user-role');
-                        $(popup_role_change).attr('cs-user-role',response.role);
-                        $(view_change).html(block);
-                    }
-                    else{
-                        Swal.fire({
-                            imageUrl: "/assets/backend/images/canosoft-logo.png",
-                            imageHeight: 60,
-                            html: '<div class="mt-2">' +
-                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
-                                ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
-                                'style="width:120px;height:120px"></lord-icon>' +
-                                '<div class="mt-4 pt-2 fs-15">' +
-                                '<h4>Oops...! </h4>' +
-                                '<p class="text-muted mx-4 mb-0">' + response.message +
-                                '</p>' +
-                                '</div>' +
-                                '</div>',
-                            timerProgressBar: !0,
-                            timer: 3000,
-                            showConfirmButton: !1
-                        });
-                    }
-                }, error: function(response) {
-                    console.log(response);
-                }
-
+                    :
+                    t.dismiss === Swal.DismissReason.cancel &&
+                    Swal.fire({
+                        title: "Cancelled",
+                        text: "User was not removed.",
+                        icon: "error",
+                        confirmButtonClass: "btn btn-primary mt-2",
+                        buttonsStyling: !1
+                    });
             });
 
-        });
+
+
+
+
+
+
+        })
 
 
 

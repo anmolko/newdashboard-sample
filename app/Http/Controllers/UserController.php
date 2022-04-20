@@ -151,7 +151,23 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete          = User::find($id);
+        $id              = $delete->id;
+        if (!empty($delete->image) && file_exists(public_path().'/images/user/'.$delete->image)){
+            @unlink(public_path().'/images/user/'.$delete->image);
+        }
+        if (!empty($delete->cover) && file_exists(public_path().'/images/user/cover/'.$delete->cover)){
+            @unlink(public_path().'/images/user/cover/'.$delete->cover);
+        }
+        $status = $delete->delete();
+        if($status){
+            $status ='success';
+            return response()->json(['status'=>$status,'id'=>$id,'message'=>'User and its data was removed!']);
+        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'id'=>$id,'message'=>'User could not be removed at the moment. Try Again later !']);
+        }
     }
 
     public function profile($slug){
