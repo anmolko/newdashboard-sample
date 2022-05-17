@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration
             $table->bigIncrements('id');
             $table->string('website_name');
             $table->text('website_description');
-            $table->string('linkedin')->nullable();
+            $table->string('logo')->nullable();
             $table->string('logo_white')->nullable();
             $table->string('favicon')->nullable();
             $table->string('phone')->nullable();
@@ -27,8 +27,12 @@ class CreateSettingsTable extends Migration
             $table->string('facebook')->nullable();
             $table->string('youtube')->nullable();
             $table->string('instagram')->nullable();
+            $table->string('linkedin')->nullable();
             $table->string('address')->nullable();
             $table->string('email')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->text('meta_tags')->nullable();
+            $table->text('meta_description')->nullable();
             $table->string('intro_heading')->nullable();
             $table->string('intro_subheading')->nullable();
             $table->text('intro_description')->nullable();

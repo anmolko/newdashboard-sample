@@ -28,7 +28,7 @@ class SettingController extends Controller
     public function index()
     {
         $settings = Setting::first();
-        return view('backend.setting.settings',compact('settings'));
+        return view('backend.setting.index',compact('settings'));
     }
 
     /**
@@ -62,18 +62,49 @@ class SettingController extends Controller
             'instagram'                 => $request->input('instagram'),
             'address'                   => $request->input('address'),
             'email'                     => $request->input('email'),
+            'meta_title'                => $request->input('meta_title'),
+            'meta_tags'                 => $request->input('meta_tags'),
+            'meta_description'          => $request->input('meta_description'),
             'google_analytics'          => $request->input('google_analytics'),
             'google_map'                => $request->input('google_map'),
             'meta_pixel'                => $request->input('meta_pixel'),
             'created_by'                => Auth::user()->id,
         ];
 
+        if (!empty($request->file('logo'))){
+            $path    = base_path().'/public/images/settings/';
+            $image   = $request->file('logo');
+            $name1   = uniqid().'_main_logo_'.$image->getClientOriginalName();
+            if ($image->move($path,$name1)){
+                $data['logo']= $name1;
+            }
+        }
+
+        if (!empty($request->file('logo_white'))){
+            $path  = base_path().'/public/images/settings/';
+            $image = $request->file('logo_white');
+            $name2 = uniqid().'_white_logo_'.$image->getClientOriginalName();
+            if ($image->move($path,$name2)){
+                $data['logo_white'] = $name2;
+            }
+
+        }
+
+        if (!empty($request->file('favicon'))){
+            $path  = base_path().'/public/images/settings/';
+            $image = $request->file('favicon');
+            $name1 = uniqid().'_favicon_'.$image->getClientOriginalName();
+            if ($image->move($path,$name1)){
+                $data['favicon']= $name1;
+            }
+        }
+
         $theme = Setting::create($data);
         if($theme){
-            Session::flash('success','Settings Created Successfully');
+            Session::flash('success','Dashboard Settings Saved!');
         }
         else{
-            Session::flash('error','Settings Creation Failed');
+            Session::flash('error','Dashboard Settings could not be saved at the moment !');
         }
         return redirect()->back();
     }
@@ -122,10 +153,55 @@ class SettingController extends Controller
         $update_theme->instagram                =  $request->input('instagram');
         $update_theme->address                  =  $request->input('address');
         $update_theme->email                    =  $request->input('email');
+        $update_theme->meta_title               =  $request->input('meta_title');
+        $update_theme->meta_tags                =  $request->input('meta_tags');
+        $update_theme->meta_description         =  $request->input('meta_description');
         $update_theme->google_analytics         =  $request->input('google_analytics');
         $update_theme->google_map               =  $request->input('google_map');
         $update_theme->meta_pixel               =  $request->input('meta_pixel');
         $update_theme->updated_by               =  Auth::user()->id;
+        $oldimage_logo                          = $update_theme->logo;
+        $oldimage_logo_white                    = $update_theme->logo_white;
+        $oldimage_favicon                       = $update_theme->favicon;
+
+        if (!empty($request->file('logo'))){
+            $path  = base_path().'/public/images/settings/';
+            $image = $request->file('logo');
+            $name1 = uniqid().'_main_logo_'.$image->getClientOriginalName();
+            if ($image->move($path,$name1)){
+                $update_theme->logo= $name1;
+                if (!empty($oldimage_logo) && file_exists(public_path().'/images/settings/'.$oldimage_logo)){
+                    @unlink(public_path().'/images/settings/'.$oldimage_logo);
+                }
+            }
+
+        }
+
+        if (!empty($request->file('logo_white'))){
+            $path = base_path().'/public/images/settings/';
+            $image =$request->file('logo_white');
+            $name1 = uniqid().'_white_logo_'.$image->getClientOriginalName();
+            if ($image->move($path,$name1)){
+                $update_theme->logo_white= $name1;
+                if (!empty($oldimage_logo_white) && file_exists(public_path().'/images/settings/'.$oldimage_logo_white)){
+                    @unlink(public_path().'/images/settings/'.$oldimage_logo_white);
+                }
+            }
+
+        }
+
+        if (!empty($request->file('favicon'))){
+            $path = base_path().'/public/images/settings/';
+            $image =$request->file('favicon');
+            $name1 = uniqid().'_favicon_'.$image->getClientOriginalName();
+            if ($image->move($path,$name1)){
+                $update_theme->favicon= $name1;
+                if (!empty($oldimage_favicon) && file_exists(public_path().'/images/settings/'.$oldimage_favicon)){
+                    @unlink(public_path().'/images/settings/'.$oldimage_favicon);
+                }
+            }
+
+        }
 
         $status=$update_theme->update();
 

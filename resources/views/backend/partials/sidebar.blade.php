@@ -589,8 +589,6 @@
                         <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Contact</span>
                     </a>
                 </li>
-
-
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarCharts">

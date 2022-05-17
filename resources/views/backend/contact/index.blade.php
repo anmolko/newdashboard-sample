@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', "Contact Index")
+@section('title', "Contact Details")
 @section('css')
 <link rel="stylesheet" href="{{asset('assets/backend/css/jquery.dataTables.min.css')}}">
 <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
@@ -37,12 +37,12 @@
                     </div><!-- end card header -->
 
                     <div class="card-body">
-                           
+
                             <div class="table-responsive  mt-3 mb-1">
                                 <table class="table align-middle table-nowrap" id="contact_customer">
                                     <thead class="table-light">
                                         <tr>
-                                           
+
                                             <th >#</th>
                                             <th >Customer Name</th>
                                             <th >Email</th>
@@ -74,13 +74,13 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    
+
                                     </tbody>
                                 </table>
-                            
+
                             </div>
-                            
-                            
+
+
                     </div><!-- end card -->
                 </div>
                 <!-- end col -->
@@ -89,7 +89,7 @@
         </div>
         <!-- end row -->
 
-       
+
 
         <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -126,14 +126,14 @@
                             <div>
                                 <label for="message-field" class="form-label">Message</label>
                                 <textarea id="message-field" class="form-control" rows="4" readonly ></textarea>
-                                
+
                             </div>
                         </div>
                 </div>
             </div>
         </div>
 
-       
+
         <!--end modal -->
         <form action="#" method="post" id="deleted-form" >
             {{csrf_field()}}
@@ -161,7 +161,7 @@
 
     });
 
-    
+
     $(document).on('click','.edit-item-btn', function (e) {
         e.preventDefault();
         var url =  $(this).attr('contact-edit-action');
@@ -273,7 +273,7 @@
                     });
             });
 
-     
+
 
     })
 </script>

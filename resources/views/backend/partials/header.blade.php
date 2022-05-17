@@ -823,6 +823,15 @@
                             <a class="dropdown-item" href="#"><i
                                     class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle">Taskboard</span></a>
+                            <div class="dropdown-divider"></div>
+
+                            @if(Auth::user()->user_type == 'admin')
+                            <a class="dropdown-item" href="{{route('settings.index')}}">
+{{--                                <span class="badge bg-soft-success text-success mt-1 float-end">New</span>--}}
+                                <i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i>
+                                <span class="align-middle">Settings</span>
+                            </a>
+                            @endif
 
                             <form id="logout-form-header" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
