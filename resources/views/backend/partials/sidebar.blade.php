@@ -589,6 +589,26 @@
                         <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Contact</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link @if(\Request::route()->getName() == 'blogcategory.index' || \Request::route()->getName() == 'blog.index' ) active @endif" href="#sidebarBlogs" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="sidebarBlogs">
+                        <i class="ri-bold"></i> <span data-key="t-blog-mgmt">Blog Mgmt.</span>
+                    </a>
+                    <div class="collapse menu-dropdown @if(\Request::route()->getName() == 'blogcategory.index' || \Request::route()->getName() == 'blog.index' ) show @endif" id="sidebarBlogs">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('blogcategory.index')}}" class="nav-link @if(\Request::route()->getName() == 'blogcategory.index') active @endif" data-key="t-blog-category">Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('blog.index')}}" class="nav-link @if(\Request::route()->getName() == 'blog.index') active @endif" data-key="t-blog">Blog</a>
+                            </li>
+                         
+                        </ul>
+                    </div>
+                </li>
+
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarCharts">

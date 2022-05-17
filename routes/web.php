@@ -68,7 +68,27 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::delete('/contact/{id}', 'App\Http\Controllers\ContactController@destroy')->name('contact.destroy');
     Route::get('/contact/edit/{slug}', 'App\Http\Controllers\ContactController@edit')->name('contact.edit');
 
+    //Blog categories
+    Route::get('/blog-category', 'App\Http\Controllers\BlogCategoryController@index')->name('blogcategory.index');
+    Route::get('/blog-category/create', 'App\Http\Controllers\BlogCategoryController@create')->name('blogcategory.create');
+    Route::post('/blog-category', 'App\Http\Controllers\BlogCategoryController@store')->name('blogcategory.store');
+    Route::put('/blog-category/{category}', 'App\Http\Controllers\BlogCategoryController@update')->name('blogcategory.update');
+    Route::delete('/blog-category/{category}', 'App\Http\Controllers\BlogCategoryController@destroy')->name('blogcategory.destroy');
+    Route::get('/blog-category/{category}/edit', 'App\Http\Controllers\BlogCategoryController@edit')->name('blogcategory.edit');
 
+     //End of Blog categories
+
+
+    //Blog
+    Route::get('/blogs', 'App\Http\Controllers\BlogController@index')->name('blog.index');
+    Route::get('/blogs/create', 'App\Http\Controllers\BlogController@create')->name('blog.create');
+    Route::post('/blogs', 'App\Http\Controllers\BlogController@store')->name('blog.store');
+    Route::put('/blogs/{blogs}', 'App\Http\Controllers\BlogController@update')->name('blog.update');
+    Route::delete('/blogs/{blogs}', 'App\Http\Controllers\BlogController@destroy')->name('blog.destroy');
+    Route::get('/blogs/{blogs}/edit', 'App\Http\Controllers\BlogController@edit')->name('blog.edit');
+    Route::patch('/blogs/{id}/update', 'App\Http\Controllers\BlogController@updateStatus')->name('blog-status.update');
+
+    //End Blog
 
     Route::get('/dashboard-settings', 'App\Http\Controllers\SettingController@index')->name('settings.index');
     Route::get('/dashboard-settings/create', 'App\Http\Controllers\SettingController@create')->name('settings.create');
