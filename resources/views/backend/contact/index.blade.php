@@ -32,9 +32,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         <h4 class="card-title mb-0">Show & Remove</h4>
-                    </div><!-- end card header -->
+                    </div>end card header -->
 
                     <div class="card-body">
 
@@ -62,13 +62,16 @@
                                                 <td >{{@$contact->subject}}</td>
                                                 <td >{{date('j M, Y',strtotime(@$contact->created_at))}}</td>
                                                 <td>
+                                                    
                                                     <div class="d-flex gap-2">
                                                         <div class="edit">
-                                                            <button class="btn btn-sm btn-success edit-item-btn"
-                                                            data-bs-toggle="modal" data-bs-target="#showModal"  contact-edit-action="{{route('contact.edit',$contact->id)}}">Show</button>
+                                                            <button class="btn  edit-item-btn"
+                                                            data-bs-toggle="modal" data-bs-target="#showModal"  contact-edit-action="{{route('contact.edit',$contact->id)}}"><i
+                                                                                class="ri-eye-fill align-bottom me-2 text-muted"></i></button>
                                                         </div>
                                                         <div class="remove">
-                                                            <button class="btn btn-sm btn-danger remove-item-btn"  contact-delete-action="{{route('contact.destroy',$contact->id)}}" >Remove</button>
+                                                            <button class="btn remove-item-btn"  contact-delete-action="{{route('contact.destroy',$contact->id)}}" ><i
+                                                                                class="ri-delete-bin-fill align-bottom me-2 text-muted"></i></button>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -83,6 +86,8 @@
 
                     </div><!-- end card -->
                 </div>
+
+              
                 <!-- end col -->
             </div>
             <!-- end col -->
