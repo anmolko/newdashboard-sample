@@ -391,7 +391,7 @@
                                                 @if($user->about == null)
                                                 <p>Hi I'm {{ucfirst($user->name)}}, I am currently a user in this system developed by
                                                     <a href="https://canopustechnology.com.np/" target="_blank">Canosoft Technology</a> for the parent company <a href="/" target="_blank">{{@$setting_data->website_name}}.</a>
-                                                    The company itself is described as "{{@$setting_data->website_description}}".
+                                                    The company itself is described as : {!! @$setting_data->website_description !!}
                                                 </p>
                                                 <p>I joined the ranks of the user in {{\Carbon\Carbon::parse($user->created_at)->isoFormat('MMMM Do, YYYY')}},
                                                     where my assigned role is that of an {{$user->user_type}}. The parent company is located at {{@$setting_data->address}}

@@ -8,7 +8,7 @@
                         <img src="{{asset('assets/backend/images/canosoft-favicon.png')}}" alt="" height="25">
                     </span>
                     <span class="logo-lg">
-                        <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/uploads/settings/'.@$setting_data->logo_white)}}<?php }else{ echo '/assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="35">
+                        <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/settings/'.@$setting_data->logo_white)}}<?php }else{ echo '/assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="35">
                     </span>
         </a>
         <!-- Light Logo-->
@@ -17,7 +17,7 @@
                         <img src="{{asset('assets/backend/images/canosoft-favicon.png')}}" alt="" height="25">
                     </span>
                      <span class="logo-lg">
-                        <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/uploads/settings/'.@$setting_data->logo_white)}}<?php }else{ echo '/assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="35">
+                        <img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/settings/'.@$setting_data->logo_white)}}<?php }else{ echo '/assets/backend/images/canosoft-logo.png'; }?>" alt="Logo" height="35">
                      </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -603,7 +603,7 @@
                             <li class="nav-item">
                                 <a href="{{route('blog.index')}}" class="nav-link @if(\Request::route()->getName() == 'blog.index') active @endif" data-key="t-blog">Blog</a>
                             </li>
-                         
+
                         </ul>
                     </div>
                 </li>

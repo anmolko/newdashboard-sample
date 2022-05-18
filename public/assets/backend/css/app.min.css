@@ -15201,6 +15201,11 @@ span.flatpickr-weekday {
         position: sticky;
         top: calc(70px + 1.5rem)
     }
+
+    .sticky-side-div-setting {
+        position: sticky;
+        top: calc(70px + 3.5rem)
+    }
 }
 
 .product-img-slider .product-nav-slider .nav-slide-item {

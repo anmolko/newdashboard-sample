@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="page-content">
-        <div class="container-fluid">
+        <div class="container-fluid" style="position:relative;">
 
             <div class="row">
                 <div class="col-lg-12">
@@ -64,15 +64,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-auto">
+                                    <div class="col-md-auto" style="    margin-top: 1rem;">
                                         <div class="hstack gap-1 flex-wrap">
-                                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                            <div class="d-sm-flex align-items-center justify-content-between">
 {{--                                                <h4 class="mb-sm-0">Create Product</h4>--}}
 
                                                 <div class="page-title-right">
                                                     <ol class="breadcrumb">
                                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                                        <li class="breadcrumb-item active">Create Product</li>
+                                                        <li class="breadcrumb-item active">{{str_replace('-',' ',ucwords(Request::segment(2)))}}</li>
                                                     </ol>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@
                             @else
                                 {!! Form::open(['route' => 'settings.store','method'=>'post','class'=>'needs-validation','id'=>'settings-info-form','novalidate'=>'','enctype'=>'multipart/form-data']) !!}
                             @endif
-                                <div class="row">
+                                <div class="row  mb-4">
                                     <div class="col-lg-8">
                                         <form>
                                             <div class="card">
@@ -141,31 +141,27 @@
                                                     <h5 class="card-title mb-0">Related Images</h5>
                                                 </div>
                                                 <div class="card-body">
-{{--                                                    <div class="swiper effect-flip-swiper rounded">--}}
-{{--                                                        <div class="swiper-wrapper">--}}
-{{--                                                            <div class="swiper-slide">--}}
-{{--                                                                <img src="{{asset('assets/backend/images/small/img-12.jpg')}}" alt="" class="img-fluid" />--}}
-{{--                                                            </div>--}}
-{{--                                                            <div class="swiper-slide">--}}
-{{--                                                                <img src="{{asset('assets/backend/images/small/img-1.jpg')}}" alt="" class="img-fluid" />--}}
-{{--                                                            </div>--}}
-{{--                                                            <div class="swiper-slide">--}}
-{{--                                                                <img src="{{asset('assets/backend/images/small/img-2.jpg')}}" alt="" class="img-fluid" />--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="swiper-pagination"></div>--}}
-{{--                                                    </div>--}}
                                                     <div class="mb-4">
                                                         <h5 class="fs-14 mb-1">Main Logo</h5>
+                                                        @if(!empty($settings->logo))
+                                                            <img src="{{asset('images/settings/'.$settings->logo)}}" class="img-thumbnail" width="300" alt="One Slide">
+                                                        @endif
                                                         <p class="text-muted">Add the logo for frontend and backend display.</p>
                                                         <input class="form-control" name="logo" id="main-logo-input" type="file" accept="image/png, image/jpeg">
                                                     </div>
                                                     <div class="mb-4">
                                                         <h5 class="fs-14 mb-1">White Logo</h5>
+                                                        @if(!empty($settings->logo_white))
+                                                            <img src="{{asset('images/settings/'.$settings->logo_white)}}" class="img-thumbnail" width="300" alt="Two Slide">
+                                                        @endif
                                                         <input class="form-control" name="logo_white" id="white-logo-input" type="file" accept="image/png, image/jpeg">
                                                     </div>
                                                     <div class="mb-4">
                                                         <h5 class="fs-14 mb-1">Favicon</h5>
+                                                        @if(!empty($settings->favicon))
+                                                            <img src="{{asset('images/settings/'.$settings->favicon)}}" class="img-thumbnail" width="50" alt="Three Slide">
+                                                        @endif
+
                                                         <input class="form-control" name="favicon" id="favicon-logo-input" type="file" accept="image/png, image/jpeg">
                                                     </div>
                                                 </div>
@@ -258,110 +254,110 @@
                                     <!-- end col -->
 
                                     <div class="col-lg-4">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="card-title mb-0">Address</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="email-number-input" class="form-label">Email Address</label>
-                                                    <input type="text" class="form-control" id="email-number-input" name="email"
-                                                           value="{{@$settings->email}}"
-                                                           placeholder="Enter email address" required/>
+                                        <div class="sticky-side-div-setting">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-0">Address</h5>
                                                 </div>
-
-                                                <div>
-                                                    <label for="address-number-input" class="form-label">Company Address</label>
-                                                    <input type="text" class="form-control" id="address-number-input" name="address"
-                                                           value="{{@$settings->address}}"
-                                                           placeholder="Enter current location" />
-                                                </div>
-                                            </div>
-                                            <!-- end card body -->
-                                        </div>
-
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="card-title mb-0">Contacts</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="phone-number-input" class="form-label">Phone number</label>
-                                                    <input type="text" class="form-control" id="phone-number-input" name="phone"
-                                                           value="{{@$settings->phone}}"
-                                                           placeholder="Enter phone number" />
-                                                </div>
-
-                                                <div>
-                                                    <label for="mobile-number-input" class="form-label">Mobile number</label>
-                                                    <input type="text" class="form-control" id="mobile-number-input" name="mobile"
-                                                           value="{{@$settings->mobile}}"
-                                                           placeholder="Enter mobile number" />
-                                                </div>
-                                            </div>
-                                            <!-- end card body -->
-                                        </div>
-                                        <!-- end card -->
-
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="card-title mb-0">Social Number</h5>
-                                            </div>
-                                            <!-- end card body -->
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="viber-number-input" class="form-label">Viber number</label>
-                                                    <input type="text" class="form-control" id="viber-number-input" name="viber"
-                                                           value="{{@$settings->viber}}"
-                                                           placeholder="Enter viber number" />
-                                                </div>
-
-                                                <div>
-                                                    <label for="whatsapp-number-input" class="form-label">Whatsapp number</label>
-                                                    <input type="text" class="form-control" id="whatsapp-number-input" name="whatsapp"
-                                                           value="{{@$settings->whatsapp}}"
-                                                           placeholder="Enter whatsapp number" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end card -->
-
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="card-title mb-0">Social Links</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3 d-flex">
-                                                    <div class="avatar-xs d-block flex-shrink-0 me-3">
-                                                <span class="avatar-title rounded-circle fs-16 bg-gradient text-light">
-                                                    <i class="ri-facebook-fill"></i>
-                                                </span>
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label for="email-number-input" class="form-label">Email Address</label>
+                                                        <input type="text" class="form-control" id="email-number-input" name="email"
+                                                               value="{{@$settings->email}}"
+                                                               placeholder="Enter email address" required/>
                                                     </div>
-                                                    <input type="url" class="form-control" id="fbUsername" name="facebook" value="{{@$settings->facebook}}" placeholder="Enter facebook profile link"/>
-                                                </div>
-                                                <div class="mb-3 d-flex">
-                                                    <div class="avatar-xs d-block flex-shrink-0 me-3">
-                                                <span class="avatar-title rounded-circle fs-16 bg-youtube">
-                                                    <i class="ri-youtube-fill"></i>
-                                                </span>
+
+                                                    <div>
+                                                        <label for="address-number-input" class="form-label">Company Address</label>
+                                                        <input type="text" class="form-control" id="address-number-input" name="address"
+                                                               value="{{@$settings->address}}"
+                                                               placeholder="Enter current location" />
                                                     </div>
-                                                    <input type="url" class="form-control" id="youtubeUsername" name="youtube" value="{{@$settings->youtube}}"  placeholder="Enter youtube link">
                                                 </div>
-                                                <div class="mb-3 d-flex">
-                                                    <div class="avatar-xs d-block flex-shrink-0 me-3">
-                                                <span class="avatar-title rounded-circle fs-16 bg-instagram">
-                                                    <i class="ri-instagram-fill"></i>
-                                                </span>
-                                                    </div>
-                                                    <input type="url" class="form-control" id="instaUsername" name="instagram" value="{{@$settings->instagram}}"  placeholder="Enter instagram profile link">
+                                                <!-- end card body -->
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-0">Contacts</h5>
                                                 </div>
-                                                <div class="d-flex">
-                                                    <div class="avatar-xs d-block flex-shrink-0 me-3">
-                                                <span class="avatar-title rounded-circle fs-16 bg-linkedin">
-                                                    <i class="ri-linkedin-fill"></i>
-                                                </span>
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label for="phone-number-input" class="form-label">Phone number</label>
+                                                        <input type="text" class="form-control" id="phone-number-input" name="phone"
+                                                               value="{{@$settings->phone}}"
+                                                               placeholder="Enter phone number" />
                                                     </div>
-                                                    <input type="url" class="form-control" id="linkedinUsername" name="linkedin" value="{{@$settings->linkedin}}"  placeholder="Enter linkedin profile link">
+
+                                                    <div>
+                                                        <label for="mobile-number-input" class="form-label">Mobile number</label>
+                                                        <input type="text" class="form-control" id="mobile-number-input" name="mobile"
+                                                               value="{{@$settings->mobile}}"
+                                                               placeholder="Enter mobile number" />
+                                                    </div>
+                                                </div>
+                                                <!-- end card body -->
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-0">Social Number</h5>
+                                                </div>
+                                                <!-- end card body -->
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label for="viber-number-input" class="form-label">Viber number</label>
+                                                        <input type="text" class="form-control" id="viber-number-input" name="viber"
+                                                               value="{{@$settings->viber}}"
+                                                               placeholder="Enter viber number" />
+                                                    </div>
+
+                                                    <div>
+                                                        <label for="whatsapp-number-input" class="form-label">Whatsapp number</label>
+                                                        <input type="text" class="form-control" id="whatsapp-number-input" name="whatsapp"
+                                                               value="{{@$settings->whatsapp}}"
+                                                               placeholder="Enter whatsapp number" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-0">Social Links</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-3 d-flex">
+                                                        <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                                    <span class="avatar-title rounded-circle fs-16 bg-gradient text-light">
+                                                        <i class="ri-facebook-fill"></i>
+                                                    </span>
+                                                        </div>
+                                                        <input type="url" class="form-control" id="fbUsername" name="facebook" value="{{@$settings->facebook}}" placeholder="Enter facebook profile link"/>
+                                                    </div>
+                                                    <div class="mb-3 d-flex">
+                                                        <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                                    <span class="avatar-title rounded-circle fs-16 bg-youtube">
+                                                        <i class="ri-youtube-fill"></i>
+                                                    </span>
+                                                        </div>
+                                                        <input type="url" class="form-control" id="youtubeUsername" name="youtube" value="{{@$settings->youtube}}"  placeholder="Enter youtube link">
+                                                    </div>
+                                                    <div class="mb-3 d-flex">
+                                                        <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                                    <span class="avatar-title rounded-circle fs-16 bg-instagram">
+                                                        <i class="ri-instagram-fill"></i>
+                                                    </span>
+                                                        </div>
+                                                        <input type="url" class="form-control" id="instaUsername" name="instagram" value="{{@$settings->instagram}}"  placeholder="Enter instagram profile link">
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                                    <span class="avatar-title rounded-circle fs-16 bg-linkedin">
+                                                        <i class="ri-linkedin-fill"></i>
+                                                    </span>
+                                                        </div>
+                                                        <input type="url" class="form-control" id="linkedinUsername" name="linkedin" value="{{@$settings->linkedin}}"  placeholder="Enter linkedin profile link">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -375,9 +371,12 @@
                 <!-- end col -->
             </div>
             <!-- end row -->
+
         </div>
         <!-- container-fluid -->
     </div>
+
+
 @endsection
 
 @section('js')
@@ -391,10 +390,12 @@
 
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
-    <!--Swiper slider js-->
-    <script src="{{asset('assets/backend/libs/swiper/swiper-bundle.min.js')}}"></script>
-
-    <!-- swiper.init js -->
     <script src="{{asset('assets/backend/js/pages/swiper.init.js')}}"></script>
+
+    <script src="{{asset('assets/backend/libs/glightbox/js/glightbox.min.js')}}"></script>
+<script>
+    var lightbox=GLightbox({selector:".popup-img",title:!1})
+</script>
+
 
 @endsection
