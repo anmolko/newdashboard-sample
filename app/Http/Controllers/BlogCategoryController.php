@@ -25,8 +25,7 @@ class BlogCategoryController extends Controller
     public function index()
     {
         $categories = BlogCategory::all();
-        $blogs      = Blog::all();
-        return view('backend.blog.category.index',compact('categories','blogs'));
+        return view('backend.blog.category.index',compact('categories'));
     }
 
     /**
@@ -47,28 +46,29 @@ class BlogCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category         =  BlogCategory::create([
-            'name'        => $request->input('name'),
-            'slug'        => $request->input('slug'),
-            'created_by'  => Auth::user()->id,
-        ]);
-        if($category){
-            Session::flash('success','Blog Category Created Successfully');
-        }
-        else{
-            Session::flash('error','Blog Category Creation Failed');
+
+        $slug  = BlogCategory::where('slug',$request->input('slug'))->first();
+        if ($slug !== null) {
+            $status ='slug duplicate';
+            return response()->json(['status'=>$status,'message'=>'This category title is already in use. Try something different.']);
+        }else{
+            $category         =  BlogCategory::create([
+                'name'        => $request->input('name'),
+                'slug'        => $request->input('slug'),
+                'created_by'  => Auth::user()->id,
+            ]);
+            if($category){
+                $category = BlogCategory::latest()->first();
+                $status ='success';
+                return response()->json(['status'=>$status,'message'=>'New blog category added to list.','category'=>$category]);
+            }
+            else{
+                $status ='error';
+                return response()->json(['status'=>$status,'message'=>'Could not create new blog category at the moment. Try Again later !']);
+            }
         }
 
-        if($category){
-            $status ='success';
-            return response()->json(['status'=>$status,'id'=>$id,'message'=>'New blog aategory added to list.']);
-        }
-        else{
-            $status ='error';
-            return response()->json(['status'=>$status,'id'=>$id,'message'=>'Could not create new blog category at the moment. Try Again later !']);
-        }
 
-        return redirect()->back();
     }
 
     /**
@@ -111,11 +111,11 @@ class BlogCategoryController extends Controller
 
         if($status){
             $status ='success';
-            return response()->json(['status'=>$status,'id'=>$id,'message'=>'Blog category has been updated.']);
+            return response()->json(['status'=>$status,'message'=>'Blog category has been updated.']);
         }
         else{
             $status ='error';
-            return response()->json(['status'=>$status,'id'=>$id,'message'=>'Something Went Wrong.Blog Category could not be Updated !']);
+            return response()->json(['status'=>$status,'message'=>'Something Went Wrong.Blog Category could not be Updated !']);
         }
         return redirect()->route('blogcategory.index');
     }
