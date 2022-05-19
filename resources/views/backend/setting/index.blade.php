@@ -254,7 +254,7 @@
                                     <!-- end col -->
 
                                     <div class="col-lg-4">
-                                        <div class="sticky-side-div-setting">
+                                        <div class="sticky-side-div">
                                             <div class="card">
                                                 <div class="card-header">
                                                     <h5 class="card-title mb-0">Address</h5>
@@ -390,12 +390,10 @@
 
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
-    <script src="{{asset('assets/backend/js/pages/swiper.init.js')}}"></script>
+    <script>
 
-    <script src="{{asset('assets/backend/libs/glightbox/js/glightbox.min.js')}}"></script>
-<script>
-    var lightbox=GLightbox({selector:".popup-img",title:!1})
-</script>
+        // console.log(sessionStorage.getItem("data-layout-mode"));
+    </script>
 
 
 @endsection
