@@ -17,7 +17,6 @@ class CreateBlogsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->longText('excerpt');
             $table->longText('description');
             $table->enum('status',['publish','draft']);
             $table->string('image')->nullable();

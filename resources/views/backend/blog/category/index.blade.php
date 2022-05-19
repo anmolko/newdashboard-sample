@@ -90,8 +90,8 @@
                                     @if(!empty($categories))
                                         @foreach($categories as  $category)
                                             <tr id="category-block-num-{{@$category->id}}">
-                                                <td>{{ ucwords(@$category->name) }}</td>
-                                                <td>{{ @$category->slug }}</td>
+                                                <td id="category-td-name-{{@$category->id}}">{{ ucwords(@$category->name) }}</td>
+                                                <td id="category-td-slug-{{@$category->id}}">{{ @$category->slug }}</td>
                                                 <td >
                                                     <div class="row">
                                                         
@@ -100,7 +100,7 @@
                                                                 <i class="ri-more-fill fs-17"></i>
                                                             </a>
                                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
-                                                                <li><a class="dropdown-item cs-category-edit" id="cs-role-category-edit-{{$category->id}}" cs-edit-route="{{route('blogcategory.edit',$category->id)}}"><i class="ri-pencil-fill me-2 align-middle"></i>Edit</a></li>
+                                                                <li><a class="dropdown-item cs-category-edit" id="cs-role-category-edit-{{$category->id}}" cs-update-route="{{route('blogcategory.update',$category->id)}}" cs-edit-route="{{route('blogcategory.edit',$category->id)}}"><i class="ri-pencil-fill me-2 align-middle"></i>Edit</a></li>
                                                                 <li><a class="dropdown-item cs-category-remove" cs-delete-route="{{route('blogcategory.destroy',$category->id)}}"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>
                                                             </ul>
                                                         </div>
@@ -128,6 +128,7 @@
     </div>
     <!-- container-fluid -->
 </div>
+    @include('backend.blog.category.modal.edit')
 
 
 @endsection
@@ -147,6 +148,14 @@
         Text = Text.replace(regExp,'-');
         $("#category-slug-input").val(Text);
     });
+    $("#update-name").keyup(function(){
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        var regExp = /\s+/g;
+        Text = Text.replace(regExp,'-');
+        $("#update-slug").val(Text);
+    });
+
     $(document).ready(function () {
         var dataTable = $('#blog-category-index').DataTable({
             paging: true,

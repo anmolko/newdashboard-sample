@@ -432,6 +432,26 @@
             showConfirmButton: !1
         });
         @endif
+        @if($errors->has('slug'))
+                var message ="{{ $errors->first('slug') }}";
+        Swal.fire({
+            imageUrl: "/assets/backend/images/canosoft-logo.png",
+            imageHeight: 60,
+            html: '<div class="mt-2">' +
+                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                'style="width:120px;height:120px"></lord-icon>' +
+                '<div class="mt-4 pt-2 fs-15">' +
+                '<h4>Oops...! </h4>' +
+                '<p class="text-muted mx-4 mb-0">' + message +
+                '</p>' +
+                '</div>' +
+                '</div>',
+            timerProgressBar: !0,
+            timer: 3000,
+            showConfirmButton: !1
+        });
+        @endif
         @if(Session::has('error'))
         var message ="{{ session('error') }}";
         // Toastify({ newWindow: !0, text: message, gravity: 'top', position: 'center', stopOnFocus: !0, duration: 3000, close: "close",className: "bg-success" }).showToast();

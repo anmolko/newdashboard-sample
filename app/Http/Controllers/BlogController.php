@@ -49,7 +49,6 @@ class BlogController extends Controller
         $data=[
             'title'             => $request->input('title'),
             'slug'              => $request->input('slug'),
-            'excerpt'           => $request->input('excerpt'),
             'description'       => $request->input('description'),
             'status'            => $request->input('status'),
             'blog_category_id'  => $request->input('blog_category_id'),
@@ -116,7 +115,6 @@ class BlogController extends Controller
         $blog                      =  Blog::find($id);
         $blog->title               =  $request->input('title');
         $blog->slug                =  $request->input('slug');
-        $blog->excerpt             =  $request->input('excerpt');
         $blog->description         =  $request->input('description');
         $blog->status              =  $request->input('status');
         $blog->blog_category_id    =  $request->input('blog_category_id');

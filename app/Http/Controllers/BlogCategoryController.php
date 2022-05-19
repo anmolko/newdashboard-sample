@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
@@ -101,21 +102,21 @@ class BlogCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogCategoryUpdateRequest $request, $id)
     {
         $category               = BlogCategory::find($id);
         $category->name         = $request->input('name');
         $category->slug         = $request->input('slug');
         $category->updated_by   = Auth::user()->id;
         $status                 = $category->update();
+        $new_name         =     $category->name;
+        $new_slug         =     $category->slug;
 
         if($status){
-            $status ='success';
-            return response()->json(['status'=>$status,'message'=>'Blog category has been updated.']);
+            Session::flash('success','Blog category has been updated');
         }
         else{
-            $status ='error';
-            return response()->json(['status'=>$status,'message'=>'Something Went Wrong.Blog Category could not be Updated !']);
+            Session::flash('error','Something Went Wrong.Blog Category could not be Updated');
         }
         return redirect()->route('blogcategory.index');
     }

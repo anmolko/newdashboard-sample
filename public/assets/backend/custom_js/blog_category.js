@@ -46,8 +46,8 @@ $('#blog-category-add-button').on('click', function(e) {
                 
 
                 var block = '<tr id="category-block-num-'+response.category.id+'">'+
-                   '<td>'+response.category.name+'<span class="badge bg-success ms-1">New</span></td>'+
-                   '<td>'+response.category.slug+'</td>'+
+                   '<td id="category-td-name-'+response.category.id+'">'+response.category.name+'<span class="badge bg-success ms-1">New</span></td>'+
+                   '<td id="category-td-slug-'+response.category.id+'">'+response.category.slug+'</td>'+
                    '<td>'+
                     '<div class="row">'+
                     '<div class="col text-center dropdown"> ' +
@@ -92,6 +92,34 @@ $('#blog-category-add-button').on('click', function(e) {
     });
 
 });
+
+
+$(document).on('click','.cs-category-edit', function (e) {
+    e.preventDefault();
+    // console.log(action)
+    var id=$(this).attr('id');
+    var action = $(this).attr('cs-update-route');
+    $.ajax({
+        url: $(this).attr('cs-edit-route'),
+        type: "GET",
+        cache: false,
+        dataType: 'json',
+        success: function(dataResult){
+            // $('#id').val(data.id);
+            $("#edit_blog_category").modal("toggle");
+            $('#update-name').attr('value',dataResult.name);
+            $('#update-slug').attr('value',dataResult.slug);
+            $('#category_id').attr('value',dataResult.id);
+            $('.updateblogcategory').attr('action',action);
+        },
+        error: function(error){
+            console.log(error)
+        }
+    });
+});
+
+
+
 
 $(document).on('click','.cs-category-remove', function (e) {
     e.preventDefault();
