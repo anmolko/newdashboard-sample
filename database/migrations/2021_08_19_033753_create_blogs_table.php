@@ -20,7 +20,6 @@ class CreateBlogsTable extends Migration
             $table->longText('description');
             $table->enum('status',['publish','draft']);
             $table->string('image')->nullable();
-            $table->string('thumb_image')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_tags')->nullable();
             $table->text('meta_description')->nullable();

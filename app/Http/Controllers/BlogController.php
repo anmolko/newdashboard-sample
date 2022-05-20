@@ -17,15 +17,22 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    private $blog_path;
+    private $blog_thumb_path;
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->blog_path   = public_path('/images/blog');
+        $this->blog_thumb_path   = public_path('/images/blog/thumb');
+
     }
 
 
     public function index()
     {
-        //
+        $blogs = Blog::all();
+        return view('backend.blog.index',compact('blogs'));
     }
 
     /**
@@ -35,7 +42,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        $categories = BlogCategory::orderBy('name', 'asc')->get();
+        return view('backend.blog.create',compact('categories'));
     }
 
     /**
@@ -51,6 +59,9 @@ class BlogController extends Controller
             'slug'              => $request->input('slug'),
             'description'       => $request->input('description'),
             'status'            => $request->input('status'),
+            'meta_title'        => $request->input('meta_title'),
+            'meta_tags'         => $request->input('meta_tags'),
+            'meta_description'  => $request->input('meta_description'),
             'blog_category_id'  => $request->input('blog_category_id'),
             'created_by'        => Auth::user()->id,
         ];
@@ -58,6 +69,14 @@ class BlogController extends Controller
         if(!empty($request->file('image'))){
             $image          = $request->file('image');
             $name           = uniqid().'_'.$image->getClientOriginalName();
+
+            if (!is_dir($this->blog_path)) {
+                mkdir($this->blog_path, 0777);
+            }
+            if (!is_dir($this->blog_thumb_path)) {
+                mkdir($this->blog_thumb_path, 0777);
+            }
+
             $thumb          = 'thumb_'.$name;
             $path           = base_path().'/public/images/blog/';
             $thumb_path     = base_path().'/public/images/blog/thumb/';
@@ -71,10 +90,10 @@ class BlogController extends Controller
 
         $blog = Blog::create($data);
         if($blog){
-            Session::flash('success','Your Post was Created Successfully');
+            Session::flash('success','Your blog was created successfully');
         }
         else{
-            Session::flash('error','Your Post Creation Failed');
+            Session::flash('error','Your Blog Creation Failed');
         }
        
         return redirect()->back();
@@ -117,6 +136,9 @@ class BlogController extends Controller
         $blog->slug                =  $request->input('slug');
         $blog->description         =  $request->input('description');
         $blog->status              =  $request->input('status');
+        $blog->meta_title          =  $request->input('meta_title');
+        $blog->meta_tags           =  $request->input('meta_tags');
+        $blog->meta_description    =  $request->input('meta_description');
         $blog->blog_category_id    =  $request->input('blog_category_id');
         $blog->updated_by          = Auth::user()->id;
 
@@ -163,17 +185,17 @@ class BlogController extends Controller
     {
         $deleteblog      = Blog::find($id);
         $blogid          = $deleteblog->id;
-        $menuitems       = MenuItem::where('blog_id',$blogid)->get();
-        $menuname        = [];
+        // $menuitems       = MenuItem::where('blog_id',$blogid)->get();
+        // $menuname        = [];
 
-        if(count($menuitems)>0){
-            foreach ($menuitems as $items){
-                $menu  = Menu::find($items->menu_id);
-                array_push($menuname,ucwords($menu->name));
-            }
-            $status = 'Warning';
-            return response(['status'=>$status,'message'=>'This blog is attached to menu(s). Please remove menu item first to delete this blog.','name'=>$menuname]);
-        }
+        // if(count($menuitems)>0){
+        //     foreach ($menuitems as $items){
+        //         $menu  = Menu::find($items->menu_id);
+        //         array_push($menuname,ucwords($menu->name));
+        //     }
+        //     $status = 'Warning';
+        //     return response(['status'=>$status,'message'=>'This blog is attached to menu(s). Please remove menu item first to delete this blog.','name'=>$menuname]);
+        // }
         $thumbimage      = "thumb_".$deleteblog->image;
         if (!empty($deleteblog->image) && file_exists(public_path().'/images/blog/'.$deleteblog->image)){
             @unlink(public_path().'/images/blog/'.$deleteblog->image);
@@ -181,20 +203,32 @@ class BlogController extends Controller
         if (!empty($thumbimage) && file_exists(public_path().'/images/blog/thumb/'.$thumbimage)){
             @unlink(public_path().'/images/blog/thumb/'.$thumbimage);
         }
-        $deleteblog->delete();
-        return '#blog';
+
+        $removeblog          = $deleteblog->delete();
+        if($removeblog){
+            $status ='success';
+            return response()->json(['status'=>$status,'message'=>'Your post has been removed! ','id'=>$blogid]);        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'Your post could not be removed. Try Again later !']);
+        }
     }
 
     public function updateStatus(Request $request, $id){
         $blog          = Blog::find($id);
         $blog->status  = $request->status;
         $status        = $blog->update();
+        $new_status  = ($blog->status == 'draft') ? "Draft":"Published";
+        $value  = ($user->status == 'draft') ? "publish":"draft";
         if($status){
-            $confirmed = "yes";
+            $status ='success';
+            return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value]);
         }
         else{
-            $confirmed = "no";
+            $status ='error';
+            return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value]);
         }
         return response()->json($confirmed);
+
     }
 }
