@@ -219,7 +219,7 @@ class BlogController extends Controller
         $blog->status  = $request->status;
         $status        = $blog->update();
         $new_status  = ($blog->status == 'draft') ? "Draft":"Published";
-        $value  = ($user->status == 'draft') ? "publish":"draft";
+        $value  = ($blog->status == 'draft') ? "publish":"draft";
         if($status){
             $status ='success';
             return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value]);
