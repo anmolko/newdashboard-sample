@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogCreateRequest;
+use App\Http\Requests\BlogUpdateRequest;
+
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
@@ -52,7 +55,7 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogCreateRequest $request)
     {
         $data=[
             'title'             => $request->input('title'),
@@ -119,7 +122,8 @@ class BlogController extends Controller
     public function edit($id)
     {
         $edit   = Blog::find($id);
-        return response()->json($edit);
+        $categories = BlogCategory::orderBy('name', 'asc')->get();
+        return view('backend.blog.edit',compact('edit','categories'));
     }
 
     /**
@@ -129,7 +133,7 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogUpdateRequest $request, $id)
     {
         $blog                      =  Blog::find($id);
         $blog->title               =  $request->input('title');
