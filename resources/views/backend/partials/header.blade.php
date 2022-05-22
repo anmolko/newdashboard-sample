@@ -87,16 +87,7 @@
                         <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
                             <div data-simplebar style="max-height: 320px;">
                                 <!-- item-->
-                                <div class="dropdown-header">
-                                    <h6 class="text-overflow text-muted mb-0 text-uppercase">Recent Searches</h6>
-                                </div>
-
-                                <div class="dropdown-item bg-transparent text-wrap">
-                                    <a href="#" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i
-                                            class="mdi mdi-magnify ms-1"></i></a>
-                                    <a href="#" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i
-                                            class="mdi mdi-magnify ms-1"></i></a>
-                                </div>
+                             
                                 <!-- item-->
                                 <div class="dropdown-header mt-2">
                                     <h6 class="text-overflow text-muted mb-1 text-uppercase">Pages</h6>
@@ -193,64 +184,7 @@
                         </div>
                     </div>
 
-                    <div class="dropdown ms-1 topbar-head-dropdown header-item">
-                        <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img id="header-lang-img" src="{{asset('assets/backend/images/flags/us.svg')}}" alt="Header Language" height="20"
-                                 class="rounded">
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end">
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="en"
-                               title="English">
-                                <img src="{{asset('assets/backend/images/flags/us.svg')}}" alt="user-image" class="me-2 rounded" height="18">
-                                <span class="align-middle">English</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp"
-                               title="Spanish">
-                                <img src="{{asset('assets/backend/images/flags/spain.svg')}}" alt="user-image" class="me-2 rounded" height="18">
-                                <span class="align-middle">Española</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr"
-                               title="German">
-                                <img src="{{asset('assets/backend/images/flags/germany.svg')}}" alt="user-image" class="me-2 rounded"
-                                     height="18"> <span class="align-middle">Deutsche</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it"
-                               title="Italian">
-                                <img src="{{asset('assets/backend/images/flags/italy.svg')}}" alt="user-image" class="me-2 rounded" height="18">
-                                <span class="align-middle">Italiana</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru"
-                               title="Russian">
-                                <img src="{{asset('assets/backend/images/flags/russia.svg')}}" alt="user-image" class="me-2 rounded" height="18">
-                                <span class="align-middle">русский</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ch"
-                               title="Chinese">
-                                <img src="{{asset('assets/backend/images/flags/china.svg')}}" alt="user-image" class="me-2 rounded" height="18">
-                                <span class="align-middle">中国人</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="fr"
-                               title="French">
-                                <img src="{{asset('assets/backend/images/flags/french.svg')}}" alt="user-image" class="me-2 rounded" height="18">
-                                <span class="align-middle">français</span>
-                            </a>
-                        </div>
-                    </div>
+             
 
                     <div class="dropdown topbar-head-dropdown ms-1 header-item">
                         <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
@@ -372,101 +306,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{asset('assets/backend/images/products/img-2.png')}}"
-                                                 class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
-                                            <div class="flex-1">
-                                                <h6 class="mt-0 mb-1 fs-14">
-                                                    <a href="#"
-                                                       class="text-reset">Bentwood Chair</a>
-                                                </h6>
-                                                <p class="mb-0 fs-12 text-muted">
-                                                    Quantity: <span>5 x $18</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2">
-                                                <h5 class="m-0 fw-normal">$<span class="cart-item-price">89</span></h5>
-                                            </div>
-                                            <div class="ps-2">
-                                                <button type="button"
-                                                        class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i
-                                                        class="ri-close-fill fs-16"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{asset('assets/backend/images/products/img-3.png')}}"
-                                                 class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
-                                            <div class="flex-1">
-                                                <h6 class="mt-0 mb-1 fs-14">
-                                                    <a href="#" class="text-reset">
-                                                        Borosil Paper Cup</a>
-                                                </h6>
-                                                <p class="mb-0 fs-12 text-muted">
-                                                    Quantity: <span>3 x $250</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2">
-                                                <h5 class="m-0 fw-normal">$<span class="cart-item-price">750</span></h5>
-                                            </div>
-                                            <div class="ps-2">
-                                                <button type="button"
-                                                        class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i
-                                                        class="ri-close-fill fs-16"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{asset('assets/backend/images/products/img-6.png')}}"
-                                                 class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
-                                            <div class="flex-1">
-                                                <h6 class="mt-0 mb-1 fs-14">
-                                                    <a href="#" class="text-reset">Gray
-                                                        Styled T-Shirt</a>
-                                                </h6>
-                                                <p class="mb-0 fs-12 text-muted">
-                                                    Quantity: <span>1 x $1250</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2">
-                                                <h5 class="m-0 fw-normal">$ <span class="cart-item-price">1250</span></h5>
-                                            </div>
-                                            <div class="ps-2">
-                                                <button type="button"
-                                                        class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i
-                                                        class="ri-close-fill fs-16"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-block dropdown-item dropdown-item-cart text-wrap px-3 py-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{asset('assets/backend/images/products/img-5.png')}}"
-                                                 class="me-3 rounded-circle avatar-sm p-2 bg-light" alt="user-pic">
-                                            <div class="flex-1">
-                                                <h6 class="mt-0 mb-1 fs-14">
-                                                    <a href="#"
-                                                       class="text-reset">Stillbird Helmet</a>
-                                                </h6>
-                                                <p class="mb-0 fs-12 text-muted">
-                                                    Quantity: <span>2 x $495</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2">
-                                                <h5 class="m-0 fw-normal">$<span class="cart-item-price">990</span></h5>
-                                            </div>
-                                            <div class="ps-2">
-                                                <button type="button"
-                                                        class="btn btn-icon btn-sm btn-ghost-secondary remove-item-btn"><i
-                                                        class="ri-close-fill fs-16"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                             <div class="p-3 border-bottom-0 border-start-0 border-end-0 border-dashed border"
