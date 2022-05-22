@@ -108,6 +108,15 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::get('/delete-menuitem/{id}/{key}/{in?}/{inside?}','App\Http\Controllers\MenuController@deleteMenuItem')->name('menu.deletemenuitem');
     Route::get('/delete-menu/{id}','App\Http\Controllers\MenuController@destroy')->name('menu.delete');
 
+    //End Blog
+
+    Route::get('/call-actions', 'App\Http\Controllers\CallActionController@index')->name('call-actions.index');
+    Route::get('/call-actions/create', 'App\Http\Controllers\CallActionController@create')->name('call-actions.create');
+    Route::post('/call-actions', 'App\Http\Controllers\CallActionController@store')->name('call-actions.store');
+    Route::put('/call-actions/{actions}', 'App\Http\Controllers\CallActionController@update')->name('call-actions.update');
+    Route::delete('/call-actions/{actions}', 'App\Http\Controllers\CallActionController@destroy')->name('call-actions.destroy');
+    Route::get('/call-actions/{actions}/edit', 'App\Http\Controllers\CallActionController@edit')->name('call-actions.edit');
+
 });
 
 

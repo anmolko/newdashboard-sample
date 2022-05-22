@@ -1,5 +1,5 @@
-$('#blog-category-add-button').on('click', function(e) {
-    var form            = $('#blog-category-add-form')[0]; //get the form using ID
+$('#call-action-add-button').on('click', function(e) {
+    var form            = $('#call-action-form')[0]; //get the form using ID
     if (!form.reportValidity()) { return false;}
     var formData        = new FormData(form); //Creates new FormData object
     var url             = $(this).attr("cs-create-route");
@@ -20,9 +20,9 @@ $('#blog-category-add-button').on('click', function(e) {
                 Toastify({ newWindow: !0, text: response.message, gravity: 'top', position: 'center', stopOnFocus: !0, duration: 3000, close: "close",className: "bg-warning",style: "style" == e.style ? { background: "linear-gradient(to right, #0AB39C, #405189)" } : "" }).showToast();
                 return;
             }
-           ;
-            var category_edit = '/auth/blog-category/'+response.category.id+'/edit';
-            var category_remove = '/auth/blog-category/'+response.category.id;
+            ;
+            var category_edit = '/auth/call-actions/'+response.call.id+'/edit';
+            var category_remove = '/auth/call-actions/'+response.call.id;
 
             if(response.status=='success') {
                 Swal.fire({
@@ -45,25 +45,27 @@ $('#blog-category-add-button').on('click', function(e) {
                 });
 
 
-                var block = '<tr id="category-block-num-'+response.category.id+'">'+
-                   '<td id="category-td-name-'+response.category.id+'">'+response.category.name+'<span class="badge bg-success ms-1">New</span></td>'+
-                   '<td id="category-td-slug-'+response.category.id+'">'+response.category.slug+'</td>'+
-                   '<td>'+
+                var block = '<tr id="call-action-num-'+response.call.id+'">'+
+                    '<td id="call-action-name-'+response.call.id+'">'+response.call.name+'<span class="badge bg-success ms-1">New</span></td>'+
+                    '<td id="call-action-title-'+response.call.id+'">'+response.call.title+'</td>'+
+                    '<td id="call-action-link-'+response.call.id+'">'+response.call.link+'</td>'+
+                    '<td>'+
                     '<div class="row">'+
                     '<div class="col text-center dropdown"> ' +
                     '<a href="javascript:void(0);" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false"> ' +
                     '<i class="ri-more-fill fs-17"></i> ' +
                     '</a> ' +
                     '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2"> ' +
-                    '<li><a class="dropdown-item cs-category-edit" id="cs-category-edit-'+response.category.id+'" cs-edit-route="'+category_edit+'"><i class="ri-pencil-fill me-2 align-middle"></i>Edit</a></li>' +
-                    '<li><a class="dropdown-item cs-category-remove" cs-delete-route="'+category_remove+'"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li> ' +
+                    '<li><a class="dropdown-item cs-call-edit" id="cs-call-edit-'+response.call.id+'" cs-edit-route="'+category_edit+'"><i class="ri-pencil-fill me-2 align-middle"></i>Edit</a></li>' +
+                    '<li><a class="dropdown-item cs-call-remove" cs-delete-route="'+category_remove+'"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li> ' +
                     '</ul>' +
                     '</div>' +
                     '</div>' +
                     '</td>'+
                     '</tr>';
+
                 $("td.dataTables_empty").remove();
-                $("#blog-category-list").prepend(block);
+                $("#call-action-list").prepend(block);
             }
             else{
                 Swal.fire({

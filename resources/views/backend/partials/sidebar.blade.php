@@ -598,6 +598,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link  @if(\Request::route()->getName() == 'call-actions.index') active @endif" href="{{route('call-actions.index')}}">
+                        <i class="ri-attachment-2"></i> <span data-key="t-forms">Call Action</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link @if(\Request::route()->getName() == 'blogcategory.index' || \Request::route()->getName() == 'blog.index' ) active @endif" href="#sidebarBlogs" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarBlogs">
                         <i class="ri-bold"></i> <span data-key="t-blog-mgmt">Blog Mgmt.</span>
