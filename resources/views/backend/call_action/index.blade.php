@@ -114,7 +114,7 @@
                                                                     <i class="ri-more-fill fs-17"></i>
                                                                 </a>
                                                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
-                                                                    <li><a class="dropdown-item cs-call-edit" id="cs-role-call-edit-{{$call->id}}" cs-update-route="{{route('call-actions.update',$call->id)}}" cs-edit-route="{{route('blogcategory.edit',$call->id)}}"><i class="ri-pencil-fill me-2 align-middle"></i>Edit</a></li>
+                                                                    <li><a class="dropdown-item cs-call-edit" id="cs-role-call-edit-{{$call->id}}" cs-update-route="{{route('call-actions.update',$call->id)}}" cs-edit-route="{{route('call-actions.edit',$call->id)}}"><i class="ri-pencil-fill me-2 align-middle"></i>Edit</a></li>
                                                                     <li><a class="dropdown-item cs-call-remove" cs-delete-route="{{route('call-actions.destroy',$call->id)}}"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>
                                                                 </ul>
                                                             </div>
@@ -142,7 +142,7 @@
         </div>
         <!-- container-fluid -->
     </div>
-{{--    @include('backend.blog.category.modal.edit')--}}
+    @include('backend.call_action.modal.edit')
 
 
 @endsection

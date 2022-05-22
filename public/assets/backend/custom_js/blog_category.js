@@ -154,7 +154,6 @@ $(document).on('click','.cs-category-remove', function (e) {
             ?
             $.post( url, form_data)
                 .done(function(response) {
-                    console.log(response);
                     if(response.status == "success") {
                         Swal.fire({
                             imageUrl: "/assets/backend/images/canosoft-logo.png",
@@ -176,6 +175,12 @@ $(document).on('click','.cs-category-remove', function (e) {
                         var category_block = '#category-block-num-'+response.id;
                         setTimeout(function() {
                             $(category_block).remove();
+                            if(response.count == 1){
+                                var block = '<tr class="odd">' +
+                                    '<td valign="top" colSpan="4" class="dataTables_empty">No data available in table </td> ' +
+                                    '</tr>';
+                                $("#blog-category-list").prepend(block);
+                            }
                         }, 3800);
                     }else{
                         Swal.fire({

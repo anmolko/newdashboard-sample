@@ -97,7 +97,7 @@ $('#call-action-add-button').on('click', function(e) {
 });
 
 
-$(document).on('click','.cs-category-edit', function (e) {
+$(document).on('click','.cs-call-edit', function (e) {
     e.preventDefault();
     // console.log(action)
     var id=$(this).attr('id');
@@ -109,11 +109,19 @@ $(document).on('click','.cs-category-edit', function (e) {
         dataType: 'json',
         success: function(dataResult){
             // $('#id').val(data.id);
-            $("#edit_blog_category").modal("toggle");
-            $('#update-name').attr('value',dataResult.name);
-            $('#update-slug').attr('value',dataResult.slug);
-            $('#category_id').attr('value',dataResult.id);
-            $('.updateblogcategory').attr('action',action);
+            $("#edit_call_action").modal("toggle");
+            if(dataResult.name !== null){
+                $('#update-name').attr('value',dataResult.name);
+            }
+            $('#update-title').attr('value',dataResult.title);
+            if(dataResult.button !== null){
+                $('#update-button').attr('value',dataResult.button);
+            }
+            if(dataResult.link !== null){
+                $('#update-link').attr('value',dataResult.link);
+            }
+            $('#call_action_id').attr('value',dataResult.id);
+            $('.updatecallaction').attr('action',action);
         },
         error: function(error){
             console.log(error)
@@ -122,9 +130,7 @@ $(document).on('click','.cs-category-edit', function (e) {
 });
 
 
-
-
-$(document).on('click','.cs-category-remove', function (e) {
+$(document).on('click','.cs-call-remove', function (e) {
     e.preventDefault();
     var form = $('#deleted-form');
     var action = $(this).attr('cs-delete-route');
@@ -175,9 +181,16 @@ $(document).on('click','.cs-category-remove', function (e) {
                             showConfirmButton: !1
                         });
 
-                        var category_block = '#category-block-num-'+response.id;
+                        var  call_block = '#call-action-num-'+ response.id;
                         setTimeout(function() {
-                            $(category_block).remove();
+                            $(call_block).remove();
+
+                            if(response.count == 1){
+                                var block = '<tr class="odd">' +
+                                    '<td valign="top" colSpan="4" class="dataTables_empty">No data available in table </td> ' +
+                                    '</tr>';
+                                $("#call-action-list").prepend(block);
+                            }
                         }, 3800);
                     }else{
                         Swal.fire({
@@ -206,7 +219,7 @@ $(document).on('click','.cs-category-remove', function (e) {
             t.dismiss === Swal.DismissReason.cancel &&
             Swal.fire({
                 title: "Cancelled",
-                text: "Blog category was not removed.",
+                text: "Call Action was not removed.",
                 icon: "error",
                 confirmButtonClass: "btn btn-primary mt-2",
                 buttonsStyling: !1

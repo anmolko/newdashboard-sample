@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CallAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CallActionController extends Controller
 {
@@ -81,7 +82,8 @@ class CallActionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit    = CallAction::find($id);
+        return response()->json($edit);
     }
 
     /**
@@ -93,7 +95,21 @@ class CallActionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $call               = CallAction::find($id);
+        $call->name         = $request->input('name');
+        $call->title        = $request->input('title');
+        $call->button       = $request->input('button');
+        $call->link         = $request->input('link');
+        $call->updated_by   = Auth::user()->id;
+        $status             = $call->update();
+
+        if($status){
+            Session::flash('success','Call Action has been updated');
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Call Action could not be Updated');
+        }
+        return redirect()->back();
     }
 
     /**
@@ -104,6 +120,17 @@ class CallActionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete       = CallAction::find($id);
+        $rid          = $delete->id;
+        $check        = $delete->services()->get();
+        $count        = $delete->count();
+        if ($check->count() > 0) {
+            $status ='error';
+            return response()->json(['status'=>$status,'id'=>$rid,'count'=>$count,'message'=>'Call Action is currently in use with different services. Try removing them first !']);
+        }else{
+            $delete->delete();
+            $status ='success';
+            return response()->json(['status'=>$status,'count'=>$count,'id'=>$rid,'message'=>'Call Action was removed!']);
+        }
     }
 }

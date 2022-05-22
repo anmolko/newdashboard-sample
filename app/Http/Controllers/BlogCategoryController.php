@@ -129,17 +129,19 @@ class BlogCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $deletecategory  = BlogCategory::find($id);
-        $rid             = $deletecategory->id;
-        $checkblog       = $deletecategory->blogs()->get();
+        $delete          = BlogCategory::find($id);
+        $rid             = $delete->id;
+        $checkblog       = $delete->blogs()->get();
+        $count           = $delete->count();
+
         if ($checkblog->count() > 0) {
             $status ='error';
-            return response()->json(['status'=>$status,'id'=>$rid,'message'=>'Blog Category info could not be removed at the moment. Try Again later !']);
+            return response()->json(['status'=>$status,'id'=>$rid,'count'=>$count,'message'=>'Blog Category is currently in use with different blogs. Try removing them first !']);
         }else{
-            $deletecategory->delete();
+            $delete->delete();
             $status ='success';
-            return response()->json(['status'=>$status,'id'=>$rid,'message'=>'Blog category info was removed!']);
-               
+            return response()->json(['status'=>$status,'id'=>$rid,'count'=>$count,'message'=>'Blog category info was removed!']);
+
         }
     }
 }
