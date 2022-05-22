@@ -534,6 +534,13 @@
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarAdvanceUI">
                         <ul class="nav nav-sm flex-column">
+
+                            <li class="nav-item">
+                                <a class="nav-link menu-link  @if(\Request::route()->getName() == 'menu.index') active @endif" href="{{route('menu.index')}}">
+                                    <span data-key="t-forms">Menu</span>
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a href="#" class="nav-link" data-key="t-sweet-alerts">Sweet
                                     Alerts</a>

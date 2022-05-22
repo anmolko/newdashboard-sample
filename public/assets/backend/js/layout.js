@@ -16,6 +16,7 @@
             e["data-layout-style"] = sessionStorage.getItem("data-layout-style"),
             e["data-topbar"] = sessionStorage.getItem("data-topbar"),
             Object.keys(e).forEach(function(t) { e[t] && e[t] && document.documentElement.setAttribute(t, e[t]) })))
-    console.log(sessionStorage.getItem("data-layout-mode"));
-
+            // $('#theme-settings-offcanvas').css('visibility','hidden');
+            // $('#theme-settings-offcanvas').removeClass('show');
+            // $('.offcanvas-backdrop').removeClass('show');
 }();

@@ -96,6 +96,18 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::put('/dashboard-settings/{settings}', 'App\Http\Controllers\SettingController@update')->name('settings.update');
     Route::delete('/dashboard-settings/{settings}', 'App\Http\Controllers\SettingController@destroy')->name('settings.destroy');
     Route::get('/dashboard-settings/{settings}/edit', 'App\Http\Controllers\SettingController@edit')->name('settings.edit');
+
+    //for menu
+    Route::get('/manage-menus/{slug?}', 'App\Http\Controllers\MenuController@index')->name('menu.index');
+    Route::post('/create-menu', 'App\Http\Controllers\MenuController@store')->name('menu.store');
+    Route::get('/add-pages-to-menu','App\Http\Controllers\MenuController@addPage')->name('menu.page');
+    Route::get('add-post-to-menu','App\Http\Controllers\MenuController@addPost')->name('menu.post');
+    Route::get('add-custom-link','App\Http\Controllers\MenuController@addCustomLink')->name('menu.custom');
+    Route::get('/update-menu','App\Http\Controllers\MenuController@updateMenu')->name('menu.updateMenu');
+    Route::post('/update-menuitem/{id}','App\Http\Controllers\MenuController@updateMenuItem')->name('menu.updatemenuitem');
+    Route::get('/delete-menuitem/{id}/{key}/{in?}/{inside?}','App\Http\Controllers\MenuController@deleteMenuItem')->name('menu.deletemenuitem');
+    Route::get('/delete-menu/{id}','App\Http\Controllers\MenuController@destroy')->name('menu.delete');
+
 });
 
 
