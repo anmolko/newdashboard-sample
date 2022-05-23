@@ -61,10 +61,6 @@
                     </a>
                 </li>
 
-
-
-
-
                 <li class="nav-item">
                     <a class="nav-link menu-link  @if(\Request::route()->getName() == 'call-actions.index') active @endif" href="{{route('call-actions.index')}}">
                         <i class="ri-attachment-2"></i> <span data-key="t-forms">Call Action</span>
