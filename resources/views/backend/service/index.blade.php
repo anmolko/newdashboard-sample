@@ -58,7 +58,7 @@
                                     <table id="service-index" class="table align-middle table-nowrap table-striped">
                                         <thead class="table-light">
                                         <tr>
-                                            <th>Feature Image</th>
+                                            <th>Banner Image</th>
                                             <th>Title</th>
                                             <th>Slug</th>
                                             <th>Call action in use</th>
@@ -70,7 +70,7 @@
                                             @foreach($services as  $service)
                                                 <tr id="service-individual-{{@$service->id}}">
                                                     <td >
-                                                        <img src="{{asset('/images/service/'.@$service->feature_image)}}" alt="{{@$blog->feature_image}}" class="figure-img rounded avatar-lg">
+                                                        <img src="{{asset('/images/service/'.@$service->banner_image)}}" alt="{{@$blog->title}}" class="figure-img rounded avatar-lg">
                                                     </td>
                                                     <td >
                                                         {{ ucwords(@$service->title) }}

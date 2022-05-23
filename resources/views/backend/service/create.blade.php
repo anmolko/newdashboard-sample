@@ -59,12 +59,6 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="service-sub-description-input">Sub Title</label>
-                                <input type="text" class="form-control" id="service-sub-description-input" name="sub_description"
-                                       placeholder="Enter service sub title">
-                            </div>
-
-                            <div class="mb-3">
                                 <label class="form-label">Service Description</label>
                                 <textarea class="form-control" id="ckeditor-classic" name="description" placeholder="Enter service description" rows="4" required></textarea>
                             </div>
@@ -149,27 +143,17 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Feature Image</h5>
+                            <h5 class="card-title mb-0">Add on</h5>
                         </div>
                         <div class="card-body">
                             <div>
-                                <img id="current-feature-img"  src="{{asset('images/default-image.jpg')}}" class="position-relative img-fluid img-thumbnail blog-feature-image">
-                                <input  type="file" accept="image/png, image/jpeg" hidden
-                                        id="profile-feature-img-file-input" onchange="loadbasicFile('profile-feature-img-file-input','current-feature-img',event)" name="feature_image" required
-                                        class="profile-feature-img-file-input">
+                                <label for="sub-title-status-input" class="form-label">Sub Description</label>
+                                <textarea class="form-control" id="sub-title-status-input" placeholder="Enter sub description" name="sub_description" rows="4"></textarea>
 
-                                <figcaption class="figure-caption">Banner image for current service.</figcaption>
-                                <div class="invalid-feedback" >
-                                    Please select a image.
-                                </div>
-                                <label for="profile-feature-img-file-input" class="profile-photo-edit btn btn-light feature-image-button">
-                                    <i class="ri-image-edit-line align-bottom me-1"></i> Add Feature Image
-                                </label>
                             </div>
                         </div>
                         <!-- end card body -->
                     </div>
-                    <!-- end card -->
 
                     <div class="card">
                         <div class="card-header">
