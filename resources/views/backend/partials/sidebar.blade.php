@@ -42,7 +42,7 @@
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Components</span></li>
 
-                
+
                 <li class="nav-item">
                     <a class="nav-link menu-link  @if(\Request::route()->getName() == 'menu.index') active @endif" href="{{route('menu.index')}}">
                     <i class="ri-stack-line"></i> <span data-key="t-forms">Menu</span>
@@ -55,10 +55,16 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link menu-link @if(\Request::route()->getName() == 'services.index') active @endif" href="{{route('services.index')}}">
+                        <i class="ri-customer-service-2-line"></i> <span data-key="t-widgets">Services</span>
+                    </a>
+                </li>
 
-          
-              
-               
+
+
+
+
                 <li class="nav-item">
                     <a class="nav-link menu-link  @if(\Request::route()->getName() == 'call-actions.index') active @endif" href="{{route('call-actions.index')}}">
                         <i class="ri-attachment-2"></i> <span data-key="t-forms">Call Action</span>
