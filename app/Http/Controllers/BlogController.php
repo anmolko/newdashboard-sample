@@ -83,7 +83,7 @@ class BlogController extends Controller
             $thumb          = 'thumb_'.$name;
             $path           = base_path().'/public/images/blog/';
             $thumb_path     = base_path().'/public/images/blog/thumb/';
-            $moved          = Image::make($image->getRealPath())->resize(1280, 720)->orientate()->save($path.$name);
+            $moved          = Image::make($image->getRealPath())->fit(800, 700)->orientate()->save($path.$name);
             $thumb          = Image::make($image->getRealPath())->resize(80, 80)->orientate()->save($thumb_path.$thumb);
 
             if ($moved && $thumb){
@@ -155,7 +155,7 @@ class BlogController extends Controller
             $thumb       = 'thumb_'.$name1;
             $path        = base_path().'/public/images/blog/';
             $thumb_path  = base_path().'/public/images/blog/thumb/';
-            $moved       = Image::make($image->getRealPath())->resize(1280, 720)->orientate()->save($path.$name1);
+            $moved       = Image::make($image->getRealPath())->resize(800, 700)->orientate()->save($path.$name1);
             $thumb       = Image::make($image->getRealPath())->resize(80, 80)->orientate()->save($thumb_path.$thumb);
 
             if ($moved && $thumb){

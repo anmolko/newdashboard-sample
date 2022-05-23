@@ -17,7 +17,7 @@
 								<img class="footer-logo mb-25" src="{{asset('assets/frontend/images/logo-01.png')}}" alt="footer-logo">
 
 								<!-- Text -->	
-								<p class="p-md">@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft - Let's make IT happen @endif 
+								<p class="p-md">@if(!empty(@$setting_data->website_description)) {!! ucfirst(@$setting_data->website_description) !!} @else Canosoft - Let's make IT happen @endif 
 								</p>
 
 							</div>	
