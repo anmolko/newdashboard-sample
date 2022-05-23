@@ -19,7 +19,7 @@
 
     <div class="page-content">
         <div class="container-fluid" style="position:relative;">
-        
+
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
@@ -63,12 +63,12 @@
                                     </div>
                                 <div class="mb-3">
                                     <label>Blog Description</label>
-                                    
+
                                     <textarea class="form-control" id="ckeditor-classic" name="description" placeholder="Enter blog description" rows="3" required>{{@$edit->description}}</textarea>
                                     <div class="invalid-tooltip">
                                         Please enter the post description.
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                                     </select>
                                 </div>
 
-                            
+
                             </div>
                             <!-- end card body -->
                         </div>
@@ -177,11 +177,11 @@
                             </div>
                             <div class="card-body">
                                 <div>
-                                    <img  id="current-img"  src="{{ ($edit->image !== null) ? asset('images/blog/'.$edit->image) :  asset('images/default-image.jpg'); }}"  class="position-relative img-fluid img-thumbnail blog-feature-image" >
+                                    <img  id="current-img"  src="{{ ($edit->image !== null) ? asset('images/blog/'.$edit->image) :  asset('images/default-image.jpg') }}"  class="position-relative img-fluid img-thumbnail blog-feature-image" >
                                     <input  type="file" accept="image/png, image/jpeg" hidden
-                                        id="profile-foreground-img-file-input" onchange="loadFile(event)" name="image" 
+                                        id="profile-foreground-img-file-input" onchange="loadFile(event)" name="image"
                                        class="profile-foreground-img-file-input" >
-                                      
+
                                     <figcaption class="figure-caption">*use image minimum of 800 x 700px</figcaption>
                                     <div class="invalid-feedback" >
                                             Please select a image.

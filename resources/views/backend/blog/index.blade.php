@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{asset('assets/backend/custom_css/datatable_style.css')}}">
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <style>
-      
+
 
     </style>
 @endsection
@@ -32,14 +32,14 @@
         <!-- end page title -->
 
         <div class="row">
-         
+
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header">
                             <div class="row g-4">
                                 <div class="col-sm-auto">
                                     <h4 class="card-title mb-0">Blog List</h4>
-                                    
+
                                 </div>
                                 <div class="col-sm">
                                     <div class="d-flex justify-content-sm-end">
@@ -53,7 +53,7 @@
                     <div class="card-body">
 
                         <div class="row" >
-                       
+
                             <div class="table-responsive  mt-3 mb-1">
                                 <table id="blog-index" class="table align-middle table-nowrap table-striped">
                                     <thead class="table-light">
@@ -70,7 +70,7 @@
                                             @foreach($blogs as  $blog)
                                                 <tr id="blog-individual-{{@$blog->id}}">
                                                     <td >
-                                                        <img src="{{asset('/images/blog/'.@$blog->image)}}" alt="{{@$blog->slug}}" class="figure-img rounded-circle avatar-lg">    
+                                                        <img src="{{asset('/images/blog/'.@$blog->image)}}" alt="{{@$blog->slug}}" class="figure-img rounded-circle avatar-lg">
                                                     </td>
                                                     <td >
                                                     {{ ucwords(@$blog->title) }}
@@ -92,7 +92,7 @@
                                                     </td>
                                                     <td >
                                                         <div class="row">
-                                                            
+
                                                             <div class="col text-center dropdown">
                                                                 <a href="javascript:void(0);" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <i class="ri-more-fill fs-17"></i>
@@ -137,17 +137,5 @@
 <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
 <script src="{{asset('assets/backend/custom_js/blog.js')}}"></script>
-<script type="text/javascript">
-    
-    $(document).ready(function () {
-        var dataTable = $('#blog-index').DataTable({
-            paging: true,
-            searching: true,
-            ordering:  true,
-            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-        });
-
-    });
-</script>
 
 @endsection

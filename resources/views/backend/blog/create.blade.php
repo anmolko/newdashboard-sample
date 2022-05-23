@@ -3,8 +3,7 @@
 @section('css')
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <style>
-            .blog-feature-image{
-            }
+
             .feature-image-button{
                 position: absolute;
                 top: 25%;
@@ -19,7 +18,7 @@
 
     <div class="page-content">
         <div class="container-fluid" style="position:relative;">
-        
+
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
@@ -63,12 +62,12 @@
                                     </div>
                                 <div class="mb-3">
                                     <label>Blog Description</label>
-                                    
+
                                     <textarea class="form-control" id="ckeditor-classic" name="description" placeholder="Enter blog description" rows="3" required></textarea>
                                     <div class="invalid-tooltip">
                                         Please enter the post description.
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -148,7 +147,7 @@
                                     </select>
                                 </div>
 
-                            
+
                             </div>
                             <!-- end card body -->
                         </div>
@@ -181,7 +180,7 @@
                                     <input  type="file" accept="image/png, image/jpeg" hidden
                                         id="profile-foreground-img-file-input" onchange="loadFile(event)" name="image" required
                                        class="profile-foreground-img-file-input" >
-                                      
+
                                     <figcaption class="figure-caption">*use image minimum of 800 x 700px </figcaption>
                                     <div class="invalid-feedback" >
                                             Please select a image.
