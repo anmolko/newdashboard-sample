@@ -48,9 +48,10 @@ class OurWorkCategoryController extends Controller
                 'created_by'  => Auth::user()->id,
             ]);
             if($category){
-                $category = OurWorkCategory::latest()->first();
+                $category    = OurWorkCategory::latest()->first();
+                $allcategory = OurWorkCategory::all();
                 $status ='success';
-                return response()->json(['status'=>$status,'message'=>'New work category added to list.','category'=>$category]);
+                return response()->json(['status'=>$status,'message'=>'New work category added to list.','category'=>$category,'allcategory'=>$allcategory]);
             }
             else{
                 $status ='error';

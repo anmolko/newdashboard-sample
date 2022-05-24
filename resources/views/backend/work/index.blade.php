@@ -6,7 +6,13 @@
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 
     <style>
-
+        .feature-image-button{
+            position: absolute;
+            top: 15%;
+        }
+        .profile-foreground-img-file-input {
+            display: none;
+        }
 
     </style>
 @endsection
@@ -60,231 +66,60 @@
                             </div>
                             {!! Form::close() !!}
                         </div>
-                    </div><!--end card-->
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="mb-4">
-                                <select class="form-control" name="choices-single-default" data-choices data-choices-search-false>
-                                    <option value="">Select Task board</option>
-                                    <option value="Unassigned">Unassigned</option>
-                                    <option value="To Do">To Do</option>
-                                    <option value="Inprogress">Inprogress</option>
-                                    <option value="In Reviews" selected>In Reviews</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </div>
-                            <div class="table-card">
-                                <table class="table mb-0">
-                                    <tbody>
-                                    <tr>
-                                        <td class="fw-medium">Tasks No</td>
-                                        <td>#VLZ456</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium">Tasks Title</td>
-                                        <td>Profile Page Satructure</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium">Project Name</td>
-                                        <td>Velzon - Admin Dashboard</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium">Priority</td>
-                                        <td><span class="badge badge-soft-danger">High</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium">Status</td>
-                                        <td><span class="badge badge-soft-secondary">Inprogress</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-medium">Due Date</td>
-                                        <td>05 Jan, 2022</td>
-                                    </tr>
-                                    </tbody>
-                                </table><!--end table-->
-                            </div>
-                        </div>
-                    </div><!--end card-->
+                    </div>
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex mb-3">
-                                <h6 class="card-title mb-0 flex-grow-1">Assigned To</h6>
-                                <div class="flex-shrink-0">
-                                    <button type="button" class="btn btn-soft-danger btn-sm" data-bs-toggle="modal" data-bs-target="#inviteMembersModal"><i class="ri-share-line me-1 align-bottom"></i> Assigned Member</button>
+                                <h6 class="card-title mb-0 flex-grow-1">Add Work</h6>
+                            </div>
+                            {!! Form::open(['route' => 'our-work.store','method'=>'post','id' => 'work-add-form','class'=>'needs-validation','novalidate'=>'','enctype'=>'multipart/form-data']) !!}
+                            <div class="mb-3">
+                                <label class="form-label" for="work-title-input">Title</label>
+                                <input type="text" name="name" class="form-control" id="work-title-input" placeholder="Enter work title" required>
+                                <div class="invalid-feedback">
+                                    Please enter the work title.
                                 </div>
                             </div>
-                            <ul class="list-unstyled vstack gap-3 mb-0">
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/avatar-10.jpg" alt="" class="avatar-xs rounded-circle">
-                                        </div>
-                                        <div class="flex-grow-1 ms-2">
-                                            <h6 class="mb-1"><a href="pages-profile.html">Tonya Noble</a></h6>
-                                            <p class="text-muted mb-0">Full Stack Developer</p>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                                            <div class="dropdown">
-                                                <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="ri-more-fill"></i>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/avatar-8.jpg" alt="" class="avatar-xs rounded-circle">
-                                        </div>
-                                        <div class="flex-grow-1 ms-2">
-                                            <h6 class="mb-1"><a href="pages-profile.html">Thomas Taylor</a></h6>
-                                            <p class="text-muted mb-0">UI/UX Designer</p>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                                            <div class="dropdown">
-                                                <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="ri-more-fill"></i>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/avatar-2.jpg" alt="" class="avatar-xs rounded-circle">
-                                        </div>
-                                        <div class="flex-grow-1 ms-2">
-                                            <h6 class="mb-1"><a href="pages-profile.html">Nancy Martino</a></h6>
-                                            <p class="text-muted mb-0">Web Designer</p>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                                            <div class="dropdown">
-                                                <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="ri-more-fill"></i>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div><!--end card-->
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mb-3">Attachments</h5>
-                            <div class="vstack gap-2">
-                                <div class="border rounded border-dashed p-2">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0 me-3">
-                                            <div class="avatar-sm">
-                                                <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                    <i class="ri-folder-zip-line"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 overflow-hidden">
-                                            <h5 class="fs-13 mb-1"><a href="javascript:void(0);" class="text-body text-truncate d-block">App pages.zip</a></h5>
-                                            <div>2.2MB</div>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <div class="d-flex gap-1">
-                                                <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="ri-more-fill"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Rename</a></li>
-                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="border rounded border-dashed p-2">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0 me-3">
-                                            <div class="avatar-sm">
-                                                <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                    <i class="ri-file-ppt-2-line"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 overflow-hidden">
-                                            <h5 class="fs-13 mb-1"><a href="javascript:void(0);" class="text-body text-truncate d-block">Velzon admin.ppt</a></h5>
-                                            <div>2.4MB</div>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <div class="d-flex gap-1">
-                                                <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="ri-more-fill"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Rename</a></li>
-                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="border rounded border-dashed p-2">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0 me-3">
-                                            <div class="avatar-sm">
-                                                <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                    <i class="ri-folder-zip-line"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 overflow-hidden">
-                                            <h5 class="fs-13 mb-1"><a href="javascript:void(0);" class="text-body text-truncate d-block">Images.zip</a></h5>
-                                            <div>1.2MB</div>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <div class="d-flex gap-1">
-                                                <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="ri-more-fill"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Rename</a></li>
-                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-2 text-center">
-                                    <button type="button" class="btn btn-success">View more</button>
+                            <div class="mb-3">
+                                <label for="choices-work-category-input" class="form-label">Status</label>
+                                <select class="form-select" id="choices-work-category-input" name="work_category_id">
+                                    <option value selected disabled>Select work category</option>
+                                    @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select the work category.
                                 </div>
                             </div>
+
+                            <label class="form-label">Image</label>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <img  id="current-work-img"  src="{{asset('images/default-image.jpg')}}" class="position-relative img-fluid img-thumbnail blog-feature-image" >
+                                        <input  type="file" accept="image/png, image/jpeg" hidden
+                                                id="work-foreground-img-file-input" onchange="loadbasicFile('work-foreground-img-file-input','current-work-img',event)" name="banner_image" required
+                                                class="work-foreground-img-file-input" >
+
+                                        <figcaption class="figure-caption">Select your related work image.</figcaption>
+                                        <div class="invalid-feedback" >
+                                            Please select a image.
+                                        </div>
+                                        <label for="work-foreground-img-file-input" class="profile-photo-edit btn btn-light feature-image-button">
+                                            <i class="ri-image-edit-line align-bottom me-1"></i> Add Work Image
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hstack gap-2 justify-content-center">
+                                <button type="submit" class="btn btn-success btn-sm" id="work-submit"><i class="ri-play-circle-line align-bottom me-1"></i> Save</button>
+                            </div>
+                            {!! Form::close() !!}
                         </div>
-                    </div><!--end card-->
+                    </div>
                 </div><!---end col-->
                 <div class="col-xxl-9">
                     <div class="card">

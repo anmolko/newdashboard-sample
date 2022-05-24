@@ -22,7 +22,7 @@ class OurWorkController extends Controller
     public function index()
     {
         $works      = OurWork::all();
-        $categories = OurWorkCategory::all();
+        $categories = OurWorkCategory::orderBy('id','DESC')->get();
         return view('backend.work.index',compact('works','categories'));
     }
 
