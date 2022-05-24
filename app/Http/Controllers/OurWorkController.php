@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\OurWork;
 use App\Models\OurWorkCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class OurWorkController extends Controller
 {
@@ -21,7 +24,7 @@ class OurWorkController extends Controller
 
     public function index()
     {
-        $works      = OurWork::all();
+        $works      = OurWork::with('category')->get();
         $categories = OurWorkCategory::orderBy('id','DESC')->get();
         return view('backend.work.index',compact('works','categories'));
     }
@@ -44,7 +47,37 @@ class OurWorkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $data=[
+            'title'             => $request->input('title'),
+            'work_category_id'  => $request->input('work_category_id'),
+            'created_by'        => Auth::user()->id,
+        ];
+
+        if(!empty($request->file('image'))){
+            $image          = $request->file('image');
+            $name           = uniqid().'_feature_'.$image->getClientOriginalName();
+            $work_path      = public_path('/images/work');
+
+            if (!is_dir($work_path)) {
+                mkdir($work_path, 0777);
+            }
+            $path           = base_path().'/public/images/work/';
+            $moved          = Image::make($image->getRealPath())->orientate()->save($path.$name);
+
+            if ($moved){
+                $data['image']=$name;
+            }
+        }
+        $service = OurWork::create($data);
+        if($service){
+            Session::flash('success','Work was created successfully !');
+        }
+        else{
+            Session::flash('error','Work could not be created at the moment !');
+        }
+
+        return redirect()->route('our-work.index');
     }
 
     /**

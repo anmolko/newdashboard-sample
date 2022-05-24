@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{asset('assets/backend/css/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/custom_css/datatable_style.css')}}">
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
-
+    <link rel="stylesheet" href="{{asset('assets/backend/libs/glightbox/css/glightbox.min.css')}}" />
     <style>
         .feature-image-button{
             position: absolute;
@@ -12,6 +12,18 @@
         }
         .profile-foreground-img-file-input {
             display: none;
+        }
+
+        .glightbox-clean .gdesc-inner {
+            padding: 0px 0px 0px 0px;
+        }
+
+        .glightbox-clean .gslide-title {
+            color: #fff;
+        }
+
+        .glightbox-clean .gslide-description {
+            background: transparent;
         }
 
     </style>
@@ -75,7 +87,7 @@
                             {!! Form::open(['route' => 'our-work.store','method'=>'post','id' => 'work-add-form','class'=>'needs-validation','novalidate'=>'','enctype'=>'multipart/form-data']) !!}
                             <div class="mb-3">
                                 <label class="form-label" for="work-title-input">Title</label>
-                                <input type="text" name="name" class="form-control" id="work-title-input" placeholder="Enter work title" required>
+                                <input type="text" name="title" class="form-control" id="work-title-input" placeholder="Enter work title" required>
                                 <div class="invalid-feedback">
                                     Please enter the work title.
                                 </div>
@@ -100,7 +112,7 @@
                                     <div>
                                         <img  id="current-work-img"  src="{{asset('images/default-image.jpg')}}" class="position-relative img-fluid img-thumbnail blog-feature-image" >
                                         <input  type="file" accept="image/png, image/jpeg" hidden
-                                                id="work-foreground-img-file-input" onchange="loadbasicFile('work-foreground-img-file-input','current-work-img',event)" name="banner_image" required
+                                                id="work-foreground-img-file-input" onchange="loadbasicFile('work-foreground-img-file-input','current-work-img',event)" name="image" required
                                                 class="work-foreground-img-file-input" >
 
                                         <figcaption class="figure-caption">Select your related work image.</figcaption>
@@ -179,17 +191,7 @@
                                 <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" data-bs-toggle="tab" href="#home-1" role="tab">
-                                            Comments (5)
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#messages-1" role="tab">
-                                            Attachments File (4)
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#profile-1" role="tab">
-                                            Time Entries (9 hrs 13 min)
+                                            Work ({{count($works)}})
                                         </a>
                                     </li>
                                 </ul><!--end nav-->
@@ -198,275 +200,89 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home-1" role="tabpanel">
-                                    <h5 class="card-title mb-4">Comments</h5>
-                                    <div data-simplebar style="height: 508px;" class="px-3 mx-n3 mb-2">
-                                        <div class="d-flex mb-4">
-                                            <div class="flex-shrink-0">
-                                                <img src="assets/images/users/avatar-7.jpg" alt="" class="avatar-xs rounded-circle" />
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h5 class="fs-13"><a href="pages-profile.html">Joseph Parker</a> <small class="text-muted">20 Dec 2021 - 05:47AM</small></h5>
-                                                <p class="text-muted">I am getting message from customers that when they place order always get error message .</p>
-                                                <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                <div class="d-flex mt-4">
-                                                    <div class="flex-shrink-0">
-                                                        <img src="assets/images/users/avatar-10.jpg" alt="" class="avatar-xs rounded-circle" />
+
+
+                                    @if(count($works)>0)
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="text-center">
+                                                                <ul class="list-inline categories-filter animation-nav" id="filter">
+                                                                    <li class="list-inline-item"><a class="categories active" data-filter="*">All</a></li>
+                                                                    @foreach($works as $work)
+                                                                        <li class="list-inline-item"><a class="categories" data-filter=".{{$work->category->name}}">{{ ucwords($work->category->name) }}</a></li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+
+                                                            <div class="row gallery-wrapper">
+
+                                                                @foreach($works as $work)
+                                                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 {{$work->category->name}}" data-category="{{$work->category->name}}">
+                                                                    <div class="gallery-box card">
+                                                                        <div class="gallery-container">
+                                                                            <a class="image-popup" href="{{asset('images/work/'.$work->image)}}" title="{{$work->title}}">
+                                                                                <img class="gallery-img img-fluid mx-auto" src="{{asset('images/work/'.$work->image)}}" alt="" />
+                                                                                <div class="gallery-overlay">
+                                                                                    <h5 class="overlay-caption">{{$work->title}}</h5>
+                                                                                </div>
+                                                                            </a>
+
+                                                                        </div>
+
+                                                                        <div class="box-content">
+                                                                            <div class="d-flex align-items-center mt-1">
+                                                                                <div class="flex-shrink-0">
+                                                                                    <div class="d-flex gap-3">
+                                                                                        <button type="button" class="btn btn-sm fs-12 btn-link text-body text-decoration-none px-0">
+                                                                                            <i class="ri-edit-2-fill text-muted align-bottom me-1"></i> Edit
+                                                                                        </button>
+                                                                                        <button type="button" class="btn btn-sm fs-12 btn-link text-body text-decoration-none px-0">
+                                                                                            <i class=" ri-delete-bin-2-fill text-muted align-bottom me-1"></i> Delete
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @endforeach
+
+                                                            </div>
+                                                            <!-- end row -->
+                                                        </div>
                                                     </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h5 class="fs-13"><a href="pages-profile.html">Tonya Noble</a> <small class="text-muted">22 Dec 2021 - 02:32PM</small></h5>
-                                                        <p class="text-muted">Please be sure to check your Spam mailbox to see if your email filters have identified the email from Dell as spam.</p>
-                                                        <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                    </div>
+                                                    <!-- end row -->
                                                 </div>
+                                                <!-- ene card body -->
                                             </div>
+                                            <!-- end card -->
                                         </div>
-                                        <div class="d-flex mb-4">
-                                            <div class="flex-shrink-0">
-                                                <img src="assets/images/users/avatar-8.jpg" alt="" class="avatar-xs rounded-circle" />
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h5 class="fs-13"><a href="pages-profile.html">Thomas Taylor</a> <small class="text-muted">24 Dec 2021 - 05:20PM</small></h5>
-                                                <p class="text-muted">If you have further questions, please contact Customer Support from the “Action Menu” on your <a href="javascript:void(0);" class="text-decoration-underline">Online Order Support</a>.</p>
-                                                <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0">
-                                                <img src="assets/images/users/avatar-10.jpg" alt="" class="avatar-xs rounded-circle" />
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h5 class="fs-13"><a href="pages-profile.html">Tonya Noble</a> <small class="text-muted">26 min ago</small></h5>
-                                                <p class="text-muted">Your <a href="javascript:void(0)" class="text-decoration-underline">Online Order Support</a> provides you with the most current status of your order. To help manage your order refer to the “Action Menu” to initiate return, contact Customer Support and more.</p>
-                                                <div class="row g-2 mb-3">
-                                                    <div class="col-lg-1 col-sm-2 col-6">
-                                                        <img src="assets/images/small/img-4.jpg" alt="" class="img-fluid rounded">
-                                                    </div>
-                                                    <div class="col-lg-1 col-sm-2 col-6">
-                                                        <img src="assets/images/small/img-5.jpg" alt="" class="img-fluid rounded">
-                                                    </div>
-                                                </div>
-                                                <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                <div class="d-flex mt-4">
-                                                    <div class="flex-shrink-0">
-                                                        <img src="assets/images/users/avatar-6.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h5 class="fs-13"><a href="pages-profile.html">Nancy Martino</a> <small class="text-muted">8 sec ago</small></h5>
-                                                        <p class="text-muted">Other shipping methods are available at checkout if you want your purchase delivered faster.</p>
-                                                        <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <!-- end col -->
                                     </div>
-                                    <form class="mt-4">
-                                        <div class="row g-3">
-                                            <div class="col-lg-12">
-                                                <label for="exampleFormControlTextarea1" class="form-label">Leave a Comments</label>
-                                                <textarea class="form-control bg-light border-light" id="exampleFormControlTextarea1" rows="3" placeholder="Enter comments"></textarea>
-                                            </div><!--end col-->
-                                            <div class="col-12 text-end">
-                                                <button type="button" class="btn btn-ghost-secondary btn-icon waves-effect me-1"><i class="ri-attachment-line fs-16"></i></button>
-                                                <a href="javascript:void(0);" class="btn btn-success">Post Comments</a>
+                                    @else
+                                        <form class="mt-4">
+                                            <div class="row g-3">
+                                                <div class="col-lg-12">
+                                                    <label for="exampleFormControlTextarea1" class="form-label">There is no available work added currently for display.</label>
+                                                </div>
                                             </div>
-                                        </div><!--end row-->
-                                    </form>
+                                        </form>
+                                    @endif
+
+
+
+
+
+
+
+
+
                                 </div><!--end tab-pane-->
-                                <div class="tab-pane" id="messages-1" role="tabpanel">
-                                    <div class="table-responsive table-card">
-                                        <table class="table table-borderless align-middle mb-0">
-                                            <thead class="table-light text-muted">
-                                            <tr>
-                                                <th scope="col">File Name</th>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Size</th>
-                                                <th scope="col">Upload Date</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-soft-primary text-primary rounded fs-20">
-                                                                <i class="ri-file-zip-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0)">App pages.zip</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>Zip File</td>
-                                                <td>2.22 MB</td>
-                                                <td>21 Dec, 2021</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="ri-equalizer-fill"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink1" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 23px);">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-soft-danger text-danger rounded fs-20">
-                                                                <i class="ri-file-pdf-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);">Velzon admin.ppt</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>PPT File</td>
-                                                <td>2.24 MB</td>
-                                                <td>25 Dec, 2021</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="ri-equalizer-fill"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 23px);">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-soft-info text-info rounded fs-20">
-                                                                <i class="ri-folder-line"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);">Images.zip</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>ZIP File</td>
-                                                <td>1.02 MB</td>
-                                                <td>28 Dec, 2021</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="ri-equalizer-fill"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink3" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 23px);">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle"></i>Download</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-soft-danger text-danger rounded fs-20">
-                                                                <i class="ri-image-2-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);">Bg-pattern.png</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>PNG File</td>
-                                                <td>879 KB</td>
-                                                <td>02 Nov 2021</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink4" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="ri-equalizer-fill"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink4" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 23px);">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle"></i>Download</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table><!--end table-->
-                                    </div>
-                                </div><!--end tab-pane-->
-                                <div class="tab-pane" id="profile-1" role="tabpanel">
-                                    <h6 class="card-title mb-4 pb-2">Time Entries</h6>
-                                    <div class="table-responsive table-card">
-                                        <table class="table align-middle mb-0">
-                                            <thead class="table-light text-muted">
-                                            <tr>
-                                                <th scope="col">Member</th>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Duration</th>
-                                                <th scope="col">Timer Idle</th>
-                                                <th scope="col">Tasks Title</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/avatar-8.jpg" alt="" class="rounded-circle avatar-xxs">
-                                                        <div class="flex-grow-1 ms-2">
-                                                            <a href="pages-profile.html" class="fw-medium">Thomas Taylor</a>
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                                <td>02 Jan, 2022</td>
-                                                <td>3 hrs 12 min</td>
-                                                <td>05 min</td>
-                                                <td>Apps Pages</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/avatar-10.jpg" alt="" class="rounded-circle avatar-xxs">
-                                                        <div class="flex-grow-1 ms-2">
-                                                            <a href="pages-profile.html" class="fw-medium">Tonya Noble</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>28 Dec, 2021</td>
-                                                <td>1 hrs 35 min</td>
-                                                <td>-</td>
-                                                <td>Profile Page Design</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="assets/images/users/avatar-10.jpg" alt="" class="rounded-circle avatar-xxs">
-                                                        <div class="flex-grow-1 ms-2">
-                                                            <a href="pages-profile.html" class="fw-medium">Tonya Noble</a>
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                                <td>27 Dec, 2021</td>
-                                                <td>4 hrs 26 min</td>
-                                                <td>03 min</td>
-                                                <td>Ecommerce Dashboard</td>
-                                            </tr>
-                                            </tbody>
-                                        </table><!--end table-->
-                                    </div>
-                                </div><!--edn tab-pane-->
+
 
                             </div><!--end tab-content-->
                         </div>
@@ -487,6 +303,15 @@
     <script src="{{asset('assets/backend/js/pages/form-validation.init.js')}}"></script>
     <!-- Sweet Alerts js -->
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+
+    <!-- glightbox js -->
+    <script src="{{asset('assets/backend/libs/glightbox/js/glightbox.min.js')}}"></script>
+
+    <!-- isotope-layout -->
+    <script src="{{asset('assets/backend/libs/isotope-layout/isotope.pkgd.min.js')}}"></script>
+
+    <script src="{{asset('assets/backend/js/pages/gallery.init.js')}}"></script>
+
     <script src="{{asset('assets/backend/custom_js/work.js')}}"></script>
 
 @endsection
