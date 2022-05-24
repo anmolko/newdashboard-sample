@@ -213,7 +213,7 @@
                                                                 <ul class="list-inline categories-filter animation-nav" id="filter">
                                                                     <li class="list-inline-item"><a class="categories active" data-filter="*">All</a></li>
                                                                     @foreach($works as $work)
-                                                                        <li class="list-inline-item"><a class="categories" data-filter=".{{$work->category->name}}">{{ ucwords($work->category->name) }}</a></li>
+                                                                        <li class="list-inline-item"><a class="categories" data-filter=".{{str_replace(' ','-',$work->category->name)}}">{{ ucwords($work->category->name) }}</a></li>
                                                                     @endforeach
                                                                 </ul>
                                                             </div>
@@ -221,7 +221,7 @@
                                                             <div class="row gallery-wrapper">
 
                                                                 @foreach($works as $work)
-                                                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 {{$work->category->name}}" data-category="{{$work->category->name}}">
+                                                                <div class="element-item col-xxl-3 col-xl-4 col-sm-6 {{str_replace(' ','-',$work->category->name)}}" data-category="{{str_replace(' ','-',$work->category->name)}}">
                                                                     <div class="gallery-box card">
                                                                         <div class="gallery-container">
                                                                             <a class="image-popup" href="{{asset('images/work/'.$work->image)}}" title="{{$work->title}}">
@@ -237,10 +237,12 @@
                                                                             <div class="d-flex align-items-center mt-1">
                                                                                 <div class="flex-shrink-0">
                                                                                     <div class="d-flex gap-3">
-                                                                                        <button type="button" class="btn btn-sm fs-12 btn-link text-body text-decoration-none px-0">
+                                                                                        <a href="#"
+                                                                                                cs-update-route="{{route('our-work.update',$work->id)}}" cs-edit-route="{{route('our-work.edit',$work->id)}}"
+                                                                                                class="btn btn-sm fs-12 btn-link text-body text-decoration-none px-0 cs-work-edit">
                                                                                             <i class="ri-edit-2-fill text-muted align-bottom me-1"></i> Edit
-                                                                                        </button>
-                                                                                        <button type="button" class="btn btn-sm fs-12 btn-link text-body text-decoration-none px-0">
+                                                                                        </a>
+                                                                                        <button type="button" cs-delete-route="{{route('our-work.destroy',$work->id)}}" class="btn btn-sm fs-12 btn-link text-body text-decoration-none px-0 cs-work-remove">
                                                                                             <i class=" ri-delete-bin-2-fill text-muted align-bottom me-1"></i> Delete
                                                                                         </button>
                                                                                     </div>
@@ -295,6 +297,7 @@
 
     @include('backend.work.modal.category-edit')
 
+    @include('backend.work.modal.work-edit')
 
 @endsection
 
@@ -313,5 +316,32 @@
     <script src="{{asset('assets/backend/js/pages/gallery.init.js')}}"></script>
 
     <script src="{{asset('assets/backend/custom_js/work.js')}}"></script>
+
+    <script>
+
+        $(document).on('click','.cs-work-edit', function (e) {
+            e.preventDefault();
+            var action = $(this).attr('cs-update-route');
+            $.ajax({
+                url: $(this).attr('cs-edit-route'),
+                type: "GET",
+                cache: false,
+                dataType: 'json',
+                success: function(dataResult){
+                    $("#edit_work").modal("toggle");
+                    $('#work-title-update').attr('value',dataResult.title);
+                    $('#category-id-update option[value="'+dataResult.work_category_id+'"]').prop('selected', true);
+                    $('#current-work-edit').attr("src",'/images/work/'+dataResult.image );
+
+                    $('.updatework').attr('action',action);
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        });
+
+
+    </script>
 
 @endsection

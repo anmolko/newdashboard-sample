@@ -56,7 +56,7 @@ class OurWorkController extends Controller
 
         if(!empty($request->file('image'))){
             $image          = $request->file('image');
-            $name           = uniqid().'_feature_'.$image->getClientOriginalName();
+            $name           = uniqid().'_works_'.$image->getClientOriginalName();
             $work_path      = public_path('/images/work');
 
             if (!is_dir($work_path)) {
@@ -99,7 +99,8 @@ class OurWorkController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit      = OurWork::find($id);
+        return response()->json($edit);
     }
 
     /**
@@ -111,7 +112,33 @@ class OurWorkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $work                         = OurWork::find($id);
+        $work->title                  = $request->input('title');
+        $work->work_category_id       = $request->input('work_category_id');
+        $oldimage                     = $work->image;
+        $path                         = base_path().'/public/images/work/';
+
+        if (!empty($request->file('image'))){
+            $image       = $request->file('image');
+            $name1       = uniqid().'_works_'.$image->getClientOriginalName();
+            $moved       = Image::make($image->getRealPath())->orientate()->save($path.$name1);
+
+            if ($moved){
+                $work->image= $name1;
+                if (!empty($oldimage) && file_exists(public_path().'/images/work/'.$oldimage)){
+                    @unlink(public_path().'/images/work/'.$oldimage);
+                }
+            }
+        }
+
+        $status = $work->update();
+        if($status){
+            Session::flash('success','Work was updated successfully !');
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Work could not be updated at the moment !');
+        }
+        return redirect()->back();
     }
 
     /**
