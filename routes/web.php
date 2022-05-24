@@ -124,6 +124,22 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::delete('/services/{service}', 'App\Http\Controllers\ServiceController@destroy')->name('services.destroy');
     Route::get('/services/{service}/edit', 'App\Http\Controllers\ServiceController@edit')->name('services.edit');
 
+    //our work
+    Route::get('/our-work', 'App\Http\Controllers\OurWorkController@index')->name('our-work.index');
+    Route::get('/our-work/create', 'App\Http\Controllers\OurWorkController@create')->name('our-work.create');
+    Route::post('/our-work', 'App\Http\Controllers\OurWorkController@store')->name('our-work.store');
+    Route::put('/our-work/{work}', 'App\Http\Controllers\OurWorkController@update')->name('our-work.update');
+    Route::delete('/our-work/{work}', 'App\Http\Controllers\OurWorkController@destroy')->name('our-work.destroy');
+    Route::get('/our-work/{work}/edit', 'App\Http\Controllers\OurWorkController@edit')->name('our-work.edit');
+
+    //work category
+    Route::get('/work-category', 'App\Http\Controllers\OurWorkCategoryController@index')->name('work-category.index');
+    Route::get('/work-category/create', 'App\Http\Controllers\OurWorkCategoryController@create')->name('work-category.create');
+    Route::post('/work-category', 'App\Http\Controllers\OurWorkCategoryController@store')->name('work-category.store');
+    Route::put('/work-category/{category}', 'App\Http\Controllers\OurWorkCategoryController@update')->name('work-category.update');
+    Route::delete('/work-category/{category}', 'App\Http\Controllers\OurWorkCategoryController@destroy')->name('work-category.destroy');
+    Route::get('/work-category/{category}/edit', 'App\Http\Controllers\OurWorkCategoryController@edit')->name('work-category.edit');
+
 });
 
 

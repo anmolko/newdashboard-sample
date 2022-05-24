@@ -22,6 +22,7 @@ $('#blog-category-add-button').on('click', function(e) {
             }
            ;
             var category_edit = '/auth/blog-category/'+response.category.id+'/edit';
+            var category_update = '/auth/blog-category/'+response.category.id;
             var category_remove = '/auth/blog-category/'+response.category.id;
 
             if(response.status=='success') {
@@ -55,7 +56,7 @@ $('#blog-category-add-button').on('click', function(e) {
                     '<i class="ri-more-fill fs-17"></i> ' +
                     '</a> ' +
                     '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2"> ' +
-                    '<li><a class="dropdown-item cs-category-edit" id="cs-category-edit-'+response.category.id+'" cs-edit-route="'+category_edit+'"><i class="ri-pencil-fill me-2 align-middle"></i>Edit</a></li>' +
+                    '<li><a class="dropdown-item cs-category-edit" id="cs-category-edit-'+response.category.id+'" cs-update-route="'+category_update+'" cs-edit-route="'+category_edit+'"><i class="ri-pencil-fill me-2 align-middle"></i>Edit</a></li>' +
                     '<li><a class="dropdown-item cs-category-remove" cs-delete-route="'+category_remove+'"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li> ' +
                     '</ul>' +
                     '</div>' +
@@ -98,7 +99,7 @@ $('#blog-category-add-button').on('click', function(e) {
 $(document).on('click','.cs-category-edit', function (e) {
     e.preventDefault();
     // console.log(action)
-    var id=$(this).attr('id');
+    var id= $(this).attr('id');
     var action = $(this).attr('cs-update-route');
     $.ajax({
         url: $(this).attr('cs-edit-route'),
@@ -181,7 +182,7 @@ $(document).on('click','.cs-category-remove', function (e) {
                                     '</tr>';
                                 $("#blog-category-list").prepend(block);
                             }
-                        }, 3800);
+                        }, 3000);
                     }else{
                         Swal.fire({
                             imageUrl: "/assets/backend/images/canosoft-logo.png",

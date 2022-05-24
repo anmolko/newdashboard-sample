@@ -14,13 +14,14 @@
                                 <input type="hidden" class="form-control" name="categoryid" id="category_id" />
 
                                 <label for="name" class="form-label">Category Title <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="name" id="update-name" required>
+                                <input type="text" class="form-control" name="name" id="update-name"
+                                       onclick="slugMaker('update-name','update-slug')" required>
                                 <div class="invalid-feedback">
                                     Please enter the category title.
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-12">
                             <div class="mb-3">
                                 <label for="slug" class="form-label">Slug <span class="text-danger">*</span></label>
@@ -30,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <div class="col-lg-12">
                             <div class="hstack gap-2 justify-content-end">
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>

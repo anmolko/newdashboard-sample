@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{asset('assets/backend/custom_css/datatable_style.css')}}">
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <style>
-      
+
 
     </style>
 @endsection
@@ -39,7 +39,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="category-title-input">Category Title</label>
                                 <input type="text" name="name" class="form-control" id="category-title-input"
-                                    placeholder="Enter category title" required>
+                                       onclick="slugMaker('category-title-input','category-slug-input')"
+                                       placeholder="Enter category title" required>
                                     <div class="invalid-feedback">
                                         Please enter the category title.
                                     </div>
@@ -52,7 +53,7 @@
                                         Please enter the category slug.
                                     </div>
                             </div>
-                          
+
                         </div>
                     </div>
                     <!-- end card -->
@@ -76,7 +77,7 @@
                     <div class="card-body">
 
                         <div class="row" >
-                       
+
                             <div class="table-responsive  mt-3 mb-1">
                                 <table id="blog-category-index" class="table align-middle table-nowrap table-striped">
                                     <thead class="table-light">
@@ -94,7 +95,7 @@
                                                 <td id="category-td-slug-{{@$category->id}}">{{ @$category->slug }}</td>
                                                 <td >
                                                     <div class="row">
-                                                        
+
                                                         <div class="col text-center dropdown">
                                                             <a href="javascript:void(0);" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
                                                                 <i class="ri-more-fill fs-17"></i>
@@ -141,20 +142,16 @@
 
 <script src="{{asset('assets/backend/custom_js/blog_category.js')}}"></script>
 <script type="text/javascript">
-    $("#category-title-input").keyup(function(){
-        var Text = $(this).val();
-        Text = Text.toLowerCase();
-        var regExp = /\s+/g;
-        Text = Text.replace(regExp,'-');
-        $("#category-slug-input").val(Text);
-    });
-    $("#update-name").keyup(function(){
-        var Text = $(this).val();
-        Text = Text.toLowerCase();
-        var regExp = /\s+/g;
-        Text = Text.replace(regExp,'-');
-        $("#update-slug").val(Text);
-    });
+
+    function slugMaker(title, slug){
+        $("#"+ title).keyup(function(){
+            var Text = $(this).val();
+            Text = Text.toLowerCase();
+            var regExp = /\s+/g;
+            Text = Text.replace(regExp,'-');
+            $("#"+slug).val(Text);
+        });
+    }
 
     $(document).ready(function () {
         var dataTable = $('#blog-category-index').DataTable({

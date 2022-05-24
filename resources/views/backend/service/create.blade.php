@@ -48,7 +48,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label" for="service-title-input"> Title</label>
-                                <input type="text" class="form-control" id="service-title-input" name="title"  onclick="slugMaker('service-title-input','service-slug-input')"
+                                <input type="text" class="form-control" id="service-title-input" name="title" onclick="slugMaker('service-title-input','service-slug-input')"
                                        placeholder="Enter service title" required>
                             </div>
 
@@ -200,24 +200,6 @@
 
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
-    <script>
-        var loadbasicFile = function(id1,id2,event) {
-            var image       = document.getElementById(id1);
-            var replacement = document.getElementById(id2);
-            replacement.src = URL.createObjectURL(event.target.files[0]);
-        };
-
-        function slugMaker(title, slug){
-            $("#"+ title).keyup(function(){
-                var Text = $(this).val();
-                Text = Text.toLowerCase();
-                var regExp = /\s+/g;
-                Text = Text.replace(regExp,'-');
-                $("#"+slug).val(Text);
-            });
-        }
-
-    </script>
-
+    <script src="{{asset('assets/backend/custom_js/servicecredit.js')}}"></script>
 
 @endsection

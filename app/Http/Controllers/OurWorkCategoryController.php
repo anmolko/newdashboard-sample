@@ -2,31 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BlogCategoryUpdateRequest;
-use App\Models\Blog;
-use App\Models\BlogCategory;
+use App\Models\OurWorkCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class BlogCategoryController extends Controller
+class OurWorkCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-
     public function index()
     {
-        $categories = BlogCategory::all();
-        return view('backend.blog.category.index',compact('categories'));
+        //
     }
 
     /**
@@ -47,29 +37,26 @@ class BlogCategoryController extends Controller
      */
     public function store(Request $request)
     {
-
-        $slug  = BlogCategory::where('slug',$request->input('slug'))->first();
+        $slug  = OurWorkCategory::where('slug',$request->input('slug'))->first();
         if ($slug !== null) {
             $status ='slug duplicate';
             return response()->json(['status'=>$status,'message'=>'This category title is already in use. Try something different.']);
         }else{
-            $category         =  BlogCategory::create([
+            $category         =  OurWorkCategory::create([
                 'name'        => $request->input('name'),
                 'slug'        => $request->input('slug'),
                 'created_by'  => Auth::user()->id,
             ]);
             if($category){
-                $category = BlogCategory::latest()->first();
+                $category = OurWorkCategory::latest()->first();
                 $status ='success';
-                return response()->json(['status'=>$status,'message'=>'New blog category added to list.','category'=>$category]);
+                return response()->json(['status'=>$status,'message'=>'New work category added to list.','category'=>$category]);
             }
             else{
                 $status ='error';
-                return response()->json(['status'=>$status,'message'=>'Could not create new blog category at the moment. Try Again later !']);
+                return response()->json(['status'=>$status,'message'=>'Could not create work category at the moment. Try Again later !']);
             }
         }
-
-
     }
 
     /**
@@ -91,8 +78,8 @@ class BlogCategoryController extends Controller
      */
     public function edit($id)
     {
-        $editcategory     = BlogCategory::find($id);
-        return response()->json($editcategory);
+        $edit     = OurWorkCategory::find($id);
+        return response()->json($edit);
     }
 
     /**
@@ -102,21 +89,21 @@ class BlogCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BlogCategoryUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $category               = BlogCategory::find($id);
+        $category               = OurWorkCategory::find($id);
         $category->name         = $request->input('name');
         $category->slug         = $request->input('slug');
         $category->updated_by   = Auth::user()->id;
         $status                 = $category->update();
 
         if($status){
-            Session::flash('success','Blog category has been updated');
+            Session::flash('success','Work category has been updated');
         }
         else{
-            Session::flash('error','Something Went Wrong.Blog Category could not be Updated');
+            Session::flash('error','Something Went Wrong. Work Category could not be Updated');
         }
-        return redirect()->route('blogcategory.index');
+        return redirect()->back();
     }
 
     /**
@@ -127,18 +114,18 @@ class BlogCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $delete          = BlogCategory::find($id);
+        $delete          = OurWorkCategory::find($id);
         $rid             = $delete->id;
-        $checkblog       = $delete->blogs()->get();
+        $check           = $delete->works()->get();
         $count           = $delete->count();
 
-        if ($checkblog->count() > 0) {
+        if ($check->count() > 0) {
             $status ='error';
-            return response()->json(['status'=>$status,'id'=>$rid,'count'=>$count,'message'=>'Blog Category is currently in use with different blogs. Try removing them first !']);
+            return response()->json(['status'=>$status,'id'=>$rid,'count'=>$count,'message'=>'Work Category is currently in use with different work section. Try removing them first !']);
         }else{
             $delete->delete();
             $status ='success';
-            return response()->json(['status'=>$status,'id'=>$rid,'count'=>$count,'message'=>'Blog category info was removed!']);
+            return response()->json(['status'=>$status,'id'=>$rid,'count'=>$count,'message'=>'Work category info was removed!']);
 
         }
     }
