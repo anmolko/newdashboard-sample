@@ -149,6 +149,11 @@ class OurWorkController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete          = OurWork::find($id);
+        $rid             = $delete->id;
+        $delete->delete();
+        $status ='success';
+        return response()->json(['status'=>$status,'id'=>$rid,'message'=>'Work and its details was removed!']);
+
     }
 }
