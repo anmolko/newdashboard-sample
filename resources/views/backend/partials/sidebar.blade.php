@@ -60,6 +60,11 @@
                         <i class="ri-customer-service-2-line"></i> <span data-key="t-widgets">Services</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link @if(\Request::route()->getName() == 'our-work.index') active @endif" href="{{route('our-work.index')}}">
+                        <i class="ri-todo-line"></i> <span data-key="t-widgets">Our Work</span>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link  @if(\Request::route()->getName() == 'call-actions.index') active @endif" href="{{route('call-actions.index')}}">
