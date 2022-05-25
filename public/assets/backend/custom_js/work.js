@@ -1,5 +1,7 @@
+var dataTable;
 $(document).ready(function () {
-    var dataTable = $('#work-category-index').DataTable({
+
+     dataTable = $('#work-category-index').DataTable({
         paging: true,
         searching: true,
         ordering:  false,
@@ -89,10 +91,14 @@ $('#work-category-submit').on('click', function(e) {
                 $('#choices-work-category-input').append('<option value selected disabled>Select work category</option>');
                 $.each(response.allcategory, function(index, item) {
                     $('#choices-work-category-input').append($('<option>', {
-                        value: index.id,
+                        value: item.id,
                         text : item.name
                     }));
                 });
+                $('#category-id-update').append($('<option>', {
+                    value: response.category.id,
+                    text : response.category.name
+                }));
             }
             else{
                 Swal.fire({
@@ -192,19 +198,9 @@ $(document).on('click','.cs-category-remove', function (e) {
                             timer: 2e3,
                             showConfirmButton: !1
                         });
-
                         var category_block = '#category-block-num-'+response.id;
-                        $("#choices-work-category-input option[value='"+response.id+"']").each(function() {
-                            $(this).remove();
-                        });
                         setTimeout(function() {
-                            $(category_block).remove();
-                            if(response.count == 1){
-                                var block = '<tr class="odd">' +
-                                    '<td valign="top" colSpan="4" class="dataTables_empty">No data available in table </td> ' +
-                                    '</tr>';
-                                $("#work-category-list").prepend(block);
-                            }
+                            location.reload();
                         }, 3000);
                     }else{
                         Swal.fire({

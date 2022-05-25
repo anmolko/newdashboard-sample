@@ -49,9 +49,8 @@ class OurWorkCategoryController extends Controller
             ]);
             if($category){
                 $category    = OurWorkCategory::latest()->first();
-                $allcategory = OurWorkCategory::all();
                 $status ='success';
-                return response()->json(['status'=>$status,'message'=>'New work category added to list.','category'=>$category,'allcategory'=>$allcategory]);
+                return response()->json(['status'=>$status,'message'=>'New work category added to list.','category'=>$category]);
             }
             else{
                 $status ='error';
