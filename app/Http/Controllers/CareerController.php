@@ -25,8 +25,9 @@ class CareerController extends Controller
     public function index()
     {
         $careers_active    = Career::where('status','active')->get();
+        $careers           = Career::all();
         $careers_inactive  = Career::where('status','inactive')->get();
-        return view('backend.career.index',compact('careers_active','careers_inactive'));
+        return view('backend.career.index',compact('careers','careers_active','careers_inactive'));
     }
 
     /**
