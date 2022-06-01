@@ -1,6 +1,8 @@
 @extends('backend.layouts.master')
 @section('title', "Add Blog")
 @section('css')
+    <script src="{{asset('assets/backend/custom_js/blog_credit.js')}}"></script>
+
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <style>
 
@@ -47,7 +49,9 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label class="form-label" for="blog-title-input">Blog Title <span class="text-muted text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="title" id="blog-title-input" placeholder="Enter blog title"
+                                    <input type="text" class="form-control" name="title" id="blog-title-input"
+                                           onclick="slugMaker('blog-title-input','blog-slug')"
+                                           placeholder="Enter blog title"
                                         required>
                                         <div class="invalid-feedback">
                                             Please enter the blog title.
@@ -209,26 +213,11 @@
 @endsection
 
 @section('js')
-@include('backend.ckeditor')
+{{--@include('backend.ckeditor')--}}
 <script src="{{asset('assets/backend/js/pages/form-validation.init.js')}}"></script>
 
     <!-- Sweet Alerts js -->
 <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
-<script type="text/javascript">
 
-var loadFile = function(event) {
-    var image = document.getElementById('image');
-    var replacement = document.getElementById('current-img');
-    replacement.src = URL.createObjectURL(event.target.files[0]);
-};
 
-$("#blog-title-input").keyup(function(){
-    var Text = $(this).val();
-    Text = Text.toLowerCase();
-    var regExp = /\s+/g;
-    Text = Text.replace(regExp,'-');
-    $("#blog-slug").val(Text);
-});
-
-</script>
 @endsection

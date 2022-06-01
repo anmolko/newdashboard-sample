@@ -152,19 +152,7 @@
     <script src="{{asset('assets/backend/js/pages/form-validation.init.js')}}"></script>
     <!-- Sweet Alerts js -->
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
-
     <script src="{{asset('assets/backend/custom_js/callaction.js')}}"></script>
 
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            $('#call-action-index').DataTable({
-                paging: true,
-                searching: true,
-                ordering:  true,
-                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-            });
-        });
-    </script>
 
 @endsection

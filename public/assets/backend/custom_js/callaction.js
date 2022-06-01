@@ -1,3 +1,5 @@
+
+
 $('#call-action-add-button').on('click', function(e) {
     var form            = $('#call-action-form')[0]; //get the form using ID
     if (!form.reportValidity()) { return false;}
@@ -229,3 +231,13 @@ $(document).on('click','.cs-call-remove', function (e) {
 
 
 })
+
+
+$(document).ready(function () {
+    $('#call-action-index').DataTable({
+        paging: true,
+        searching: true,
+        ordering:  true,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+    });
+});

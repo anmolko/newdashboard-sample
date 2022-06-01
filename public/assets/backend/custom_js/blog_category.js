@@ -95,6 +95,25 @@ $('#blog-category-add-button').on('click', function(e) {
 
 });
 
+function slugMaker(title, slug){
+    $("#"+ title).keyup(function(){
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        var regExp = /\s+/g;
+        Text = Text.replace(regExp,'-');
+        $("#"+slug).val(Text);
+    });
+}
+
+$(document).ready(function () {
+    var dataTable = $('#blog-category-index').DataTable({
+        paging: true,
+        searching: true,
+        ordering:  true,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+    });
+
+});
 
 $(document).on('click','.cs-category-edit', function (e) {
     e.preventDefault();
