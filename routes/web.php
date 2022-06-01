@@ -140,6 +140,15 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::delete('/work-category/{category}', 'App\Http\Controllers\OurWorkCategoryController@destroy')->name('work-category.destroy');
     Route::get('/work-category/{category}/edit', 'App\Http\Controllers\OurWorkCategoryController@edit')->name('work-category.edit');
 
+    //career
+    Route::get('/career', 'App\Http\Controllers\CareerController@index')->name('career.index');
+    Route::get('/career/create', 'App\Http\Controllers\CareerController@create')->name('career.create');
+    Route::post('/career', 'App\Http\Controllers\CareerController@store')->name('career.store');
+    Route::put('/career/{careers}', 'App\Http\Controllers\CareerController@update')->name('career.update');
+    Route::delete('/career/{careers}', 'App\Http\Controllers\CareerController@destroy')->name('career.destroy');
+    Route::get('/career/{careers}/edit', 'App\Http\Controllers\CareerController@edit')->name('career.edit');
+    Route::patch('/career/{status}/update', 'App\Http\Controllers\CareerController@updateStatus')->name('career-status.update');
+
 });
 
 

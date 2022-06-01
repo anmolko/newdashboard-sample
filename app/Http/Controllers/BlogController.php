@@ -98,8 +98,8 @@ class BlogController extends Controller
         else{
             Session::flash('error','Your Blog Creation Failed');
         }
-       
-        return redirect()->back();
+
+        return redirect()->route('blog.index');
     }
 
     /**
@@ -176,7 +176,7 @@ class BlogController extends Controller
         else{
             Session::flash('error','Something Went Wrong. Your Post could not be Updated');
         }
-        return redirect()->back();
+        return redirect()->route('blog.index');
     }
 
     /**

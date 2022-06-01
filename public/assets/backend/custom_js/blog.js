@@ -61,7 +61,7 @@ $(document).on('click','.cs-blog-remove', function (e) {
                         var blog_block = '#blog-individual-'+response.id;
                         setTimeout(function() {
                             $(blog_block).remove();
-                        }, 3800);
+                        }, 3000);
                     }else{
                         Swal.fire({
                             imageUrl: "/assets/backend/images/canosoft-logo.png",

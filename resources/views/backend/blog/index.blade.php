@@ -79,7 +79,7 @@
                                                     <td>
                                                         <div class="btn-group view-btn" id="blog-status-button-{{$blog->id}}">
                                                             <button class="btn btn-light dropdown-toggle" style="width: 10em;" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                                            {{((@$blog->status == 'draft') ? "Draft":"Published")}}
+                                                            {{ucwords(@$blog->status)}}
                                                             </button>
                                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside" style="">
                                                                 @if($blog->status == "draft")
