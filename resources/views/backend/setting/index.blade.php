@@ -27,9 +27,7 @@
                                             <div class="col-md-auto">
                                                 <div class="avatar-md">
                                                     <div class="avatar-title bg-white rounded-circle">
-{{--                                                        <img src="{{asset('assets/backend/images/canosoft-favicon.png')}}" alt="" height="25">--}}
-
-                                                        <img src="{{asset('assets/backend/images/canosoft-favicon.png')}}" alt="" class="avatar-xs">
+                                                        <img src="{{asset('/images/settings/'.$setting_data->favicon)}}" alt="" class="avatar-xs">
                                                     </div>
                                                 </div>
                                             </div>
@@ -76,15 +74,6 @@
                                                     </ol>
                                                 </div>
                                             </div>
-{{--                                            <button type="button" class="btn py-0 fs-16 favourite-btn active">--}}
-{{--                                                <i class="ri-star-fill"></i>--}}
-{{--                                            </button>--}}
-{{--                                            <button type="button" class="btn py-0 fs-16 text-body">--}}
-{{--                                                <i class="ri-share-line"></i>--}}
-{{--                                            </button>--}}
-{{--                                            <button type="button" class="btn py-0 fs-16 text-body">--}}
-{{--                                                <i class="ri-flag-line"></i>--}}
-{{--                                            </button>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -96,6 +85,15 @@
                                             General
                                         </a>
                                     </li>
+                                    @if($settings !== null)
+
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#faq-overview"
+                                           role="tab">
+                                            FAQ
+                                        </a>
+                                    </li>
+                                    @endif
                                 </ul>
                             </div>
                             <!-- end card body -->
@@ -366,6 +364,95 @@
                             {!! Form::close() !!}
 
                         </div>
+                        @if($settings !== null)
+                        <div class="tab-pane fade show active" id="faq-overview" role="tabpanel">
+
+                            <div class="row">
+                                <div class="col-xxl-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h6 class="card-title mb-3 text-start">Create FAQ</h6>
+                                            {!! Form::open(['route' => 'faq.store','method'=>'post','class'=>'needs-validation','novalidate'=>'']) !!}
+                                            <div class="mb-3">
+                                                <label class="form-label" for="name-input">Name</label>
+                                                <input type="text" name="name" class="form-control" id="name-input" placeholder="Enter FAQ name" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter the name.
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="summary-input">Description </label>
+                                                <textarea class="form-control" id="description" placeholder="Enter FAQ Description" name="description" rows="4" required></textarea>
+                                                <div class="invalid-feedback">
+                                                    Please enter the description.
+                                                </div>
+                                            </div>
+                                            <div class="hstack gap-2 justify-content-center">
+                                                <button type="submit" class="btn btn-success btn-sm"><i class="ri-play-circle-line align-bottom me-1"></i> Save</button>
+                                            </div>
+                                            {!! Form::close() !!}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-8">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="text-muted">
+                                                <div class="row">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0 me-1">
+                                                            <i class="ri-question-line fs-24 align-middle text-success me-1"></i>
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <h5 class="fs-16 mb-0 fw-semibold">General FAQ List</h5>
+                                                        </div>
+                                                    </div>
+                                                    @foreach($faqs->chunk(2) as $firstchunk)
+
+                                                    <div class="col-lg-6">
+                                                        <div class="mt-3">
+                                                            <div class="accordion accordion-border-box" id="genques-accordion">
+                                                                @foreach($firstchunk as $key=>$final)
+                                                                <div class="accordion-item">
+                                                                    <h2 class="accordion-header" id="genques-heading-{{$final->id}}">
+                                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#genques-collapse-{{$final->id}}" aria-expanded="{{($key == "0" || $key == "3" ) ? "true":"false"}}" aria-controls="genques-collapse-{{$final->id}}">
+                                                                            {{$final->name}}
+                                                                        </button>
+                                                                    </h2>
+                                                                    <div id="genques-collapse-{{$final->id}}" class="accordion-collapse collapse {{($key == "0" || $key == "3" ) ? "show":""}}" aria-labelledby="genques-heading-{{$final->id}}" data-bs-parent="#genques-accordion">
+                                                                        <div class="accordion-body">
+                                                                            {{$final->description}}
+                                                                            <div class="mt-2">
+                                                                                <div>
+                                                                                    <a class="btn btn-light cs-faq-edit" cs-update-route="{{route('faq.update',$final->id)}}" cs-edit-route="{{route('faq.edit',$final->id)}}" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Edit" aria-label="Edit"><i class="ri-pencil-fill align-bottom"></i></a>
+                                                                                    <a class="btn btn-light cs-faq-remove" cs-delete-route="{{route('faq.destroy',$final->id)}}" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Remove" aria-label="Remove"><i class="ri-delete-bin-2-fill align-bottom"></i></a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @endforeach
+
+                                                            </div><!--end accordion-->
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+
+                                                </div><!--end row-->
+                                                <form action="#" method="post" id="deleted-form">
+                                                    {{csrf_field()}}
+                                                    <input name="_method" type="hidden" value="DELETE">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--end row-->
+
+
+                        </div>
+                        @endif
+
                     </div>
                 </div>
                 <!-- end col -->
@@ -375,6 +462,8 @@
         </div>
         <!-- container-fluid -->
     </div>
+
+    @include('backend.setting.modals.faq-edit')
 
 
 @endsection
@@ -391,8 +480,120 @@
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
     <script>
+        $(document).on('click','.cs-faq-edit', function (e) {
+            e.preventDefault();
+            var url =  $(this).attr('cs-edit-route');
+            var action = $(this).attr('cs-update-route');
+            $.ajax({
+                url: url,
+                type: "GET",
+                cache: false,
+                dataType: 'json',
+                success: function(dataResult){
+                    $("#edit_faq").modal("toggle");
+                    console.log(dataResult.date);
+                    $('#update-name').attr('value',dataResult.name);
+                    $('#update-description').text(dataResult.description);
+                    $('.updatefaq').attr('action',action);
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        });
 
-        // console.log(sessionStorage.getItem("data-layout-mode"));
+        $(document).on('click','.cs-faq-remove', function (e) {
+            e.preventDefault();
+            var form = $('#deleted-form');
+            var action = $(this).attr('cs-delete-route');
+            form.attr('action',action);
+            var url = form.attr('action');
+            var form_data = form.serialize();
+            Swal.fire({
+                imageUrl: "/assets/backend/images/canosoft-logo.png",
+                imageHeight: 60,
+                html: '<div class="mt-2">' +
+                    '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                    ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                    'style="width:120px;height:120px"></lord-icon>' +
+                    '<div class="mt-4 pt-2 fs-15">' +
+                    '<h4>Are your sure? </h4>' +
+                    '<p class="text-muted mx-4 mb-0">' +
+                    'You want to Remove this Record ?</p>' +
+                    '</div>' +
+                    '</div>',
+                showCancelButton: !0,
+                confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                cancelButtonClass: "btn btn-danger w-xs mt-2",
+                confirmButtonText: "Yes!",
+                buttonsStyling: !1,
+                showCloseButton: !0
+            }).then(function(t)
+            {
+                t.value
+                    ?
+                    $.post( url, form_data)
+                        .done(function(response) {
+                            if(response.status == "success") {
+                                Swal.fire({
+                                    imageUrl: "/assets/backend/images/canosoft-logo.png",
+                                    imageHeight: 60,
+                                    html: '<div class="mt-2">' +
+                                        '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json"' +
+                                        'trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px">' +
+                                        '</lord-icon>' +
+                                        '<div class="mt-4 pt-2 fs-15">' +
+                                        '<h4>Success !</h4>' +
+                                        '<p class="text-muted mx-4 mb-0">' + response.message +'</p>' +
+                                        '</div>' +
+                                        '</div>',
+                                    timerProgressBar: !0,
+                                    timer: 2e3,
+                                    showConfirmButton: !1
+                                });
+
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 3000);
+                            }else{
+                                Swal.fire({
+                                    imageUrl: "/assets/backend/images/canosoft-logo.png",
+                                    imageHeight: 60,
+                                    html: '<div class="mt-2">' +
+                                        '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json"' +
+                                        ' trigger="loop" colors="primary:#f06548,secondary:#f7b84b" ' +
+                                        'style="width:120px;height:120px"></lord-icon>' +
+                                        '<div class="mt-4 pt-2 fs-15">' +
+                                        '<h4>Oops...! </h4>' +
+                                        '<p class="text-muted mx-4 mb-0">' + response.message +'</p>' +
+                                        '</div>' +
+                                        '</div>',
+                                    timerProgressBar: !0,
+                                    timer: 3000,
+                                    showConfirmButton: !1
+                                });
+                            }
+                        })
+                        .fail(function(response){
+                            console.log(response)
+                        })
+
+                    :
+                    t.dismiss === Swal.DismissReason.cancel &&
+                    Swal.fire({
+                        title: "Cancelled",
+                        text: "FAQ detail was not removed.",
+                        icon: "error",
+                        confirmButtonClass: "btn btn-primary mt-2",
+                        buttonsStyling: !1
+                    });
+            });
+
+
+
+        })
+
+
     </script>
 
 

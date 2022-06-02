@@ -156,6 +156,14 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::put('/project-plan/{plan}', 'App\Http\Controllers\ProjectPlanController@update')->name('project-plan.update');
     Route::delete('/project-plan/{plan}', 'App\Http\Controllers\ProjectPlanController@destroy')->name('project-plan.destroy');
     Route::get('/project-plan/{plan}/edit', 'App\Http\Controllers\ProjectPlanController@edit')->name('project-plan.edit');
+
+    //FAQ
+    Route::get('/faq', 'App\Http\Controllers\FaqController@index')->name('faq.index');
+    Route::get('/faq/create', 'App\Http\Controllers\FaqController@create')->name('faq.create');
+    Route::post('/faq', 'App\Http\Controllers\FaqController@store')->name('faq.store');
+    Route::put('/faq/{plan}', 'App\Http\Controllers\FaqController@update')->name('faq.update');
+    Route::delete('/faq/{faq}', 'App\Http\Controllers\FaqController@destroy')->name('faq.destroy');
+    Route::get('/faq/{faq}/edit', 'App\Http\Controllers\FaqController@edit')->name('faq.edit');
 });
 
 

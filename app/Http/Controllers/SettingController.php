@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Award;
+use App\Models\Faq;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,8 @@ class SettingController extends Controller
     public function index()
     {
         $settings = Setting::first();
-        return view('backend.setting.index',compact('settings'));
+        $faqs = Faq::all();
+        return view('backend.setting.index',compact('settings','faqs'));
     }
 
     /**
