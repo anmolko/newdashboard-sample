@@ -90,6 +90,18 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link @if(\Request::route()->getName() == 'career.index') active @endif" href="{{route('career.index')}}">
+                        <i class="ri-refund-2-line"></i> <span data-key="t-widgets">Career</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link @if(\Request::route()->getName() == 'project-plan.index') active @endif" href="{{route('project-plan.index')}}">
+                        <i class="ri-slideshow-4-line"></i> <span data-key="t-widgets">Project Plan</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link  @if(\Request::route()->getName() == 'contact.index') active @endif" href="{{route('contact.index')}}">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Customer Contact</span>
                     </a>

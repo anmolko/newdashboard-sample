@@ -115,6 +115,7 @@ class OurWorkController extends Controller
         $work                         = OurWork::find($id);
         $work->title                  = $request->input('title');
         $work->work_category_id       = $request->input('work_category_id');
+        $work->updated_by             =  Auth::user()->id;
         $oldimage                     = $work->image;
         $path                         = base_path().'/public/images/work/';
 

@@ -149,6 +149,13 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::get('/career/{careers}/edit', 'App\Http\Controllers\CareerController@edit')->name('career.edit');
     Route::patch('/career/{status}/update', 'App\Http\Controllers\CareerController@updateStatus')->name('career-status.update');
 
+    //project plan
+    Route::get('/project-plan', 'App\Http\Controllers\ProjectPlanController@index')->name('project-plan.index');
+    Route::get('/project-plan/create', 'App\Http\Controllers\ProjectPlanController@create')->name('project-plan.create');
+    Route::post('/project-plan', 'App\Http\Controllers\ProjectPlanController@store')->name('project-plan.store');
+    Route::put('/project-plan/{plan}', 'App\Http\Controllers\ProjectPlanController@update')->name('project-plan.update');
+    Route::delete('/project-plan/{plan}', 'App\Http\Controllers\ProjectPlanController@destroy')->name('project-plan.destroy');
+    Route::get('/project-plan/{plan}/edit', 'App\Http\Controllers\ProjectPlanController@edit')->name('project-plan.edit');
 });
 
 
