@@ -373,7 +373,7 @@
         </div>
 
     </div>
- 
+
 </div>
 <!-- JAVASCRIPT -->
 <script src="{{asset('assets/backend/js/jquery-3.2.1.min.js')}}"></script>
@@ -466,7 +466,6 @@
         @endif
         @if(Session::has('warning'))
         var message ="{{ session('warning') }}";
-        // Toastify({ newWindow: !0, text: message, gravity: 'top', position: 'center', stopOnFocus: !0, duration: 3000, close: "close",className: "bg-success" }).showToast();
         Swal.fire({
             imageUrl: "/assets/backend/images/canosoft-logo.png",
             imageHeight: 60,
@@ -485,6 +484,44 @@
             showConfirmButton: !1
         });
         @endif
+        var id  = "{{$setting_data->id}}";
+
+        $(document).on('click','#change-theme-mode', function (e) {
+            e.preventDefault();
+            var mode = $('html').attr('data-layout-mode');
+            var formData = new FormData();
+            formData.append('setting_id', id);
+            formData.append('mode', mode);
+            var url = "/auth/dashboard-settings/theme-mode/"
+            $.ajax({
+                type : 'POST',
+                url : url,
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                data : formData,
+                success: function(response){
+                    if(response.status=='success') {
+                        console.log(response.mode);
+                        // $("#user-list").prepend(block);
+                    }
+
+                }, error: function(response) {
+                    console.log(response);
+                }
+
+
+
+            });
+
+
+
+
+        })
+
     </script>
 </body>
 </html>

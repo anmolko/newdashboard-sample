@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-layout="horizontal" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-layout-position="fixed">
+<html lang="en" data-layout="horizontal" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-layout-position="fixed" data-layout-mode="{{$setting_data->theme_mode}}">
 <head>
 
     <meta charset="utf-8" />
@@ -87,7 +87,7 @@
                         <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
                             <div data-simplebar style="max-height: 320px;">
                                 <!-- item-->
-                             
+
                                 <!-- item-->
                                 <div class="dropdown-header mt-2">
                                     <h6 class="text-overflow text-muted mb-1 text-uppercase">Pages</h6>
@@ -184,7 +184,7 @@
                         </div>
                     </div>
 
-             
+
 
                     <div class="dropdown topbar-head-dropdown ms-1 header-item">
                         <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
@@ -306,7 +306,7 @@
                                         </div>
                                     </div>
 
-                                   
+
                                 </div>
                             </div>
                             <div class="p-3 border-bottom-0 border-start-0 border-end-0 border-dashed border"
@@ -333,7 +333,7 @@
                     </div>
 
                     <div class="ms-1 header-item d-none d-sm-flex">
-                        <button type="button"
+                        <button type="button" id="change-theme-mode"
                                 class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
                             <i class='bx bx-moon fs-22'></i>
                         </button>

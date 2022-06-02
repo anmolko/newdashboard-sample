@@ -7356,6 +7356,11 @@ button {
     color: var(--vz-body-color)
 }
 
+[data-layout-mode=dark] .dataTable tr {
+    background-color: var(--vz-light);
+    color: var(--vz-body-color)
+}
+
 [data-layout-mode=dark] .table-light td,
 [data-layout-mode=dark] .table-light th {
     background-color: var(--vz-light)

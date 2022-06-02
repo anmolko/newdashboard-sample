@@ -1,7 +1,6 @@
 @extends('backend.layouts.master')
 @section('title', "Edit Blog")
 @section('css')
-    <script src="{{asset('assets/backend/custom_js/blog_credit.js')}}"></script>
 
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <style>
@@ -215,9 +214,7 @@
 @section('js')
 @include('backend.ckeditor')
 <script src="{{asset('assets/backend/js/pages/form-validation.init.js')}}"></script>
-
     <!-- Sweet Alerts js -->
 <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
-
-
+<script src="{{asset('assets/backend/custom_js/blog_credit.js')}}"></script>
 @endsection

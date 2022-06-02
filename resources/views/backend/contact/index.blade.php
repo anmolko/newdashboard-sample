@@ -62,7 +62,7 @@
                                                 <td >{{@$contact->subject}}</td>
                                                 <td >{{date('j M, Y',strtotime(@$contact->created_at))}}</td>
                                                 <td>
-                                                    
+
                                                     <div class="d-flex gap-2">
                                                         <div class="edit">
                                                             <button class="btn  edit-item-btn"
@@ -87,7 +87,7 @@
                     </div><!-- end card -->
                 </div>
 
-              
+
                 <!-- end col -->
             </div>
             <!-- end col -->
@@ -160,11 +160,10 @@
         $('#contact_customer').DataTable({
             paging: true,
             searching: true,
-            ordering:  true,
+            ordering:  false,
             lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
         });
-
     });
-   
+
 </script>
 @endsection

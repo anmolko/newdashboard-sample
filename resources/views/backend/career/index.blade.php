@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="{{asset('assets/backend/custom_css/datatable_style.css')}}">
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{asset('assets/backend/libs/glightbox/css/glightbox.min.css')}}" />
-    <script src="{{asset('assets/backend/custom_js/career.js')}}"></script>
     <style>
         .feature-image-button{
             position: absolute;
@@ -355,5 +354,7 @@
     <script src="{{asset('assets/backend/js/pages/project-list.init.js')}}"></script>
 
     <script src="{{asset('assets/backend/js/pages/form-pickers.init.js')}}"></script>
+
+    <script src="{{asset('assets/backend/custom_js/career.js')}}"></script>
 
 @endsection

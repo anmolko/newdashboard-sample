@@ -1,8 +1,6 @@
 @extends('backend.layouts.master')
 @section('title', "Blog Category")
 @section('css')
-    <script src="{{asset('assets/backend/custom_js/blog_category.js')}}"></script>
-
     <link rel="stylesheet" href="{{asset('assets/backend/css/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/custom_css/datatable_style.css')}}">
     <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
@@ -138,6 +136,9 @@
 
 @section('js')
 <script src="{{asset('assets/backend/js/jquery.dataTables.min.js')}}"></script>
+
+<script src="{{asset('assets/backend/custom_js/blog_category.js')}}"></script>
+
 <script src="{{asset('assets/backend/js/pages/form-validation.init.js')}}"></script>
     <!-- Sweet Alerts js -->
 <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>

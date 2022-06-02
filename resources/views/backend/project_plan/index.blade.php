@@ -165,10 +165,8 @@
 
 @section('js')
     <script src="{{asset('assets/backend/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
-
     <script src="{{asset('assets/backend/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('assets/backend/js/pages/form-validation.init.js')}}"></script>
-    <!-- Sweet Alerts js -->
-    <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
     <script src="{{asset('assets/backend/custom_js/project.js')}}"></script>
+    <script src="{{asset('assets/backend/js/pages/form-validation.init.js')}}"></script>
+    <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 @endsection

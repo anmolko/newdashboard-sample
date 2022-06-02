@@ -368,6 +368,16 @@ class SettingController extends Controller
         return redirect()->back();
     }
 
+    public function themeMode(Request $request)
+    {
+        $id                  = $request->input('setting_id');
+        $theme               = Setting::find($id);
+        $theme->theme_mode   = $request->input('mode');
+        $status              = $theme->update();
+        return response()->json(['status'=>'success','mode'=>$theme->theme_mode]);
+
+    }
+
 
     /**
      * Remove the specified resource from storage.
