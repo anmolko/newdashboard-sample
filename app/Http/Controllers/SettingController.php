@@ -380,6 +380,34 @@ class SettingController extends Controller
 
     }
 
+    public function privacyPolicy(Request $request, $id)
+    {
+        $privacy                    = Setting::find($id);
+        $privacy->privacy_policy    = $request->input('privacy_policy');
+        $status                     = $privacy->update();
+        if($status){
+            Session::flash('success','Privacy Policy has been updated successfully');
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Privacy Policy could not be updated');
+        }
+        return redirect()->back();
+    }
+
+    public function termsConditions(Request $request, $id)
+    {
+        $privacy                      = Setting::find($id);
+        $privacy->terms_conditions    = $request->input('terms_conditions');
+        $status                       = $privacy->update();
+        if($status){
+            Session::flash('success','Terms and Conditions has been updated successfully');
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Terms and Conditions could not be updated');
+        }
+        return redirect()->back();
+    }
+
 
     /**
      * Remove the specified resource from storage.
