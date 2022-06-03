@@ -64,7 +64,8 @@ class User extends Authenticatable
     // protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;
     protected static $logName = 'User';
-    protected static $recordEvents = ['created'];
+    protected static $recordEvents = ['created','updated'];
+    protected static $logAttributes= ['name', 'email','image','contact','address','gender','user_type'];
 
     public function getDescriptionForEvent(string $eventName): string
     {
@@ -74,6 +75,8 @@ class User extends Authenticatable
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'email']);
+            ->logOnly(['name', 'email','password','image','contact','address','user_type'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 }

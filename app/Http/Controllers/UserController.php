@@ -140,7 +140,27 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user                 =  User::find($id);
+        $user->name           =  $request->input('name');
+        $user->slug           =  strtolower(str_replace(' ','-',$request->input('name')));
+        $user->email          =  $request->input('email');
+        $user->gender         =  $request->input('gender');
+        $user->contact        =  $request->input('contact');
+        $user->user_type      =  $request->input('user_type');
+        $user->address        =  $request->input('address');
+        $user->about          =  $request->input('about');
+        $oldimage             = $user->image;
+        $oldcover             = $user->cover;
+
+        $status = $user->update();
+        if($status){
+            Session::flash('success','Changes were applied successfully');
+
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Changes could not be applied.');
+        }
+        return redirect()->route('profile',$user->slug);
     }
 
     /**
@@ -161,6 +181,7 @@ class UserController extends Controller
         }
         $status = $delete->delete();
         if($status){
+            activity('User Account Removal')->performedOn($delete)->causedBy(Auth::user())->log(" $delete->name's account has been removed from the system by" . Auth::user()->name );
             $status ='success';
             return response()->json(['status'=>$status,'id'=>$id,'message'=>'User and its data was removed!']);
         }
@@ -254,68 +275,6 @@ class UserController extends Controller
         }
     }
 
-    public function profileUpdate(Request $request, $id)
-    {
-        $user                 =  User::find($id);
-        $user->name           =  $request->input('name');
-        $user->slug           =  strtolower(str_replace(' ','-',$request->input('name')));
-        $user->email          =  $request->input('email');
-        $user->gender         =  $request->input('gender');
-        $user->contact        =  $request->input('contact');
-        $user->user_type      =  $request->input('user_type');
-        $user->address        =  $request->input('address');
-        $user->about          =  $request->input('about');
-        $oldimage             = $user->image;
-        $oldcover             = $user->cover;
-
-        if (!empty($request->file('image'))){
-            $image       = $request->file('image');
-            $name1       = uniqid().'_user_'.$image->getClientOriginalName();
-            $path        = base_path().'/public/images/user/';
-            if (!is_dir($path)) {
-                mkdir($path, 0777);
-            }
-            $moved       = Image::make($image->getRealPath())->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio(); //maintain image ratio
-                $constraint->upsize();
-            })->orientate()->save($path.$name1);
-
-            if ($moved){
-                $user->image= $name1;
-                if (!empty($oldimage) && file_exists(public_path().'/images/user/'.$oldimage)){
-                    @unlink(public_path().'/images/user/'.$oldimage);
-                }
-            }
-        }
-        if (!empty($request->file('cover'))){
-            $image       = $request->file('cover');
-            $name1       = uniqid().'_cover_'.$image->getClientOriginalName();
-            $path        = base_path().'/public/images/user/cover/';
-            if (!is_dir($path)) {
-                mkdir($path, 0777);
-            }
-            $moved       = Image::make($image->getRealPath())->resize(2000, 850, function ($constraint) {
-                $constraint->aspectRatio(); //maintain image ratio
-                $constraint->upsize();
-            })->orientate()->save($path.$name1);
-
-            if ($moved){
-                $user->cover= $name1;
-                if (!empty($oldcover) && file_exists(public_path().'/images/user/cover/'.$oldcover)){
-                    @unlink(public_path().'/images/user/cover/'.$oldcover);
-                }
-            }
-        }
-        $status = $user->update();
-        if($status){
-            Session::flash('success','Changes were applied successfully');
-        }
-        else{
-            Session::flash('error','Something Went Wrong. Changes could not be applied.');
-        }
-        return redirect()->route('profile',$user->slug);
-    }
-
     public function socialsUpdate(Request $request)
     {
         $user                 =  User::find( $request->input('userid'));
@@ -325,6 +284,8 @@ class UserController extends Controller
         $user->twitter        =  $request->input('twitter');
         $status               = $user->update();
         if ($status) {
+            activity('Profile Social Media update')->performedOn($user)->causedBy(Auth::user())->log(" $user->name's social medial profiles has been updated by" . Auth::user()->name );
+
             $status ='success';
             return response()->json(['status'=>$status,'message'=>'Your socials are updated.']);
 
@@ -341,6 +302,7 @@ class UserController extends Controller
         $user->password     = $password;
         $status             = User::where('id', $id)->update(array('password' => $password));
         if($status){
+            activity('Profile Password Update')->performedOn($user)->causedBy(Auth::user())->log(" $user->name's password was changed/updated by " . Auth::user()->name );
             $status ='success';
             return response()->json(['status'=>$status,'message'=>'Password has been changed !']);        }
         else{
@@ -362,6 +324,8 @@ class UserController extends Controller
         }
         $removeacc          = $user->delete();
         if($removeacc){
+            activity('User Profile Removal')->performedOn($user)->causedBy(Auth::user())->log(" $user->name's account has been removed from the system by the user itself");
+
             $status ='success';
             return response()->json(['status'=>$status,'message'=>'Your account information has been removed! You will be logged out now.']);        }
         else{
@@ -377,6 +341,7 @@ class UserController extends Controller
         $new_status  = ($user->status == 0) ? "Inactive":"Active";
         $value  = ($user->status == 0) ? 1:0;
         if($status){
+            activity('User Status Update')->performedOn($user)->causedBy(Auth::user())->log(" $user->name's status has been updated to ".$new_status);
             $status ='success';
             return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value]);
         }
@@ -393,6 +358,7 @@ class UserController extends Controller
         $status           = $user->update();
         $new_role         = $user->user_type;
         if($status){
+            activity('User Role Update')->performedOn($user)->causedBy(Auth::user())->log(" $user->name's role has been updated to ".$new_role);
             $status ='success';
             return response()->json(['status'=>$status,'message'=>'User role has been changed','role'=>$new_role]);
         }
