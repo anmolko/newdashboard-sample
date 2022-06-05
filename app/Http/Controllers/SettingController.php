@@ -408,6 +408,23 @@ class SettingController extends Controller
         return redirect()->back();
     }
 
+    public function siteStatus(Request $request, $id)
+    {
+        $setting                    = Setting::find($id);
+        $setting->online            = $request->input('online');
+        $setting->clients           = $request->input('clients');
+        $setting->projects          = $request->input('projects');
+        $setting->professionals     = $request->input('professionals');
+        $status                     = $setting->update();
+        if($status){
+            Session::flash('success','Status has been updated successfully');
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Status could not be updated');
+        }
+        return redirect()->back();
+    }
+
 
     /**
      * Remove the specified resource from storage.
