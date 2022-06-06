@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\Menu;
 use App\Models\MenuItem;
 use App\Models\Page;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -22,7 +23,7 @@ class MenuController extends Controller
         $menuitems          = '';
         $desiredMenu        = '';
         $menuTitle          = '';
-        $pages              = Page::all();
+        $services           = Service::all();
         $menus              = Menu::all();
         $blogs              = Blog::all();
         if(isset($_GET['slug']) && $_GET['slug'] != 'new'){
@@ -105,7 +106,7 @@ class MenuController extends Controller
                 }
             }
         }
-        return view('backend.menu.index',compact('pages','menuTitle','blogs','menus','desiredMenu','menuitems'));
+        return view('backend.menu.index',compact('services','menuTitle','blogs','menus','desiredMenu','menuitems'));
 
     }
 
@@ -198,19 +199,19 @@ class MenuController extends Controller
 
     }
 
-    public function addPage(Request $request){
+    public function addService(Request $request){
         $data       = $request->all();
         $menuid     = $request->menuid;
         $ids        = $request->ids;
         $menu       = Menu::findOrFail($menuid);
         if($menu->content == ''){
             foreach($ids as $id){
-                $page = Page::find($id);
+                $service = Service::find($id);
                 $data =[
-                    'title'         => $page->name,
-                    'slug'          => $page->slug,
-                    'page_id'       => $id,
-                    'type'          => 'page',
+                    'title'         => $service->title,
+                    'slug'          => $service->slug,
+                    'service_id'       => $id,
+                    'type'          => 'service',
                     'menu_id'       => $menuid,
                     'created_by'    => Auth::user()->id,
                 ];
@@ -219,25 +220,25 @@ class MenuController extends Controller
         }else{
             $olddata = json_decode($menu->content,true);
             foreach($ids as $id){
-                $page = Page::find($id);
+                $service = Service::find($id);
                 $data =[
-                    'title'         => $page->name,
-                    'slug'          => $page->slug,
-                    'page_id'       => $id,
-                    'type'          => 'page',
+                    'title'         => $service->title,
+                    'slug'          => $service->slug,
+                    'service_id'    => $id,
+                    'type'          => 'service',
                     'menu_id'       => $menuid,
                     'created_by'    => Auth::user()->id,
                 ];
                 $status = MenuItem::create($data);
             }
             foreach($ids as $id){
-                $page = Page::find($id);
-                $array['title']     = $page->name;
-                $array['slug']      = $page->slug;
-                $array['page_id']   = $id;
-                $array['type']      = 'page';
-                $array['id']        = MenuItem::where('slug',$array['slug'])->where('type',$array['type'])->value('id');
-                $array['children'] = [[]];
+                $service = Service::find($id);
+                $array['title']         = $service->title;
+                $array['slug']          = $service->slug;
+                $array['service_id']    = $id;
+                $array['type']          = 'service';
+                $array['id']            = MenuItem::where('slug',$array['slug'])->where('type',$array['type'])->value('id');
+                $array['children']      = [[]];
                 array_push($olddata[0],$array);
                 $oldata = json_encode($olddata);
                 $status = $menu->update(['content'=>$olddata]);
@@ -245,9 +246,9 @@ class MenuController extends Controller
         }
 
         if($status){
-            Session::flash('success','Page added in Menu');
+            Session::flash('success','Service added in Menu');
         }else{
-            Session::flash('error','Page could not be added in Menu');
+            Session::flash('error','Service could not be added in Menu');
         }
     }
 

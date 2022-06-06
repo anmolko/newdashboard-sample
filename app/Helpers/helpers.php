@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use App\Models\Menu;
+use App\Models\MenuItem;
 
 if (!function_exists('getNepaliMonth')) {
     $selected_month;
@@ -96,6 +98,19 @@ if (!function_exists('profile_percentage')) {
             $percetage += $about;
         }
         return $percetage;
+    }
+}
+
+
+if (!function_exists('get_slugs_to_disable')) {
+    function get_slugs_to_disable($id){
+        $disable    = [];
+        $desiredMenu   = Menu::where('slug',$id)->first();
+        $menuitems     = MenuItem::where('menu_id',$desiredMenu->id)->get();
+        foreach ($menuitems as $items){
+            array_push($disable,$items->slug);
+        }
+        return $disable;
     }
 }
 
