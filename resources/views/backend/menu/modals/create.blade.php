@@ -12,35 +12,31 @@
                 {!! Form::open(['route' => 'menu.store','method'=>'post','id'=>'menu-form','class'=>'needs-validation','novalidate'=>'']) !!}
 
                 <div class="row">
-                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="name" class="text-heading">Menu Name</label>
-                            <input type="text" class="form-control form-control-lg" id="name" name="name" required>
+                            <input type="text" class="form-control border-dashed" id="modal-name" name="name"
+                                   onclick="slugMaker('modal-name','modal-slug')"
+                                   required>
                             <div class="invalid-feedback">
                                 Please enter the menu name.
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <label for="title" class="text-heading">Menu Title (for frontend display)</label>
-                            <input type="text" class="form-control form-control-lg" id="title" name="title" required>
+                            <input type="text" class="form-control border-dashed" id="title" name="title" required>
                             <div class="invalid-feedback">
                                 Please enter the menu title.
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <label for="slug" class="text-heading">Menu Slug</label>
-                            <input type="text" class="form-control form-control-lg" id="slug" name="slug" readonly required>
+                            <input type="text" class="form-control  border-dashed" id="modal-slug" name="slug" readonly required>
                             <div class="invalid-feedback">
                                 Please enter the menu slug.
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-theme button-1 ctm-border-radius text-white text-center">Add</button>
+                    <div class="text-center mb-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-label right ms-auto"><i class="ri-arrow-right-line label-icon align-bottom fs-16 ms-2"></i> Create Menu</button>
                     </div>
                 </div>
 

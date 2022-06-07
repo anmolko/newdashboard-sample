@@ -106,6 +106,9 @@ class MenuController extends Controller
                 }
             }
         }
+        if(empty($menuitems[0])){
+            $menuitems =[];
+        }
         return view('backend.menu.index',compact('services','menuTitle','blogs','menus','desiredMenu','menuitems'));
 
     }

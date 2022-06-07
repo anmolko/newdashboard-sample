@@ -14,19 +14,12 @@
         }
         .menu-item-bar{cursor: move;display: block;}
         #serialize_output{display: none;}
-        .menulocation label{font-weight: normal;display: block;}
         body.dragging, body.dragging * {cursor: move !important;}
-        .dragged {position: absolute;z-index: 1;}
-        ol.example li.placeholder {position: relative;}
-        ol.example li.placeholder:before {position: absolute;}
-        #menuitem{list-style: none;}
-        #menuitem ul{list-style: none;}
-        .input-box{width:75%;background:#fff;padding: 10px;box-sizing: border-box;margin-bottom: 5px;}
-        .input-box .form-control{width: 75%}
-        .menulocation label{font-weight: normal;display: block;}
-        .children-content > li{
-            padding-left: 30px;
-        }
+       .list-group-item{
+           position: unset;
+           padding: 0.9rem 0.7rem 0.7rem 0.7rem;
+       }
+
     </style>
 @endsection
 @section('content')
@@ -68,7 +61,7 @@
                     {!! Form::open(['route' => 'menu.index','method'=>'get','class'=>'needs-validation','id'=>'basic-form','novalidate'=>'']) !!}
 
                     <div class="d-flex justify-content-sm-end gap-2">
-                        <select class="form-control w-md" data-choices="" data-choices-search-false="">
+                        <select class="form-control w-md" name="slug" data-choices="" data-choices-search-false="">
                             <option value selected>Select Menu</option>
                             @foreach($menus as $menu)
                                 @if($desiredMenu !== '')
@@ -77,7 +70,7 @@
                             @endforeach
                         </select>
                         <div class="gap-2">
-                            <button type="button" class="btn btn-success"><i class=" ri-check-double-fill me-1 align-bottom"></i> Select</button>
+                            <button type="submit" class="btn btn-success"><i class=" ri-check-double-fill me-1 align-bottom"></i> Select</button>
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -258,15 +251,15 @@
                                         <div style="min-height: 240px;">
                                             <h6 class="mb-2">Select <span class="fw-semibold">Posts, pages or add custom links</span> to menus</h6>
                                             @if($desiredMenu != '')
-                                                <ul class="list-group col nested-list ui-sortable" id="menuitems">
+                                                <ul class="list-group nested-list ui-sortable" id="menuitems">
                                                     @if(!empty($menuitems))
-                                                        @foreach($menuitems as $key=>$item)
-                                                            <li data-id="{{$item->id}}" class="list-group-item nested-1">
+                                                        @foreach(@$menuitems as $key=>$item)
+                                                            <li data-id="{{@$item->id}}" class="list-group-item nested-1">
                                                                 <span class="menu-item-bar"><i class="ri-drag-move-fill align-bottom handle"></i>
-                                                                    @if(empty($item->name)) {{$item->title}} @else {{$item->name}} @endif
+                                                                    @if(empty(@$item->name)) {{@$item->title}} @else {{@$item->name}} @endif
                                                                     <a class="pull-right d-block collapsed" data-bs-toggle="collapse"
-                                                                            aria-controls="collapse{{$item->id}}"
-                                                                            data-bs-target="#collapse{{$item->id}}" style="cursor: pointer"><i class="ri-menu-fill"></i></a></span>
+                                                                            aria-controls="collapse{{@$item->id}}"
+                                                                            data-bs-target="#collapse{{@$item->id}}" style="cursor: pointer"><i class="ri-menu-fill"></i></a></span>
                                                                     <div class="mt-2 list-group nested-list collapse" aria-labelledby="collapse{{$item->id}}" id="collapse{{$item->id}}">
                                                                         <div class="card list-group-item nested-3">
                                                                             <div class="" id="basic3">
@@ -300,7 +293,7 @@
                                                                                     </label>
                                                                                 </div>
                                                                                 <div>
-                                                                                    <a href="{{url('auth/delete-menuitem')}}/{{$item->id}}/{{$key}}" id="deleteMenu" class="btn btn-danger btn-sm btn-label">
+                                                                                    <a href="{{url('auth/delete-menuitem')}}/{{$item->id}}/{{$key}}" class="btn btn-danger btn-sm btn-label">
                                                                                         <i class=" ri-delete-bin-6-line label-icon align-middle fs-16 me-2"></i>Remove</a>
 
                                                                                     <button type="submit" class="btn btn-success btn-sm btn-label pull-right ">
@@ -312,25 +305,27 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                <ul class="children-content">
+                                                                <ul class="list-group col nested-list children-content">
                                                                     @if(isset($item->children))
-                                                                        @foreach($item->children as $m)
+                                                                        @foreach(@$item->children as $m)
                                                                             @foreach($m as $in=>$data)
-                                                                                <li data-id="{{$data->id}}" class="menu-item mt-2"> <span class="menu-item-bar"><i class="lnr lnr-move"></i> @if(empty($data->name)) {{$data->title}} @else {{$data->name}} @endif <a href="#collapse{{$data->id}}" class="pull-right coll-arrow d-block text-dark collapsed" data-toggle="collapse"></a></span>
-                                                                                    <div class="collapse" id="collapse{{$data->id}}">
-                                                                                        <div class="card shadow-sm ctm-border-radius input-box">
-                                                                                            <div class="card-header" id="basic4">
-                                                                                                <h4 class="cursor-pointer mb-0">
-                                                                                                    <a class="d-block text-dark">
-                                                                                                        Edit details
-                                                                                                    </a>
-                                                                                                </h4>
+                                                                                <li data-id="{{$data->id}}" class="list-group-item nested-2 menu-item">
+                                                                                    <span class="menu-item-bar">
+                                                                                        <i class="ri-drag-move-fill align-bottom handle"></i> @if(empty($data->name)) {{$data->title}} @else {{$data->name}} @endif
+                                                                                        <a class="pull-right d-block collapsed" data-bs-toggle="collapse"
+                                                                                           aria-controls="collapse{{$data->id}}" data-bs-target="#collapse{{$data->id}}" style="cursor: pointer"><i class="ri-menu-fill"></i></a></span>
+                                                                                    <div class="list-group nested-list collapse" aria-labelledby="collapse{{$data->id}}" id="collapse{{$data->id}}">
+                                                                                        <div class="card list-group-item nested-3">
+                                                                                            <div class="" id="basic4">
+                                                                                                <a class="d-block text-dark">
+                                                                                                    Edit details
+                                                                                                </a>
                                                                                             </div>
                                                                                             <div class="card-body p-2">
                                                                                                 {!! Form::open(['method'=>'post','url'=>route('menu.updatemenuitem', @$data->id),'class'=>'needs-validation','novalidate'=>'']) !!}
                                                                                                 <div class="form-group mb-3">
                                                                                                     <label>Link Name </label>
-                                                                                                    <input type="text" class="form-control" name="name" value="@if(empty($data->name)) {{$data->title}} @else {{$data->name}} @endif">
+                                                                                                    <input type="text" class="form-control border-dashed" name="name" value="@if(empty($data->name)) {{$data->title}} @else {{$data->name}} @endif">
                                                                                                     <div class="invalid-feedback">
                                                                                                         Please enter the Link Name.
                                                                                                     </div>
@@ -339,7 +334,7 @@
                                                                                                 @if($data->type == 'custom')
                                                                                                     <div class="form-group mb-3">
                                                                                                         <label>URL </label>
-                                                                                                        <input type="text" class="form-control" name="slug" value="{{$data->slug}}" required>
+                                                                                                        <input type="text" class="form-control border-dashed" name="slug" value="{{$data->slug}}" required>
                                                                                                         <div class="invalid-feedback">
                                                                                                             Please enter the URL.
                                                                                                         </div>
@@ -351,11 +346,12 @@
                                                                                                         <span class="h6">Open in a new tab</span>
                                                                                                     </label>
                                                                                                 </div>
-                                                                                                <div class="text-center">
-                                                                                                    <button class="pull-right btn btn-sm btn-outline-success"><i class="lnr lnr-bookmark"></i> Save</button>
-                                                                                                    <a href="{{url('auth/delete-menuitem')}}/{{$data->id}}/{{$key}}/{{$in}}" class="pull-left btn btn-sm btn-outline-danger">
-                                                                                                        <span class="lnr lnr-trash"></span> Delete
-                                                                                                    </a>
+                                                                                                <div>
+                                                                                                    <a href="{{url('auth/delete-menuitem')}}/{{$data->id}}/{{$key}}/{{$in}}" class="btn btn-danger btn-sm btn-label">
+                                                                                                        <i class=" ri-delete-bin-6-line label-icon align-middle fs-16 me-2"></i>Remove</a>
+
+                                                                                                    <button type="submit" class="btn btn-success btn-sm btn-label pull-right ">
+                                                                                                        <i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i>Save</button>
                                                                                                 </div>
 
                                                                                                 {!! Form::close() !!}
@@ -363,25 +359,28 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <ul class="children-content">
+                                                                                    <ul class="list-group nested-list children-content">
                                                                                         @if(isset($data->children))
                                                                                             @foreach($data->children as $o)
                                                                                                 @foreach($o as $keys=>$data1)
-                                                                                                    <li data-id="{{$data1->id}}" class="menu-item mt-2"> <span class="menu-item-bar"><i class="lnr lnr-move"></i> @if(empty($data1->name)) {{$data1->title}} @else {{$data1->name}} @endif <a href="#collapse{{$data1->id}}" class="pull-right coll-arrow d-block text-dark collapsed" data-toggle="collapse"></a></span>
-                                                                                                        <div class="collapse" id="collapse{{$data1->id}}">
-                                                                                                            <div class="card shadow-sm ctm-border-radius input-box">
-                                                                                                                <div class="card-header" id="basic4">
-                                                                                                                    <h4 class="cursor-pointer mb-0">
-                                                                                                                        <a class="d-block text-dark">
-                                                                                                                            Edit details
-                                                                                                                        </a>
-                                                                                                                    </h4>
+                                                                                                    <li data-id="{{$data1->id}}" class="menu-item mt-2 list-group-item nested-3">
+                                                                                                        <span class="menu-item-bar"><i class="ri-drag-move-fill align-bottom handle"></i> @if(empty($data1->name)) {{$data1->title}} @else {{$data1->name}} @endif
+
+                                                                                                            <a class="pull-right d-block collapsed" data-bs-toggle="collapse"
+                                                                                                               aria-controls="collapse{{$data1->id}}" data-bs-target="#collapse{{$data1->id}}" style="cursor: pointer"><i class="ri-menu-fill"></i></a>
+                                                                                                        </span>
+                                                                                                        <div class="list-group nested-list collapse" aria-labelledby="collapse{{$data1->id}}" id="collapse{{$data1->id}}">
+                                                                                                            <div class="card list-group-item nested-3">
+                                                                                                                <div class="" id="basic4">
+                                                                                                                    <a class="d-block text-dark">
+                                                                                                                        Edit details
+                                                                                                                    </a>
                                                                                                                 </div>
                                                                                                                 <div class="card-body p-2">
                                                                                                                     {!! Form::open(['method'=>'post','url'=>route('menu.updatemenuitem', @$data1->id),'class'=>'needs-validation','novalidate'=>'']) !!}
                                                                                                                     <div class="form-group mb-3">
                                                                                                                         <label>Link Name </label>
-                                                                                                                        <input type="text" class="form-control" name="name" value="@if(empty($data1->name)) {{$data1->title}} @else {{$data1->name}} @endif">
+                                                                                                                        <input type="text" class="form-control border-dashed" name="name" value="@if(empty($data1->name)) {{$data1->title}} @else {{$data1->name}} @endif">
                                                                                                                         <div class="invalid-feedback">
                                                                                                                             Please enter the Link Name.
                                                                                                                         </div>
@@ -390,7 +389,7 @@
                                                                                                                     @if($data1->type == 'custom')
                                                                                                                         <div class="form-group mb-3">
                                                                                                                             <label>URL </label>
-                                                                                                                            <input type="text" class="form-control" name="slug" value="{{$data1->slug}}" required>
+                                                                                                                            <input type="text" class="form-control border-dashed" name="slug" value="{{$data1->slug}}" required>
                                                                                                                             <div class="invalid-feedback">
                                                                                                                                 Please enter the URL.
                                                                                                                             </div>
@@ -402,11 +401,12 @@
                                                                                                                             <span class="h6">Open in a new tab</span>
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                    <div class="text-center">
-                                                                                                                        <button class="pull-right btn btn-sm btn-outline-success"><i class="lnr lnr-bookmark"></i> Save</button>
-                                                                                                                        <a href="{{url('auth/delete-menuitem')}}/{{$data1->id}}/{{$key}}/{{$in}}/{{$keys}}" class="pull-left btn btn-sm btn-outline-danger">
-                                                                                                                            <span class="lnr lnr-trash"></span> Delete
-                                                                                                                        </a>
+                                                                                                                    <div>
+                                                                                                                        <a href="{{url('auth/delete-menuitem')}}/{{$data1->id}}/{{$key}}/{{$in}}/{{$keys}}" class="btn btn-danger btn-sm btn-label">
+                                                                                                                            <i class=" ri-delete-bin-6-line label-icon align-middle fs-16 me-2"></i>Remove</a>
+
+                                                                                                                        <button type="submit" class="btn btn-success btn-sm btn-label pull-right ">
+                                                                                                                            <i class="ri-check-double-line label-icon align-middle fs-16 me-2"></i>Save</button>
                                                                                                                     </div>
 
                                                                                                                     {!! Form::close() !!}
@@ -432,9 +432,9 @@
                                         </div>
                                         @if($desiredMenu != '')
 
-                                            <div class="mb-3">
+                                            <div class="mb-3 mt-3">
                                                 <label for="edit-title" class="form-label">Edit Title (for frontend display)</label>
-                                                <input type="text" class="form-control border-dashed" id="edit-title" value="{{@$menuTitle}}" placeholder="Enter menu title" required>
+                                                <input type="text" name="title" class="form-control border-dashed" id="edit-title" value="{{@$menuTitle}}" placeholder="Enter menu title" required>
                                                 <div class="invalid-feedback">
                                                     Please enter the menu title.
                                                 </div>
@@ -526,7 +526,7 @@
                 //for animation
                 var $clonedItem = $('<li/>').css({height: 0});
                 $item.before($clonedItem);
-                $clonedItem.animate({'height': $item.height()});
+                $clonedItem.animate({'height': '3'});
 
                 $item.animate($clonedItem.position(), function  () {
                     $clonedItem.detach();
@@ -683,11 +683,11 @@
                 var location = $('input[name="location"]:checked').val();
                 var title = $('input[name="title"]').val();
                 if(title == ""){
-                    swal("Missing Title!", "Enter the title to save the menu", "info");
+                    Toastify({ newWindow: !0, text: "Please enter the title to save the menu !", gravity: 'top', position: 'center', stopOnFocus: !0, duration: 3000, close: "close",className: "bg-warning" }).showToast();
                     return false;
                 }
                 if(location == null){
-                    swal("Mission location!", "Select the location to save the menu", "info");
+                    Toastify({ newWindow: !0, text: "Please enter the location to save the menu !", gravity: 'top', position: 'center', stopOnFocus: !0, duration: 3000, close: "close",className: "bg-warning" }).showToast();
                     return false;
                 }
                 var data = JSON.parse($("#serialize_output").text());

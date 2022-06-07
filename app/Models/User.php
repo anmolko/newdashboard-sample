@@ -69,7 +69,7 @@ class User extends Authenticatable
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        return "This :subject.name Details has been {$eventName} by :causer.name ";
+        return "This :subject.name Details has been {$eventName} by :causer.name";
     }
 
     public function getActivitylogOptions(): LogOptions
