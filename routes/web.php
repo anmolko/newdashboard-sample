@@ -167,6 +167,16 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::put('/faq/{plan}', 'App\Http\Controllers\FaqController@update')->name('faq.update');
     Route::delete('/faq/{faq}', 'App\Http\Controllers\FaqController@destroy')->name('faq.destroy');
     Route::get('/faq/{faq}/edit', 'App\Http\Controllers\FaqController@edit')->name('faq.edit');
+
+
+    //Testimonial
+    Route::get('/testimonials', 'App\Http\Controllers\TestimonialController@index')->name('testimonials.index');
+    Route::get('/testimonials/create', 'App\Http\Controllers\TestimonialController@create')->name('testimonials.create');
+    Route::post('/testimonials', 'App\Http\Controllers\TestimonialController@store')->name('testimonials.store');
+    Route::put('/testimonials/{testimonial}', 'App\Http\Controllers\TestimonialController@update')->name('testimonials.update');
+    Route::delete('/testimonials/{testimonial}', 'App\Http\Controllers\TestimonialController@destroy')->name('testimonials.destroy');
+    Route::get('/testimonials/{testimonial}/edit', 'App\Http\Controllers\TestimonialController@edit')->name('testimonials.edit');
+
 });
 
 
