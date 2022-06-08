@@ -37,9 +37,9 @@ class FrontController extends Controller
 
     public function blogs(){
         $bcategories = $this->bcategory->get();
-        $allPosts = $this->blog->orderBy('title', 'asc')->where('status','publish')->paginate(6);
-        $latestPosts = $this->blog->orderBy('created_at', 'DESC')->where('status','publish')->take(3)->get();
-        return view('frontend.pages.blogs.index',compact('allPosts','latestPosts','bcategories'));
+        $allPosts = $this->blog->orderBy('created_at', 'DESC')->where('status','publish')->paginate(6);
+        $latestPost = $this->blog->orderBy('created_at', 'DESC')->where('status','publish')->first();
+        return view('frontend.pages.blogs.index',compact('allPosts','latestPost','bcategories'));
     }
 
     public function blogSingle($slug){
