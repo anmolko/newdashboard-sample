@@ -105,11 +105,11 @@ class TestimonialController extends Controller
     public function update(Request $request, $id)
     {
         $testimonial                      =  Testimonial::find($id);
-        $testimonial->name                =  $testimonial->input('name');
-        $testimonial->position            =  $testimonial->input('position');
-        $testimonial->rating              =  $testimonial->input('edit_rating');
-        $testimonial->description         =  $testimonial->input('description');
-        $oldimage                            =  $testimonial->image;
+        $testimonial->name                =  $request->input('name');
+        $testimonial->position            =  $request->input('position');
+        $testimonial->rating              =  $request->input('edit_rating');
+        $testimonial->description         =  $request->input('description');
+        $oldimage                         =  $testimonial->image;
 
         if (!empty($request->file('image'))){
             $image       = $request->file('image');
@@ -131,7 +131,7 @@ class TestimonialController extends Controller
         else{
             Session::flash('error','Something Went Wrong. Testimonial could not be updated at the moment !');
         }
-        return redirect()->route('services.index');
+        return redirect()->route('testimonials.index');
 
     }
 
@@ -143,6 +143,19 @@ class TestimonialController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete          = Testimonial::find($id);
+        $blogid          = $delete->id;
+        $feature         = $delete->feature_image;
+        if (!empty($feature) && file_exists(public_path().'/images/testimonial/'.$feature)){
+            @unlink(public_path().'/images/testimonial/'.$feature);
+        }
+        $remove          = $delete->delete();
+        if($remove){
+            $status ='success';
+            return response()->json(['status'=>$status,'message'=>'Testimonial has been removed succesfully! ','id'=>$blogid]);        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'Testimonial could not be removed. Try Again later !']);
+        }
     }
 }

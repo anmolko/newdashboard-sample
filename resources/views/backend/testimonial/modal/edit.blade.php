@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['method'=>'PUT','class'=>'needs-validation updatetestimonial','novalidate'=>'']) !!}
+                {!! Form::open(['method'=>'PUT','class'=>'needs-validation updatetestimonial','novalidate'=>'','enctype'=>'multipart/form-data']) !!}
                 <div class="row">
                     <div class="mb-3">
                         <label class="form-label" for="update-name">Provider Name</label>
@@ -54,17 +54,17 @@
                     <div class="card">
                         <div class="card-body">
                             <div>
-                                <img  id="current-update-img"  src="{{asset('images/default-image.jpg')}}" class="position-relative img-fluid img-thumbnail blog-feature-image" >
+                                <img id="current-update-img"  src="{{asset('images/default-image.jpg')}}" class="position-relative img-fluid img-thumbnail blog-feature-image" >
                                 <input  type="file" accept="image/png, image/jpeg" hidden
-                                        id="work-foreground-img-file-update" onchange="loadbasicFile('work-foreground-img-file-update','current-update-img',event)" name="image" required
+                                        id="work-foreground-img-file-update" onchange="loadbasicFile('work-foreground-img-file-update','current-update-img',event)" name="image"
                                         class="work-foreground-img-file-update" >
 
-                                <figcaption class="figure-caption">Select your related work image.</figcaption>
+                                <figcaption class="figure-caption">Select your related testimonial image.</figcaption>
                                 <div class="invalid-feedback" >
                                     Please select a image.
                                 </div>
                                 <label for="work-foreground-img-file-update" class="profile-photo-edit btn btn-light feature-image-button">
-                                    <i class="ri-image-edit-line align-bottom me-1"></i> Add Work Image
+                                    <i class="ri-image-edit-line align-bottom me-1"></i> Add testimonial Image
                                 </label>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                     <div class="col-lg-12">
                         <div class="hstack gap-2 justify-content-end">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" id="call-action-update-button" >Update Call Action</button>
+                            <button type="submit" class="btn btn-success" id="call-action-update-button" >Update Testimonial</button>
                         </div>
                     </div>
                 </div>
