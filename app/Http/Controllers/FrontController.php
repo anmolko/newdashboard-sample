@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\Contact;
+use App\Models\Faq;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,14 +18,16 @@ class FrontController extends Controller
     protected $setting = null;
     protected $blog = null;
     protected $bcategory = null;
+    protected $faq = null;
 
 
-    public function __construct(Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
+    public function __construct(Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
         $this->contact = $contact;
         $this->setting = $setting;
         $this->bcategory = $bcategory;
         $this->blog = $blog;
+        $this->faq = $faq;
     }
 
 
@@ -33,6 +36,12 @@ class FrontController extends Controller
 
         return view('welcome');
 
+    }
+
+    
+    public function faq(){
+        $faqs = $this->faq->get();
+        return view('frontend.pages.faq',compact('faqs'));
     }
 
     public function blogs(){

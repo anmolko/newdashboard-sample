@@ -40,6 +40,8 @@ Route::get('blog/search/', 'App\Http\Controllers\FrontController@searchBlog')->n
 Route::get('blog/{slug}','App\Http\Controllers\FrontController@blogSingle')->name('blog.single');
 Route::get('/blog/categories/{slug}', 'App\Http\Controllers\FrontController@blogCategories')->name('blog.category');
 Route::get('/blog', 'App\Http\Controllers\FrontController@blogs')->name('blog.frontend');
+Route::get('/faq', 'App\Http\Controllers\FrontController@faq')->name('faq.frontend');
+
 //end blog
 
 Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {

@@ -426,7 +426,7 @@
                                                                 <h5 class="fs-16 mb-0 fw-semibold">General FAQ List</h5>
                                                             </div>
                                                         </div>
-                                                        @foreach($faqs->chunk(2) as $firstchunk)
+                                                        @foreach($faqs->chunk(1) as $firstchunk)
 
                                                         <div class="col-lg-6">
                                                             <div class="mt-3">

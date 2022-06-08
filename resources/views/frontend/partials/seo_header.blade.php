@@ -7,23 +7,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="author" content="Canosoft Technology"/>	
-		<meta name="description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft - Let's make IT happen @endif "/>
-		<meta name="keywords" content="@if(!empty(@$setting_data->website_keyword)) {{@$setting_data->website_keyword}} @else Canosoft - Let's make IT happen @endif ">	
 		<link rel="canonical" href="" />
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
 
-			<!-- SITE TITLE -->
-		@if (\Request::is('/'))
-		    <title>@if(!empty(@$setting_data->website_name)) {{ucwords(@$setting_data->website_name)}} @else Canosoft - Let's make IT happen @endif </title>
-		@else
-            <title>@yield('title') | @if(!empty(@$setting_data->website_name)) {{ucwords(@$setting_data->website_name)}} @else Canosoft - Let's make IT happen @endif </title>
-		@endif			
-		<meta property="og:title" content="Home" />
-		<meta property="og:type" content="article" />
-		<meta property="og:url" content="" />
-		<meta property="og:site_name" content="Canosoft - Let's make IT happen" />
-		<meta property="og:description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft - Let's make IT happen @endif " />
-
+        @yield('seo')
 
   	
 		<!-- FAVICON AND TOUCH ICONS -->
@@ -92,7 +79,7 @@
 
 			<!-- HEADER
 			============================================= -->
-			<header id="header" class="header tra-menu @if(\Request::is('/') || \Request::route()->getName()=='faq.frontend') navbar-light @else navbar-dark @endif">
+			<header id="header" class="header tra-menu @if(\Request::is('/')) navbar-light @else navbar-dark @endif">
 				<div class="header-wrapper">
 
 					<!-- MOBILE HEADER -->
