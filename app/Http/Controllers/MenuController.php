@@ -59,8 +59,10 @@ class MenuController extends Controller
                             }
                         }
                     }
+                }else{
+                    $desiredMenu->content = null;
+                    $desiredMenu->update();
                 }
-
             }else{
                 $menuitems = MenuItem::where('menu_id',$desiredMenu->id)->get();
             }
@@ -75,40 +77,43 @@ class MenuController extends Controller
             if($desiredMenu){
                 if($desiredMenu->content != ''){
                     $menuitems = json_decode($desiredMenu->content);
-                    $menuitems = $menuitems[0];
-                    foreach($menuitems as $menu){
-                        $menu->title    = MenuItem::where('id',$menu->id)->value('title');
-                        $menu->name     = MenuItem::where('id',$menu->id)->value('name');
-                        $menu->slug     = MenuItem::where('id',$menu->id)->value('slug');
-                        $menu->target   = MenuItem::where('id',$menu->id)->value('target');
-                        $menu->type     = MenuItem::where('id',$menu->id)->value('type');
-                        if(!empty($menu->children[0])){
-                            foreach ($menu->children[0] as $child) {
-                                $child->title   = MenuItem::where('id',$child->id)->value('title');
-                                $child->name    = MenuItem::where('id',$child->id)->value('name');
-                                $child->slug    = MenuItem::where('id',$child->id)->value('slug');
-                                $child->target  = MenuItem::where('id',$child->id)->value('target');
-                                $child->type    = MenuItem::where('id',$child->id)->value('type');
-                                if(!empty($child->children[0])){
-                                    foreach ($child->children[0] as $minichild) {
-                                        $minichild->title   = MenuItem::where('id',$minichild->id)->value('title');
-                                        $minichild->name    = MenuItem::where('id',$minichild->id)->value('name');
-                                        $minichild->slug    = MenuItem::where('id',$minichild->id)->value('slug');
-                                        $minichild->target  = MenuItem::where('id',$minichild->id)->value('target');
-                                        $minichild->type    = MenuItem::where('id',$minichild->id)->value('type');
+                    if(@$menuitems[0] != null){
+                        $menuitems = $menuitems[0];
+                        foreach($menuitems as $menu){
+                            $menu->title    = MenuItem::where('id',$menu->id)->value('title');
+                            $menu->name     = MenuItem::where('id',$menu->id)->value('name');
+                            $menu->slug     = MenuItem::where('id',$menu->id)->value('slug');
+                            $menu->target   = MenuItem::where('id',$menu->id)->value('target');
+                            $menu->type     = MenuItem::where('id',$menu->id)->value('type');
+                            if(!empty($menu->children[0])){
+                                foreach ($menu->children[0] as $child) {
+                                    $child->title   = MenuItem::where('id',$child->id)->value('title');
+                                    $child->name    = MenuItem::where('id',$child->id)->value('name');
+                                    $child->slug    = MenuItem::where('id',$child->id)->value('slug');
+                                    $child->target  = MenuItem::where('id',$child->id)->value('target');
+                                    $child->type    = MenuItem::where('id',$child->id)->value('type');
+                                    if(!empty($child->children[0])){
+                                        foreach ($child->children[0] as $minichild) {
+                                            $minichild->title   = MenuItem::where('id',$minichild->id)->value('title');
+                                            $minichild->name    = MenuItem::where('id',$minichild->id)->value('name');
+                                            $minichild->slug    = MenuItem::where('id',$minichild->id)->value('slug');
+                                            $minichild->target  = MenuItem::where('id',$minichild->id)->value('target');
+                                            $minichild->type    = MenuItem::where('id',$minichild->id)->value('type');
+                                        }
                                     }
                                 }
                             }
                         }
+                    }else{
+                        $desiredMenu->content = null;
+                        $desiredMenu->update();
                     }
                 }else{
                     $menuitems = MenuItem::where('menu_id',$desiredMenu->id)->get();
                 }
             }
         }
-        if(empty($menuitems[0])){
-            $menuitems =[];
-        }
+
         return view('backend.menu.index',compact('services','menuTitle','blogs','menus','desiredMenu','menuitems'));
 
     }
@@ -208,6 +213,7 @@ class MenuController extends Controller
         $ids        = $request->ids;
         $menu       = Menu::findOrFail($menuid);
         if($menu->content == ''){
+//            dd('content empty');
             foreach($ids as $id){
                 $service = Service::find($id);
                 $data =[
@@ -220,7 +226,9 @@ class MenuController extends Controller
                 ];
                 $status = MenuItem::create($data);
             }
-        }else{
+
+        }
+        else{
             $olddata = json_decode($menu->content,true);
             foreach($ids as $id){
                 $service = Service::find($id);
@@ -247,7 +255,6 @@ class MenuController extends Controller
                 $status = $menu->update(['content'=>$olddata]);
             }
         }
-
         if($status){
             Session::flash('success','Service added in Menu');
         }else{
@@ -385,6 +392,7 @@ class MenuController extends Controller
         $menuitem       = MenuItem::findOrFail($id);
         $menus          = Menu::where('id',$menuitem->menu_id)->first();
 
+
         if($menus->content != ''){
             $data       = json_decode($menus->content,true);
             if($in == ''){
@@ -417,7 +425,8 @@ class MenuController extends Controller
                 //removing the ID from the structure
                 $newdata = json_encode($data);
                 $menus->update(['content'=>$newdata]);
-            }else if($inside == ''){
+            }
+            else if($inside == ''){
 
                 //checking if the removed menu child item has additional child or not.
                 if(array_key_exists('children', $data[0][$key]['children'][0][$in])){

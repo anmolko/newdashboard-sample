@@ -62,7 +62,7 @@
 
                     <div class="d-flex justify-content-sm-end gap-2">
                         <select class="form-control w-md" name="slug" data-choices="" data-choices-search-false="">
-                            <option value selected>Select Menu</option>
+                            <option value disabled selected>Select Menu</option>
                             @foreach($menus as $menu)
                                 @if($desiredMenu !== '')
                                     <option value="{{$menu->slug}}" @if($menu->id == $desiredMenu->id) selected @endif>{{ucwords(@$menu->name)}}</option>
@@ -80,7 +80,7 @@
                     <div class="col-sm">
                         <div class="d-flex justify-content-sm-end gap-2">
                             <div>
-                                <h5 class="fs-14 mb-0">Create your menu and items here.</h5>
+                                <h5 class="fs-14 mb-2">Create your menu and items here.</h5>
                             </div>
                         </div>
                     </div>
@@ -254,13 +254,14 @@
                                                 <ul class="list-group nested-list ui-sortable" id="menuitems">
                                                     @if(!empty($menuitems))
                                                         @foreach(@$menuitems as $key=>$item)
+                                                            @if(!empty($item))
                                                             <li data-id="{{@$item->id}}" class="list-group-item nested-1">
                                                                 <span class="menu-item-bar"><i class="ri-drag-move-fill align-bottom handle"></i>
                                                                     @if(empty(@$item->name)) {{@$item->title}} @else {{@$item->name}} @endif
                                                                     <a class="pull-right d-block collapsed" data-bs-toggle="collapse"
                                                                             aria-controls="collapse{{@$item->id}}"
                                                                             data-bs-target="#collapse{{@$item->id}}" style="cursor: pointer"><i class="ri-menu-fill"></i></a></span>
-                                                                    <div class="mt-2 list-group nested-list collapse" aria-labelledby="collapse{{$item->id}}" id="collapse{{$item->id}}">
+                                                                    <div class="mt-2 list-group nested-list collapse" aria-labelledby="collapse{{@$item->id}}" id="collapse{{@$item->id}}">
                                                                         <div class="card list-group-item nested-3">
                                                                             <div class="" id="basic3">
                                                                                 <a class="d-block text-dark bold">
@@ -271,13 +272,13 @@
                                                                                 {!! Form::open(['method'=>'post','url'=>route('menu.updatemenuitem', @$item->id),'class'=>'needs-validation','novalidate'=>'']) !!}
                                                                                 <div class="form-group mb-3">
                                                                                     <label>Link Name </label>
-                                                                                    <input type="text" class="form-control border-dashed" name="name" value="@if(empty($item->name)) {{$item->title}} @else {{$item->name}} @endif">
+                                                                                    <input type="text" class="form-control border-dashed" name="name" value="@if(empty(@$item->name)) {{@$item->title}} @else {{@$item->name}} @endif">
                                                                                     <div class="invalid-feedback">
                                                                                         Please enter the Link Name.
                                                                                     </div>
                                                                                 </div>
 
-                                                                                @if($item->type == 'custom')
+                                                                                @if(@$item->type == 'custom')
                                                                                     <div class="form-group mb-3">
                                                                                         <label>URL </label>
                                                                                         <input type="text" class="form-control  border-dashed" name="slug" value="{{$item->slug}}" required>
@@ -287,8 +288,8 @@
                                                                                     </div>
                                                                                 @endif
                                                                                 <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" name="target" value="_blank" id="main-{{$item->id}}"  @if($item->target == '_blank') checked @endif class="custom-control-input">
-                                                                                    <label class="custom-control-label" for="main-{{$item->id}}">
+                                                                                    <input type="checkbox" name="target" value="_blank" id="main-{{@$item->id}}"  @if(@$item->target == '_blank') checked @endif class="custom-control-input">
+                                                                                    <label class="custom-control-label" for="main-{{@$item->id}}">
                                                                                         <span class="h6">Open in a new tab</span>
                                                                                     </label>
                                                                                 </div>
@@ -425,6 +426,7 @@
                                                                     @endif
                                                                 </ul>
                                                             </li>
+                                                            @endif
                                                         @endforeach
                                                     @endif
                                                 </ul>
