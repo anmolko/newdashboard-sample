@@ -242,7 +242,7 @@
                                                 Please enter the menu slug.
                                             </div>
                                         </div>
-                                        <div class="text-end mb-4">
+                                        <div class="text-end mt-4 mb-2">
                                             <button type="submit" class="btn btn-success btn-label right ms-auto"><i class="ri-arrow-right-line label-icon align-bottom fs-16 ms-2"></i> Create Menu</button>
                                         </div>
                                     {!! Form::close() !!}
