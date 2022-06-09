@@ -63,25 +63,22 @@
                                 <label class="form-label" for="type-input">Type</label>
                                 <select class="form-select" id="type-input" name="type" required>
                                     <option value disabled selected>Select plan type</option>
-                                    <optgroup label="Category one">
                                         <option value="monthly">Monthly</option>
                                         <option value="yearly">Yearly</option>
-                                    </optgroup>
-                                    <optgroup label="Category Two">
-                                        <option value="personal">Personal</option>
-                                        <option value="commercial">Commercial</option>
-                                    </optgroup>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please enter the plan price.
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="link-input">Button Link</label>
-                                <input type="text" name="link" class="form-control" id="link-input"
-                                       placeholder="Enter the link">
+                                <label class="form-label" for="package">Package Type</label>
+                                <select class="form-select" name="link" id="package" required>
+                                    <option value disabled>Select package type</option>
+                                    <option value="personal">Personal</option>
+                                    <option value="commercial">Commercial</option>
+                                </select>
                                 <div class="invalid-feedback">
-                                    Please enter the link.
+                                    Please enter the package type.
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -114,6 +111,7 @@
                                                 <th>Name </th>
                                                 <th>Price </th>
                                                 <th>Type </th>
+                                                <th>Package Type </th>
                                                 <th class="text-right">Action</th>
                                             </tr>
                                             </thead>
@@ -124,6 +122,7 @@
                                                         <td>{{ ucwords(@$project->name) }}</td>
                                                         <td>{{ @$project->price }}</td>
                                                         <td>{{ ucwords(@$project->type) }}</td>
+                                                        <td>{{ ucwords(@$project->link) }}</td>
                                                         <td>
                                                             <div class="row">
 

@@ -27,25 +27,22 @@
                         <label class="form-label" for="update-type">Type</label>
                         <select class="form-select" name="type" id="update-type" required>
                             <option value disabled>Select plan type</option>
-                            <optgroup label="Category one">
                                 <option value="monthly">Monthly</option>
                                 <option value="yearly">Yearly</option>
-                            </optgroup>
-                            <optgroup label="Category Two">
-                                <option value="personal">Personal</option>
-                                <option value="commercial">Commercial</option>
-                            </optgroup>
                         </select>
                         <div class="invalid-feedback">
                             Please enter the plan price.
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="update-link">Button Link</label>
-                        <input type="text" name="link" class="form-control" id="update-link"
-                               placeholder="Enter the link">
+                        <label class="form-label" for="update-package">Package Type</label>
+                        <select class="form-select" name="link" id="update-package" required>
+                            <option value disabled>Select package type</option>
+                                <option value="personal">Personal</option>
+                                <option value="commercial">Commercial</option>
+                        </select>
                         <div class="invalid-feedback">
-                            Please enter the link.
+                            Please enter the package type.
                         </div>
                     </div>
                     <div class="mb-3">

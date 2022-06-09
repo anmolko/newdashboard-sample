@@ -34,7 +34,7 @@ $(document).on('click','.cs-plan-edit', function (e) {
             $('#update-name').attr('value',dataResult.name);
             $('#update-price').attr('value',dataResult.price);
             $('#update-type option[value="'+dataResult.type+'"]').prop('selected', true);
-            $('#update-link').attr('value',dataResult.link);
+            $('#update-package option[value="'+dataResult.link+'"]').prop('selected', true);
             editor.setData( dataResult.description );
             $('.updateplan').attr('action',action);
         },
