@@ -81,15 +81,15 @@
                                     Please enter the package type.
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 position-relative">
                                 <label class="form-label" for="summary-input">Description </label>
                                 <textarea class="form-control" id="ckeditor-classic" placeholder="Enter Descrition (use lists)" name="description" rows="5" required></textarea>
-                                <div class="invalid-feedback">
+                                <div class="invalid-tooltip">
                                     Please enter the description.
                                 </div>
                                 <span class="figure-caption">* Only use list options here</span>
                             </div>
-                            <div class="hstack gap-2 justify-content-center">
+                            <div class="hstack gap-2 justify-content-center mt-4">
                                 <button type="submit" class="btn btn-success btn-sm"><i class="ri-play-circle-line align-bottom me-1"></i> Save</button>
                             </div>
                             {!! Form::close() !!}

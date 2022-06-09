@@ -45,13 +45,16 @@
                             Please enter the package type.
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 position-relative">
                         <label class="form-label" for="summary-input">Description </label>
                         <textarea class="form-control" id="ckeditor-classic-update" placeholder="Enter Description (use lists)" name="description" rows="5" required></textarea>
                         <div class="invalid-feedback">
                             Please enter the description.
                         </div>
                         <span class="figure-caption">* Only use list options here</span>
+                        <div class="invalid-tooltip">
+                            Please enter the description.
+                        </div>
                     </div>
 
                     <div class="col-lg-12">
