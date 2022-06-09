@@ -40,6 +40,18 @@ class FrontController extends Controller
         return view('welcome');
     }
 
+
+    public function privacy()
+    {
+        return view('frontend.pages.privacy');
+    }
+
+    public function terms()
+    {
+        return view('frontend.pages.term');
+    }
+
+    
     
     public function faq(){
         $faqs = $this->faq->get();

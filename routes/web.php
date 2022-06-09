@@ -45,6 +45,8 @@ Route::get('/blog', 'App\Http\Controllers\FrontController@blogs')->name('blog.fr
 Route::get('/faq', 'App\Http\Controllers\FrontController@faq')->name('faq.frontend');
 Route::get('/get-quote', 'App\Http\Controllers\FrontController@getQuote')->name('get-quote');
 Route::get('/careers', 'App\Http\Controllers\FrontController@career')->name('career.frontend');
+Route::get('/privacy-policy', 'App\Http\Controllers\FrontController@privacy')->name('privacy.frontend');
+Route::get('/terms-condition', 'App\Http\Controllers\FrontController@terms')->name('term.frontend');
 
 
 //end blog
