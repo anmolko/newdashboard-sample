@@ -38,9 +38,14 @@ Route::get('/', 'App\Http\Controllers\FrontController@index')->name('home');
 Route::get('blog/search/', 'App\Http\Controllers\FrontController@searchBlog')->name('searchBlog');
 
 Route::get('blog/{slug}','App\Http\Controllers\FrontController@blogSingle')->name('blog.single');
+Route::get('service/{slug}','App\Http\Controllers\FrontController@serviceSingle')->name('service.single');
+Route::get('service/','App\Http\Controllers\FrontController@service')->name('service.frontend');
 Route::get('/blog/categories/{slug}', 'App\Http\Controllers\FrontController@blogCategories')->name('blog.category');
 Route::get('/blog', 'App\Http\Controllers\FrontController@blogs')->name('blog.frontend');
 Route::get('/faq', 'App\Http\Controllers\FrontController@faq')->name('faq.frontend');
+Route::get('/get-quote', 'App\Http\Controllers\FrontController@getQuote')->name('get-quote');
+Route::get('/careers', 'App\Http\Controllers\FrontController@career')->name('career.frontend');
+
 
 //end blog
 

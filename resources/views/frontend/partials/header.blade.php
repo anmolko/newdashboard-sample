@@ -58,6 +58,12 @@
 		
 		<!-- RESPONSIVE CSS -->
 		<link href="{{asset('assets/frontend/css/responsive.css')}}" rel="stylesheet">
+		<style>
+			.tra-menu.navbar-light .scroll .wsmenu>.wsmenu-list>li.active a,.tra-menu.navbar-dark .wsmenu>.wsmenu-list>li.active>a
+			{
+				color:#2F72A3;
+			}
+		</style>
         @yield('css')
 
 	</head>
@@ -97,7 +103,7 @@
 
 					<!-- MOBILE HEADER -->
 				    <div class="wsmobileheader clearfix">	  	
-				    	<span class="smllogo"><img src="{{asset('assets/frontend/images/logo-01.png')}}" alt="mobile-logo"/></span>
+				    	<span class="smllogo"><img src="<?php if(@$setting_data->logo){?>{{asset('/images/settings/'.@$setting_data->logo)}}<?php }?>" alt="mobile-logo"/></span>
 				    	<a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>	
 				 	</div>
 
@@ -108,150 +114,73 @@
 
 
 	    					<!-- HEADER LOGO -->
-	    					<div class="desktoplogo"><a href="/" class="logo-black"><img src="{{asset('assets/frontend/images/logo-01.png')}}" alt="header-logo"></a></div>
-	    					<div class="desktoplogo"><a href="/" class="logo-white"><img src="{{asset('assets/frontend/images/logo-02.png')}}" alt="header-logo"></a></div>
+	    					<div class="desktoplogo"><a href="/" class="logo-black"><img src="<?php if(@$setting_data->logo){?>{{asset('/images/settings/'.@$setting_data->logo)}}<?php }?>" alt="header-logo"></a></div>
+	    					<div class="desktoplogo"><a href="/" class="logo-white"><img src="<?php if(@$setting_data->logo_white){?>{{asset('/images/settings/'.@$setting_data->logo_white)}}<?php }?>" alt="header-logo"></a></div>
 
 
 	    					<!-- MAIN MENU -->
 	      					<nav class="wsmenu clearfix">
 	        					<ul class="wsmenu-list nav-skyblue-hover">
 
+	        					
+									<li class="nl-simple {{request()->is('/') ? 'active' : ''}}" aria-haspopup="true" >
+										<a href="/" class="">Home</a>
+									</li>
 
-	        						<!-- MEGAMENU -->
-						          	<li aria-haspopup="true" class="mg_link"><a href="#">Home <span class="wsarrow"></span></a>
-	            						<div class="wsmegamenu w-75 clearfix">
-	             							<div class="container">
-	               								<div class="row">
+									@if(!empty($top_nav_data))
+										@foreach($top_nav_data as $nav)
+										@if(!empty($nav->children[0]))
 
-	               									<!-- MEGAMENU LINKS -->
-	               									<ul class="col-md-12 col-lg-3 link-list">
-									                    <li class="fst-li"><a href="demo-1.html">App Landing</a></li>
-									                    <li><a href="demo-2.html">App Showcase 1</a></li>
-									                    <li><a href="demo-3.html">Startup Agency</a></li>
-									                    <li><a href="demo-4.html">Design Agency</a></li>	
-									                    <li><a href="demo-5.html">Software 1</a></li> 
-									                    <li><a href="demo-6.html">SaaS Service 1</a></li> 
-									                    <li><a href="demo-7.html">Digital Service 1</a></li>           
-									                </ul>
+										<li aria-haspopup="true" class="{{request()->is(@$nav->slug)  ? 'active' : ''}}"><a href="#">@if(@$nav->name == NULL) {{ucwords(@$nav->title)}} @else {{ucwords(@$nav->name)}} @endif  <span class="wsarrow"></span></a>
 
-									                <!-- MEGAMENU LINKS -->
-	               									<ul class="col-md-12 col-lg-3 link-list">
-									                    <li class="fst-li"><a href="demo-8.html">Social Media Marketing</a></li>
-									                    <li><a href="demo-9.html">Digital Agency</a></li>	
-									                    <li><a href="demo-10.html">SaaS Service 2</a></li> 
-									                    <li><a href="demo-11.html">Desktop Software 1</a></li>
-									                    <li><a href="demo-12.html">Digital Service 2</a></li> 
-									                    <li><a href="demo-13.html">Software SaaS</a></li>
-									                    <li><a href="demo-14.html">App Showcase 2</a></li>	               
-									                </ul>
+											<ul class="sub-menu">
+												@foreach($nav->children[0] as $childNav)
+												@if($childNav->type == 'custom')
+													<li aria-haspopup="true" class="{{request()->is(@$childNav->slug) ? 'active' : ''}}">
+														<a href="/{{@$childNav->slug}}"  @if(@$childNav->target !== NULL) target="_blank" @endif>@if($childNav->name == NULL) {{@$childNav->title}} @else {{@$childNav->name}} @endif</a>
+													</li>
+												
+												@elseif($childNav->type == 'post')
+													<li aria-haspopup="true" class="{{request()->is('blog/'.@$childNav->slug) ? 'active' : ''}}">
+														<a href="{{url('blog')}}/{{@$childNav->slug}}"  @if(@$childNav->target !== NULL) target="_blank" @endif>@if($childNav->name == NULL) {{@$childNav->title}} @else {{@$childNav->name}} @endif</a>
+													</li>
+												@elseif($childNav->type == 'service')
+													<li aria-haspopup="true" class="{{request()->is('service/'.@$childNav->slug) ? 'active' : ''}}">
+														<a href="{{url('service')}}/{{@$childNav->slug}}"  @if(@$childNav->target !== NULL) target="_blank" @endif>@if($childNav->name == NULL) {{@$childNav->title}} @else {{@$childNav->name}} @endif</a>
+													</li>
+													
+												@else
+													<li aria-haspopup="true" class="{{request()->is(@$childNav->slug) ? 'active' : ''}}">
+														<a href="{{url('/')}}/{{@$childNav->slug}}"  @if(@$childNav->target !== NULL) target="_blank" @endif>@if($childNav->name == NULL) {{@$childNav->title}} @else {{@$childNav->name}} @endif</a>
+													</li>
+												@endif
+												@endforeach
 
-									                <!-- MEGAMENU LINKS -->
-	               									<ul class="col-md-12 col-lg-3 link-list">
-									                    <li class="fst-li"><a href="demo-15.html">Software 2</a></li>  
-									                    <li><a href="demo-16.html">App Showcase 3</a></li>
-									                    <li><a href="demo-17.html">Desktop Software 2</a></li>
-									                    <li><a href="demo-18.html">SEO Company</a></li> 
-									                    <li><a href="demo-19.html">Digital Marketing</a></li>	
-									                    <li><a href="demo-20.html">Cyber Security</a></li> 
-									                    <li><a href="demo-21.html">SaaS Service 3</a></li>  			           
-									                </ul>
+											</ul>
+										</li>
 
-									               <!-- MEGAMENU LINKS -->
-	               									<ul class="col-md-12 col-lg-3 link-list">
-									                    <li class="fst-li"><a href="demo-22.html">Marketing Agency</a></li> 
-									                    <li><a href="demo-23.html">Branding Agency</a></li> 
-									                    <li><a href="404.html">404 Page</a></li>  
-									                    <li><a href="demo-24.html">RTL Version #1</a></li>	
-									                    <li><a href="demo-25.html">RTL Version #2</a></li>
-									                    <li><a href="demo-26.html">RTL Version #3</a></li>    			           
-									                </ul>
-                
-								                </div>  <!-- End row -->	
-								            </div>  <!-- End container -->	
-								        </div>  <!-- End wsmegamenu -->	
-								    </li>	<!-- END MEGAMENU -->
-
-
-	        						<!-- DROPDOWN MENU -->
-						          	<li aria-haspopup="true"><a href="#">About <span class="wsarrow"></span></a>
-	            						<ul class="sub-menu">
-	            							<li aria-haspopup="true"><a href="#content-2">Why OLMO?</a></li>
-	            							<li aria-haspopup="true"><a href="#content-3">Best Solutions</a></li>
-	            							<li aria-haspopup="true"><a href="#content-2a">Integrations</a></li>
-	            							<li aria-haspopup="true"><a href="#content-10">How It Works</a></li>
-	            							<li aria-haspopup="true"><a href="#reviews-1">Testimonials</a></li>	 
-						           		</ul>
-								    </li>
-
-
-							    	<!-- DROPDOWN MENU -->
-						        	<li aria-haspopup="true"><a href="#">Pages <span class="wsarrow"></span></a>
-						        		<div class="wsmegamenu clearfix halfmenu">
-						              		<div class="container-fluid">
-						                		<div class="row">
-
-						                			<!-- Links -->
-									                <ul class="col-lg-6 link-list">	
-									                	<li><a href="about.html">About Us</a></li>							          
-									                    <li><a href="features.html">Features & Addons</a></li>
-									                    <li><a href="pricing.html">Pricing Packages</a></li>
-									                    <li><a href="download.html">Download Page</a></li>
-									                    <li><a href="projects.html">Our Projects</a></li>  
-									                    <li><a href="project-details.html">Project Details</a></li>   
-									                </ul>
-
-								                  	<!-- Links -->
-									                <ul class="col-lg-6 link-list">	
-									                	<li><a href="team.html">Meet The Team</a></li>  			               
-									                    <li><a href="faqs.html">FAQs Page</a></li>
-									                    <li><a href="blog-listing.html">Blog Listing</a></li>
-									                    <li><a href="single-post.html">Single Blog Post</a></li>
-									                    <li><a href="terms.html">Terms & Privacy</a></li>
-									                    <li><a href="contacts.html">Contact Us</a></li>
-									                </ul>
-
-						                		</div>
-						              		</div>
-						            	</div>
-						          	</li>	<!-- END DROPDOWN MENU -->
-
-
-						          	<!-- DROPDOWN MENU -->
-						          	<li aria-haspopup="true"><a href="#">Auth Pages <span class="wsarrow"></span></a>
-	            						<ul class="sub-menu">
-	            							<li aria-haspopup="true"><a href="login-simple.html">Login Simple <span>NEW</span></a></li>	
-	            							<li aria-haspopup="true"><a href="login-boxed.html">Login Boxed <span>NEW</span></a></li>
-	            							<li aria-haspopup="true"><a href="login-image.html">Login Image <span>NEW</span></a></li>
-	            							<li aria-haspopup="true"><a href="signup-simple.html">Signup Simple <span>NEW</span></a></li>
-	            							<li aria-haspopup="true"><a href="signup-boxed.html">Signup Boxed <span>NEW</span></a></li>  
-	            							<li aria-haspopup="true"><a href="signup-image.html">Signup Image <span>NEW</span></a></li>
-	            							<li aria-haspopup="true"><a href="reset-password-1.html">Reset Pass. #1 <span>NEW</span></a></li>
-	            							<li aria-haspopup="true"><a href="reset-password-2.html">Reset Pass. #2 <span>NEW</span></a></li>
-						           		</ul>
-								    </li>
-
-
-						          	<!-- SIMPLE NAVIGATION LINK -->
-							    	<li class="nl-simple" aria-haspopup="true"><a href="#features-8">Features</a></li>
-
-
-							    	<!-- SIMPLE NAVIGATION LINK --> 
-							    	<li class="nl-simple" aria-haspopup="true"><a href="#faqs-2">FAQs</a></li>
-
-
-								    <!-- HEADER BUTTON -->
-								    <li class="nl-simple" aria-haspopup="true">
-								    	<a href="#cta-3" class="btn btn-skyblue tra-white-hover last-link">Let's Started</a>
-								    </li> 
-
-
-									<!-- HEADER SOCIAL LINKS 													
-									<li class="nl-simple white-color header-socials ico-20 clearfix" aria-haspopup="true">
-										<span><a href="#" class="ico-facebook"><span class="flaticon-facebook"></span></a></span>
-										<span><a href="#" class="ico-twitter"><span class="flaticon-twitter"></span></a></span>
-										<span><a href="#" class="ico-instagram"><span class="flaticon-instagram"></span></a></span>
-										<span><a href="#" class="ico-dribbble"><span class="flaticon-dribbble"></span></a></span>	
-									</li> -->	
+										@else
+											@if($nav->type == 'custom')
+												<li class="nl-simple {{request()->is(@$nav->slug.'*') ? 'active' : ''}}" aria-haspopup="true" >
+													<a href="/{{$nav->slug}}" class=""@if($nav->target == NULL)  @else target="{{$nav->target}}" @endif>@if($nav->name == NULL) {{$nav->title}} @else {{$nav->name}} @endif</a>
+												</li>
+											@elseif($nav->type == 'post')
+												<li class="nl-simple {{request()->is('blog/'.@$nav->slug.'*') ? 'active' : ''}}" aria-haspopup="true" >
+													<a href="{{url('blog')}}/{{$nav->slug}}" class="" @if($nav->target == NULL)  @else target="{{$nav->target}}" @endif>@if($nav->name == NULL) {{$nav->title}} @else {{$nav->name}} @endif</a>
+												</li>
+											@elseif($nav->type == 'service')
+												<li class="nl-simple {{request()->is('service/'.@$nav->slug.'*') ? 'active' : ''}}" aria-haspopup="true" >
+													<a href="{{url('service')}}/{{$nav->slug}}" class="" @if($nav->target == NULL)  @else target="{{$nav->target}}" @endif>@if($nav->name == NULL) {{$nav->title}} @else {{$nav->name}} @endif</a>
+												</li>
+												
+											@else
+												<li class="nl-simple {{request()->is(@$nav->slug.'*') ? 'active' : ''}}" aria-haspopup="true" >
+													<a href="{{url('/')}}/{{$nav->slug}}" class="" @if($nav->target == NULL)  @else target="{{$nav->target}}" @endif>@if($nav->name == NULL) {{$nav->title}} @else {{$nav->name}} @endif</a>
+												</li>
+											@endif
+										@endif
+										@endforeach
+									@endif
 
 
 	        					</ul>

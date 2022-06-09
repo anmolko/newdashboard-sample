@@ -7,6 +7,7 @@ use App\Models\BlogCategory;
 use App\Models\Contact;
 use App\Models\Faq;
 use App\Models\Setting;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -19,23 +20,24 @@ class FrontController extends Controller
     protected $blog = null;
     protected $bcategory = null;
     protected $faq = null;
+    protected $service = null;
 
 
-    public function __construct(Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
+    public function __construct(Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
         $this->contact = $contact;
         $this->setting = $setting;
         $this->bcategory = $bcategory;
         $this->blog = $blog;
         $this->faq = $faq;
+        $this->service = $service;
+        
     }
 
 
     public function index()
     {
-
         return view('welcome');
-
     }
 
     
@@ -54,6 +56,9 @@ class FrontController extends Controller
     public function blogSingle($slug){
 
         $singleBlog = $this->blog->where('slug', $slug)->first();
+        if (!$singleBlog) {
+            return abort(404);
+        }
         $catid = $singleBlog->blog_category_id;
         $relatedBlogs = Blog::where('blog_category_id', '=', $catid)->where('status','publish')->take(2)->get();
         $bcategories = $this->bcategory->get();
@@ -61,7 +66,17 @@ class FrontController extends Controller
         return view('frontend.pages.blogs.single',compact('singleBlog','relatedBlogs','bcategories','latestPosts'));
     }
 
+    
+    
+    public function serviceSingle($slug){
 
+        $singleService = $this->service->where('slug', $slug)->first();
+        if (!$singleService) {
+            return abort(404);
+        }
+       
+        return view('frontend.pages.service',compact('singleService'));
+    }
 
     public function blogCategories($slug){
         $bcategory = $this->bcategory->where('slug', $slug)->first();
