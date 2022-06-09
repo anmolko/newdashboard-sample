@@ -11,7 +11,6 @@
         font-size: 1.1875rem;
     }
    
-   
     </style>
 @endsection
 @section('content')

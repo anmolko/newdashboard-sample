@@ -39,12 +39,15 @@ Route::get('blog/search/', 'App\Http\Controllers\FrontController@searchBlog')->n
 
 Route::get('blog/{slug}','App\Http\Controllers\FrontController@blogSingle')->name('blog.single');
 Route::get('service/{slug}','App\Http\Controllers\FrontController@serviceSingle')->name('service.single');
-Route::get('service/','App\Http\Controllers\FrontController@service')->name('service.frontend');
+Route::get('/service','App\Http\Controllers\FrontController@service')->name('service.frontend');
 Route::get('/blog/categories/{slug}', 'App\Http\Controllers\FrontController@blogCategories')->name('blog.category');
 Route::get('/blog', 'App\Http\Controllers\FrontController@blogs')->name('blog.frontend');
 Route::get('/faq', 'App\Http\Controllers\FrontController@faq')->name('faq.frontend');
 Route::get('/get-quote', 'App\Http\Controllers\FrontController@getQuote')->name('get-quote');
 Route::get('/careers', 'App\Http\Controllers\FrontController@career')->name('career.frontend');
+Route::get('/packages', 'App\Http\Controllers\FrontController@package')->name('package.frontend');
+Route::post('/packages', 'App\Http\Controllers\FrontController@packageStore')->name('package.store');
+
 Route::get('/privacy-policy', 'App\Http\Controllers\FrontController@privacy')->name('privacy.frontend');
 Route::get('/terms-condition', 'App\Http\Controllers\FrontController@terms')->name('term.frontend');
 

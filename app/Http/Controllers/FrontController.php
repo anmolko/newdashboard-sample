@@ -8,6 +8,9 @@ use App\Models\Contact;
 use App\Models\Faq;
 use App\Models\Setting;
 use App\Models\Service;
+use App\Models\ProjectPlan;
+use App\Models\Package;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -21,9 +24,11 @@ class FrontController extends Controller
     protected $bcategory = null;
     protected $faq = null;
     protected $service = null;
+    protected $pojectPlan = null;
+    protected $customer_package = null;
+    
 
-
-    public function __construct(Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
+    public function __construct(Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
         $this->contact = $contact;
         $this->setting = $setting;
@@ -31,6 +36,8 @@ class FrontController extends Controller
         $this->blog = $blog;
         $this->faq = $faq;
         $this->service = $service;
+        $this->pojectPlan = $pojectPlan;
+        $this->customer_package = $customer_package;
         
     }
 
@@ -50,7 +57,6 @@ class FrontController extends Controller
     {
         return view('frontend.pages.term');
     }
-
     
     
     public function faq(){
@@ -65,6 +71,7 @@ class FrontController extends Controller
         return view('frontend.pages.blogs.index',compact('allPosts','latestPost','bcategories'));
     }
 
+    
     public function blogSingle($slug){
 
         $singleBlog = $this->blog->where('slug', $slug)->first();
@@ -78,7 +85,53 @@ class FrontController extends Controller
         return view('frontend.pages.blogs.single',compact('singleBlog','relatedBlogs','bcategories','latestPosts'));
     }
 
-    
+    public function service(){
+        $allservices = $this->service->paginate(6);
+        return view('frontend.pages.services.index',compact('allservices'));
+    }
+
+    public function package(){
+        $allpackages = $this->pojectPlan->get();
+        return view('frontend.pages.package',compact('allpackages'));
+    }
+
+    public function packageStore(Request $request)
+    {
+        $data = [
+            'project_plan_id'   => $request->input('project_plan_id'),
+            'email'             => $request->input('email'),
+            'phone'             => $request->input('phone'),
+            'full_name'         => $request->input('full_name'),
+        ];
+        $status = $this->customer_package->create($data);
+
+//         $theme_data = Setting::first();
+//             $mail_data = array(
+//                 'fullname'        =>$request->input('name'),
+//                 'order_name'        =>$request->input('order_name'),
+//                 'phone'        =>$request->input('phone'),
+//                 'address'        =>ucwords($theme_data->address),
+//                 'site_email'        =>ucwords($theme_data->email),
+//                 'site_name'        =>ucwords($theme_data->website_name),
+//                 'phone'        =>ucwords($theme_data->phone),
+//                 'logo'        =>ucwords($theme_data->logo),
+//             );
+// //             Mail::to($theme_data->email)->send(new PackageDetail($mail_data));
+
+            if($status){
+                Session::flash('success','Thank you for odering package !');
+                $confirmed = "success";
+                return redirect()->back();
+            }
+            else{
+                Session::flash('error','Failed to order package');
+                $confirmed = "error";
+                return redirect()->back();
+            }
+
+           
+        
+    }
     
     public function serviceSingle($slug){
 
@@ -87,7 +140,7 @@ class FrontController extends Controller
             return abort(404);
         }
        
-        return view('frontend.pages.service',compact('singleService'));
+        return view('frontend.pages.services.single',compact('singleService'));
     }
 
     public function blogCategories($slug){
@@ -119,6 +172,7 @@ class FrontController extends Controller
 
     }
 
+    
     public function contactStore(Request $request)
     {
         $data = [
@@ -150,7 +204,7 @@ class FrontController extends Controller
                 return response()->json($confirmed);
             }
             else{
-                Session::flash('error','Settings Creation Failed');
+                Session::flash('error','Failed to contact us');
                 $confirmed = "error";
                 return response()->json($confirmed);
             }
