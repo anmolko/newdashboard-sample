@@ -31,7 +31,7 @@
                                 <option value="monthly">Monthly</option>
                                 <option value="yearly">Yearly</option>
                             </optgroup>
-                            <optgroup label="Category one">
+                            <optgroup label="Category Two">
                                 <option value="personal">Personal</option>
                                 <option value="commercial">Commercial</option>
                             </optgroup>
