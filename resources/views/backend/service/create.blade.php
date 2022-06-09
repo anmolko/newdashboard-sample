@@ -58,9 +58,12 @@
                                        placeholder="Enter service slug" required>
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-3 position-relative">
                                 <label class="form-label">Service Description</label>
                                 <textarea class="form-control" id="ckeditor-classic" name="description" placeholder="Enter service description" rows="4" required></textarea>
+                                <div class="invalid-tooltip">
+                                    Please enter the service description.
+                                </div>
                             </div>
                         </div>
                         <!-- end card body -->
@@ -102,7 +105,7 @@
                                     </div>
                                     <!-- end row -->
 
-                                    <div>
+                                    <div class="position-relative">
                                         <label class="form-label" for="meta-description-input">Meta Description</label>
                                         <textarea class="form-control" id="meta-description-input" placeholder="Enter meta description" name="meta_description" rows="5"></textarea>
                                     </div>

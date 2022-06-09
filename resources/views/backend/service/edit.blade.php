@@ -58,9 +58,12 @@
                                        placeholder="Enter service slug" required>
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-3 position-relative">
                                 <label class="form-label">Service Description</label>
                                 <textarea class="form-control" id="ckeditor-classic" name="description" placeholder="Enter service description" rows="4" required>{!! @$edit->description !!}</textarea>
+                                <div class="invalid-tooltip">
+                                    Please enter the service description.
+                                </div>
                             </div>
                         </div>
                         <!-- end card body -->
