@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApplyJob;
 use App\Models\Career;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
@@ -28,6 +30,12 @@ class CareerController extends Controller
         $careers           = Career::all();
         $careers_inactive  = Career::where('status','inactive')->get();
         return view('backend.career.index',compact('careers','careers_active','careers_inactive'));
+    }
+
+    public function responseIndex()
+    {
+        $applied_job           = ApplyJob::with('career')->get();
+        return view('backend.career.response.index',compact('applied_job'));
     }
 
     /**
@@ -191,6 +199,19 @@ class CareerController extends Controller
         else{
             $status ='error';
             return response()->json(['status'=>$status,'message'=>'Career details could not be removed. Try Again later !']);
+        }
+    }
+
+    public function responseDestroy($id)
+    {
+        $delete      = Career::find($id);
+        $remove      = $delete->delete();
+        if($remove){
+            $status ='success';
+            return response()->json(['status'=>$status,'message'=>'Career Response details has been removed! ']);        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'Career Response details could not be removed. Try Again later !']);
         }
     }
 

@@ -194,6 +194,10 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     //Consumer plan
     Route::get('/customer-package', 'App\Http\Controllers\ProjectPlanController@packageIndex')->name('package.index');
     Route::delete('/customer-package/{package}', 'App\Http\Controllers\ProjectPlanController@packageDestroy')->name('package.destroy');
+
+    //Career response
+    Route::get('/career-response', 'App\Http\Controllers\CareerController@responseIndex')->name('career-response.index');
+    Route::delete('/career-response/{response}', 'App\Http\Controllers\CareerController@responseDestroy')->name('career-response.destroy');
 });
 
 
