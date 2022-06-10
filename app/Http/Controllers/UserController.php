@@ -219,7 +219,7 @@ class UserController extends Controller
             $oldimage  = $user->image;
             $image       = $request->file('image');
             $name1       = uniqid().'_user_'.$image->getClientOriginalName();
-            $path        = public_path('/images/user');
+            $path        = base_path().'/public/images/user/';
 
             if (!is_dir($path)) {
                 mkdir($path, 0777);

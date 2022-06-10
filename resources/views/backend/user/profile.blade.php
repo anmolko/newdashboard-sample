@@ -209,46 +209,25 @@
 
                                         <div class="card">
                                             <div class="card-body">
-                                                <h5 class="card-title mb-4">Skills</h5>
-                                                <div class="d-flex flex-wrap gap-2 fs-15">
-                                                    <a href="javascript:void(0);"
-                                                       class="badge badge-soft-primary">Photoshop</a>
-                                                    <a href="javascript:void(0);"
-                                                       class="badge badge-soft-primary">illustrator</a>
-                                                    <a href="javascript:void(0);"
-                                                       class="badge badge-soft-primary">HTML</a>
-                                                    <a href="javascript:void(0);"
-                                                       class="badge badge-soft-primary">CSS</a>
-                                                    <a href="javascript:void(0);"
-                                                       class="badge badge-soft-primary">Javascript</a>
-                                                    <a href="javascript:void(0);"
-                                                       class="badge badge-soft-primary">Php</a>
-                                                    <a href="javascript:void(0);"
-                                                       class="badge badge-soft-primary">Python</a>
-                                                </div>
-                                            </div><!-- end card body -->
-                                        </div><!-- end card -->
-
-                                        <div class="card">
-                                            <div class="card-body">
                                                 <div class="d-flex align-items-center mb-4">
                                                     <div class="flex-grow-1">
                                                         <h5 class="card-title mb-0">Current Users</h5>
                                                     </div>
-                                                    <div class="flex-shrink-0">
-                                                        <div class="dropdown">
-                                                            <a href="#" role="button" id="dropdownMenuLink2"
-                                                               data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="ri-more-2-fill fs-14"></i>
-                                                            </a>
-
-                                                            <ul class="dropdown-menu dropdown-menu-end"
-                                                                aria-labelledby="dropdownMenuLink2">
-                                                                <li><a class="dropdown-item" href="#">Create New</a>
-                                                                </li>
-                                                            </ul>
+                                                    @if(Auth::user()->user_type == 'admin')
+                                                        <div class="flex-shrink-0">
+                                                            <div class="dropdown">
+                                                                <a href="#" role="button" id="dropdownMenuLink2"
+                                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <i class="ri-more-2-fill fs-14"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                                    aria-labelledby="dropdownMenuLink2">
+                                                                    <li><a class="dropdown-item" href="#">Create New</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    @endif
                                                 </div>
                                                 <div>
                                                     @foreach($alluser as $u)
@@ -304,7 +283,7 @@
                                                              height="50" class="rounded" />
                                                     </div>
                                                     <div class="flex-grow-1 ms-3 overflow-hidden">
-                                                        <a href="javascript:void(0);">
+                                                        <a href="{{route('blog.edit',$blog->id)}}">
                                                             <h6 class="text-truncate fs-14"> {{ ucwords(@$blog->title) }}</h6>
                                                         </a>
                                                         <p class="text-muted mb-0">{{\Carbon\Carbon::parse(@$blog->created_at)->isoFormat('MMMM Do, YYYY')}}</p>
