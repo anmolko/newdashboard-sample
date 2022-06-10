@@ -102,6 +102,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link @if(\Request::route()->getName() == 'package.index') active @endif" href="{{route('package.index')}}">
+                        <i class=" ri-user-shared-line"></i> <span data-key="t-widgets">Package Response</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link  @if(\Request::route()->getName() == 'contact.index') active @endif" href="{{route('contact.index')}}">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Customer Contact</span>
                     </a>

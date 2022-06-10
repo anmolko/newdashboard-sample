@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use App\Models\ProjectPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,12 @@ class ProjectPlanController extends Controller
     {
         $project_plan      = ProjectPlan::all();
         return view('backend.project_plan.index',compact('project_plan'));
+    }
+
+    public function packageIndex()
+    {
+        $packages      = Package::with('projectPlan')->get();
+        return view('backend.package_response.index',compact('packages'));
     }
 
     /**
@@ -126,5 +133,14 @@ class ProjectPlanController extends Controller
         $delete->delete();
         $status ='success';
         return response()->json(['status'=>$status,'id'=>$rid,'message'=>'Project Plan was removed!']);
+    }
+
+    public function packageDestroy($id)
+    {
+        $delete          = Package::find($id);
+        $rid             = $delete->id;
+        $delete->delete();
+        $status ='success';
+        return response()->json(['status'=>$status,'id'=>$rid,'message'=>'Customer package response was removed!']);
     }
 }

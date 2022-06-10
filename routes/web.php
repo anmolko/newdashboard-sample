@@ -191,6 +191,9 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::delete('/testimonials/{testimonial}', 'App\Http\Controllers\TestimonialController@destroy')->name('testimonials.destroy');
     Route::get('/testimonials/{testimonial}/edit', 'App\Http\Controllers\TestimonialController@edit')->name('testimonials.edit');
 
+    //Consumer plan
+    Route::get('/customer-package', 'App\Http\Controllers\ProjectPlanController@packageIndex')->name('package.index');
+    Route::delete('/customer-package/{package}', 'App\Http\Controllers\ProjectPlanController@packageDestroy')->name('package.destroy');
 });
 
 
