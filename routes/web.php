@@ -44,7 +44,9 @@ Route::get('/blog/categories/{slug}', 'App\Http\Controllers\FrontController@blog
 Route::get('/blog', 'App\Http\Controllers\FrontController@blogs')->name('blog.frontend');
 Route::get('/faq', 'App\Http\Controllers\FrontController@faq')->name('faq.frontend');
 Route::get('/get-quote', 'App\Http\Controllers\FrontController@getQuote')->name('get-quote');
-Route::get('/careers', 'App\Http\Controllers\FrontController@career')->name('career.frontend');
+Route::get('/career', 'App\Http\Controllers\FrontController@career')->name('career.frontend');
+Route::post('/career', 'App\Http\Controllers\FrontController@careerStore')->name('career.store');
+Route::get('/career/{slug}', 'App\Http\Controllers\FrontController@careerSingle')->name('career.single');
 Route::get('/packages', 'App\Http\Controllers\FrontController@package')->name('package.frontend');
 Route::post('/packages', 'App\Http\Controllers\FrontController@packageStore')->name('package.store');
 

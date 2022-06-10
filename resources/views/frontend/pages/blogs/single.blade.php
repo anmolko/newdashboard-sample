@@ -77,7 +77,7 @@
                         <p class="p-md custom-editor" >Published on {{date('M j, Y',strtotime(@$singleBlog->created_at))}}</p>								
                         </div>
                         <!-- POST SHARE ICONS -->
-                        <div class="col-md-3 col-xl-4 post-share-list text-end"></span> 
+                        <div class="col-md-3 col-xl-4 post-share-list text-end">
                             <ul class="share-social-icons ico-25 text-center clearfix">								
                                 <li><a href="#" class="share-ico" onclick='fbShare("{{route('blog.single',$singleBlog->slug)}}")'><span class="flaticon-facebook"></span></a></li>
                                 <li><a href="#" class="share-ico" onclick='twitShare("{{route('blog.single',$singleBlog->slug)}}","{{ $singleBlog->title }}")' ><span class="flaticon-twitter"></span></a></li>

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\ApplyJob;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\Career;
 use App\Models\Contact;
 use App\Models\Faq;
 use App\Models\Setting;
@@ -15,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class FrontController extends Controller
 {
@@ -26,9 +30,11 @@ class FrontController extends Controller
     protected $service = null;
     protected $pojectPlan = null;
     protected $customer_package = null;
+    protected $career = null;
+    protected $apply_job = null;
     
 
-    public function __construct(Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
+    public function __construct(ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
         $this->contact = $contact;
         $this->setting = $setting;
@@ -38,6 +44,8 @@ class FrontController extends Controller
         $this->service = $service;
         $this->pojectPlan = $pojectPlan;
         $this->customer_package = $customer_package;
+        $this->career = $career;
+        $this->apply_job = $apply_job;
         
     }
 
@@ -88,6 +96,79 @@ class FrontController extends Controller
     public function service(){
         $allservices = $this->service->paginate(6);
         return view('frontend.pages.services.index',compact('allservices'));
+    }
+
+    
+     public function career(){
+        $allcareers = $this->career->where('status','active')->get();
+        return view('frontend.pages.careers.index',compact('allcareers'));
+    }
+    
+
+    public function careerStore(Request $request)
+    {
+
+        $data = [
+            'career_id'        => $request->input('career_id'),
+            'name'        => $request->input('name'),
+            'email'       => $request->input('email'),
+            'phone'       => $request->input('phone'),
+            'address'     => $request->input('address'),
+            'message'     => $request->input('message'),
+        ];
+        if(!empty($request->file('attachcv'))){
+            $image          = $request->file('attachcv');
+            $name           = uniqid().'_'.$request->input('name').'_career_cv_'.$image->getClientOriginalName();
+            $career_path    = public_path('/images/career');
+
+            if (!is_dir($career_path)) {
+                mkdir($career_path, 0777);
+            }
+            $path           = base_path().'/public/images/career/';
+            $moved          = $image->move($path, $name);
+
+            if ($moved){
+                $data['attachcv']=$name;
+            }
+        }
+
+        $status = $this->apply_job->create($data);
+
+        // $theme_data = Setting::first();
+        //     $mail_data = array(
+        //         'fullname'        =>$request->input('name'),
+        //         'message'        =>$request->input('msg'),
+        //         'email'        =>$request->input('email'),
+        //         'address'        =>$request->input('address'),
+        //         'site_email'        =>ucwords($theme_data->email),
+        //         'site_name'        =>ucwords($theme_data->website_name),
+        //         'phone'        =>ucwords($theme_data->phone),
+        //         'logo'        =>ucwords($theme_data->logo),
+        //     );
+//             Mail::to($theme_data->email)->send(new ContactDetail($mail_data));
+
+            if($status){
+                Session::flash('success','Thank you for contacting us!');
+                $confirmed = "success";
+                return response()->json($confirmed);
+            }
+            else{
+                Session::flash('error','Failed to submit');
+                $confirmed = "error";
+                return response()->json($confirmed);
+            }
+
+           
+        
+    }
+    public function careerSingle($slug){
+
+        $singleCareer = $this->career->where('slug', $slug)->first();
+        if (!$singleCareer) {
+            return abort(404);
+        }
+       
+        return view('frontend.pages.careers.single',compact('singleCareer'));
     }
 
     public function package(){
