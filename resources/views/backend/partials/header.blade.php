@@ -185,8 +185,8 @@
                     </div>
 
 
-
-                    <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                    @if(count($nav_services)>0)
+                        <div class="dropdown topbar-head-dropdown ms-1 header-item">
                         <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class='bx bx-category-alt fs-22'></i>
@@ -195,60 +195,32 @@
                             <div class="p-3 border-top-0 border-start-0 border-end-0 border-dashed border">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h6 class="m-0 fw-semibold fs-15"> Web Apps </h6>
+                                        <h6 class="m-0 fw-semibold fs-15"> Current Services </h6>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="#!" class="btn btn-sm btn-soft-info"> View All Apps
+                                        <a href="{{route('services.index')}}" class="btn btn-sm btn-soft-info"> All services
                                             <i class="ri-arrow-right-s-line align-middle"></i></a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-2">
+                                @foreach($nav_services->chunk(3) as $firstchunk)
                                 <div class="row g-0">
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#!">
-                                            <img src="{{asset('assets/backend/images/brands/github.png')}}" alt="Github">
-                                            <span>GitHub</span>
+                                    @foreach($firstchunk as $key=>$final)
+                                    <div class="col-4 p-1">
+                                        <a class="dropdown-icon-item text-truncate" href="{{route('services.edit',$final->id)}}">
+                                            <img src="{{asset('/images/service/'.$final->banner_image)}}" alt="{{$final->title}}">
+                                            <span>{{ ucwords(@$final->title) }}</span>
                                         </a>
                                     </div>
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#!">
-                                            <img src="{{asset('assets/backend/images/brands/bitbucket.png')}}" alt="bitbucket">
-                                            <span>Bitbucket</span>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#!">
-                                            <img src="{{asset('assets/backend/images/brands/dribbble.png')}}" alt="dribbble">
-                                            <span>Dribbble</span>
-                                        </a>
-                                    </div>
+                                    @endforeach
                                 </div>
-
-                                <div class="row g-0">
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#!">
-                                            <img src="{{asset('assets/backend/images/brands/dropbox.png')}}" alt="dropbox">
-                                            <span>Dropbox</span>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#!">
-                                            <img src="{{asset('assets/backend/images/brands/mail_chimp.png')}}" alt="mail_chimp">
-                                            <span>Mail Chimp</span>
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <a class="dropdown-icon-item" href="#!">
-                                            <img src="{{asset('assets/backend/images/brands/slack.png')}}" alt="slack">
-                                            <span>Slack</span>
-                                        </a>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <div class="dropdown topbar-head-dropdown ms-1 header-item">
                         <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"

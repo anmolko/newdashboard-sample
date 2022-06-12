@@ -3,6 +3,7 @@
 
 namespace App\Http\ViewComposer;
 
+use App\Models\Service;
 use Illuminate\View\View;
 use App\Models\Menu;
 use App\Models\MenuItem;
@@ -14,16 +15,17 @@ class SensitiveComposer
 {
     public function compose(View $view){
 
-       $topNav           = Menu::where('location',1)->first();
-       $footerMenu       = Menu::where('location',2)->get();
-       $topNavItems      = json_decode(@$topNav->content);
-       $footerItem1      = json_decode(@$footerMenu[0]->content);
-       $footerItem2      = json_decode(@$footerMenu[1]->content);
-       $footerItem3      = json_decode(@$footerMenu[2]->content);
-       $topNavItems      = @$topNavItems[0];
-       $footerItem1      = @$footerItem1[0];
-       $footerItem2      = @$footerItem2[0];
-       $footerItem3      = @$footerItem3[0];
+       $topNav               = Menu::where('location',1)->first();
+       $footerMenu           = Menu::where('location',2)->get();
+       $services             = Service::take(6)->get();
+       $topNavItems          = json_decode(@$topNav->content);
+       $footerItem1          = json_decode(@$footerMenu[0]->content);
+       $footerItem2          = json_decode(@$footerMenu[1]->content);
+       $footerItem3          = json_decode(@$footerMenu[2]->content);
+       $topNavItems          = @$topNavItems[0];
+       $footerItem1          = @$footerItem1[0];
+       $footerItem2          = @$footerItem2[0];
+       $footerItem3          = @$footerItem3[0];
        $footerItemTitle1     = @$footerMenu[0]->title;
        $footerItemTitle2     = @$footerMenu[1]->title;
        $footerItemTitle3     = @$footerMenu[2]->title;
@@ -87,7 +89,8 @@ class SensitiveComposer
            ->with('footer_nav_title2', $footerItemTitle2)
            ->with('footer_nav_data3', $footerItem3)
            ->with('footer_nav_title3', $footerItemTitle3)
-           ->with('top_nav_data', $topNavItems);
+           ->with('top_nav_data', $topNavItems)
+           ->with('nav_services', $services);
 
 
     }
