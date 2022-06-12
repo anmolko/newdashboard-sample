@@ -204,7 +204,11 @@ class CareerController extends Controller
 
     public function responseDestroy($id)
     {
-        $delete      = Career::find($id);
+        $delete      = ApplyJob::find($id);
+        $cv          = $delete->attachcv;
+        if (!empty($cv) && file_exists(public_path().'/images/career/'.$cv)){
+            @unlink(public_path().'/images/career/'.$cv);
+        }
         $remove      = $delete->delete();
         if($remove){
             $status ='success';

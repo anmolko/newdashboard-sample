@@ -88,8 +88,12 @@
                                                                     <i class="ri-more-fill fs-17"></i>
                                                                 </a>
                                                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
-                                                                    <button class="btn btn-light hidden" id="package_{{$applied->career->id}}" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle Right offcanvas</button>
-                                                                    <li><a class="dropdown-item cs-career-view" id="{{$applied->career->id}}" cs-edit-route="{{route('project-plan.edit',$applied->career->id)}}"><i class="ri-pencil-fill me-2 align-middle"></i>View Career</a></li>
+                                                                    <button class="btn btn-light hidden" id="career_{{$applied->career->id}}" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle Right offcanvas</button>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="{{asset('/images/career/'.@$applied->attachcv)}}" download="{{$applied->attachcv}}">
+                                                                            <i class=" ri-file-download-fill me-2 align-middle"></i>
+                                                                            Download CV</a></li>
+                                                                    <li><a class="dropdown-item cs-career-view" id="{{$applied->career->id}}" cs-edit-route="{{route('career.edit',$applied->career->id)}}"><i class="ri-pencil-fill me-2 align-middle"></i>View Career</a></li>
                                                                     <li><a class="dropdown-item cs-response-remove" cs-delete-route="{{route('career-response.destroy',$applied->id)}}"><i class="ri-delete-bin-6-line me-2 align-middle"></i>Delete</a></li>
                                                                 </ul>
                                                             </div>
@@ -139,7 +143,7 @@
             });
         });
 
-        $(document).on('click','.cs-service-remove', function (e) {
+        $(document).on('click','.cs-response-remove', function (e) {
             e.preventDefault();
             var form = $('#deleted-form');
             var action = $(this).attr('cs-delete-route');
@@ -227,7 +231,7 @@
             });
         });
 
-        $(document).on('click','.cs-plan-view', function (e) {
+        $(document).on('click','.cs-career-view', function (e) {
             e.preventDefault();
             var id = $(this).attr('id');
             $.ajax({
@@ -236,15 +240,21 @@
                 cache: false,
                 dataType: 'json',
                 success: function(dataResult){
-                    // $('#id').val(data.id);
-                    $('#project-name').text(dataResult.name);
-                    $('#project-price').text(dataResult.price);
-                    $('#project-type').text(dataResult.type);
-                    $('#package-type').text(dataResult.link);
-                    var myContent = dataResult.description;
-                    $('#project-description').text( myContent.replace(/(<([^>]+)>)/ig,""));
-                    $( "#package_"+id).click();
-
+                    $('#career-name').text(dataResult.edit.name);
+                    $('#career-slug').text(dataResult.edit.slug);
+                    $('#career-position').text(dataResult.edit.position);
+                    var type = dataResult.edit.type;
+                    $('#career-type').text(type.replace(/_/g," "));
+                    $('#career-end-date').text(dataResult.date);
+                    var career = (dataResult.edit.salary !== null) ? dataResult.edit.salary:"Not Assigned";
+                    $('#career-salary').text(career);
+                    $('#career-status').text(dataResult.edit.status);
+                    var myContent = dataResult.edit.description;
+                    if(dataResult.edit.feature_image !== null){
+                        $('#career-image').attr("src",'/images/career/'+dataResult.edit.feature_image );
+                    }
+                    $('#career-description').text( myContent.replace(/(<([^>]+)>)/ig,""));
+                    $( "#career_"+id).click();
                 },
                 error: function(error){
                     console.log(error)
