@@ -11,6 +11,7 @@ use App\Models\Contact;
 use App\Models\Faq;
 use App\Models\Setting;
 use App\Models\Service;
+use App\Models\OurWork;
 use App\Models\ProjectPlan;
 use App\Models\Package;
 
@@ -32,9 +33,10 @@ class FrontController extends Controller
     protected $customer_package = null;
     protected $career = null;
     protected $apply_job = null;
+    protected $our_work = null;
     
 
-    public function __construct(ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
+    public function __construct(OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
         $this->contact = $contact;
         $this->setting = $setting;
@@ -46,7 +48,7 @@ class FrontController extends Controller
         $this->customer_package = $customer_package;
         $this->career = $career;
         $this->apply_job = $apply_job;
-        
+        $this->our_work = $our_work;
     }
 
 
@@ -71,6 +73,12 @@ class FrontController extends Controller
         $faqs = $this->faq->get();
         return view('frontend.pages.faq',compact('faqs'));
     }
+    
+    public function work(){
+        $our_works = $this->our_work->get();
+        return view('frontend.pages.work',compact('our_works'));
+    }
+    
 
     public function blogs(){
         $bcategories = $this->bcategory->get();

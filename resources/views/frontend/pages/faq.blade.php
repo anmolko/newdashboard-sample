@@ -1,7 +1,6 @@
 
 @extends('frontend.layouts.master')
 @section('title') FAQ @endsection
-
 @section('content')
 			<!-- PAGE HERO
 			============================================= -->	

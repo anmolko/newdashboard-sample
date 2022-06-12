@@ -98,7 +98,7 @@
 
 			<!-- HEADER
 			============================================= -->
-			<header id="header" class="header tra-menu @if(\Request::is('/') || \Request::route()->getName()=='faq.frontend' || \Request::route()->getName()=='career.frontend') navbar-light @else navbar-dark @endif">
+			<header id="header" class="header tra-menu @if(\Request::is('/') || \Request::route()->getName()=='faq.frontend' || \Request::route()->getName()=='career.frontend' || \Request::route()->getName()=='work.frontend') navbar-light @else navbar-dark @endif">
 				<div class="header-wrapper">
 
 					<!-- MOBILE HEADER -->

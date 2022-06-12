@@ -49,6 +49,7 @@ Route::post('/career', 'App\Http\Controllers\FrontController@careerStore')->name
 Route::get('/career/{slug}', 'App\Http\Controllers\FrontController@careerSingle')->name('career.single');
 Route::get('/packages', 'App\Http\Controllers\FrontController@package')->name('package.frontend');
 Route::post('/packages', 'App\Http\Controllers\FrontController@packageStore')->name('package.store');
+Route::get('/works', 'App\Http\Controllers\FrontController@work')->name('work.frontend');
 
 Route::get('/privacy-policy', 'App\Http\Controllers\FrontController@privacy')->name('privacy.frontend');
 Route::get('/terms-condition', 'App\Http\Controllers\FrontController@terms')->name('term.frontend');
