@@ -9,6 +9,8 @@ use App\Models\BlogCategory;
 use App\Models\Career;
 use App\Models\Contact;
 use App\Models\Faq;
+
+use App\Models\RequestQuote;
 use App\Models\Setting;
 use App\Models\Service;
 use App\Models\OurWork;
@@ -34,9 +36,10 @@ class FrontController extends Controller
     protected $career = null;
     protected $apply_job = null;
     protected $our_work = null;
+    protected $request_quote = null;
     
 
-    public function __construct(OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
+    public function __construct(RequestQuote $request_quote,OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
         $this->contact = $contact;
         $this->setting = $setting;
@@ -49,6 +52,8 @@ class FrontController extends Controller
         $this->career = $career;
         $this->apply_job = $apply_job;
         $this->our_work = $our_work;
+        $this->request_quote = $request_quote;
+        
     }
 
 
@@ -73,7 +78,7 @@ class FrontController extends Controller
         $faqs = $this->faq->get();
         return view('frontend.pages.faq',compact('faqs'));
     }
-    
+
     public function work(){
         $our_works = $this->our_work->get();
         return view('frontend.pages.work',compact('our_works'));
@@ -261,7 +266,53 @@ class FrontController extends Controller
 
     }
 
+    public function getQuote()
+    {
+        return view('frontend.pages.quote');
+
+    }
+
     
+    
+    public function quoteStore(Request $request)
+    {
+        $data = [
+            'name'        => $request->input('name'),
+            'email'       => $request->input('email'),
+            'phone'       => $request->input('phone'),
+            'service'     => $request->input('service'),
+            'message'     => $request->input('msg'),
+        ];
+        $status = $this->request_quote->create($data);
+
+//         $theme_data = Setting::first();
+//             $mail_data = array(
+//                 'fullname'        =>$request->input('name'),
+//                 'message'        =>$request->input('msg'),
+//                 'email'        =>$request->input('email'),
+//                 'subject'        =>$request->input('subject'),
+//                 'address'        =>ucwords($theme_data->address),
+//                 'site_email'        =>ucwords($theme_data->email),
+//                 'site_name'        =>ucwords($theme_data->website_name),
+//                 'phone'        =>ucwords($theme_data->phone),
+//                 'logo'        =>ucwords($theme_data->logo),
+//             );
+// //             Mail::to($theme_data->email)->send(new ContactDetail($mail_data));
+
+            if($status){
+                Session::flash('success','Thank you for requesting us!');
+                $confirmed = "success";
+                return response()->json($confirmed);
+            }
+            else{
+                Session::flash('error','Failed to contact us');
+                $confirmed = "error";
+                return response()->json($confirmed);
+            }
+        
+    }
+
+
     public function contactStore(Request $request)
     {
         $data = [

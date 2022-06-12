@@ -523,6 +523,58 @@ $(document).ready(function() {
 
 
     /*----------------------------------------------------*/
+    /*	Request Quote Form Validation
+    /*----------------------------------------------------*/
+
+    $(".request-quote").validate({
+        rules: {
+            service: {
+                required: true,
+            },
+            phone: {
+                required: true,
+                number: true,
+                minlength: 10,
+                maxlength: 10
+            },
+            name: {
+                required: true,
+                minlength: 1,
+                maxlength: 16,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            message: {
+                required: true,
+                minlength: 2,
+            }
+        },
+        messages: {
+            service: {
+                required: "Please choose the inquiry service"
+            },
+            phone: {
+                required: "We need your phone number to contact you",
+                minlength: "Please enter no less than (10) numbers",
+                maxlength: "Please enter no more than (10) numbers"
+            },
+            name: {
+                required: "Please enter no less than (1) characters"
+            },
+            email: {
+                required: "We need your email address to contact you",
+                email: "Your email address must be in the format of name@domain.com"
+            },
+            message: {
+                required: "Please enter no less than (2) characters"
+            },
+        }
+    });
+
+
+    /*----------------------------------------------------*/
     /*	Comment Form Validation
     /*----------------------------------------------------*/
 
