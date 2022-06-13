@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\RequestQuote;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -19,6 +21,14 @@ class ContactController extends Controller
         $contacts           = Contact::all();
         return view('backend.contact.index',compact('contacts'));
     }
+
+    public function responseIndex()
+    {
+        $quotes           = RequestQuote::all();
+        return view('backend.quote.index',compact('quotes'));
+    }
+
+
 
     public function edit($id)
     {
@@ -39,6 +49,22 @@ class ContactController extends Controller
         else{
             $status ='error';
             return response()->json(['status'=>$status,'id'=>$id,'message'=>'Contact info could not be removed at the moment. Try Again later !']);
+        }
+    }
+
+    public function responseDestroy($id)
+    {
+        $delete          = RequestQuote::find($id);
+        $id              = $delete->id;
+        
+        $status = $delete->delete();
+        if($status){
+            $status ='success';
+            return response()->json(['status'=>$status,'id'=>$id,'message'=>'Customer request quote info was removed!']);
+        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'id'=>$id,'message'=>'Customer request quote info could not be removed at the moment. Try Again later !']);
         }
     }
 }

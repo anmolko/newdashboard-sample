@@ -202,6 +202,10 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     //Career response
     Route::get('/career-response', 'App\Http\Controllers\CareerController@responseIndex')->name('career-response.index');
     Route::delete('/career-response/{response}', 'App\Http\Controllers\CareerController@responseDestroy')->name('career-response.destroy');
+
+    //Quote response
+    Route::get('/quote-response', 'App\Http\Controllers\ContactController@responseIndex')->name('quote-response.index');
+    Route::delete('/quote-response/{response}', 'App\Http\Controllers\ContactController@responseDestroy')->name('quote-response.destroy');
 });
 
 

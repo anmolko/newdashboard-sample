@@ -24,6 +24,15 @@
     font-weight: 500;
 }
 
+.dataTables_wrapper .dataTables_length select, .dataTables_wrapper .dataTables_length select option{
+    color: #878a99 !important;
+}
+
+
+
+
+
+
 .dataTables_wrapper .dataTables_paginate {
     padding: 8px 16px;
 }

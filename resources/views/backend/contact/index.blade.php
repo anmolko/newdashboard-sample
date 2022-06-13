@@ -2,6 +2,7 @@
 @section('title', "Contact Details")
 @section('css')
 <link rel="stylesheet" href="{{asset('assets/backend/css/jquery.dataTables.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/backend/custom_css/datatable_style.css')}}">
 <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
 
 @endsection
