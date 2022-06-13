@@ -63,8 +63,8 @@ class OurWorkController extends Controller
                 mkdir($work_path, 0777);
             }
             $path           = base_path().'/public/images/work/';
-            $moved          = Image::make($image->getRealPath())->orientate()->save($path.$name);
-
+            $moved          = Image::make($image->getRealPath())->fit(600, 400)->orientate()->save($path.$name);
+            //600 x 400
             if ($moved){
                 $data['image']=$name;
             }
@@ -122,7 +122,7 @@ class OurWorkController extends Controller
         if (!empty($request->file('image'))){
             $image       = $request->file('image');
             $name1       = uniqid().'_works_'.$image->getClientOriginalName();
-            $moved       = Image::make($image->getRealPath())->orientate()->save($path.$name1);
+            $moved       = Image::make($image->getRealPath())->fit(600, 400)->orientate()->save($path.$name1);
 
             if ($moved){
                 $work->image= $name1;
