@@ -46,6 +46,7 @@ Route::get('/faq', 'App\Http\Controllers\FrontController@faq')->name('faq.fronte
 Route::get('/request-quote', 'App\Http\Controllers\FrontController@getQuote')->name('get-quote');
 Route::post('/request-quote', 'App\Http\Controllers\FrontController@quoteStore')->name('get-quote.store');
 
+Route::get('/domain-registration', 'App\Http\Controllers\FrontController@domainRegistration')->name('domain.frontend');
 Route::get('/career', 'App\Http\Controllers\FrontController@career')->name('career.frontend');
 Route::post('/career', 'App\Http\Controllers\FrontController@careerStore')->name('career.store');
 Route::get('/career/{slug}', 'App\Http\Controllers\FrontController@careerSingle')->name('career.single');

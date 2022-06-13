@@ -73,6 +73,12 @@ class FrontController extends Controller
         return view('frontend.pages.term');
     }
     
+
+    public function domainRegistration()
+    {
+        return view('frontend.pages.domain_registration');
+    }
+    
     
     public function faq(){
         $faqs = $this->faq->get();

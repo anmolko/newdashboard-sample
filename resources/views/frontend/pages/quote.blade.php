@@ -7,7 +7,6 @@
 <section id="contacts-2" class="bg-snow wide-50 inner-page-hero contacts-section division">				
         <div class="container">
 
-
             <!-- SECTION TITLE -->	
             <div class="row justify-content-center">	
                 <div class="col-md-10 col-lg-8">
@@ -29,7 +28,7 @@
             <div class="row justify-content-center">	
                 <div class="col-lg-10 col-xl-8">
                     <div class="form-holder">
-                        <form name="requestQuote" class="row request-quote">
+                        <form name="requestQuote" class="row request-quote contact-form">
 
                             <!-- Form Select -->
                             <div class="col-md-12 input-subject">
