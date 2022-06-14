@@ -4,7 +4,11 @@
 <link rel="stylesheet" href="{{asset('assets/backend/css/jquery.dataTables.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/backend/custom_css/datatable_style.css')}}">
 <link href="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
-
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -60,12 +64,18 @@
                                                 <td >{{ucwords(@$quote->name)}}</td>
                                                 <td >{{@$quote->email}}</td>
                                                 <td>{{@$quote->phone}}</td>
-                                                <td >{{@$quote->service}}</td>
+                                                <td >{{ucwords(@$quote->service->title)}}</td>
                                                 <td >{{date('j M, Y',strtotime(@$quote->created_at))}}</td>
                                                 <td>
 
                                                     <div class="d-flex gap-2">
-                                                        
+                                                    <button class="btn btn-light hidden" id="quote_{{$quote->service->id}}" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle Right offcanvas</button>
+
+                                                        <div class="edit">
+                                                            <button class="btn  view-item-btn"
+                                                              quote-edit-action="{{route('quote.edit',$quote->service->id)}}" id="{{$quote->service->id}}"><i
+                                                                                class="ri-eye-fill align-bottom me-2 text-muted"></i></button>
+                                                        </div>
                                                         <div class="remove">
                                                             <button class="btn remove-item-btn"  quote-delete-action="{{route('quote-response.destroy',$quote->id)}}" ><i
                                                                                 class="ri-delete-bin-fill align-bottom me-2 text-muted"></i></button>
@@ -93,7 +103,7 @@
 
 
 
-     
+
 
 
         <!--end modal -->
@@ -105,6 +115,9 @@
     <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+@include('backend.quote.modal.view')
+
 @endsection
 
 @section('js')
@@ -122,5 +135,30 @@
         });
     });
 
+    $(document).on('click','.view-item-btn', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('id');
+            $.ajax({
+                url: $(this).attr('quote-edit-action'),
+                type: "GET",
+                cache: false,
+                dataType: 'json',
+                success: function(dataResult){
+                    $('#quote-name').text(dataResult.title);
+                    $('#quote-slug').text(dataResult.slug);
+                    var mySubContent = dataResult.sub_description;
+                    var myContent = dataResult.description;
+                    if(dataResult.banner_image !== null){
+                        $('#banner-image').attr("src",'/images/service/'+dataResult.banner_image );
+                    }
+                    $('#quote-subdescription').text( mySubContent.replace(/(<([^>]+)>)/ig,""));
+                    $('#quote-description').text( myContent.replace(/(<([^>]+)>)/ig,""));
+                    $( "#quote_"+id).click();
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        });
 </script>
 @endsection

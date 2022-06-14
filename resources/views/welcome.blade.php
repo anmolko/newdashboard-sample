@@ -1,68 +1,169 @@
 
 @extends('frontend.layouts.master')
+@section('css')
+<style>
+    #hero-19 .quick-form {
+        margin: 40px 5% 0;
+    }
+
+    .domain-search-container {
+        box-shadow: 0px 11px 92px 0px rgb(118 191 254 / 19%);
+        transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+        margin: 20px 0px 40px 0px;
+        --e-column-margin-right: 0px;
+        --e-column-margin-left: 0px;
+        padding: 30px 30px 30px 30px;
+        background-color: #ffffff;
+        border-radius: 30px 30px 30px 30px;
+    }
+
+
+
+    .domain-search-container .input-group {
+        max-width: 100% !important;
+        margin-left: 0px;
+        margin: 0 auto;
+        border: 1px solid #d6d6d6 !important;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 0 0px rgb(0 0 0 / 3%);
+        border-radius: 5px 5px 5px 5px !important;
+        position: relative;
+        display: table;
+        border-collapse: separate;
+    }
+
+    .large input.form-control.domain::placeholder {
+        color: #a0a0a0;
+    }
+    .large input.form-control.domain {
+        font-size: 18px;
+        color: #a0a0a0;
+        padding: 0 0 0 23px;
+        height: 70px;
+        border: 1px solid #fff;
+        border-radius: 5px 0 0 5px !important;
+        box-shadow: none;
+        position: relative;
+        z-index: 2;
+        float: left;
+        width: 100%;
+        margin-bottom: 0;
+        background-color: #fff;
+    }
+
+    .domain-search-container span.input-group-btn.form-btn {
+        border: 4px solid #fff;
+        border-radius: 0 5px 5px 0;
+        background-color: #fff;
+        position: relative;
+        font-size: 0;
+        width: 1%;
+        white-space: nowrap;
+        vertical-align: middle;
+        display: table-cell;
+    }
+
+    .advantages li:after,.advantages li{
+        color:black;
+    }
+
+    span.domain-type {
+        color: black;
+        font-weight: 500;
+    }
+
+    @media screen and (max-width: 767px){
+        .domain-search-container .input-group {
+            max-width: 100% !important;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .large input.form-control.domain {
+            height: 50px;
+            padding: 0 0 0 0px;
+            text-align: center;
+            font-size: 14px;
+        }
+    }
+
+    @media only screen and (max-width: 567px){
+        .domain-search-container .input-group {
+            display: block;
+            width: 100%;
+        }
+
+        .domain-search-container span.input-group-btn.form-btn{
+            border-radius: 5px !important;
+            display: block;
+            width: 100%;
+        }
+
+        .domain-search-container span.input-group-btn.form-btn button.btn.btn-md.btn-stateblue.black-hover.submit
+        {
+            right: 0px;
+            font-size: 14px;
+        }
+    }
+
+</style>
+@endsection
 @section('content')
 
     <!-- HERO-19
-    ============================================= -->	
+    ============================================= -->
     <section id="hero-19" class="bg-scroll hero-section division">
-        <div class="container">	
-            <div class="row d-flex align-items-center">
+        <div class="container">
+        <div class="row d-flex align-items-center">
 
 
-                <!-- HERO TEXT -->
-                <div class="col-md-7 col-lg-6">
-                    <div class="hero-19-txt white-color">
+<!-- HERO TEXT -->
+<div class="col-md-10 offset-md-1">
+    <div class="hero-21-txt text-center white-color">
 
-                        <!-- Rounded Logo -->
-                        <div class="hero-logo-rounded bg-tra-white mb-45 wow fadeInUp">
-                            <img class="img-fluid" src="images/logo-white-sm.png" alt="hero-logo">
-                            <span>OLMO.MARKETING</span>
-                        </div>
+        <!-- Title -->
+        <h2 class="h2-lg">Creativity never goes wrong, all you need is right direction</h2>
 
-                        <!-- Title -->	
-                        <h2 class="h2-lg wow fadeInUp">Creative Solutions for Creative Minds</h2>
+        <!-- Text -->
+        <p class="p-xl">Mauris donec ociis et magnis sapien sagittis sapien tempor gravida
+           and aliquet suscipit in magna dignissim, porttitor hendrerit
+        </p>
 
-                        <!-- Text -->
-                        <p class="p-xl wow fadeInUp">
-                            Semper lacus cursus porta tellus neque dolor primis magna nullam laoreet potenti undo 
-                            tempor neque and luctus and feugiat. Justo integer at odio
-                        </p>
+        <div class="domain-search-container">
+            <!-- HERO QUICK FORM -->
+            <form name="quickform" class="quick-form">
 
-                        <!-- Watch Video Link -->
-                        <div class="watch-video wow fadeInUp">
-                            <div class=" d-flex align-items-center">
-
-                                <!-- Link -->
-                                <a class="video-popup1" href="https://www.youtube.com/embed/SZEflIVnhH8"> 
-                                    <div class="watch-video-link bg-tra-white ico-35">	
-                                        <span class="flaticon-play-button"></span>
-                                    </div>
-                                </a>
-
-                                <!-- Text -->
-                                <div class="watch-video-txt">		
-                                    <p class="p-lg video-txt-lg">Watch the Video</p>		
-                                    <p class="video-txt-sm">2:40 min</p>	
-                                </div>	
-
-                            </div>
-                        </div>	<!-- End Watch Video Link -->
-
-                    </div>  
-                </div>	 <!-- END HERO TEXT -->
-
-
-                <!-- HERO IMAGE -->
-                <div class="col-md-5 col-lg-6">	
-                    <div class="hero-19-img wow fadeInRight">				
-                        <img class="img-fluid" src="images/tablet-01.png" alt="hero-image">
-                    </div>
+                <!-- Form Inputs -->
+                <div class="input-group large">
+                    <input type="text" name="domain" class="form-control domain" placeholder="Type your domain address" autocomplete="off" required>
+                    <span class="input-group-btn form-btn">
+                        <button type="submit" class="btn btn-md btn-stateblue black-hover submit">Search</button>
+                    </span>
                 </div>
 
+                <!-- Form Message -->
+                <div class="quick-form-msg"><span class="loading"></span></div>
 
-            </div>	   <!-- End row -->	
-        </div>	   <!-- End container --> 	
-    </section>	<!-- END HERO-19 -->	
+            </form>
+
+            <!-- Advantages List -->
+            <ul class="advantages mt-35 mb-20">
+                <li class="first-li"><p><span class="domain-type">.com.np</span></p></li>
+                <li ><p><span class="domain-type">.com</span></p></li>
+                <li ><p><span class="domain-type">.net</span></p></li>
+                <li class="last-li"><p><span class="domain-type">.org</span></p></li>
+            </ul>
+        </div>
+
+    </div>
+</div>	<!-- END HERO TEXT -->
+
+
+</div>	   <!-- End row -->
+
+        </div>	   <!-- End container -->
+    </section>	<!-- END HERO-19 -->
 
 
     <!-- CONTENT-2
@@ -80,29 +181,29 @@
                 </div>
 
 
-                <!-- TEXT BLOCK -->	
+                <!-- TEXT BLOCK -->
                 <div class="col-md-7 col-lg-6">
                     <div class="txt-block right-column wow fadeInLeft">
 
-                        <!-- Section ID -->	
+                        <!-- Section ID -->
                         <span class="section-id txt-upcase">Start, Connect, Enjoy</span>
 
-                        <!-- Title -->	
+                        <!-- Title -->
                         <h2 class="h2-xs">Start your online business with OLMO</h2>
 
-                        <!-- Text -->	
-                        <p class="p-lg">Quaerat sodales sapien euismod blandit purus a purus ipsum primis in cubilia 
+                        <!-- Text -->
+                        <p class="p-lg">Quaerat sodales sapien euismod blandit purus a purus ipsum primis in cubilia
                             laoreet augue luctus magna dolor luctus and egestas sapien egestas vitae nemo volute
                         </p>
 
-                        <!-- Text -->	
-                        <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and cubilia 
-                            laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas volute and 
+                        <!-- Text -->
+                        <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and cubilia
+                            laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas volute and
                             turpis dolores aliquam quaerat sodales a sapien
                         </p>
 
                     </div>
-                </div>	<!-- END TEXT BLOCK -->	
+                </div>	<!-- END TEXT BLOCK -->
 
 
             </div>	   <!-- End row -->
@@ -120,17 +221,17 @@
                 <div class="row d-flex align-items-center">
 
 
-                    <!-- TEXT BLOCK -->	
+                    <!-- TEXT BLOCK -->
                     <div class="col-md-7 col-lg-6">
                         <div class="txt-block left-column wow fadeInRight">
 
-                            <!-- Section ID -->	
+                            <!-- Section ID -->
                             <span class="section-id txt-upcase">Digital Strategy</span>
 
-                            <!-- Title -->	
+                            <!-- Title -->
                             <h2 class="h2-xs">We make your business gain more revenue at a glance</h2>
 
-                            <!-- List -->	
+                            <!-- List -->
                             <ul class="simple-list">
 
                                 <li class="list-item">
@@ -141,14 +242,14 @@
 
                                 <li class="list-item">
                                     <p class="p-lg">Nemo ipsam egestas volute turpis dolores ligula and aliquam quaerat
-                                        at sodales sapien purus 
+                                        at sodales sapien purus
                                     </p>
                                 </li>
 
                             </ul>
 
                         </div>
-                    </div>	<!-- END TEXT BLOCK -->	
+                    </div>	<!-- END TEXT BLOCK -->
 
 
                     <!-- IMAGE BLOCK -->
@@ -161,7 +262,7 @@
 
                 </div>
             </div>    <!-- End row -->
-        </div>	   <!-- End container -->	
+        </div>	   <!-- End container -->
     </section>	<!-- END CONTENT-5 -->
 
 
@@ -173,20 +274,20 @@
         <div class="container">
 
 
-            <!-- SECTION TITLE -->	
-            <div class="row justify-content-center">	
+            <!-- SECTION TITLE -->
+            <div class="row justify-content-center">
                 <div class="col-lg-10 col-xl-8">
-                    <div class="section-title title-01 mb-70">		
+                    <div class="section-title title-01 mb-70">
 
-                        <!-- Title -->	
-                        <h2 class="h2-md">Optimized Business Platform</h2>	
+                        <!-- Title -->
+                        <h2 class="h2-md">Optimized Business Platform</h2>
 
-                        <!-- Text -->	
+                        <!-- Text -->
                         <p class="p-xl">Aliquam a augue suscipit, luctus neque purus ipsum neque dolor primis a libero
                             tempus, blandit and cursus varius and magnis sapien
                         </p>
-                            
-                    </div>	
+
+                    </div>
                 </div>
             </div>
 
@@ -204,28 +305,28 @@
                     </div>
 
 
-                    <!-- TEXT BLOCK -->	
+                    <!-- TEXT BLOCK -->
                     <div class="col-md-7 col-lg-6">
                         <div class="txt-block right-column wow fadeInLeft">
 
-                            <!-- Section ID -->	
+                            <!-- Section ID -->
                             <span class="section-id txt-upcase">Totally Optimized</span>
 
-                            <!-- Title -->	
+                            <!-- Title -->
                             <h2 class="h2-xs">More productivity with less effort</h2>
 
-                            <!-- Text -->	
-                            <p class="p-lg">Quaerat sodales sapien euismod blandit purus a purus ipsum primis in cubilia 
+                            <!-- Text -->
+                            <p class="p-lg">Quaerat sodales sapien euismod blandit purus a purus ipsum primis in cubilia
                                 laoreet augue luctus magna dolor luctus and egestas sapien egestas vitae nemo volute
                             </p>
 
-                            <!-- Text -->	
-                            <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and cubilia 
+                            <!-- Text -->
+                            <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and cubilia
                                 laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas
                             </p>
 
                         </div>
-                    </div>	<!-- END TEXT BLOCK -->	
+                    </div>	<!-- END TEXT BLOCK -->
 
 
                 </div>
@@ -237,51 +338,51 @@
                 <div class="row d-flex align-items-center">
 
 
-                    <!-- TEXT BLOCK -->	
+                    <!-- TEXT BLOCK -->
                     <div class="col-md-7 col-lg-6 order-last order-md-2">
                         <div class="txt-block left-column wow fadeInRight">
 
-                            <!-- TEXT BOX -->	
+                            <!-- TEXT BOX -->
                             <div class="txt-box mb-20">
 
-                                <!-- Title -->	
+                                <!-- Title -->
                                 <h5 class="h5-lg">Advanced Analytics Review</h5>
 
-                                <!-- Text -->	
-                                <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and 
+                                <!-- Text -->
+                                <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and
                                     cubilia laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas
                                     volute and turpis dolores aliquam quaerat sodales a sapien
                                 </p>
 
                             </div>
 
-                            <!-- TEXT BOX -->	
+                            <!-- TEXT BOX -->
                             <div class="txt-box">
 
-                                <!-- Title -->	
+                                <!-- Title -->
                                 <h5 class="h5-lg">Search Engine Optimization (SEO)</h5>
 
-                                <!-- List -->	
+                                <!-- List -->
                                 <ul class="simple-list">
 
                                     <li class="list-item">
                                         <p class="p-lg">Fringilla risus, luctus mauris auctor euismod an iaculis luctus
-                                            magna purus pretium ligula purus and quaerat 
+                                            magna purus pretium ligula purus and quaerat
                                         </p>
                                     </li>
 
                                     <li class="list-item">
                                         <p class="p-lg">Nemo ipsam egestas volute turpis dolores undo ultrice aliquam quaerat
-                                            at sodales sapien purus 
+                                            at sodales sapien purus
                                         </p>
                                     </li>
 
                                 </ul>
 
-                            </div>	<!-- END TEXT BOX -->	
+                            </div>	<!-- END TEXT BOX -->
 
                         </div>
-                    </div>	<!-- END TEXT BLOCK -->	
+                    </div>	<!-- END TEXT BLOCK -->
 
 
                     <!-- IMAGE BLOCK -->
@@ -317,17 +418,17 @@
                 </div>
 
 
-                <!-- TEXT BLOCK -->	
+                <!-- TEXT BLOCK -->
                 <div class="col-md-7 col-lg-6">
                     <div class="txt-block right-column white-color wow fadeInLeft">
 
-                        <!-- Section ID -->	
+                        <!-- Section ID -->
                         <span class="section-id txt-upcase">Monitor Your Growth</span>
 
-                        <!-- Title -->	
+                        <!-- Title -->
                         <h2 class="h2-xs">Committed to top quality and results</h2>
 
-                        <!-- List -->	
+                        <!-- List -->
                         <ul class="simple-list">
 
                             <li class="list-item">
@@ -341,15 +442,15 @@
                             </li>
 
                             <li class="list-item">
-                                <p class="p-lg">Nemo ipsam egestas volute turpis dolores undo ultrice aliquam 
-                                    quaerat at sodales sapien purus 
+                                <p class="p-lg">Nemo ipsam egestas volute turpis dolores undo ultrice aliquam
+                                    quaerat at sodales sapien purus
                                 </p>
                             </li>
 
                         </ul>
 
                     </div>
-                </div>	<!-- END TEXT BLOCK -->	
+                </div>	<!-- END TEXT BLOCK -->
 
 
             </div>	   <!-- End row -->
@@ -365,25 +466,25 @@
         <div class="container">
 
 
-            <!-- SECTION TITLE -->	
-            <div class="row justify-content-center">	
+            <!-- SECTION TITLE -->
+            <div class="row justify-content-center">
                 <div class="col-lg-10 col-xl-8">
-                    <div class="section-title title-01 mb-70">		
+                    <div class="section-title title-01 mb-70">
 
-                        <!-- Title -->	
-                        <h2 class="h2-md">We’re Better. Here’s Why…</h2>	
+                        <!-- Title -->
+                        <h2 class="h2-md">We’re Better. Here’s Why…</h2>
 
-                        <!-- Text -->	
+                        <!-- Text -->
                         <p class="p-xl">Aliquam a augue suscipit, luctus neque purus ipsum neque dolor primis a libero
                             tempus, blandit and cursus varius and magnis sapien
                         </p>
-                            
-                    </div>	
+
+                    </div>
                 </div>
             </div>
 
 
-            <!-- FEATURES-8 WRAPPER -->	
+            <!-- FEATURES-8 WRAPPER -->
             <div class="fbox-8-wrapper text-center">
                 <div class="row row-cols-1 row-cols-md-3">
 
@@ -399,9 +500,9 @@
 
                             <!-- Title -->
                             <h5 class="h5-md">All-in-One Platform</h5>
-                                    
+
                             <!-- Text -->
-                            <p class="p-lg">Feugiat primis ultrice semper lacus cursus feugiat undo primis ultrice a 
+                            <p class="p-lg">Feugiat primis ultrice semper lacus cursus feugiat undo primis ultrice a
                                 ligula an auctor tempus magnis
                             </p>
 
@@ -420,9 +521,9 @@
 
                             <!-- Title -->
                             <h5 class="h5-md">Extremely Flexible</h5>
-                                    
+
                             <!-- Text -->
-                            <p class="p-lg">Feugiat primis ultrice semper lacus cursus feugiat undo primis ultrice a 
+                            <p class="p-lg">Feugiat primis ultrice semper lacus cursus feugiat undo primis ultrice a
                                 ligula an auctor tempus magnis
                             </p>
 
@@ -443,20 +544,20 @@
                             <h5 class="h5-md">Concrete Security</h5>
 
                             <!-- Text -->
-                            <p class="p-lg">Feugiat primis ultrice semper lacus cursus feugiat undo primis ultrice a 
+                            <p class="p-lg">Feugiat primis ultrice semper lacus cursus feugiat undo primis ultrice a
                                 ligula an auctor tempus magnis
                             </p>
 
                         </div>
-                    </div>	
+                    </div>
 
 
-                </div>  <!-- End row -->	
-            </div>	<!-- END FEATURES-8 WRAPPER -->	
+                </div>  <!-- End row -->
+            </div>	<!-- END FEATURES-8 WRAPPER -->
 
 
-        </div>	   <!-- End container -->		
-    </section>	<!-- END FEATURES-8 -->	
+        </div>	   <!-- End container -->
+    </section>	<!-- END FEATURES-8 -->
 
 
 
@@ -474,51 +575,51 @@
             <div class="row d-flex align-items-center">
 
 
-                <!-- TEXT BLOCK -->	
+                <!-- TEXT BLOCK -->
                 <div class="col-md-7 col-lg-6 order-last order-md-2">
                     <div class="txt-block left-column wow fadeInRight">
 
-                        <!-- TEXT BOX -->	
+                        <!-- TEXT BOX -->
                         <div class="txt-box mb-20">
 
-                            <!-- Title -->	
+                            <!-- Title -->
                             <h5 class="h5-lg">All-in-One Marketing Solutions</h5>
 
-                            <!-- Text -->	
-                            <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and 
+                            <!-- Text -->
+                            <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and
                                 cubilia laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas
                                 volute and turpis dolores aliquam quaerat sodales a sapien
                             </p>
 
                         </div>
 
-                        <!-- TEXT BOX -->	
+                        <!-- TEXT BOX -->
                         <div class="txt-box">
 
-                            <!-- Title -->	
+                            <!-- Title -->
                             <h5 class="h5-lg">Strategy and Analytics Consulting</h5>
 
-                            <!-- List -->	
+                            <!-- List -->
                             <ul class="simple-list">
 
                                 <li class="list-item">
                                     <p class="p-lg">Fringilla risus, luctus mauris auctor euismod an iaculis luctus
-                                        magna purus pretium ligula purus and quaerat 
+                                        magna purus pretium ligula purus and quaerat
                                     </p>
                                 </li>
 
                                 <li class="list-item">
                                     <p class="p-lg">Nemo ipsam egestas volute turpis dolores undo ultrice aliquam quaerat
-                                        at sodales sapien purus 
+                                        at sodales sapien purus
                                     </p>
                                 </li>
 
                             </ul>
 
-                        </div>	<!-- END TEXT BOX -->								
+                        </div>	<!-- END TEXT BOX -->
 
                     </div>
-                </div>	<!-- END TEXT BLOCK -->	
+                </div>	<!-- END TEXT BLOCK -->
 
 
                 <!-- IMAGE BLOCK -->
@@ -545,74 +646,74 @@
 
 
                     <!-- STATISTIC BLOCK #1 -->
-                    <div class="col">						
-                        <div class="statistic-block mb-40 wow fadeInUp">	
+                    <div class="col">
+                        <div class="statistic-block mb-40 wow fadeInUp">
 
                             <!-- Icon  -->
                             <div class="statistic-ico ico-65">
                                 <span class="flaticon-web-programming"></span>
-                            </div> 
+                            </div>
 
                             <!-- Text -->
                             <h3 class="h3-md statistic-number">4,<span class="count-element">497</span></h3>
-                            <p class="p-lg txt-400">Finished Projects</p>		
+                            <p class="p-lg txt-400">Finished Projects</p>
 
-                        </div>						
+                        </div>
                     </div>
 
 
                     <!-- STATISTIC BLOCK #2 -->
-                    <div class="col">						
-                        <div class="statistic-block mb-40 wow fadeInUp">	
+                    <div class="col">
+                        <div class="statistic-block mb-40 wow fadeInUp">
 
                             <!-- Icon  -->
                             <div class="statistic-ico ico-65">
                                 <span class="flaticon-shuttle"></span>
-                            </div> 
+                            </div>
 
                             <!-- Text -->
-                            <h3 class="h3-md statistic-number">3,<span class="count-element">889</span></h3>	
-                            <p class="p-lg txt-400">Websites Improved</p>																				
-                                                
-                        </div>								
+                            <h3 class="h3-md statistic-number">3,<span class="count-element">889</span></h3>
+                            <p class="p-lg txt-400">Websites Improved</p>
+
+                        </div>
                     </div>
 
 
                     <!-- STATISTIC BLOCK #3 -->
-                    <div class="col">						
-                        <div class="statistic-block mb-40 wow fadeInUp">	
+                    <div class="col">
+                        <div class="statistic-block mb-40 wow fadeInUp">
 
                             <!-- Icon  -->
                             <div class="statistic-ico ico-65">
                                 <span class="flaticon-speech-bubble-3"></span>
-                            </div> 
+                            </div>
 
                             <!-- Text -->
                             <h3 class="h3-md statistic-number">5,<span class="count-element">179</span></h3>
-                            <p class="p-lg txt-400">Happy Customers</p>									
-                                                                    
-                        </div>							
+                            <p class="p-lg txt-400">Happy Customers</p>
+
+                        </div>
                     </div>
 
 
                     <!-- STATISTIC BLOCK #4 -->
-                    <div class="col">						
-                        <div class="statistic-block mb-40 wow fadeInUp">	
+                    <div class="col">
+                        <div class="statistic-block mb-40 wow fadeInUp">
 
                             <!-- Icon  -->
-                            <div class="statistic-ico ico-65"><span class="flaticon-help"></span></div> 
+                            <div class="statistic-ico ico-65"><span class="flaticon-help"></span></div>
 
-                            <!-- Text -->	
+                            <!-- Text -->
                             <h3 class="h3-md statistic-number">1,<span class="count-element">473</span></h3>
-                            <p class="p-lg txt-400">Tickets Closed</p>								
-                                                                    
-                        </div>							
+                            <p class="p-lg txt-400">Tickets Closed</p>
+
+                        </div>
                     </div>
 
 
                 </div>    <!-- End row -->
             </div>    <!-- End statistic-3-wrapper -->
-        </div>	   <!-- End container -->		
+        </div>	   <!-- End container -->
     </section>	<!-- END STATISTIC-3 -->
 
 
@@ -624,23 +725,23 @@
         <div class="container">
 
 
-            <!-- SECTION TITLE -->	
-            <div class="row justify-content-center">	
+            <!-- SECTION TITLE -->
+            <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-8">
-                    <div class="section-title title-02 mb-60">			
+                    <div class="section-title title-02 mb-60">
 
-                        <!-- Section ID -->	
-                        <span class="section-id txt-upcase">Your road to success</span>	
+                        <!-- Section ID -->
+                        <span class="section-id txt-upcase">Your road to success</span>
 
-                        <!-- Title -->	
-                        <h2 class="h2-xs">Marketing solutions that fuel your business growth</h2>	
+                        <!-- Title -->
+                        <h2 class="h2-xs">Marketing solutions that fuel your business growth</h2>
 
-                        <!-- Text -->	
+                        <!-- Text -->
                         <p class="p-xl">Aliquam a augue suscipit, luctus neque purus ipsum neque at dolor primis libero
                             tempus, blandit and cursus varius and magnis sapien
-                        </p>	
+                        </p>
 
-                    </div>	
+                    </div>
                 </div>
             </div>
 
@@ -648,18 +749,18 @@
             <!-- IMAGE BLOCK -->
             <div class="row">
                 <div class="col">
-                    <div class="img-block text-center video-preview">	
-                                                                                
-                        <!-- Play Icon --> 
-                        <a class="video-popup1" href="https://www.youtube.com/embed/SZEflIVnhH8">				
-                            <div class="video-btn video-btn-xl bg-skyblue ico-90">	
+                    <div class="img-block text-center video-preview">
+
+                        <!-- Play Icon -->
+                        <a class="video-popup1" href="https://www.youtube.com/embed/SZEflIVnhH8">
+                            <div class="video-btn video-btn-xl bg-skyblue ico-90">
                                 <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
                             </div>
                         </a>
 
-                        <!-- Preview Image --> 
+                        <!-- Preview Image -->
                         <img class="img-fluid" src="images/seo-07.png" alt="video-preview">
-                        
+
                     </div>
                 </div>
             </div>
@@ -698,7 +799,7 @@
 
                                 <!-- Title -->
                                 <h5 class="h5-sm">Market Research</h5>
-                                    
+
                                 <!-- Text -->
                                 <p class="p-lg">Porta semper lacus cursus feugiat primis ultrice ligula risus auctor
                                     tempus feugiat impedit undo auctor felis augue mauris aoreet tempor
@@ -707,7 +808,7 @@
                             </div>
 
                         </div>
-                    </div>	
+                    </div>
 
 
                     <!-- FEATURE BOX #2 -->
@@ -726,7 +827,7 @@
 
                                 <!-- Title -->
                                 <h5 class="h5-sm">User Experience</h5>
-                                    
+
                                 <!-- Text -->
                                 <p class="p-lg">Porta semper lacus cursus feugiat primis ultrice ligula risus auctor
                                     tempus feugiat impedit undo auctor felis augue mauris aoreet tempor
@@ -735,7 +836,7 @@
                             </div>
 
                         </div>
-                    </div>	
+                    </div>
 
 
                     <!-- FEATURE BOX #3 -->
@@ -754,7 +855,7 @@
 
                                 <!-- Title -->
                                 <h5 class="h5-sm">Digital Marketing</h5>
-                                    
+
                                 <!-- Text -->
                                 <p class="p-lg">Porta semper lacus cursus feugiat primis ultrice ligula risus auctor
                                     tempus feugiat impedit undo auctor felis augue mauris aoreet tempor
@@ -763,7 +864,7 @@
                             </div>
 
                         </div>
-                    </div>	
+                    </div>
 
 
                     <!-- FEATURE BOX #4 -->
@@ -782,7 +883,7 @@
 
                                 <!-- Title -->
                                 <h5 class="h5-sm">Brand Design Identity</h5>
-                                    
+
                                 <!-- Text -->
                                 <p class="p-lg">Porta semper lacus cursus feugiat primis ultrice ligula risus auctor
                                     tempus feugiat impedit undo auctor felis augue mauris aoreet tempor
@@ -791,14 +892,14 @@
                             </div>
 
                         </div>
-                    </div>	
+                    </div>
 
 
                 </div>
             </div>    <!-- END FEATURES-4 WRAPPER -->
 
 
-        </div>     <!-- End container --> 	
+        </div>     <!-- End container -->
     </section>	<!-- END FEATURES-4 -->
 
 
@@ -810,30 +911,30 @@
         <div class="container">
 
 
-            <!-- SECTION TITLE -->	
-            <div class="row justify-content-center">	
+            <!-- SECTION TITLE -->
+            <div class="row justify-content-center">
                 <div class="col-lg-10 col-xl-8">
-                    <div class="section-title title-01 mb-70">		
+                    <div class="section-title title-01 mb-70">
 
-                        <!-- Title -->	
-                        <h2 class="h2-md">Stories From Our Customers</h2>	
+                        <!-- Title -->
+                        <h2 class="h2-md">Stories From Our Customers</h2>
 
-                        <!-- Text -->	
+                        <!-- Text -->
                         <p class="p-xl">Aliquam a augue suscipit, luctus neque purus ipsum neque dolor primis a libero
                             tempus, blandit and cursus varius and magnis sapien
                         </p>
-                            
-                    </div>	
+
+                    </div>
                 </div>
             </div>
 
 
             <!-- TESTIMONIALS CONTENT -->
             <div class="row">
-                <div class="col">					
+                <div class="col">
                     <div class="owl-carousel owl-theme reviews-1-wrapper">
 
-                
+
                         <!-- TESTIMONIAL #1 -->
                         <div class="review-1">
 
@@ -846,8 +947,8 @@
                             <div class="review-1-txt">
 
                                 <!-- Text -->
-                                <p class="p-lg">Etiam sapien sagittis congue augue massa varius egestas ultrice 
-                                    varius magna a tempus aliquet undo cursus suscipit 			   
+                                <p class="p-lg">Etiam sapien sagittis congue augue massa varius egestas ultrice
+                                    varius magna a tempus aliquet undo cursus suscipit
                                 </p>
 
                                 <!-- Testimonial Author -->
@@ -857,7 +958,7 @@
                                     <div class="review-avatar">
                                         <img src="images/review-author-1.jpg" alt="review-avatar">
                                     </div>
-                                                
+
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
@@ -870,18 +971,18 @@
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>	
+                                            <span class="flaticon-star-half-empty"></span>
                                         </div>
 
-                                    </div>	
+                                    </div>
 
                                 </div>	<!-- End Testimonial Author -->
 
                             </div>	<!-- End Text -->
 
                         </div>	<!-- END TESTIMONIAL #1 -->
-                
-                
+
+
                         <!-- TESTIMONIAL #2 -->
                         <div class="review-1">
 
@@ -896,7 +997,7 @@
                                 <!-- Text -->
                                 <p class="p-lg">At sagittis congue augue and egestas magna ipsum vitae a purus ipsum
                                     primis in cubilia laoreet augue egestas luctus and donec diam ultrice ligula magna
-                                    suscipit lectus gestas augue into cubilia	 			   
+                                    suscipit lectus gestas augue into cubilia
                                 </p>
 
                                 <!-- Testimonial Author -->
@@ -906,7 +1007,7 @@
                                     <div class="review-avatar">
                                         <img src="images/review-author-2.jpg" alt="review-avatar">
                                     </div>
-                                                
+
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
@@ -919,18 +1020,18 @@
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>	
+                                            <span class="flaticon-star-half-empty"></span>
                                         </div>
 
-                                    </div>	
+                                    </div>
 
                                 </div>	<!-- End Testimonial Author -->
 
                             </div>	<!-- End Text -->
 
                         </div>	<!-- END TESTIMONIAL #2 -->
-                
-                
+
+
                         <!-- TESTIMONIAL #3 -->
                         <div class="review-1">
 
@@ -945,7 +1046,7 @@
                                 <!-- Text -->
                                 <p class="p-lg">Mauris donec magnis sapien etiam sapien congue augue egestas et ultrice
                                     vitae purus diam integer a congue magna ligula undo egestas magna at suscipit feugiat
-                                    primis  
+                                    primis
                                 </p>
 
                                 <!-- Testimonial Author -->
@@ -955,7 +1056,7 @@
                                     <div class="review-avatar">
                                         <img src="images/review-author-3.jpg" alt="review-avatar">
                                     </div>
-                                                
+
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
@@ -968,10 +1069,10 @@
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>	
+                                            <span class="flaticon-star-half-empty"></span>
                                         </div>
 
-                                    </div>	
+                                    </div>
 
                                 </div>	<!-- End Testimonial Author -->
 
@@ -1003,7 +1104,7 @@
                                     <div class="review-avatar">
                                         <img src="images/review-author-4.jpg" alt="review-avatar">
                                     </div>
-                                                
+
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
@@ -1016,18 +1117,18 @@
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>	
+                                            <span class="flaticon-star-half-empty"></span>
                                         </div>
 
-                                    </div>	
+                                    </div>
 
                                 </div>	<!-- End Testimonial Author -->
 
                             </div>	<!-- End Text -->
 
                         </div>	<!-- END TESTIMONIAL #4 -->
-                        
-                        
+
+
                         <!-- TESTIMONIAL #5 -->
                         <div class="review-1">
 
@@ -1042,7 +1143,7 @@
                                 <!-- Text -->
                                 <p class="p-lg">An augue cubilia laoreet magna suscipit egestas and ipsum a lectus purus ipsum
                                     primis and augue ultrice ligula and egestas a suscipit lectus gestas undo auctor tempus
-                                    feugiat impedit   
+                                    feugiat impedit
                                 </p>
 
                                 <!-- Testimonial Author -->
@@ -1052,7 +1153,7 @@
                                     <div class="review-avatar">
                                         <img src="images/review-author-5.jpg" alt="review-avatar">
                                     </div>
-                                                
+
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
@@ -1065,18 +1166,18 @@
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>	
+                                            <span class="flaticon-star-half-empty"></span>
                                         </div>
 
-                                    </div>	
+                                    </div>
 
                                 </div>	<!-- End Testimonial Author -->
 
                             </div>	<!-- End Text -->
 
                         </div>	<!-- END TESTIMONIAL #5 -->
-                        
-                        
+
+
                         <!-- TESTIMONIAL #6 -->
                         <div class="review-1">
 
@@ -1090,7 +1191,7 @@
 
                                 <!-- Text -->
                                 <p class="p-lg">An augue cubilia laoreet undo magna ipsum semper suscipit egestas magna
-                                    ipsum ligula a vitae purus and ipsum primis cubilia magna suscipit			   
+                                    ipsum ligula a vitae purus and ipsum primis cubilia magna suscipit
                                 </p>
 
                                 <!-- Testimonial Author -->
@@ -1100,7 +1201,7 @@
                                     <div class="review-avatar">
                                         <img src="images/review-author-6.jpg" alt="review-avatar">
                                     </div>
-                                                
+
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
@@ -1113,18 +1214,18 @@
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>	
+                                            <span class="flaticon-star-half-empty"></span>
                                         </div>
 
-                                    </div>	
+                                    </div>
 
                                 </div>	<!-- End Testimonial Author -->
 
                             </div>	<!-- End Text -->
 
                         </div>	<!-- END TESTIMONIAL #6 -->
-                        
-                        
+
+
                         <!-- TESTIMONIAL #7 -->
                         <div class="review-1">
 
@@ -1148,7 +1249,7 @@
                                     <div class="review-avatar">
                                         <img src="images/review-author-7.jpg" alt="review-avatar">
                                     </div>
-                                                
+
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
@@ -1161,10 +1262,10 @@
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>	
+                                            <span class="flaticon-star-half-empty"></span>
                                         </div>
 
-                                    </div>	
+                                    </div>
 
                                 </div>	<!-- End Testimonial Author -->
 
@@ -1185,7 +1286,7 @@
                             <div class="review-1-txt">
 
                                 <!-- Text -->
-                                <p class="p-lg">Augue at vitae purus tempus egestas volutpat augue undo cubilia laoreet 
+                                <p class="p-lg">Augue at vitae purus tempus egestas volutpat augue undo cubilia laoreet
                                     magna suscipit luctus dolor blandit at purus tempus feugiat impedit
                                 </p>
 
@@ -1196,7 +1297,7 @@
                                     <div class="review-avatar">
                                         <img src="images/review-author-8.jpg" alt="review-avatar">
                                     </div>
-                                                
+
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
@@ -1209,10 +1310,10 @@
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
                                             <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>	
+                                            <span class="flaticon-star-half-empty"></span>
                                         </div>
 
-                                    </div>	
+                                    </div>
 
                                 </div>	<!-- End Testimonial Author -->
 
@@ -1220,10 +1321,10 @@
 
                         </div>	<!-- END TESTIMONIAL #8 -->
 
-                    
+
                     </div>
-                </div>									
-            </div>	<!-- END TESTIMONIALS CONTENT --> 
+                </div>
+            </div>	<!-- END TESTIMONIALS CONTENT -->
 
 
         </div>     <!-- End container -->
@@ -1239,30 +1340,30 @@
             <div class="row d-flex align-items-center">
 
 
-                <!-- TEXT BLOCK -->	
+                <!-- TEXT BLOCK -->
                 <div class="col-md-6 col-lg-5">
                     <div class="txt-block left-column wow fadeInRight">
 
-                        <!-- TEXT BOX -->	
+                        <!-- TEXT BOX -->
                         <div class="txt-box mb-30">
 
-                            <!-- Title -->	
+                            <!-- Title -->
                             <h5 class="h5-lg">Advanced Analytics Review</h5>
 
-                            <!-- Text -->	
-                            <p class="p-lg">Quaerat sodales sapien euismod blandit undo vitae ipsum primis and cubilia 
-                                a laoreet augue and luctus magna dolor egestas luctus 
+                            <!-- Text -->
+                            <p class="p-lg">Quaerat sodales sapien euismod blandit undo vitae ipsum primis and cubilia
+                                a laoreet augue and luctus magna dolor egestas luctus
                             </p>
 
                         </div>
 
-                        <!-- TEXT BOX -->	
+                        <!-- TEXT BOX -->
                         <div class="txt-box">
 
-                            <!-- Title -->	
+                            <!-- Title -->
                             <h5 class="h5-lg">Email Marketing Campaigns</h5>
 
-                            <!-- List -->	
+                            <!-- List -->
                             <ul class="simple-list">
 
                                 <li class="list-item">
@@ -1279,10 +1380,10 @@
 
                             </ul>
 
-                        </div>	<!-- END TEXT BOX -->	
+                        </div>	<!-- END TEXT BOX -->
 
                     </div>
-                </div>	<!-- END TEXT BLOCK -->		
+                </div>	<!-- END TEXT BLOCK -->
 
 
                 <!-- IMAGE BLOCK -->
@@ -1302,30 +1403,30 @@
 
     <!-- FAQs-2
     ============================================= -->
-    <section id="faqs-2" class="pb-60 faqs-section division">				
+    <section id="faqs-2" class="pb-60 faqs-section division">
         <div class="container">
 
 
-            <!-- SECTION TITLE -->	
-            <div class="row justify-content-center">	
+            <!-- SECTION TITLE -->
+            <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-8">
-                    <div class="section-title title-02 mb-75">	
+                    <div class="section-title title-02 mb-75">
 
-                        <!-- Section ID -->	
-                        <span class="section-id txt-upcase">Frequently Asked Questions</span>			
+                        <!-- Section ID -->
+                        <span class="section-id txt-upcase">Frequently Asked Questions</span>
 
-                        <!-- Title -->			
+                        <!-- Title -->
                         <h2 class="h2-xs">Everything you need to know before getting started</h2>
 
-                    </div>	
+                    </div>
                 </div>
             </div>
 
 
-            <!-- FAQs-2 QUESTIONS -->	
+            <!-- FAQs-2 QUESTIONS -->
             <div class="faqs-2-questions">
                 <div class="row row-cols-1 row-cols-lg-2">
-                
+
 
                     <!-- QUESTIONS HOLDER -->
                     <div class="col">
@@ -1344,24 +1445,24 @@
                                     vitae
                                 </p>
 
-                            </div>	
+                            </div>
 
 
-                            <!-- QUESTION #2 -->					
+                            <!-- QUESTION #2 -->
                             <div class="question wow fadeInUp">
 
                                 <!-- Question -->
                                 <h5 class="h5-md">What are the requirements for using OLMO?</h5>
 
                                 <!-- Answer -->
-                                <p class="p-lg">An enim nullam tempor sapien gravida a donec ipsum enim an porta justo 
-                                    integer at velna vitae auctor integer congue undo magna at pretium purus pretium 
+                                <p class="p-lg">An enim nullam tempor sapien gravida a donec ipsum enim an porta justo
+                                    integer at velna vitae auctor integer congue undo magna at pretium purus pretium
                                 </p>
 
                             </div>
 
 
-                            <!-- QUESTION #3 -->					
+                            <!-- QUESTION #3 -->
                             <div class="question wow fadeInUp">
 
                                 <!-- Question -->
@@ -1395,8 +1496,8 @@
                     <div class="col">
                         <div class="questions-holder pl-15">
 
-                        
-                            <!-- QUESTION #4 -->					
+
+                            <!-- QUESTION #4 -->
                             <div class="question wow fadeInUp">
 
                                 <!-- Question -->
@@ -1409,7 +1510,7 @@
 
                             </div>
 
-                                
+
                             <!-- QUESTION #5 -->
                             <div class="question wow fadeInUp">
 
@@ -1417,7 +1518,7 @@
                                 <h5 class="h5-md">How does OLMO handle my privacy?</h5>
 
                                 <!-- Answer -->
-                                <p class="p-lg">Etiam amet mauris suscipit sit amet in odio. Integer congue leo metus. 
+                                <p class="p-lg">Etiam amet mauris suscipit sit amet in odio. Integer congue leo metus.
                                     Vitae arcu mollis blandit ultrice ligula
                                 </p>
 
@@ -1458,12 +1559,12 @@
 
 
                 </div>	<!-- End row -->
-            </div>	<!-- END FAQs-2 QUESTIONS -->	
+            </div>	<!-- END FAQs-2 QUESTIONS -->
 
 
-            <!-- MORE QUESTIONS BUTTON -->	
+            <!-- MORE QUESTIONS BUTTON -->
             <div class="row">
-                <div class="col">	
+                <div class="col">
                     <div class="more-questions">
                         <h5 class="h5-sm">Have more questions? <a href="contacts.html">Ask your question here</a></h5>
                     </div>
@@ -1471,7 +1572,7 @@
             </div>
 
 
-        </div>	   <!-- End container -->		
+        </div>	   <!-- End container -->
     </section>	<!-- END FAQs-2 -->
 
 
@@ -1500,14 +1601,14 @@
                                 <div class="cta-3-btn text-center">
                                     <a href="pricing.html" class="btn btn-skyblue tra-grey-hover">Get Started Now</a>
                                     <p><a href="#">Read The FAQs</a></p>
-                                </div>	
+                                </div>
                             </div>
                         </div>
 
 
                     </div>
                 </div>    <!-- End row -->
-            </div>	   <!-- End container -->	
+            </div>	   <!-- End container -->
         </div>
     </section>	<!-- END CALL TO ACTION-3 -->
 @endsection

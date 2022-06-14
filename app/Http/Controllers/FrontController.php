@@ -165,12 +165,10 @@ class FrontController extends Controller
 //             Mail::to($theme_data->email)->send(new ContactDetail($mail_data));
 
             if($status){
-                Session::flash('success','Thank you for contacting us!');
                 $confirmed = "success";
                 return response()->json($confirmed);
             }
             else{
-                Session::flash('error','Failed to submit');
                 $confirmed = "error";
                 return response()->json($confirmed);
             }
@@ -305,7 +303,6 @@ class FrontController extends Controller
 // //             Mail::to($theme_data->email)->send(new ContactDetail($mail_data));
 
             if($status){
-                Session::flash('success','Thank you for requesting us!');
                 $confirmed = "success";
                 $service   = Service::find($request->input('service_id'));
                 foreach (User::where('user_type','admin')->get() as $user){
@@ -314,7 +311,6 @@ class FrontController extends Controller
                 return response()->json($confirmed);
             }
             else{
-                Session::flash('error','Failed to contact us');
                 $confirmed = "error";
                 return response()->json($confirmed);
             }
@@ -348,12 +344,10 @@ class FrontController extends Controller
 // //             Mail::to($theme_data->email)->send(new ContactDetail($mail_data));
 
             if($status){
-                Session::flash('success','Thank you for contacting us!');
                 $confirmed = "success";
                 return response()->json($confirmed);
             }
             else{
-                Session::flash('error','Failed to contact us');
                 $confirmed = "error";
                 return response()->json($confirmed);
             }

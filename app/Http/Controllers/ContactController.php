@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\RequestQuote;
+use App\Models\Service;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,11 +38,18 @@ class ContactController extends Controller
         return response()->json($edit);
     }
 
+    public function editResponse($id)
+    {
+        $edit   = Service::find($id);
+        return response()->json($edit);
+    }
+
+
     public function destroy($id)
     {
         $delete          = Contact::find($id);
         $id              = $delete->id;
-        
+
         $status = $delete->delete();
         if($status){
             $status ='success';
@@ -56,7 +65,7 @@ class ContactController extends Controller
     {
         $delete          = RequestQuote::find($id);
         $id              = $delete->id;
-        
+
         $status = $delete->delete();
         if($status){
             $status ='success';
