@@ -16,10 +16,11 @@ class NewServiceNotification extends Notification
      *
      * @return void
      */
-    public function __construct($service,$quote_id)
+    public function __construct($service,$quote_id,$name)
     {
-        $this->service = $service;
+        $this->service  = $service;
         $this->quote_id = $quote_id;
+        $this->name     = $name;
     }
 
     /**
@@ -46,6 +47,8 @@ class NewServiceNotification extends Notification
             'title'=>$this->service->title,
             'slug'=>$this->service->slug,
             'quote_id'=> $this->quote_id,
+            'name'=> $this->name,
+            'image'=>  $this->service->banner_image,
 
         ];
     }

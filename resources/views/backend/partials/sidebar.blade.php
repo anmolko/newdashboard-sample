@@ -121,7 +121,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link  @if(\Request::route()->getName() == 'quote-response.index') active @endif" href="{{route('quote-response.index')}}">
-                        <i class=" ri-file-settings-fill"></i> <span data-key="t-forms">Quote Response</span>
+                        <i class=" ri-file-settings-line"></i> <span data-key="t-forms">Quote Response</span>
                     </a>
                 </li>
 

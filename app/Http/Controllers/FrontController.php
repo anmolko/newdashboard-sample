@@ -309,7 +309,7 @@ class FrontController extends Controller
                 $confirmed = "success";
                 $service   = Service::find($request->input('service_id'));
                 foreach (User::where('user_type','admin')->get() as $user){
-                   Notification::send($user, new NewServiceNotification($service,$status->id));
+                   Notification::send($user, new NewServiceNotification($service,$status->id,$status->name));
                 }
                 return response()->json($confirmed);
             }
