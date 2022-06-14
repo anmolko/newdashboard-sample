@@ -18,7 +18,7 @@ class SensitiveComposer
        $footerMenu           = Menu::where('location',2)->get();
        $services             = Service::take(6)->get();
        $current_user         = auth()->user();
-       $unread_notification = "";
+       $service_notification = "";
        $topNavItems          = json_decode(@$topNav->content);
        $footerItem1          = json_decode(@$footerMenu[0]->content);
        $footerItem2          = json_decode(@$footerMenu[1]->content);
@@ -32,7 +32,7 @@ class SensitiveComposer
        $footerItemTitle3     = @$footerMenu[2]->title;
 
        if($current_user !== null && $current_user->user_type == "admin"){
-           $unread_notification = $current_user->unreadNotifications;
+           $service_notification = $current_user->unreadNotifications;
        }
        if(!empty(@$topNavItems)){
            foreach($topNavItems as $menu){
@@ -94,7 +94,7 @@ class SensitiveComposer
            ->with('footer_nav_data3', $footerItem3)
            ->with('footer_nav_title3', $footerItemTitle3)
            ->with('top_nav_data', $topNavItems)
-           ->with('notifications', $unread_notification)
+           ->with('service_notifications', $service_notification)
            ->with('nav_services', $services);
 
 
