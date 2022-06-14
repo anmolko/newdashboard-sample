@@ -9,5 +9,5 @@ class RequestQuote extends Model
 {
     use HasFactory;
     protected $table ='requestquotes';
-    protected $fillable =['id','name','phone','email','service','message'];
+    protected $fillable =['id','name','phone','email','service_id','message'];
 }

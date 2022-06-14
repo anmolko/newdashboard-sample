@@ -4,12 +4,11 @@
 namespace App\Http\ViewComposer;
 
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\View\View;
 use App\Models\Menu;
 use App\Models\MenuItem;
-use App\Models\Blog;
 use App\Models\Setting;
-use Illuminate\Support\Str;
 
 class SensitiveComposer
 {
@@ -18,6 +17,8 @@ class SensitiveComposer
        $topNav               = Menu::where('location',1)->first();
        $footerMenu           = Menu::where('location',2)->get();
        $services             = Service::take(6)->get();
+       $current_user         = auth()->user();
+       $unread_notification = "";
        $topNavItems          = json_decode(@$topNav->content);
        $footerItem1          = json_decode(@$footerMenu[0]->content);
        $footerItem2          = json_decode(@$footerMenu[1]->content);
@@ -30,6 +31,9 @@ class SensitiveComposer
        $footerItemTitle2     = @$footerMenu[1]->title;
        $footerItemTitle3     = @$footerMenu[2]->title;
 
+       if($current_user !== null && $current_user->user_type == "admin"){
+           $unread_notification = $current_user->unreadNotifications;
+       }
        if(!empty(@$topNavItems)){
            foreach($topNavItems as $menu){
                $menu->title = MenuItem::where('id',$menu->id)->value('title');
@@ -90,6 +94,7 @@ class SensitiveComposer
            ->with('footer_nav_data3', $footerItem3)
            ->with('footer_nav_title3', $footerItemTitle3)
            ->with('top_nav_data', $topNavItems)
+           ->with('notifications', $unread_notification)
            ->with('nav_services', $services);
 
 

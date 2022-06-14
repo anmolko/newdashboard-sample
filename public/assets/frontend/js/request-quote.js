@@ -8,7 +8,7 @@ $(document).ready(function() {
         var name = $(".name");
         var phone = $(".phone");
         var email = $(".email");
-        var service = $(".service");
+        var service = $(".service_id");
         var msg = $(".message");
         var flag = false;
 
@@ -57,7 +57,7 @@ $(document).ready(function() {
             msg.closest(".form-control").removeClass("error").addClass("success");
             flag = true;
         }
-        var dataString = "name=" + name.val() + "&phone=" + phone.val() + "&email=" + email.val() + "&service=" + service.val() + "&msg=" + msg.val();
+        var dataString = "name=" + name.val() + "&phone=" + phone.val() + "&email=" + email.val() + "&service_id=" + service.val() + "&msg=" + msg.val();
         $(".loading").fadeIn("slow").html("Loading...");
         $.ajax({
             type: "POST",
@@ -70,7 +70,7 @@ $(document).ready(function() {
                     $(".name").val(" ");
                     $(".phone").val(" ");
                     $(".email").val(" ");
-                    $(".service").val(" ");
+                    $(".service_id").val(" ");
                     $(".message").val(" ");
                     $('.loading').fadeIn('slow').html('<font color="#48af4b">Mail sent Successfully.</font>').delay(3000).fadeOut('slow');
 

@@ -407,7 +407,7 @@ $(document).ready(function() {
         }
     });
 
-    
+
 
      /*----------------------------------------------------*/
     /*	Job Apply Form Validation
@@ -528,7 +528,7 @@ $(document).ready(function() {
 
     $(".request-quote").validate({
         rules: {
-            service: {
+            service_id: {
                 required: true,
             },
             phone: {
@@ -552,7 +552,7 @@ $(document).ready(function() {
             }
         },
         messages: {
-            service: {
+            service_id: {
                 required: "Please choose the inquiry service"
             },
             phone: {

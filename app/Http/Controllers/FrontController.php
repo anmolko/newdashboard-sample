@@ -9,19 +9,17 @@ use App\Models\BlogCategory;
 use App\Models\Career;
 use App\Models\Contact;
 use App\Models\Faq;
-
 use App\Models\RequestQuote;
 use App\Models\Setting;
 use App\Models\Service;
 use App\Models\OurWork;
 use App\Models\ProjectPlan;
 use App\Models\Package;
-
+use App\Models\User;
+use App\Notifications\NewServiceNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
-use Intervention\Image\Facades\Image;
 
 class FrontController extends Controller
 {
@@ -37,7 +35,7 @@ class FrontController extends Controller
     protected $apply_job = null;
     protected $our_work = null;
     protected $request_quote = null;
-    
+
 
     public function __construct(RequestQuote $request_quote,OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
@@ -53,7 +51,7 @@ class FrontController extends Controller
         $this->apply_job = $apply_job;
         $this->our_work = $our_work;
         $this->request_quote = $request_quote;
-        
+
     }
 
 
@@ -72,14 +70,14 @@ class FrontController extends Controller
     {
         return view('frontend.pages.term');
     }
-    
+
 
     public function domainRegistration()
     {
         return view('frontend.pages.domain_registration');
     }
-    
-    
+
+
     public function faq(){
         $faqs = $this->faq->get();
         return view('frontend.pages.faq',compact('faqs'));
@@ -89,7 +87,7 @@ class FrontController extends Controller
         $our_works = $this->our_work->get();
         return view('frontend.pages.work',compact('our_works'));
     }
-    
+
 
     public function blogs(){
         $bcategories = $this->bcategory->get();
@@ -98,7 +96,7 @@ class FrontController extends Controller
         return view('frontend.pages.blogs.index',compact('allPosts','latestPost','bcategories'));
     }
 
-    
+
     public function blogSingle($slug){
 
         $singleBlog = $this->blog->where('slug', $slug)->first();
@@ -117,12 +115,12 @@ class FrontController extends Controller
         return view('frontend.pages.services.index',compact('allservices'));
     }
 
-    
+
      public function career(){
         $allcareers = $this->career->where('status','active')->get();
         return view('frontend.pages.careers.index',compact('allcareers'));
     }
-    
+
 
     public function careerStore(Request $request)
     {
@@ -177,8 +175,8 @@ class FrontController extends Controller
                 return response()->json($confirmed);
             }
 
-           
-        
+
+
     }
     public function careerSingle($slug){
 
@@ -186,7 +184,7 @@ class FrontController extends Controller
         if (!$singleCareer) {
             return abort(404);
         }
-       
+
         return view('frontend.pages.careers.single',compact('singleCareer'));
     }
 
@@ -229,17 +227,17 @@ class FrontController extends Controller
                 return redirect()->back();
             }
 
-           
-        
+
+
     }
-    
+
     public function serviceSingle($slug){
 
         $singleService = $this->service->where('slug', $slug)->first();
         if (!$singleService) {
             return abort(404);
         }
-       
+
         return view('frontend.pages.services.single',compact('singleService'));
     }
 
@@ -274,19 +272,20 @@ class FrontController extends Controller
 
     public function getQuote()
     {
-        return view('frontend.pages.quote');
+        $services = Service::all();
+        return view('frontend.pages.quote', compact('services'));
 
     }
 
-    
-    
+
+
     public function quoteStore(Request $request)
     {
         $data = [
             'name'        => $request->input('name'),
             'email'       => $request->input('email'),
             'phone'       => $request->input('phone'),
-            'service'     => $request->input('service'),
+            'service_id'  => $request->input('service_id'),
             'message'     => $request->input('msg'),
         ];
         $status = $this->request_quote->create($data);
@@ -308,6 +307,10 @@ class FrontController extends Controller
             if($status){
                 Session::flash('success','Thank you for requesting us!');
                 $confirmed = "success";
+                $service   = Service::find($request->input('service_id'));
+                foreach (User::where('user_type','admin')->get() as $user){
+                   Notification::send($user, new NewServiceNotification($service,$status->id));
+                }
                 return response()->json($confirmed);
             }
             else{
@@ -315,7 +318,7 @@ class FrontController extends Controller
                 $confirmed = "error";
                 return response()->json($confirmed);
             }
-        
+
     }
 
 
@@ -355,7 +358,7 @@ class FrontController extends Controller
                 return response()->json($confirmed);
             }
 
-           
-        
+
+
     }
 }

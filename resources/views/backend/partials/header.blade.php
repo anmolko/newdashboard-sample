@@ -242,7 +242,7 @@
                                 aria-expanded="false">
                             <i class='bx bx-bell fs-22'></i>
                             <span
-                                class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">3<span
+                                class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{count($notifications)}} <span
                                     class="visually-hidden">unread messages</span></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
@@ -255,7 +255,7 @@
                                             <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
                                         </div>
                                         <div class="col-auto dropdown-tabs">
-                                            <span class="badge badge-soft-light fs-13"> 4 New</span>
+                                            <span class="badge badge-soft-light fs-13"> {{count($notifications)}} New</span>
                                         </div>
                                     </div>
                                 </div>
@@ -266,7 +266,7 @@
                                         <li class="nav-item waves-effect waves-light">
                                             <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab"
                                                aria-selected="true">
-                                                All (4)
+                                                All
                                             </a>
                                         </li>
                                     </ul>
@@ -278,37 +278,11 @@
 
                                 <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
                                     <div data-simplebar style="max-height: 300px;" class="pe-2">
-                                        <div class="text-reset notification-item d-block dropdown-item position-relative">
-                                            <div class="d-flex">
-                                                <div class="avatar-xs me-3">
-                                                <span class="avatar-title bg-soft-info text-info rounded-circle fs-16">
-                                                    <i class="bx bx-badge-check"></i>
-                                                </span>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <a href="#!" class="stretched-link">
-                                                        <h6 class="mt-0 mb-2 lh-base">Your <b>Elite</b> author Graphic
-                                                            Optimization <span class="text-secondary">reward</span> is
-                                                            ready!
-                                                        </h6>
-                                                    </a>
-                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                        <span><i class="mdi mdi-clock-outline"></i> Just 30 sec ago</span>
-                                                    </p>
-                                                </div>
-                                                <div class="px-2 fs-15">
-                                                    <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               id="all-notification-check01">
-                                                        <label class="form-check-label"
-                                                               for="all-notification-check01"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div
-                                            class="text-reset notification-item d-block dropdown-item position-relative active">
+                                        @forelse($notifications as $notification)
+
+
+                                        <div class="text-reset notification-item d-block dropdown-item position-relative {{($loop->first) ? "active":""}}">
                                             <div class="d-flex">
                                                 <img src="{{asset('assets/backend/images/users/avatar-2.jpg')}}"
                                                      class="me-3 rounded-circle avatar-xs" alt="user-pic">
@@ -324,76 +298,25 @@
                                                         <span><i class="mdi mdi-clock-outline"></i> 48 min ago</span>
                                                     </p>
                                                 </div>
-                                                <div class="px-2 fs-15">
+                                                <div class="pl-5 fs-15">
                                                     <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               id="all-notification-check02" checked>
-                                                        <label class="form-check-label"
-                                                               for="all-notification-check02"></label>
+                                                        <label class="form-check-label fs-10"
+                                                               for="all-notification-check02">Mark Read</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                            @if($loop->last)
+                                                <div class="my-3 text-center">
+                                                    <a id="mark-all" class="btn btn-soft-success waves-effect waves-light">
+                                                        Mark all as viewed <i class="ri-arrow-right-line align-middle"></i></a>
+                                                </div>
+                                            @endif
+                                        @empty
+                                            There are no new notifications
+                                        @endforelse
 
-                                        <div class="text-reset notification-item d-block dropdown-item position-relative">
-                                            <div class="d-flex">
-                                                <div class="avatar-xs me-3">
-                                                <span
-                                                    class="avatar-title bg-soft-danger text-danger rounded-circle fs-16">
-                                                    <i class='bx bx-message-square-dots'></i>
-                                                </span>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <a href="#!" class="stretched-link">
-                                                        <h6 class="mt-0 mb-2 fs-13 lh-base">You have received <b
-                                                                class="text-success">20</b> new messages in the conversation
-                                                        </h6>
-                                                    </a>
-                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                        <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
-                                                    </p>
-                                                </div>
-                                                <div class="px-2 fs-15">
-                                                    <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               id="all-notification-check03">
-                                                        <label class="form-check-label"
-                                                               for="all-notification-check03"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="text-reset notification-item d-block dropdown-item position-relative">
-                                            <div class="d-flex">
-                                                <img src="{{asset('assets/backend/images/users/avatar-8.jpg')}}"
-                                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                                <div class="flex-1">
-                                                    <a href="#!" class="stretched-link">
-                                                        <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
-                                                    </a>
-                                                    <div class="fs-13 text-muted">
-                                                        <p class="mb-1">We talked about a project on linkedin.</p>
-                                                    </div>
-                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                        <span><i class="mdi mdi-clock-outline"></i> 4 hrs ago</span>
-                                                    </p>
-                                                </div>
-                                                <div class="px-2 fs-15">
-                                                    <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                               id="all-notification-check04">
-                                                        <label class="form-check-label"
-                                                               for="all-notification-check04"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="my-3 text-center">
-                                            <button type="button" class="btn btn-soft-success waves-effect waves-light">View
-                                                All Notifications <i class="ri-arrow-right-line align-middle"></i></button>
-                                        </div>
                                     </div>
 
                                 </div>
