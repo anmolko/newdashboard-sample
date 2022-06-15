@@ -242,7 +242,7 @@
                                 aria-expanded="false">
                             <i class='bx bx-bell fs-22'></i>
                             <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger" id="top-unread">
-                                {{count($service_notifications)}} <span class="visually-hidden">unread messages</span></span>
+                                {{count($service_notifications) + count($career_notifications)}} <span class="visually-hidden">unread messages</span></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                              aria-labelledby="page-header-notifications-dropdown">
@@ -254,7 +254,7 @@
                                             <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
                                         </div>
                                         <div class="col-auto dropdown-tabs">
-                                            <span class="badge badge-soft-light fs-13" id="new-unread"> {{count($service_notifications)}} New</span>
+                                            <span class="badge badge-soft-light fs-13" id="new-unread"> {{count($service_notifications) + count($career_notifications) }} New</span>
                                         </div>
                                     </div>
                                 </div>
@@ -264,13 +264,13 @@
                                         id="notificationItemsTab" role="tablist">
                                         <li class="nav-item waves-effect waves-light">
                                             <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab"
-                                               aria-selected="true">
-                                                 Service
+                                               aria-selected="true" id="service-count">
+                                                Service ({{count($service_notifications)}})
                                             </a>
                                         </li>
                                         <li class="nav-item waves-effect waves-light">
                                             <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab" role="tab" aria-selected="false">
-                                                Career
+                                                Career ({{count($career_notifications)}})
                                             </a>
                                         </li>
                                     </ul>

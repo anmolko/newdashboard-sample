@@ -17,6 +17,7 @@ use App\Models\ProjectPlan;
 use App\Models\Package;
 use App\Models\Testimonial;
 use App\Models\User;
+use App\Notifications\NewCareerNotification;
 use App\Notifications\NewServiceNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -37,7 +38,7 @@ class FrontController extends Controller
     protected $our_work = null;
     protected $request_quote = null;
     protected $testimonial = null;
-    
+
 
     public function __construct(Testimonial $testimonial,RequestQuote $request_quote,OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
@@ -54,7 +55,7 @@ class FrontController extends Controller
         $this->our_work = $our_work;
         $this->request_quote = $request_quote;
         $this->testimonial = $testimonial;
-        
+
     }
 
 
@@ -171,6 +172,10 @@ class FrontController extends Controller
 
             if($status){
                 $confirmed = "success";
+                $career    = Career::find($request->input('career_id'));
+                foreach (User::where('user_type','admin')->get() as $user){
+                    Notification::send($user, new NewCareerNotification($career,$status->id,$status->name));
+                }
                 return response()->json($confirmed);
             }
             else{

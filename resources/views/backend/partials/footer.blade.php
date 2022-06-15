@@ -512,14 +512,7 @@
                 }, error: function(response) {
                     console.log(response);
                 }
-
-
-
             });
-
-
-
-
         });
 
         function sendMarkRequest(id = null) {
@@ -542,12 +535,15 @@
 
                 request
                     .done(function(response) {
+                        console.log(response);
                         $("#top-unread").html('');
                         $("#top-unread").append(response.unread+'<span class="visually-hidden">unread messages</span>');
                         $("#new-unread").html('');
+                        $("#service-count").html('');
+                        $("#service-count").append('Service (' + response.service_num +')');
                         $("#new-unread").append(response.unread+' New');
                         $(div).remove();
-                        if(response.unread == 0){
+                        if(response.service_num == 0){
                             $(mark).remove();
                             var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
                                 '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +

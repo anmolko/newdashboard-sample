@@ -16,9 +16,11 @@ class NewCareerNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($career,$response_id,$name)
     {
-        //
+        $this->career      =  $career;
+        $this->response_id = $response_id;
+        $this->name        = $name;
     }
 
     /**
@@ -29,21 +31,7 @@ class NewCareerNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return ['database'];
     }
 
     /**
@@ -55,7 +43,13 @@ class NewCareerNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'id'           => $this->career->id,
+            'career_name'  => $this->career->name,
+            'slug'         => $this->career->slug,
+            'response_id'  => $this->response_id,
+            'name'         => $this->name,
+            'image'        =>  $this->career->feature_image,
+
         ];
     }
 }
