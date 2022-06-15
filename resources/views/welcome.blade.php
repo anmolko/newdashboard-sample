@@ -13,7 +13,7 @@
         --e-column-margin-right: 0px;
         --e-column-margin-left: 0px;
         padding: 30px 30px 30px 30px;
-        background-color: #ffffff;
+        background-color: #6c757d61;
         border-radius: 30px 30px 30px 30px;
     }
 
@@ -65,11 +65,11 @@
     }
 
     .advantages li:after,.advantages li{
-        color:black;
+        color:white;
     }
 
     span.domain-type {
-        color: black;
+        color: white;
         font-weight: 500;
     }
 
@@ -651,12 +651,12 @@
 
                             <!-- Icon  -->
                             <div class="statistic-ico ico-65">
-                                <span class="flaticon-web-programming"></span>
+                                <span class="flaticon-alarm-clock"></span>
                             </div>
 
                             <!-- Text -->
-                            <h3 class="h3-md statistic-number">4,<span class="count-element">497</span></h3>
-                            <p class="p-lg txt-400">Finished Projects</p>
+                            <h3 class="h3-md statistic-number"><span class="count-element">@if(!empty(@$setting_data->online)) {{@$setting_data->online}} @else 1000 @endif</span>+</h3>
+                            <p class="p-lg txt-400">Years of online creativity</p>
 
                         </div>
                     </div>
@@ -672,8 +672,8 @@
                             </div>
 
                             <!-- Text -->
-                            <h3 class="h3-md statistic-number">3,<span class="count-element">889</span></h3>
-                            <p class="p-lg txt-400">Websites Improved</p>
+                            <h3 class="h3-md statistic-number"><span class="count-element">@if(!empty(@$setting_data->projects)) {{@$setting_data->projects}} @else 3900 @endif</span>+</h3>
+                            <p class="p-lg txt-400">Projects Delivered</p>
 
                         </div>
                     </div>
@@ -689,7 +689,7 @@
                             </div>
 
                             <!-- Text -->
-                            <h3 class="h3-md statistic-number">5,<span class="count-element">179</span></h3>
+                            <h3 class="h3-md statistic-number"><span class="count-element">@if(!empty(@$setting_data->clients)) {{@$setting_data->clients}} @else 5000 @endif</span>+</h3>
                             <p class="p-lg txt-400">Happy Customers</p>
 
                         </div>
@@ -701,11 +701,11 @@
                         <div class="statistic-block mb-40 wow fadeInUp">
 
                             <!-- Icon  -->
-                            <div class="statistic-ico ico-65"><span class="flaticon-help"></span></div>
+                            <div class="statistic-ico ico-65"><span class="flaticon-increase"></span></div>
 
                             <!-- Text -->
-                            <h3 class="h3-md statistic-number">1,<span class="count-element">473</span></h3>
-                            <p class="p-lg txt-400">Tickets Closed</p>
+                            <h3 class="h3-md statistic-number"><span class="count-element">@if(!empty(@$setting_data->projects)) {{@$setting_data->projects}} @else 10000 @endif</span>+</h3>
+                            <p class="p-lg txt-400">Professionals engaged</p>
 
                         </div>
                     </div>
@@ -907,6 +907,8 @@
 
     <!-- TESTIMONIALS-1
     ============================================= -->
+    @if(count($testimonials) > 0)
+
     <section id="reviews-1" class="bg-whitesmoke wide-100 reviews-section division">
         <div class="container">
 
@@ -920,8 +922,7 @@
                         <h2 class="h2-md">Stories From Our Customers</h2>
 
                         <!-- Text -->
-                        <p class="p-xl">Aliquam a augue suscipit, luctus neque purus ipsum neque dolor primis a libero
-                            tempus, blandit and cursus varius and magnis sapien
+                        <p class="p-xl">
                         </p>
 
                     </div>
@@ -935,7 +936,10 @@
                     <div class="owl-carousel owl-theme reviews-1-wrapper">
 
 
+                    
                         <!-- TESTIMONIAL #1 -->
+                        @foreach(@$testimonials as $testimonial)
+
                         <div class="review-1">
 
                             <!-- Quote Icon -->
@@ -947,8 +951,7 @@
                             <div class="review-1-txt">
 
                                 <!-- Text -->
-                                <p class="p-lg">Etiam sapien sagittis congue augue massa varius egestas ultrice
-                                    varius magna a tempus aliquet undo cursus suscipit
+                                <p class="p-lg">{!! @$testimonial->description !!}
                                 </p>
 
                                 <!-- Testimonial Author -->
@@ -956,22 +959,22 @@
 
                                     <!-- Testimonial Avatar -->
                                     <div class="review-avatar">
-                                        <img src="images/review-author-1.jpg" alt="review-avatar">
+                                        <img src="<?php if(!empty(@$testimonial->image)){ echo '/images/testimonial/'.@$testimonial->image; } else { echo '/images/uploads/profiles/male.png'; }?>" alt="review-customer-canosoft">
                                     </div>
 
                                     <!-- Testimonial Author -->
                                     <div class="review-author">
 
-                                        <h6 class="h6-xl">Scott Boxer</h6>
-                                        <p class="p-md">@scott_boxer</p>
+                                        <h6 class="h6-xl">{{ucwords(@$testimonial->name)}}</h6>
+                                        <p class="p-md">{{ucwords(@$testimonial->position)}}</p>
 
                                         <!-- Rating -->
                                         <div class="review-rating ico-15 yellow-color">
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>
+                                        
+                                            @for($i=0;$i<$testimonial->rating; $i++)
+                                                <span class="flaticon-star-1"></span>
+                                            @endfor
+                                        
                                         </div>
 
                                     </div>
@@ -982,344 +985,9 @@
 
                         </div>	<!-- END TESTIMONIAL #1 -->
 
+                        @endforeach
 
-                        <!-- TESTIMONIAL #2 -->
-                        <div class="review-1">
-
-                            <!-- Quote Icon -->
-                            <div class="review-1-ico ico-25">
-                                <span class="flaticon-left-quote"></span>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="review-1-txt">
-
-                                <!-- Text -->
-                                <p class="p-lg">At sagittis congue augue and egestas magna ipsum vitae a purus ipsum
-                                    primis in cubilia laoreet augue egestas luctus and donec diam ultrice ligula magna
-                                    suscipit lectus gestas augue into cubilia
-                                </p>
-
-                                <!-- Testimonial Author -->
-                                <div class="author-data clearfix">
-
-                                    <!-- Testimonial Avatar -->
-                                    <div class="review-avatar">
-                                        <img src="images/review-author-2.jpg" alt="review-avatar">
-                                    </div>
-
-                                    <!-- Testimonial Author -->
-                                    <div class="review-author">
-
-                                        <h6 class="h6-xl">Joel Peterson</h6>
-                                        <p class="p-md">Internet Surfer</p>
-
-                                        <!-- Rating -->
-                                        <div class="review-rating ico-15 yellow-color">
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>	<!-- End Testimonial Author -->
-
-                            </div>	<!-- End Text -->
-
-                        </div>	<!-- END TESTIMONIAL #2 -->
-
-
-                        <!-- TESTIMONIAL #3 -->
-                        <div class="review-1">
-
-                            <!-- Quote Icon -->
-                            <div class="review-1-ico ico-25">
-                                <span class="flaticon-left-quote"></span>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="review-1-txt">
-
-                                <!-- Text -->
-                                <p class="p-lg">Mauris donec magnis sapien etiam sapien congue augue egestas et ultrice
-                                    vitae purus diam integer a congue magna ligula undo egestas magna at suscipit feugiat
-                                    primis
-                                </p>
-
-                                <!-- Testimonial Author -->
-                                <div class="author-data clearfix">
-
-                                    <!-- Testimonial Avatar -->
-                                    <div class="review-avatar">
-                                        <img src="images/review-author-3.jpg" alt="review-avatar">
-                                    </div>
-
-                                    <!-- Testimonial Author -->
-                                    <div class="review-author">
-
-                                        <h6 class="h6-xl">Marisol19</h6>
-                                        <p class="p-md">@marisol19</p>
-
-                                        <!-- Rating -->
-                                        <div class="review-rating ico-15 yellow-color">
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>	<!-- End Testimonial Author -->
-
-                            </div>	<!-- End Text -->
-
-                        </div>	<!-- END TESTIMONIAL #3 -->
-
-
-                        <!-- TESTIMONIAL #4 -->
-                        <div class="review-1">
-
-                            <!-- Quote Icon -->
-                            <div class="review-1-ico ico-25">
-                                <span class="flaticon-left-quote"></span>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="review-1-txt">
-
-                                <!-- Text -->
-                                <p class="p-lg">Mauris donec a magnis sapien etiam sapien congue augue pretium ligula
-                                    lectus aenean a magna undo mauris lectus laoreet tempor egestas
-                                </p>
-
-                                <!-- Testimonial Author -->
-                                <div class="author-data clearfix">
-
-                                    <!-- Testimonial Avatar -->
-                                    <div class="review-avatar">
-                                        <img src="images/review-author-4.jpg" alt="review-avatar">
-                                    </div>
-
-                                    <!-- Testimonial Author -->
-                                    <div class="review-author">
-
-                                        <h6 class="h6-xl">Leslie D.</h6>
-                                        <p class="p-md">Web Developer</p>
-
-                                        <!-- Rating -->
-                                        <div class="review-rating ico-15 yellow-color">
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>	<!-- End Testimonial Author -->
-
-                            </div>	<!-- End Text -->
-
-                        </div>	<!-- END TESTIMONIAL #4 -->
-
-
-                        <!-- TESTIMONIAL #5 -->
-                        <div class="review-1">
-
-                            <!-- Quote Icon -->
-                            <div class="review-1-ico ico-25">
-                                <span class="flaticon-left-quote"></span>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="review-1-txt">
-
-                                <!-- Text -->
-                                <p class="p-lg">An augue cubilia laoreet magna suscipit egestas and ipsum a lectus purus ipsum
-                                    primis and augue ultrice ligula and egestas a suscipit lectus gestas undo auctor tempus
-                                    feugiat impedit
-                                </p>
-
-                                <!-- Testimonial Author -->
-                                <div class="author-data clearfix">
-
-                                    <!-- Testimonial Avatar -->
-                                    <div class="review-avatar">
-                                        <img src="images/review-author-5.jpg" alt="review-avatar">
-                                    </div>
-
-                                    <!-- Testimonial Author -->
-                                    <div class="review-author">
-
-                                        <h6 class="h6-xl">Jennifer Harper</h6>
-                                        <p class="p-md">App Developer</p>
-
-                                        <!-- Rating -->
-                                        <div class="review-rating ico-15 yellow-color">
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>	<!-- End Testimonial Author -->
-
-                            </div>	<!-- End Text -->
-
-                        </div>	<!-- END TESTIMONIAL #5 -->
-
-
-                        <!-- TESTIMONIAL #6 -->
-                        <div class="review-1">
-
-                            <!-- Quote Icon -->
-                            <div class="review-1-ico ico-25">
-                                <span class="flaticon-left-quote"></span>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="review-1-txt">
-
-                                <!-- Text -->
-                                <p class="p-lg">An augue cubilia laoreet undo magna ipsum semper suscipit egestas magna
-                                    ipsum ligula a vitae purus and ipsum primis cubilia magna suscipit
-                                </p>
-
-                                <!-- Testimonial Author -->
-                                <div class="author-data clearfix">
-
-                                    <!-- Testimonial Avatar -->
-                                    <div class="review-avatar">
-                                        <img src="images/review-author-6.jpg" alt="review-avatar">
-                                    </div>
-
-                                    <!-- Testimonial Author -->
-                                    <div class="review-author">
-
-                                        <h6 class="h6-xl">Jonathan Barnes</h6>
-                                        <p class="p-md">jQuery Programmer</p>
-
-                                        <!-- Rating -->
-                                        <div class="review-rating ico-15 yellow-color">
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>	<!-- End Testimonial Author -->
-
-                            </div>	<!-- End Text -->
-
-                        </div>	<!-- END TESTIMONIAL #6 -->
-
-
-                        <!-- TESTIMONIAL #7 -->
-                        <div class="review-1">
-
-                            <!-- Quote Icon -->
-                            <div class="review-1-ico ico-25">
-                                <span class="flaticon-left-quote"></span>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="review-1-txt">
-
-                                <!-- Text -->
-                                <p class="p-lg">Augue egestas diam tempus volutpat egestas augue in cubilia laoreet magna
-                                    suscipit luctus dolor and blandit vitae purus diam tempus an aliquet porta rutrum gestas
-                                </p>
-
-                                <!-- Testimonial Author -->
-                                <div class="author-data clearfix">
-
-                                    <!-- Testimonial Avatar -->
-                                    <div class="review-avatar">
-                                        <img src="images/review-author-7.jpg" alt="review-avatar">
-                                    </div>
-
-                                    <!-- Testimonial Author -->
-                                    <div class="review-author">
-
-                                        <h6 class="h6-xl">Mike Harris</h6>
-                                        <p class="p-md">Graphic Designer</p>
-
-                                        <!-- Rating -->
-                                        <div class="review-rating ico-15 yellow-color">
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>	<!-- End Testimonial Author -->
-
-                            </div>	<!-- End Text -->
-
-                        </div>	<!-- END TESTIMONIAL #7 -->
-
-
-                        <!-- TESTIMONIAL #8 -->
-                        <div class="review-1">
-
-                            <!-- Quote Icon -->
-                            <div class="review-1-ico ico-25">
-                                <span class="flaticon-left-quote"></span>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="review-1-txt">
-
-                                <!-- Text -->
-                                <p class="p-lg">Augue at vitae purus tempus egestas volutpat augue undo cubilia laoreet
-                                    magna suscipit luctus dolor blandit at purus tempus feugiat impedit
-                                </p>
-
-                                <!-- Testimonial Author -->
-                                <div class="author-data clearfix">
-
-                                    <!-- Testimonial Avatar -->
-                                    <div class="review-avatar">
-                                        <img src="images/review-author-8.jpg" alt="review-avatar">
-                                    </div>
-
-                                    <!-- Testimonial Author -->
-                                    <div class="review-author">
-
-                                        <h6 class="h6-xl">Evelyn Martinez</h6>
-                                        <p class="p-md">WordPress Consultant</p>
-
-                                        <!-- Rating -->
-                                        <div class="review-rating ico-15 yellow-color">
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-1"></span>
-                                            <span class="flaticon-star-half-empty"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>	<!-- End Testimonial Author -->
-
-                            </div>	<!-- End Text -->
-
-                        </div>	<!-- END TESTIMONIAL #8 -->
+                      
 
 
                     </div>
@@ -1330,74 +998,7 @@
         </div>     <!-- End container -->
     </section>	<!-- END TESTIMONIALS-1 -->
 
-
-
-
-    <!-- CONTENT-6
-    ============================================= -->
-    <section id="content-6" class="content-6 wide-60 content-section division">
-        <div class="container">
-            <div class="row d-flex align-items-center">
-
-
-                <!-- TEXT BLOCK -->
-                <div class="col-md-6 col-lg-5">
-                    <div class="txt-block left-column wow fadeInRight">
-
-                        <!-- TEXT BOX -->
-                        <div class="txt-box mb-30">
-
-                            <!-- Title -->
-                            <h5 class="h5-lg">Advanced Analytics Review</h5>
-
-                            <!-- Text -->
-                            <p class="p-lg">Quaerat sodales sapien euismod blandit undo vitae ipsum primis and cubilia
-                                a laoreet augue and luctus magna dolor egestas luctus
-                            </p>
-
-                        </div>
-
-                        <!-- TEXT BOX -->
-                        <div class="txt-box">
-
-                            <!-- Title -->
-                            <h5 class="h5-lg">Email Marketing Campaigns</h5>
-
-                            <!-- List -->
-                            <ul class="simple-list">
-
-                                <li class="list-item">
-                                    <p class="p-lg">Fringilla risus, luctus mauris an auctor purus euismod iaculis luctus
-                                        magna purus pretium ligula and quaerat luctus magna
-                                    </p>
-                                </li>
-
-                                <li class="list-item">
-                                    <p class="p-lg">Nemo ipsam egestas volute turpis dolores undo ultrice aliquam quaerat
-                                        sodales
-                                    </p>
-                                </li>
-
-                            </ul>
-
-                        </div>	<!-- END TEXT BOX -->
-
-                    </div>
-                </div>	<!-- END TEXT BLOCK -->
-
-
-                <!-- IMAGE BLOCK -->
-                <div class="col-md-6 col-lg-7">
-                    <div class="img-block right-column wow fadeInLeft">
-                        <img class="img-fluid" src="images/img-20.png" alt="content-image">
-                    </div>
-                </div>
-
-
-            </div>     <!-- End row -->
-        </div>      <!-- End container -->
-    </section>	 <!-- END CONTENT-6 -->
-
+    @endif
 
 
 
@@ -1410,7 +1011,7 @@
             <!-- SECTION TITLE -->
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-8">
-                    <div class="section-title title-02 mb-75">
+                    <div class="section-title title-02 mb-70 mt-70">
 
                         <!-- Section ID -->
                         <span class="section-id txt-upcase">Frequently Asked Questions</span>
@@ -1422,151 +1023,48 @@
                 </div>
             </div>
 
-
+            @if(count($faqs) > 0)
             <!-- FAQs-2 QUESTIONS -->
             <div class="faqs-2-questions">
                 <div class="row row-cols-1 row-cols-lg-2">
 
 
                     <!-- QUESTIONS HOLDER -->
+                    @foreach($faqs->chunk(2) as $firstchunk)
+
                     <div class="col">
                         <div class="questions-holder pr-15">
+                            @foreach($firstchunk as $key=>$final)
 
-
-                            <!-- QUESTION #1 -->
                             <div class="question wow fadeInUp">
 
                                 <!-- Question -->
-                                <h5 class="h5-md">Can I see OLMO in action before purchasing?</h5>
+                                <h5 class="h5-md">{{$final->name}}</h5>
 
                                 <!-- Answer -->
-                                <p class="p-lg">Etiam amet mauris suscipit in odio integer congue metus vitae arcu mollis
-                                    blandit ultrice ligula egestas and magna suscipit lectus magna suscipit luctus blandit
-                                    vitae
+                                <p class="p-lg">{{$final->description}}
                                 </p>
 
                             </div>
-
-
-                            <!-- QUESTION #2 -->
-                            <div class="question wow fadeInUp">
-
-                                <!-- Question -->
-                                <h5 class="h5-md">What are the requirements for using OLMO?</h5>
-
-                                <!-- Answer -->
-                                <p class="p-lg">An enim nullam tempor sapien gravida a donec ipsum enim an porta justo
-                                    integer at velna vitae auctor integer congue undo magna at pretium purus pretium
-                                </p>
-
-                            </div>
-
-
-                            <!-- QUESTION #3 -->
-                            <div class="question wow fadeInUp">
-
-                                <!-- Question -->
-                                <h5 class="h5-md">Can I use OLMO on different devices?</h5>
-
-                                <!-- Answer -->
-                                <ul class="simple-list">
-
-                                    <li class="list-item">
-                                        <p class="p-lg">Fringilla risus, luctus mauris orci auctor purus ligula euismod
-                                            pretium purus pretium rutrum tempor sapien
-                                        </p>
-                                    </li>
-
-                                    <li class="list-item">
-                                        <p class="p-lg">Nemo ipsam egestas volute turpis dolores ut aliquam quaerat sodales
-                                            sapien undo pretium a purus
-                                        </p>
-                                    </li>
-
-                                </ul>
-
-                            </div>
-
+                            @endforeach
 
                         </div>
                     </div>	<!-- END QUESTIONS HOLDER -->
 
+                    @endforeach
 
-                    <!-- QUESTIONS HOLDER -->
-                    <div class="col">
-                        <div class="questions-holder pl-15">
-
-
-                            <!-- QUESTION #4 -->
-                            <div class="question wow fadeInUp">
-
-                                <!-- Question -->
-                                <h5 class="h5-md">Do you have a free trial?</h5>
-
-                                <!-- Answer -->
-                                <p class="p-lg">Cubilia laoreet augue egestas and luctus donec curabite diam vitae dapibus
-                                    libero and quisque gravida donec and neque. Blandit justo aliquam molestie nunc sapien
-                                </p>
-
-                            </div>
-
-
-                            <!-- QUESTION #5 -->
-                            <div class="question wow fadeInUp">
-
-                                <!-- Question -->
-                                <h5 class="h5-md">How does OLMO handle my privacy?</h5>
-
-                                <!-- Answer -->
-                                <p class="p-lg">Etiam amet mauris suscipit sit amet in odio. Integer congue leo metus.
-                                    Vitae arcu mollis blandit ultrice ligula
-                                </p>
-
-                                <!-- Answer -->
-                                <p class="p-lg">An enim nullam tempor sapien gravida donec congue leo metus. Vitae arcu
-                                    mollis blandit integer at velna
-                                </p>
-
-                            </div>
-
-
-                            <!-- QUESTION #6 -->
-                            <div class="question wow fadeInUp">
-
-                                <!-- Question -->
-                                <h5 class="h5-md">I have an issue with my account</h5>
-
-                                <!-- Answer -->
-                                <ul class="simple-list">
-
-                                    <li class="list-item">
-                                        <p class="p-lg">Fringilla risus, luctus mauris orci auctor purus</p>
-                                    </li>
-
-                                    <li class="list-item">
-                                        <p class="p-lg">Quaerat sodales sapien euismod blandit purus and ipsum primis in
-                                            cubilia laoreet augue luctus
-                                        </p>
-                                    </li>
-
-                                </ul>
-
-                            </div>
-
-
-                        </div>
-                    </div>	<!-- END QUESTIONS HOLDER -->
-
+              
 
                 </div>	<!-- End row -->
             </div>	<!-- END FAQs-2 QUESTIONS -->
+            @endif
 
 
             <!-- MORE QUESTIONS BUTTON -->
             <div class="row">
                 <div class="col">
                     <div class="more-questions">
-                        <h5 class="h5-sm">Have more questions? <a href="contacts.html">Ask your question here</a></h5>
+                        <h5 class="h5-sm">Have more questions? <a href="{{route('faq.frontend')}}">View all questions here</a></h5>
                     </div>
                 </div>
             </div>
@@ -1590,7 +1088,7 @@
                         <!-- CALL TO ACTION TEXT -->
                         <div class="col-lg-7 col-lg-8">
                             <div class="cta-3-txt">
-                                <h4 class="h4-xl">Try OLMO free for 14 days. Start your trial now and pick a plan later</h4>
+                                <h4 class="h4-xl">Start your trial now and pick a plan later</h4>
                             </div>
                         </div>
 
@@ -1599,7 +1097,7 @@
                         <div class="col-lg-4">
                             <div class="text-end">
                                 <div class="cta-3-btn text-center">
-                                    <a href="pricing.html" class="btn btn-skyblue tra-grey-hover">Get Started Now</a>
+                                    <a href="/" class="btn btn-skyblue tra-grey-hover">Get Started Now</a>
                                     <p><a href="#">Read The FAQs</a></p>
                                 </div>
                             </div>

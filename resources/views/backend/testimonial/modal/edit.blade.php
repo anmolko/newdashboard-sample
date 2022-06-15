@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="mb-3">
                         <label class="form-label" for="update-name">Provider Name</label>
-                        <input type="text" name="name" class="form-control" id="update-name"
+                        <input type="text" name="name" class="form-control" id="update-name"  maxlength="15"
                                placeholder="Enter name of testimonial provider" />
                         <div class="invalid-feedback">
                             Please enter the name.
@@ -19,7 +19,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="update-position">Position /  Company name</label>
-                        <input type="text" name="position" class="form-control" id="update-position"
+                        <input type="text" name="position" class="form-control" id="update-position"  maxlength="18"
                                placeholder="Enter position/company name of provider" required>
                         <div class="invalid-feedback">
                             Please enter the position/company name.

@@ -90,6 +90,12 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link @if(\Request::route()->getName() == 'testimonials.index') active @endif" href="{{route('testimonials.index')}}">
+                        <i class="ri-hand-heart-line"></i> <span data-key="t-widgets">Testimonial</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link @if(\Request::route()->getName() == 'career.index') active @endif" href="{{route('career.index')}}">
                         <i class="ri-refund-2-line"></i> <span data-key="t-widgets">Career</span>
                     </a>

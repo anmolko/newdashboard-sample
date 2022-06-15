@@ -56,7 +56,7 @@ class TestimonialController extends Controller
                 mkdir($blog_path, 0777);
             }
             $path           = base_path().'/public/images/testimonial/';
-            $moved          = Image::make($image->getRealPath())->orientate()->save($path.$name);
+            $moved          = Image::make($image->getRealPath())->fit(120,120)->orientate()->save($path.$name);
 
             if ($moved){
                 $data['image']=$name;
@@ -115,7 +115,7 @@ class TestimonialController extends Controller
             $image       = $request->file('image');
             $path        = base_path().'/public/images/testimonial/';
             $name1       = uniqid().'_testimonial_'.$image->getClientOriginalName();
-            $moved       = Image::make($image->getRealPath())->orientate()->save($path.$name1);
+            $moved       = Image::make($image->getRealPath())->fit(120,120)->orientate()->save($path.$name1);
 
             if ($moved){
                 $testimonial->image= $name1;

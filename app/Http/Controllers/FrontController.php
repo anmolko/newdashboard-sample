@@ -15,6 +15,7 @@ use App\Models\Service;
 use App\Models\OurWork;
 use App\Models\ProjectPlan;
 use App\Models\Package;
+use App\Models\Testimonial;
 use App\Models\User;
 use App\Notifications\NewServiceNotification;
 use Illuminate\Http\Request;
@@ -35,9 +36,10 @@ class FrontController extends Controller
     protected $apply_job = null;
     protected $our_work = null;
     protected $request_quote = null;
+    protected $testimonial = null;
+    
 
-
-    public function __construct(RequestQuote $request_quote,OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
+    public function __construct(Testimonial $testimonial,RequestQuote $request_quote,OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
         $this->contact = $contact;
         $this->setting = $setting;
@@ -51,13 +53,16 @@ class FrontController extends Controller
         $this->apply_job = $apply_job;
         $this->our_work = $our_work;
         $this->request_quote = $request_quote;
-
+        $this->testimonial = $testimonial;
+        
     }
 
 
     public function index()
     {
-        return view('welcome');
+        $faqs = $this->faq->take(4)->get();
+        $testimonials = $this->testimonial->take(7)->get();
+        return view('welcome',compact('faqs','testimonials'));
     }
 
 

@@ -65,7 +65,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label" for="name-input">Provider Name</label>
-                                <input type="text" name="name" class="form-control" id="name-input"
+                                <input type="text" name="name" class="form-control" id="name-input"  maxlength="15"
                                        placeholder="Enter name of testimonial provider" />
                                 <div class="invalid-feedback">
                                     Please enter the name.
@@ -73,7 +73,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="title-position">Position /  Company name</label>
-                                <input type="text" name="position" class="form-control" id="title-position"
+                                <input type="text" name="position" class="form-control" id="title-position" maxlength="18"
                                        placeholder="Enter position/company name of provider" required>
                                 <div class="invalid-feedback">
                                     Please enter the position/company name.
