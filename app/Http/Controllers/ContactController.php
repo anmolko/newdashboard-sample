@@ -27,7 +27,8 @@ class ContactController extends Controller
     public function responseIndex()
     {
         $quotes           = RequestQuote::all();
-        return view('backend.quote.index',compact('quotes'));
+        $quotation        = '';
+        return view('backend.quote.index',compact('quotes','quotation'));
     }
 
 

@@ -520,7 +520,72 @@
 
 
 
-        })
+        });
+
+        function sendMarkRequest(id = null) {
+            return $.ajax("{{ route('markNotification') }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },
+                data: {
+                    id
+                }
+            });
+        }
+        $(function() {
+            $('.mark-as-read').click(function() {
+                var id      = $(this).data('id');
+                let request = sendMarkRequest(id);
+                var div     = '#notification-'+id;
+                var mark    = '#all-read';
+
+                request
+                    .done(function(response) {
+                        $("#top-unread").html('');
+                        $("#top-unread").append(response.unread+'<span class="visually-hidden">unread messages</span>');
+                        $("#new-unread").html('');
+                        $("#new-unread").append(response.unread+' New');
+                        $(div).remove();
+                        if(response.unread == 0){
+                            $(mark).remove();
+                            var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
+                                '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
+                            '</div>' +
+                            '<div class="text-center pb-5 mt-2">'+
+                            '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no any notifications </h6>'+
+                            '</div>';
+                            $('#main-service-holder').append(replacement);
+                        }
+                })
+                 .fail(function(response){
+                        console.log(response)
+                 });
+            });
+
+            $('#mark-all').click(function() {
+                let request = sendMarkRequest();
+                var mark    = '#all-read';
+                request
+                    .done(function(response) {
+                        console.log(response);
+                        $("#top-unread").html('');
+                        $("#top-unread").append('0 <span class="visually-hidden">unread messages</span>');
+                        $("#new-unread").html('');
+                        $("#new-unread").append('0 New');
+                        $('div.notification-item').remove();
+                        $(mark).remove();
+                        var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
+                            '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
+                            '</div>' +
+                            '<div class="text-center pb-5 mt-2">'+
+                            '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no any notifications </h6>'+
+                            '</div>';
+                        $('#main-service-holder').append(replacement);
+                    })
+            });
+        });
+
 
     </script>
 </body>

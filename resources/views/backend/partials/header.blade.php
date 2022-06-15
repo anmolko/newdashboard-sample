@@ -241,9 +241,8 @@
                                 id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                             <i class='bx bx-bell fs-22'></i>
-                            <span
-                                class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{count($service_notifications)}} <span
-                                    class="visually-hidden">unread messages</span></span>
+                            <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger" id="top-unread">
+                                {{count($service_notifications)}} <span class="visually-hidden">unread messages</span></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                              aria-labelledby="page-header-notifications-dropdown">
@@ -255,7 +254,7 @@
                                             <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
                                         </div>
                                         <div class="col-auto dropdown-tabs">
-                                            <span class="badge badge-soft-light fs-13"> {{count($service_notifications)}} New</span>
+                                            <span class="badge badge-soft-light fs-13" id="new-unread"> {{count($service_notifications)}} New</span>
                                         </div>
                                     </div>
                                 </div>
@@ -282,15 +281,10 @@
                             <div class="tab-content" id="notificationItemsTabContent">
 
                                 <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
-                                    <div data-simplebar style="max-height: 300px;" class="pe-2">
-
-                                        <div class="p-3 border-bottom-0 border-start-0 border-end-0 border-dashed border" id="checkout-elem" style="display: none">
-                                        </div>
-
+                                    <div data-simplebar style="max-height: 300px;" class="pe-2" id="main-service-holder">
                                         @forelse($service_notifications as $notification)
-
-
-                                        <div class="text-reset notification-item d-block dropdown-item position-relative {{($loop->first) ? "active":""}}">
+                                        <div class="text-reset notification-item d-block dropdown-item position-relative {{($loop->first) ? "active":""}}"
+                                             id="notification-{{ $notification->id }}">
                                             <div class="d-flex">
 
                                                 @if($notification->data['image'] == null)
@@ -304,7 +298,7 @@
                                                          class="me-3 rounded-circle avatar-xs" alt="service">
                                                 @endif
                                                 <div class="flex-1">
-                                                    <a href="#!" class="link">
+                                                    <a href="{{route('service.quote',str_replace(' ','-',$notification->data['name']))}}" class="link">
                                                         <h6 class="mt-0 mb-1 fs-12 fw-semibold"> {{ $notification->data['title'] }}</h6>
                                                     </a>
                                                     <div class="fs-12 text-muted">
@@ -326,9 +320,9 @@
                                             </div>
                                         </div>
                                             @if($loop->last)
-                                                <div class="my-3 text-center">
-                                                    <a id="mark-all" class="btn btn-soft-success waves-effect waves-light">
-                                                        Mark all as Read <i class="ri-arrow-right-line align-middle"></i></a>
+                                                <div class="my-3 text-center" id="all-read">
+                                                    <button type="button" id="mark-all" class="btn btn-soft-success waves-effect waves-light">
+                                                        Mark all as Read <i class="ri-arrow-right-line align-middle"></i></button>
                                                 </div>
                                             @endif
                                         @empty
@@ -339,8 +333,6 @@
                                                 <h6 class="fs-18 fw-semibold lh-base">Hey! You have no any notifications </h6>
                                             </div>
                                         @endforelse
-
-
                                     </div>
 
                                 </div>

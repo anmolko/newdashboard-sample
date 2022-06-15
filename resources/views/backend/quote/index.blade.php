@@ -62,8 +62,13 @@
                                             <tr id="customer-block-num-{{@$quote->id}}">
                                                 <td >{{@$loop->iteration}}</td>
                                                 <td >{{ucwords(@$quote->name)}}</td>
-                                                <td >{{@$quote->email}}</td>
-                                                <td>{{@$quote->phone}}</td>
+                                                <td >
+
+                                                    <a href="mailto:{{@$quote->email}}">{{@$quote->email}}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="tel: {{@$quote->phone}}"> {{@$quote->phone}}</a>
+                                                </td>
                                                 <td >{{ucwords(@$quote->service->title)}}</td>
                                                 <td >{{date('j M, Y',strtotime(@$quote->created_at))}}</td>
                                                 <td>
@@ -123,42 +128,10 @@
 @section('js')
 <script src="{{asset('assets/backend/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+<script type="text/javascript">
+    var quoted = "{{$quotation}}";
+</script>
 <script src="{{asset('assets/backend/custom_js/quote.js')}}"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#quote_customer').DataTable({
-            paging: true,
-            searching: true,
-            ordering:  false,
-            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-        });
-    });
 
-    $(document).on('click','.view-item-btn', function (e) {
-            e.preventDefault();
-            var id = $(this).attr('id');
-            $.ajax({
-                url: $(this).attr('quote-edit-action'),
-                type: "GET",
-                cache: false,
-                dataType: 'json',
-                success: function(dataResult){
-                    $('#quote-name').text(dataResult.title);
-                    $('#quote-slug').text(dataResult.slug);
-                    var mySubContent = dataResult.sub_description;
-                    var myContent = dataResult.description;
-                    if(dataResult.banner_image !== null){
-                        $('#banner-image').attr("src",'/images/service/'+dataResult.banner_image );
-                    }
-                    $('#quote-subdescription').text( mySubContent.replace(/(<([^>]+)>)/ig,""));
-                    $('#quote-description').text( myContent.replace(/(<([^>]+)>)/ig,""));
-                    $( "#quote_"+id).click();
-                },
-                error: function(error){
-                    console.log(error)
-                }
-            });
-        });
-</script>
 @endsection

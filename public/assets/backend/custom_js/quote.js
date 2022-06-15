@@ -1,3 +1,44 @@
+$(document).ready(function () {
+    var table = $('#quote_customer').DataTable({
+        paging: true,
+        searching: true,
+        ordering:  false,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+    });
+    if(quoted !== ''){
+        table
+            .columns( 1 )
+            .search( quoted )
+            .draw();
+    }
+});
+
+$(document).on('click','.view-item-btn', function (e) {
+    e.preventDefault();
+    var id = $(this).attr('id');
+    $.ajax({
+        url: $(this).attr('quote-edit-action'),
+        type: "GET",
+        cache: false,
+        dataType: 'json',
+        success: function(dataResult){
+            $('#quote-name').text(dataResult.title);
+            $('#quote-slug').text(dataResult.slug);
+            var mySubContent = dataResult.sub_description;
+            var myContent = dataResult.description;
+            if(dataResult.banner_image !== null){
+                $('#banner-image').attr("src",'/images/service/'+dataResult.banner_image );
+            }
+            $('#quote-subdescription').text( mySubContent.replace(/(<([^>]+)>)/ig,""));
+            $('#quote-description').text( myContent.replace(/(<([^>]+)>)/ig,""));
+            $( "#quote_"+id).click();
+        },
+        error: function(error){
+            console.log(error)
+        }
+    });
+});
+
 $(document).on('click','.remove-item-btn', function (e) {
     e.preventDefault();
     var form = $('#deleted-form');
