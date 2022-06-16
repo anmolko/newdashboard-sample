@@ -14,7 +14,8 @@ class AddStatusToRequestquotesTable extends Migration
     public function up()
     {
         Schema::table('requestquotes', function (Blueprint $table) {
-            //
+            $table->enum('status',['pending','responded'])->default('pending')->after('service_id');
+
         });
     }
 
@@ -26,7 +27,8 @@ class AddStatusToRequestquotesTable extends Migration
     public function down()
     {
         Schema::table('requestquotes', function (Blueprint $table) {
-            //
+            $table->dropColumn('status');
+
         });
     }
 }

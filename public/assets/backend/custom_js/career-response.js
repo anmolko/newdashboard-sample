@@ -153,7 +153,7 @@ function statusupdate(url,status){
             console.log(response);
             if(response.status == "success"){
                 var oldstatus         = response.old_status;
-                var status_url        = "/auth/package/"+response.id+"/status/";
+                var status_url        = "/auth/career-response/"+response.id+"/status/";
                 var replacementblock  = '#status-button-'+response.id;
                 var replacement = '<button class="btn btn-light dropdown-toggle" style="width: 10em;" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"> '
                     +

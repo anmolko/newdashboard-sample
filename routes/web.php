@@ -209,6 +209,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::get('/quote/{quotes}/edit', 'App\Http\Controllers\ContactController@editResponse')->name('quote.edit');
     Route::get('/quote-response', 'App\Http\Controllers\ContactController@responseIndex')->name('quote-response.index');
     Route::delete('/quote-response/{response}', 'App\Http\Controllers\ContactController@responseDestroy')->name('quote-response.destroy');
+    Route::patch('/quote-response/{id}/status', 'App\Http\Controllers\ContactController@responseStatus')->name('quote-status.update');
 
     Route::post('/mark-as-read', 'App\Http\Controllers\NotificationController@markNotification')->name('markNotification');
     Route::get('/quote-response/{name}', 'App\Http\Controllers\NotificationController@sendToQuote')->name('service.quote');
