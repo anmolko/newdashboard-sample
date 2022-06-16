@@ -210,6 +210,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
 
     Route::post('/mark-as-read', 'App\Http\Controllers\NotificationController@markNotification')->name('markNotification');
     Route::get('/quote-response/{name}', 'App\Http\Controllers\NotificationController@sendToQuote')->name('service.quote');
+    Route::get('/career-response/{name}', 'App\Http\Controllers\NotificationController@sendToCareerResponse')->name('career.response');
 
 });
 

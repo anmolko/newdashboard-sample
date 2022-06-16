@@ -515,23 +515,28 @@
             });
         });
 
-        function sendMarkRequest(id = null) {
+        function sendMarkRequest(id = null, name = null) {
             return $.ajax("{{ route('markNotification') }}", {
                 method: 'POST',
                 headers: {
                     'X-CSRF-Token': $('meta[name="_token"]').attr('content')
                 },
                 data: {
-                    id
+                    id,
+                    name
                 }
             });
         }
         $(function() {
             $('.mark-as-read').click(function() {
                 var id      = $(this).data('id');
-                let request = sendMarkRequest(id);
-                var div     = '#notification-'+id;
-                var mark    = '#all-read';
+                var type    = $(this).data('name');
+                var value   = $(this).data('type');
+                let request = sendMarkRequest(id,value);
+                var div     = '#notification-'+type+id;
+                var mark    = '#all-read-'+type;
+                var count_type = '#'+type+'-count';
+                var holder = '#main-'+type+'-holder';
 
                 request
                     .done(function(response) {
@@ -539,19 +544,24 @@
                         $("#top-unread").html('');
                         $("#top-unread").append(response.unread+'<span class="visually-hidden">unread messages</span>');
                         $("#new-unread").html('');
-                        $("#service-count").html('');
-                        $("#service-count").append('Service (' + response.service_num +')');
+                        if(type == 'service'){
+                            $(count_type).html('');
+                            $(count_type).append('Service (' + response.service_num +')');
+                        }else if(type == 'career'){
+                            $(count_type).html('');
+                            $(count_type).append('Career (' + response.career_num +')');
+                        }
                         $("#new-unread").append(response.unread+' New');
                         $(div).remove();
-                        if(response.service_num == 0){
+                        if(response.service_num == 0 || response.career_num == 0){
                             $(mark).remove();
                             var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
                                 '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
                             '</div>' +
                             '<div class="text-center pb-5 mt-2">'+
-                            '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no service notifications </h6>'+
+                            '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no '+type+' notifications </h6>'+
                             '</div>';
-                            $('#main-service-holder').append(replacement);
+                            $(holder).append(replacement);
                         }
                 })
                  .fail(function(response){
@@ -559,25 +569,40 @@
                  });
             });
 
-            $('#mark-all').click(function() {
-                let request = sendMarkRequest();
-                var mark    = '#all-read';
+            $('.mark-all').click(function() {
+
+                var name       = $(this).data('name');
+                var type       = $(this).data('id');
+                let request    = sendMarkRequest(null,name);
+                var mark       = '#all-read-'+type;
+                var holder     = '#main-'+type+'-holder';
+                var container  = 'div.notify-item-'+type;
+                var count_type = '#'+type+'-count';
+
                 request
                     .done(function(response) {
                         console.log(response);
+                        var unread = (response.service_num + response.career_num);
                         $("#top-unread").html('');
-                        $("#top-unread").append('0 <span class="visually-hidden">unread messages</span>');
+                        $("#top-unread").append(unread +' <span class="visually-hidden">unread messages</span>');
                         $("#new-unread").html('');
-                        $("#new-unread").append('0 New');
-                        $('div.notification-item').remove();
+                        if(type == 'service'){
+                            $(count_type).html('');
+                            $(count_type).append('Service (' + response.service_num +')');
+                        }else if(type == 'career'){
+                            $(count_type).html('');
+                            $(count_type).append('Career (' + response.career_num +')');
+                        }
+                        $("#new-unread").append(unread+' New');
+                        $(container).remove();
                         $(mark).remove();
                         var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
                             '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
                             '</div>' +
                             '<div class="text-center pb-5 mt-2">'+
-                            '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no any notifications </h6>'+
+                            '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no '+type+' notifications </h6>'+
                             '</div>';
-                        $('#main-service-holder').append(replacement);
+                        $(holder).append(replacement);
                     })
             });
         });

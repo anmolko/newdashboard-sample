@@ -269,7 +269,8 @@
                                             </a>
                                         </li>
                                         <li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab" role="tab" aria-selected="false">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab" role="tab"
+                                               aria-selected="false" id="career-count">
                                                 Career ({{count($career_notifications)}})
                                             </a>
                                         </li>
@@ -283,8 +284,8 @@
                                 <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
                                     <div data-simplebar style="max-height: 300px;" class="pe-2" id="main-service-holder">
                                         @forelse($service_notifications as $notification)
-                                        <div class="text-reset notification-item d-block dropdown-item position-relative {{($loop->first) ? "active":""}}"
-                                             id="notification-{{ $notification->id }}">
+                                        <div class="text-reset notification-item notify-item-service d-block dropdown-item position-relative {{($loop->first) ? "active":""}}"
+                                             id="notification-service{{ $notification->id }}">
                                             <div class="d-flex">
 
                                                 @if($notification->data['image'] == null)
@@ -303,7 +304,8 @@
                                                     </a>
                                                     <div class="fs-12 text-muted">
                                                         <p class="mb-1">
-                                                            {{($loop->even) ? "🔔 ":"" }} {{ $notification->data['name'] }} has requested quotation for {{ $notification->data['title'] }}.
+                                                            {{($loop->even) ? "🔔 ":"" }} {{ $notification->data['name'] }} has requested quotation for
+                                                            <b class="text-success">{{ $notification->data['title'] }}</b>.
                                                             Send a response
                                                             {{($loop->odd) ? "🔔":"" }}.</p>
                                                     </div>
@@ -313,15 +315,15 @@
                                                 </div>
                                                 <div class="pl-5">
                                                     <div class="form-check notification-check">
-                                                        <a class="btn btn-soft-primary btn-sm fs-9 mark-as-read" data-id="{{ $notification->id }}">
-                                                            Mark Read</a>
+                                                        <button type="button" class="btn btn-soft-primary btn-sm fs-9 mark-as-read" data-name="service" data-type="App\Notifications\NewServiceNotification" data-id="{{ $notification->id }}">
+                                                            Mark Read</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                             @if($loop->last)
-                                                <div class="my-3 text-center" id="all-read">
-                                                    <button type="button" id="mark-all" class="btn btn-soft-success waves-effect waves-light">
+                                                <div class="my-3 text-center" id="all-read-service">
+                                                    <button type="button" id="mark-all-service" data-id="service" data-name="App\Notifications\NewServiceNotification" class="btn btn-soft-success waves-effect waves-light mark-all">
                                                         Mark all as Read <i class="ri-arrow-right-line align-middle"></i></button>
                                                 </div>
                                             @endif
@@ -337,12 +339,58 @@
 
                                 </div>
 
-                                <div class="tab-pane fade p-4" id="alerts-tab" role="tabpanel" aria-labelledby="alerts-tab">
-                                    <div class="w-25 w-sm-50 pt-3 mx-auto">
-                                        <img src="{{asset('assets/backend/images/svg/bell.svg')}}" class="img-fluid" alt="user-pic">
-                                    </div>
-                                    <div class="text-center pb-5 mt-2">
-                                        <h6 class="fs-18 fw-semibold lh-base">Hey! You have no any notifications </h6>
+                                <div class="tab-pane fade py-2 ps-2" id="alerts-tab" role="tabpanel" aria-labelledby="alerts-tab">
+                                    <div data-simplebar style="max-height: 300px;" class="pe-2" id="main-career-holder">
+                                        @forelse($career_notifications as $notification)
+                                            <div class="text-reset notification-item notify-item-career d-block dropdown-item position-relative {{($loop->first) ? "active":""}}"
+                                                 id="notification-career{{ $notification->id }}">
+                                                <div class="d-flex">
+
+                                                    @if($notification->data['image'] == null)
+                                                        <div class="avatar-xs me-3">
+                                                        <span class="avatar-title bg-soft-info text-info rounded-circle fs-16">
+                                                            <i class="bx bx-badge-check"></i>
+                                                        </span>
+                                                        </div>
+                                                    @else
+                                                        <img src="{{asset('images/career/'.@$notification->data['image'])}}"
+                                                             class="me-3 rounded-circle avatar-xs" alt="service">
+                                                    @endif
+                                                    <div class="flex-1">
+                                                        <a href="{{route('career.response',str_replace(' ','-',$notification->data['name']))}}" class="link">
+                                                            <h6 class="mt-0 mb-1 fs-12 fw-semibold"> {{ $notification->data['career_name'] }}</h6>
+                                                        </a>
+                                                        <div class="fs-12 text-muted">
+                                                            <p class="mb-1">
+                                                                {{($loop->even) ? "📃 ":"" }} {{ $notification->data['name'] }} has applied for <span class="text-secondary">{{ $notification->data['career_name'] }}</span> from published career options.
+                                                                Review the submitted application {{($loop->odd) ? "📃":"" }}.</p>
+                                                        </div>
+                                                        <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                            <span><i class="mdi mdi-clock-outline"></i> {{$notification->created_at->diffForHumans()}}</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="pl-5">
+                                                        <div class="form-check notification-check">
+                                                            <button type="button" class="btn btn-soft-primary btn-sm fs-9 mark-as-read" data-name="career" data-type="App\Notifications\NewCareerNotification" data-id="{{ $notification->id }}">
+                                                                Mark Read</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if($loop->last)
+                                                <div class="my-3 text-center" id="all-read-career">
+                                                    <button type="button" id="mark-all-career" data-id="career" data-name="App\Notifications\NewCareerNotification" class="btn btn-soft-success waves-effect waves-light mark-all">
+                                                        Mark all as Read <i class="ri-arrow-right-line align-middle"></i></button>
+                                                </div>
+                                            @endif
+                                        @empty
+                                            <div class="w-25 w-sm-50 pt-3 mx-auto">
+                                                <img src="{{asset('assets/backend/images/svg/bell.svg')}}" class="img-fluid" alt="user-pic">
+                                            </div>
+                                            <div class="text-center pb-5 mt-2">
+                                                <h6 class="fs-18 fw-semibold lh-base">Hey! You have no career notifications </h6>
+                                            </div>
+                                        @endforelse
                                     </div>
                                 </div>
                             </div>

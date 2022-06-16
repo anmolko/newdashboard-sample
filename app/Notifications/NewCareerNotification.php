@@ -48,7 +48,7 @@ class NewCareerNotification extends Notification
             'slug'         => $this->career->slug,
             'response_id'  => $this->response_id,
             'name'         => $this->name,
-            'image'        =>  $this->career->feature_image,
+            'image'        => $this->career->feature_image,
 
         ];
     }
