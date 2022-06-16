@@ -40,8 +40,8 @@
                     <div class="row g-2">
                         <div class="col-sm-4">
                             <div class="search-box">
-                                <input type="text" class="form-control" placeholder="Search for name, tasks, projects or something...">
-                                <i class="ri-search-line search-icon"></i>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addmembers"><i class="ri-add-fill me-1 align-bottom"></i> Add Users</button>
+
                             </div>
                         </div><!--end col-->
                         <div class="col-sm-auto ms-auto">
@@ -55,7 +55,6 @@
 {{--                                    <li><a class="dropdown-item" href="#">Last Month</a></li>--}}
 {{--                                    <li><a class="dropdown-item" href="#">Last Year</a></li>--}}
 {{--                                </ul>--}}
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addmembers"><i class="ri-add-fill me-1 align-bottom"></i> Add Users</button>
                             </div>
                         </div><!--end col-->
                     </div><!--end row-->
