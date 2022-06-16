@@ -35,7 +35,8 @@ class CareerController extends Controller
     public function responseIndex()
     {
         $applied_job           = ApplyJob::with('career')->get();
-        return view('backend.career.response.index',compact('applied_job'));
+        $career_response       = '';
+        return view('backend.career.response.index',compact('applied_job','career_response'));
     }
 
     /**

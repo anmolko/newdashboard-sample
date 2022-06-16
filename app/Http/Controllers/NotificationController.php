@@ -37,7 +37,7 @@ class NotificationController extends Controller
     {
         $career_response    = str_replace('-',' ',$name);
         $applied_job        = ApplyJob::with('career')->get();
-        return view('backend.career.index',compact('career_response','applied_job'));
+        return view('backend.career.response.index',compact('career_response','applied_job'));
     }
 
 }

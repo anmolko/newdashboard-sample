@@ -15,10 +15,10 @@ class CreateApplyjobsTable extends Migration
     {
         Schema::create('applyjobs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->nullable();
             $table->string('address')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('name')->nullable();
             $table->text('message')->nullable();
             $table->string('attachcv')->nullable();
             $table->unsignedBigInteger('career_id');
