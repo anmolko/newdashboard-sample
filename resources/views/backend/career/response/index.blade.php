@@ -58,6 +58,7 @@
                                             <th>Address</th>
                                             <th>Message</th>
                                             <th>Applied for</th>
+                                            <th>Status</th>
                                             <th class="text-right">Action</th>
                                         </tr>
                                         </thead>
@@ -81,6 +82,20 @@
                                                         {{ucwords(@$applied->message) }}
                                                     </td>
                                                     <td>{{ucwords(@$applied->career->name)}}</td>
+                                                    <td>
+                                                        <div class="btn-group view-btn" id="status-button-{{$applied->id}}">
+                                                            <button class="btn btn-light dropdown-toggle" style="width: 10em;" type="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                                                {{ucwords(@$applied->status)}}
+                                                            </button>
+                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside" style="">
+                                                                @if($applied->status == "pending")
+                                                                    <li><a class="dropdown-item change-status" cs-update-route="{{route('career-status.update',$applied->id)}}" href="#" cs-status-value="responded">Responded</a></li>
+                                                                @else
+                                                                    <li><a class="dropdown-item change-status" cs-update-route="{{route('career-status.update',$applied->id)}}" href="#" cs-status-value="pending">Pending</a></li>
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <div class="row">
                                                             <div class="col text-center dropdown">
@@ -134,6 +149,5 @@
     <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 
     <script src="{{asset('assets/backend/custom_js/career-response.js')}}"></script>
-
 
 @endsection

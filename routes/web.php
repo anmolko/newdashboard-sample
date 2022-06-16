@@ -203,6 +203,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     //Career response
     Route::get('/career-response', 'App\Http\Controllers\CareerController@responseIndex')->name('career-response.index');
     Route::delete('/career-response/{response}', 'App\Http\Controllers\CareerController@responseDestroy')->name('career-response.destroy');
+    Route::patch('/career-response/{id}/status', 'App\Http\Controllers\CareerController@responseStatus')->name('career-status.update');
 
     //Quote response
     Route::get('/quote/{quotes}/edit', 'App\Http\Controllers\ContactController@editResponse')->name('quote.edit');

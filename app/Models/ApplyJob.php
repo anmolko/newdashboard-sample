@@ -9,7 +9,7 @@ class ApplyJob extends Model
 {
     use HasFactory;
     protected $table ='applyjobs';
-    protected $fillable =['id','name','email','phone','address','message','attachcv','career_id'];
+    protected $fillable =['id','name','email','phone','address','message','attachcv','status','career_id'];
 
     public function career(){
         return $this->belongsTo('App\Models\Career','career_id','id');

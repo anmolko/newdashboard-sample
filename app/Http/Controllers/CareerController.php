@@ -236,4 +236,23 @@ class CareerController extends Controller
         return response()->json($confirmed);
 
     }
+
+    public function responseStatus(Request $request, $id){
+        $job          = ApplyJob::find($id);
+        $job->status  = $request->status;
+        $old_status   = ($request->status == 'responded') ? "Pending":"Responded";
+        $status       = $job->update();
+        $new_status   = ucfirst($job->status);
+        $value        = ($request->status == 'responded') ? "pending":"responded";
+        if($status){
+            $status ='success';
+            return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value,'old_status'=>$old_status]);
+        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value,'old_status'=>$old_status]);
+        }
+        return response()->json($confirmed);
+
+    }
 }
