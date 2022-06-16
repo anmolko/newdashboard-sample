@@ -1,11 +1,16 @@
 
 @extends('frontend.layouts.master')
 @section('css')
+<link href="{{asset('assets/backend/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+
 <style>
     #hero-19 .quick-form {
         margin: 40px 5% 0;
     }
-
+    .package-price{
+        font-size: 2.25rem;
+        font-weight: 500;
+    }
     .domain-search-container {
         box-shadow: 0px 11px 92px 0px rgb(118 191 254 / 19%);
         transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
@@ -17,7 +22,14 @@
         border-radius: 30px 30px 30px 30px;
     }
 
-
+    .canosoft-listing{
+        padding-top: 25px;
+        margin-top: 25px;
+        border-top: 1px solid #ccc;
+    }
+    .canosoft-listing ul,.canosoft-listing ol {
+        font-size: 1.125rem;
+    }
 
     .domain-search-container .input-group {
         max-width: 100% !important;
@@ -568,74 +580,94 @@
 
 
 
-    <!-- CONTENT-1
+ 
+    <!-- PRICING-3
     ============================================= -->
-    <section id="content-1" class="content-1 wide-60 content-section division">
+    
+    @if(count($allpackages) > 2)
+
+    <section id="pricing-3" class="bg-whitesmoke wide-60 pricing-section division">
         <div class="container">
-            <div class="row d-flex align-items-center">
 
 
-                <!-- TEXT BLOCK -->
-                <div class="col-md-7 col-lg-6 order-last order-md-2">
-                    <div class="txt-block left-column wow fadeInRight">
+            <!-- SECTION TITLE -->	
+            <div class="row justify-content-center">	
+                <div class="col-lg-10 col-xl-8">
+                    <div class="section-title title-01 mb-80">		
 
-                        <!-- TEXT BOX -->
-                        <div class="txt-box mb-20">
+                        <!-- Title -->	
+                        <h2 class="h2-sm">Simple And Flexible Pricing</h2>	
 
-                            <!-- Title -->
-                            <h5 class="h5-lg">All-in-One Marketing Solutions</h5>
+                        <!-- Text -->	
+                        <p class="p-xl">You have Free Unlimited Updates and Premium Support on each package. You can also purchase add-ons such as SSL Certificate and G Suite.
+                        </p>
+                            
+                    </div>	
+                </div>
+            </div>
 
-                            <!-- Text -->
-                            <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and
-                                cubilia laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas
-                                volute and turpis dolores aliquam quaerat sodales a sapien
-                            </p>
+
+            <!-- PRICING TABLES -->
+            <div class="pricing-3-row pc-20">
+                <div class="row row-cols-1 row-cols-md-3">
+
+                    <!-- BASIC PLAN -->
+                    @foreach($allpackages as $package)
+
+                    <div class="col">
+                        <div class="pricing-3-table bg-white rel mb-40 wow fadeInUp">	
+
+                            <!-- Hightlight Badge -->
+                            <div class="badge-wrapper">
+                                <div class="highlight-badge bg-skyblue white-color">
+                                    @if($package->link == "personal")
+                                    <h6 class="h6-md">Personal</h6>
+                                    @else
+                                    <h6 class="h6-md">Commercial</h6>
+                                    @endif
+                                </div>
+                            </div>	
+                                            
+                            <!-- Plan Price  -->
+                            <div class="pricing-plan">
+                                <h6 class="h6-md">{{ucwords(@$package->name)}}</h6>									
+                                <p class="package-price">{{$package->price}}</p>								
+                               
+                                <p class="p-lg">{{ucwords(@$package->type)}} Payment</p>
+                            </div>	
+                                        
+                            <!-- Plan Features  -->
+                            <div class="canosoft-listing">
+                                {!! @$package->description !!}
+
+                            </div>
+
+                          
 
                         </div>
+                    </div>	
+                    @endforeach
+                    
+                    <!-- END BASIC PLAN -->
 
-                        <!-- TEXT BOX -->
-                        <div class="txt-box">
-
-                            <!-- Title -->
-                            <h5 class="h5-lg">Strategy and Analytics Consulting</h5>
-
-                            <!-- List -->
-                            <ul class="simple-list">
-
-                                <li class="list-item">
-                                    <p class="p-lg">Fringilla risus, luctus mauris auctor euismod an iaculis luctus
-                                        magna purus pretium ligula purus and quaerat
-                                    </p>
-                                </li>
-
-                                <li class="list-item">
-                                    <p class="p-lg">Nemo ipsam egestas volute turpis dolores undo ultrice aliquam quaerat
-                                        at sodales sapien purus
-                                    </p>
-                                </li>
-
-                            </ul>
-
-                        </div>	<!-- END TEXT BOX -->
-
-                    </div>
-                </div>	<!-- END TEXT BLOCK -->
-
-
-                <!-- IMAGE BLOCK -->
-                <div class="col-md-5 col-lg-6 order-first order-md-2">
-                    <div class="rel img-block right-column wow fadeInLeft">
-                        <img class="img-fluid" src="images/img-18.png" alt="content-image">
-                    </div>
                 </div>
+            </div>	<!-- END PRICING TABLES -->
 
 
-            </div>	   <!-- End row -->
+            <!-- PRICING NOTICE TEXT -->
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="pricing-notice text-center mb-40">						
+                        <p class="p-md">
+                        </p>
+                    </div>	
+                </div>
+            </div>
+
+
         </div>	   <!-- End container -->
-    </section>	<!-- END CONTENT-1 -->
-
-
-
+    </section>	<!-- END PRICING-3 -->
+    @endif
 
     <!-- STATISTIC-3
     ============================================= -->

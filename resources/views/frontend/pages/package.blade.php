@@ -71,32 +71,33 @@
 
 
 					<!-- PRICING TABLES -->
-					<div class="pricing-2-row pc-25">
+					<div class="pricing-3-row pc-20">
 						<div class="row row-cols-1 row-cols-md-3">
 
 							<!-- ADVANCED PLAN -->
                             @if(count($allpackages) > 0)
                                 @foreach($allpackages as $package)
                                     <div class="col">
-                                        <div class="pricing-2-table bg-white mb-40 wow fadeInUp">
+                                        <div class="pricing-3-table bg-white rel mb-40 wow fadeInUp">
 
+                                        <div class="badge-wrapper">
+                                            <div class="highlight-badge bg-skyblue white-color">
+                                                @if($package->link == "personal")
+                                                <h6 class="h6-md">Personal</h6>
+                                                @else
+                                                <h6 class="h6-md">Commercial</h6>
+                                                @endif
+                                            </div>
+                                        </div>	
+
+                                         <!-- Plan Price  -->
+                                        <div class="pricing-plan">
+                                            <h6 class="h6-md">{{ucwords(@$package->name)}}</h6>									
+                                        </div>	
                                             <!-- Plan Price  -->
                                             <div class="pricing-plan highlight">
-
-                                                <!-- Plan Title -->
-                                                <div class="pricing-plan-title">
-                                                    <h5 class="h5-xs">{{ucwords(@$package->name)}}</h5>
-                                                   
-                                                    @if($package->link == "personal")
-                                                    <h6 class="h6-sm bg-lightgrey">Personal</h6>
-                                                    @else
-                                                    <h6 class="h6-sm bg-skyblue white-color">Commercial</h6>
-                                                    @endif
-                                                </div>	
-
-                                                <!-- Price -->
                                               
-                                                <sup class="validity dark-color"><span>${{$package->price}}</span> / {{@$package->type}}</sup>
+                                                <sup class="validity dark-color"><span>{{$package->price}}</span> / {{@$package->type}}</sup>
                                             </div>	
 
                                             <div class="canosoft-listing">

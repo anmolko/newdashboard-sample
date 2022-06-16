@@ -63,7 +63,8 @@ class FrontController extends Controller
     {
         $faqs = $this->faq->take(4)->get();
         $testimonials = $this->testimonial->take(7)->get();
-        return view('welcome',compact('faqs','testimonials'));
+        $allpackages = $this->pojectPlan->inRandomOrder()->take(3)->get();
+        return view('welcome',compact('faqs','testimonials','allpackages'));
     }
 
 
