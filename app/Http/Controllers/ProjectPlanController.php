@@ -143,4 +143,23 @@ class ProjectPlanController extends Controller
         $status ='success';
         return response()->json(['status'=>$status,'id'=>$rid,'message'=>'Customer package response was removed!']);
     }
+
+    public function updateStatus(Request $request, $id){
+        $package          = Package::find($id);
+        $package->status  = $request->status;
+        $old_status       = ($request->status == 'responded') ? "Pending":"Responded";
+        $status           = $package->update();
+        $new_status       = ucfirst($package->status);
+        $value            = ($request->status == 'responded') ? "pending":"responded";
+        if($status){
+            $status ='success';
+            return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value,'old_status'=>$old_status]);
+        }
+        else{
+            $status ='error';
+            return response()->json(['status'=>$status,'new_status'=>$new_status,'id'=>$id,'value'=>$value,'old_status'=>$old_status]);
+        }
+        return response()->json($confirmed);
+
+    }
 }
