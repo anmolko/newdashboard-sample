@@ -10,25 +10,14 @@ class NotificationController extends Controller
 {
     public function markNotification(Request $request)
     {
-        $id = $request->input('id');
         $user = auth()->user();
-//        if($id == null){
-//
-//
-//        }else{
-//            $user->unreadNotifications
-//                ->when($request->input('id'), function ($query) use ($request) {
-//                    return $query->where('id', $request->input('id'));
-//                })->markAsRead();
-//        }
-
         $user->unreadNotifications->when($request->input('name'), function ($query) use ($request) {
                 return $query->where('type', $request->input('name'));
             })->when($request->input('id'), function ($query) use ($request) {
                 return $query->where('id', $request->input('id'));
             })->markAsRead();
 
-        $unreadnotify     = auth()->user()->unreadNotifications->count();
+        $unreadnotify    = auth()->user()->unreadNotifications->count();
         $service_num     = $user->notifications->where('read_at',null)->where('type','App\Notifications\NewServiceNotification')->count();
         $career_num      = $user->notifications->where('read_at',null)->where('type','App\Notifications\NewCareerNotification')->count();
         foreach ($user->notifications as $notifi){
