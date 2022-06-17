@@ -223,6 +223,8 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::post('/mark-as-read', 'App\Http\Controllers\NotificationController@markNotification')->name('markNotification');
     Route::get('/quote-response/{name}', 'App\Http\Controllers\NotificationController@sendToQuote')->name('service.quote');
     Route::get('/career-response/{name}', 'App\Http\Controllers\NotificationController@sendToCareerResponse')->name('career.response');
+    Route::get('/customer-package/{name}', 'App\Http\Controllers\NotificationController@sendToPlanResponse')->name('plan.response');
+    Route::get('/contact/{name}', 'App\Http\Controllers\NotificationController@sendToContactResponse')->name('contact.response');
 
 });
 

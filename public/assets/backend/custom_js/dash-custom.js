@@ -60,9 +60,31 @@ $(function() {
                     $(count_type).html('');
                     $(count_type).append('Career (' + response.career_num +')');
                 }
+                else if(type == 'others'){
+                    $(count_type).html('');
+                    $(count_type).append('Others (' + response.other_num +')');
+                }
                 $("#new-unread").append(response.unread+' New');
                 $(div).remove();
-                if(response.service_num == 0 || response.career_num == 0){
+                if(response.service_num == 0){
+                    $(mark).remove();
+                    var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
+                        '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
+                        '</div>' +
+                        '<div class="text-center pb-5 mt-2">'+
+                        '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no '+type+' notifications </h6>'+
+                        '</div>';
+                    $(holder).append(replacement);
+                }else if(response.career_num == 0){
+                    $(mark).remove();
+                    var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
+                        '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
+                        '</div>' +
+                        '<div class="text-center pb-5 mt-2">'+
+                        '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no '+type+' notifications </h6>'+
+                        '</div>';
+                    $(holder).append(replacement);
+                }else if(response.other_num == 0){
                     $(mark).remove();
                     var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
                         '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
@@ -101,6 +123,9 @@ $(function() {
                 }else if(type == 'career'){
                     $(count_type).html('');
                     $(count_type).append('Career (' + response.career_num +')');
+                }else if(type == 'others'){
+                    $(count_type).html('');
+                    $(count_type).append('Others (' + response.other_num +')');
                 }
                 $("#new-unread").append(unread+' New');
                 $(container).remove();

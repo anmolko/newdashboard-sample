@@ -242,7 +242,7 @@
                                 aria-expanded="false">
                             <i class='bx bx-bell fs-22'></i>
                             <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger" id="top-unread">
-                                {{count($service_notifications) + count($career_notifications)}} <span class="visually-hidden">unread messages</span></span>
+                                {{count($service_notifications) + count($career_notifications)  + count($other_notifications)}} <span class="visually-hidden">unread messages</span></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                              aria-labelledby="page-header-notifications-dropdown">
@@ -254,7 +254,7 @@
                                             <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
                                         </div>
                                         <div class="col-auto dropdown-tabs">
-                                            <span class="badge badge-soft-light fs-13" id="new-unread"> {{count($service_notifications) + count($career_notifications) }} New</span>
+                                            <span class="badge badge-soft-light fs-13" id="new-unread"> {{count($service_notifications) + count($career_notifications) + count($other_notifications) }} New</span>
                                         </div>
                                     </div>
                                 </div>
@@ -263,15 +263,21 @@
                                     <ul class="nav nav-tabs dropdown-tabs nav-tabs-custom" data-dropdown-tabs="true"
                                         id="notificationItemsTab" role="tablist">
                                         <li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab"
+                                            <a class="nav-link fs-11 active" data-bs-toggle="tab" href="#all-noti-tab" role="tab"
                                                aria-selected="true" id="service-count">
                                                 Service ({{count($service_notifications)}})
                                             </a>
                                         </li>
                                         <li class="nav-item waves-effect waves-light">
-                                            <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab" role="tab"
+                                            <a class="nav-link fs-11" data-bs-toggle="tab" href="#alerts-tab" role="tab"
                                                aria-selected="false" id="career-count">
                                                 Career ({{count($career_notifications)}})
+                                            </a>
+                                        </li>
+                                        <li class="nav-item waves-effect waves-light">
+                                            <a class="nav-link fs-11" data-bs-toggle="tab" href="#others-tab" role="tab"
+                                               aria-selected="false" id="others-count">
+                                                Others ({{count($other_notifications)}})
                                             </a>
                                         </li>
                                     </ul>
@@ -393,6 +399,78 @@
                                         @endforelse
                                     </div>
                                 </div>
+
+                                <div class="tab-pane p-4 fade" id="others-tab" role="tabpanel" aria-labelledby="others-tab">
+                                    <div data-simplebar style="max-height: 300px;" class="pe-2" id="main-others-holder">
+                                        @forelse($other_notifications as $notification)
+                                            <div class="text-reset notification-item notify-item-others d-block dropdown-item position-relative {{($loop->first) ? "active":""}}"
+                                                 id="notification-others{{ $notification->id }}">
+                                                <div class="d-flex">
+
+                                                    @if($notification->data['type'] == 'package')
+                                                        <div class="avatar-xs me-3">
+                                                        <span class="avatar-title bg-soft-info text-info rounded-circle fs-16">
+                                                            <i class="bx bx-package"></i>
+                                                        </span>
+                                                        </div>
+                                                    @else
+                                                        <div class="avatar-xs me-3">
+                                                        <span class="avatar-title bg-soft-info text-primary rounded-circle fs-16">
+                                                            <i class=" bx bx-message-square-dots"></i>
+                                                        </span>
+                                                        </div>
+                                                    @endif
+                                                    <div class="flex-1">
+                                                        @if($notification->data['type'] == 'package')
+                                                            <a href="{{route('plan.response',str_replace(' ','-',$notification->data['name']))}}" class="link">
+                                                                <h6 class="mt-0 mb-1 fs-12 fw-semibold"> {{ $notification->data['package_name'] }}</h6>
+                                                            </a>
+                                                            <div class="fs-12 text-muted">
+                                                                <p class="mb-1">
+                                                                    {{($loop->even) ? "🔔 ":"" }} {{ $notification->data['name'] }} has ordered a plan <span class="text-secondary">{{ $notification->data['package_name'] }}</span> from listed packages.
+                                                                    Get back and confirm the order {{($loop->odd) ? "🔔":"" }}.</p>
+                                                            </div>
+                                                        @else
+                                                            <a href="{{route('contact.response',str_replace(' ','-',$notification->data['name']))}}" class="link">
+                                                                <h6 class="mt-0 mb-1 fs-12 fw-semibold"> {{ $notification->data['package_name'] }}</h6>
+                                                            </a>
+                                                            <div class="fs-12 text-muted">
+                                                                <p class="mb-1">
+                                                                    {{($loop->even) ? "📃 ":"" }} {{ $notification->data['name'] }} has reached out on the topic  <span class="text-secondary">{{ $notification->data['package_name'] }}</span>.
+                                                                    Read the full message and reply soon {{($loop->odd) ? " 📃":"" }}.</p>
+                                                            </div>
+
+                                                        @endif
+
+                                                        <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                            <span><i class="mdi mdi-clock-outline"></i> {{$notification->created_at->diffForHumans()}}</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="pl-5">
+                                                        <div class="form-check notification-check">
+                                                            <button type="button" class="btn btn-soft-primary btn-sm fs-9 mark-as-read" data-name="others" data-type="App\Notifications\OtherNotification" data-id="{{ $notification->id }}">
+                                                                Mark Read</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if($loop->last)
+                                                <div class="my-3 text-center" id="all-read-others">
+                                                    <button type="button" id="mark-all-others" data-id="others" data-name="App\Notifications\OtherNotification" class="btn btn-soft-success waves-effect waves-light mark-all">
+                                                        Mark all as Read <i class="ri-arrow-right-line align-middle"></i></button>
+                                                </div>
+                                            @endif
+                                        @empty
+                                            <div class="w-25 w-sm-50 pt-3 mx-auto">
+                                                <img src="{{asset('assets/backend/images/svg/bell.svg')}}" class="img-fluid" alt="user-pic">
+                                            </div>
+                                            <div class="text-center pb-5 mt-2">
+                                                <h6 class="fs-18 fw-semibold lh-base">Hey! You have no other notifications </h6>
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

@@ -19,6 +19,7 @@ use App\Models\Testimonial;
 use App\Models\User;
 use App\Notifications\NewCareerNotification;
 use App\Notifications\NewServiceNotification;
+use App\Notifications\OtherNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
@@ -226,8 +227,12 @@ class FrontController extends Controller
 // //             Mail::to($theme_data->email)->send(new PackageDetail($mail_data));
 
             if($status){
-                Session::flash('success','Thank you for odering package !');
+                Session::flash('success','Thank you for ordering package !');
                 $confirmed = "success";
+                $plan      = ProjectPlan::find($request->input('project_plan_id'));
+                foreach (User::where('user_type','admin')->get() as $user){
+                    Notification::send($user, new OtherNotification('package',$plan->name,$plan->id,$status->full_name));
+                }
                 return redirect()->back();
             }
             else{
@@ -356,6 +361,9 @@ class FrontController extends Controller
 
             if($status){
                 $confirmed = "success";
+                foreach (User::where('user_type','admin')->get() as $user){
+                    Notification::send($user, new OtherNotification('contact',$status->subject,$status->id,$status->name));
+                }
                 return response()->json($confirmed);
             }
             else{
