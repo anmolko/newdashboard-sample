@@ -82,6 +82,15 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::patch('/status/update/{id}', 'App\Http\Controllers\UserController@statusupdate')->name('user-status.update');
     Route::patch('/role/update/{id}', 'App\Http\Controllers\UserController@roleupdate')->name('user-type.update');
 
+    //homepage
+    Route::get('/homepage-setting', 'App\Http\Controllers\HomePageController@index')->name('homepage.index');
+    Route::post('/homepage-setting', 'App\Http\Controllers\HomePageController@store')->name('homepage.store');
+    Route::put('/homepage-setting/{settings}', 'App\Http\Controllers\HomePageController@update')->name('homepage.update');
+    Route::put('/homepage-setting/direction/{settings}', 'App\Http\Controllers\HomePageController@direction')->name('homepage.direction');
+    Route::put('/homepage-setting/background/{settings}', 'App\Http\Controllers\HomePageController@background')->name('homepage.background');
+
+
+
     Route::get('/contact', 'App\Http\Controllers\ContactController@index')->name('contact.index');
     Route::delete('/contact/{id}', 'App\Http\Controllers\ContactController@destroy')->name('contact.destroy');
     Route::get('/contact/edit/{slug}', 'App\Http\Controllers\ContactController@edit')->name('contact.edit');
