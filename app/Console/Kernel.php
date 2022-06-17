@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('model:prune')->daily()->at('11:00')->timezone('Asia/Kathmandu');
     }
 
     /**
