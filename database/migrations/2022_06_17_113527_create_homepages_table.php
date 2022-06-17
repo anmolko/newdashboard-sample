@@ -20,6 +20,7 @@ class CreateHomepagesTable extends Migration
             $table->string('welcome_subheading')->nullable();
             $table->text('welcome_description')->nullable();
             $table->string('welcome_image')->nullable();
+            $table->string('welcome_side_image')->nullable();
             $table->string('direction_heading')->nullable();
             $table->text('direction_description')->nullable();
             $table->string('direction_list_heading')->nullable();
