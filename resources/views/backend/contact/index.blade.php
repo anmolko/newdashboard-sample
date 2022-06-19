@@ -155,15 +155,24 @@
 <script src="{{asset('assets/backend/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/backend/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 <script src="{{asset('assets/backend/custom_js/contact.js')}}"></script>
-
+<script type="text/javascript">
+    var response = "{{$contact_response}}";
+</script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#contact_customer').DataTable({
+       var table = $('#contact_customer').DataTable({
             paging: true,
             searching: true,
             ordering:  false,
             lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
         });
+
+        if(response !== ''){
+            table.columns( 1 )
+                .search(response)
+                .draw();
+        }
+
     });
 
 </script>
