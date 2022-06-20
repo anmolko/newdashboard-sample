@@ -141,11 +141,11 @@
                                 </div><!--end card-->
                             </div>
                             @endforeach
-                            <div class="col-lg-12">
-                                <div class="text-center mb-3">
-                                    <a href="javascript:void(0);" class="text-success"><i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load More </a>
-                                </div>
-                            </div>
+{{--                            <div class="col-lg-12">--}}
+{{--                                <div class="text-center mb-3">--}}
+{{--                                    <a href="javascript:void(0);" class="text-success"><i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load More </a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </div><!--end row-->
                         <form action="#" method="post" id="deleted-form">
                             {{csrf_field()}}

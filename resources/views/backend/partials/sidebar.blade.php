@@ -115,7 +115,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link @if(\Request::route()->getName() == 'package.index') active @endif" href="{{route('package.index')}}">
-                        <i class=" ri-user-shared-line"></i> <span data-key="t-widgets">Package Response</span>
+                        <i class=" ri-user-shared-line"></i> <span data-key="t-widgets">Project Plan Response</span>
                     </a>
                 </li>
 

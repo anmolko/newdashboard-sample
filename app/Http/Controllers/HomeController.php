@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\OurWork;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('backend.dashboard');
+        $allusers = User::take(5)->get();
+        $works    = OurWork::take(5)->latest()->get();
+        $feeds    = Blog::take(5)->latest()->get();
+        return view('backend.dashboard', compact('allusers','works','feeds'));
     }
 
     public function filemanager()
