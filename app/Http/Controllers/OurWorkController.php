@@ -26,7 +26,13 @@ class OurWorkController extends Controller
     {
         $works      = OurWork::with('category')->get();
         $categories = OurWorkCategory::orderBy('id','DESC')->get();
-        return view('backend.work.index',compact('works','categories'));
+
+        foreach ($works as $work){
+            $work_categories[] = $work->category->name;
+        }
+        $main_categories = array_unique($work_categories);
+
+        return view('backend.work.index',compact('works','categories','main_categories'));
     }
 
     /**

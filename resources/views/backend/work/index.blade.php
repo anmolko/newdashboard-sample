@@ -212,8 +212,8 @@
                                                             <div class="text-center">
                                                                 <ul class="list-inline categories-filter animation-nav" id="filter">
                                                                     <li class="list-inline-item"><a class="categories active" data-filter="*">All</a></li>
-                                                                    @foreach($works as $work)
-                                                                        <li class="list-inline-item"><a class="categories" data-filter=".{{str_replace(' ','-',$work->category->name)}}">{{ ucwords($work->category->name) }}</a></li>
+                                                                    @foreach($main_categories as $key=>$value)
+                                                                        <li class="list-inline-item"><a class="categories" data-filter=".{{str_replace(' ','-',$value)}}">{{ ucwords($value) }}</a></li>
                                                                     @endforeach
                                                                 </ul>
                                                             </div>
