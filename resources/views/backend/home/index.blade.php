@@ -18,6 +18,11 @@
         .profile-foreground-img-file-input {
             display: none;
         }
+
+        label.profile-photo-edit.btn.btn-light.feature-side-image-button {
+            position: absolute;
+            bottom: 25%;
+        }
     </style>
 @endsection
 
@@ -116,7 +121,7 @@
                                                                placeholder="Enter  heading">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="welcome-subheading-input">Sub Heading name</label>
+                                                        <label class="form-label" for="welcome-subheading-input">Sub Heading </label>
                                                         <input type="text" class="form-control" id="welcome-subheading-input" name="welcome_subheading" value="{{@$homesettings->welcome_subheading}}"
                                                                placeholder="Enter  subheading">
                                                     </div>
@@ -306,21 +311,86 @@
 
                                 {!! Form::open(['url'=>route('homepage.background', @$homesettings->id),'id'=>'settings-background-form','class'=>'needs-validation','novalidate'=>'','method'=>'PUT','enctype'=>'multipart/form-data']) !!}
                                 <div class="row  mb-4">
-                                    <div class="col-lg-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="position-relative">
-                                                    <label>Description</label>
-                                                    <textarea class="form-control" id="ckeditor-classic-background" name="background_description" placeholder="Enter description" rows="4" required>{{@$homesettings->background_description}}</textarea>
-                                                    <div class="invalid-tooltip">
-                                                        Please enter the description.
+                                    <div class="col-lg-8">
+                                            <figure class="figure">
+                                                <img src="{{asset('images/default-background-section.png')}}" class="figure-img img-fluid rounded" alt="...">
+                                                <figcaption class="figure-caption">Output Sample.</figcaption>
+                                            </figure>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="background-heading-input">Heading</label>
+                                                        <input type="text" class="form-control" id="background-heading-input" name="background_heading" value="{{@$homesettings->background_heading}}"
+                                                               placeholder="Enter  heading">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="background-subheading-input">Sub Heading </label>
+                                                        <input type="text" class="form-control" id="background-subheading-input" name="background_subheading" value="{{@$homesettings->background_subheading}}"
+                                                               placeholder="Enter  subheading">
+                                                    </div>
+                                                    <div class="position-relative">
+                                                        <label> Description</label>
+                                                        <textarea class="form-control" id="ckeditor-classic-background" name="background_description" placeholder="Enter description" rows="3" required>{{@$homesettings->background_description}}</textarea>
+                                                        <div class="invalid-tooltip">
+                                                            Please enter the  description.
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <!-- end card -->
 
-                                        <div class="text-end mb-3">
-                                            <button type="submit" class="btn btn-success w-sm">{{($homesettings->background_description !== null) ? "Update ":"Save "}}</button>
+                                      
+                                          
+                                            <!-- end card -->
+                                            <div class="text-end mb-3">
+                                                <button type="submit" class="btn btn-success w-sm">Update </button>
+                                            </div>
+                                       
+
+
+                                    </div>
+                                    <!-- end col -->
+
+                                    <div class="col-lg-4">
+                                        <div class="sticky-side-div">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-0">Other Details</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <img  id="background-current-img"  src="{{ (@$homesettings->background_image !== null) ? asset('images/home/background/'.@$homesettings->background_image) :  asset('images/default-image.jpg') }}" class="position-relative img-fluid img-thumbnail welcome-feature-image" >
+                                                        <input  type="file" accept="image/png, image/jpeg" hidden
+                                                            id="background-current-img-update"  onchange="loadbasicFile('background-current-img-update','background-current-img',event)" name="background_image" {{ (@$homesettings->background_image !== null) ? '' :  'required' }}
+                                                        class="background-current-img-update" >
+
+                                                        <figcaption class="figure-caption">*use image minimum of 1920 x 1080px </figcaption>
+                                                        <div class="invalid-feedback" >
+                                                                Please select a image.
+                                                            </div>
+                                                        <label for="background-current-img-update" class="profile-photo-edit btn btn-light feature-image-button">
+                                                            <i class="ri-image-edit-line align-bottom me-1"></i> Add Background Image
+                                                        </label>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                    <img  id="background-side-current-img"  src="{{ (@$homesettings->background_side_image !== null) ? asset('images/home/background/'.@$homesettings->background_side_image) :  asset('images/default-image.jpg') }}" class="position-relative img-fluid img-thumbnail welcome-feature-image" >
+                                                        <input  type="file" accept="image/png, image/jpeg" hidden
+                                                            id="background-side-current-img-update"  onchange="loadbasicFile('background-side-current-img-update','background-side-current-img',event)" name="background_side_image" {{ (@$homesettings->background_side_image !== null) ? '' :  'required' }}
+                                                        class="background-current-img-update" >
+
+                                                        <figcaption class="figure-caption">*use image minimum of 700 x 815px </figcaption>
+                                                        <div class="invalid-feedback" >
+                                                                Please select a image.
+                                                            </div>
+                                                        <label for="background-side-current-img-update" class="profile-photo-edit btn btn-light feature-side-image-button">
+                                                            <i class="ri-image-edit-line align-bottom me-1"></i> Add Side Image
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!-- end card body -->
+                                            </div>
+
+                                            
                                         </div>
                                     </div>
                                 </div>

@@ -18,6 +18,7 @@ class HomePageController extends Controller
     private $home_path;
     private $welcome_path;
     private $direction_path;
+    private $background_path;
     
     public function __construct()
     {
@@ -25,6 +26,7 @@ class HomePageController extends Controller
         $this->home_path   = public_path('/images/home');
         $this->welcome_path   = public_path('/images/home/welcome');
         $this->direction_path   = public_path('/images/home/direction');
+        $this->background_path   = public_path('/images/home/background');
         
     }
 
@@ -205,6 +207,66 @@ class HomePageController extends Controller
         return redirect()->back();
     }
 
+
+    public function background(Request $request, $id)
+    {
+        $update_theme                                   =  HomePage::find($id);
+        $update_theme->background_heading                =  $request->input('background_heading');
+        $update_theme->background_subheading            =  $request->input('background_subheading');
+        $update_theme->background_description           =  $request->input('background_description');
+       
+        $update_theme->updated_by                       =  Auth::user()->id;
+        $backgroundoldimage                             = $update_theme->background_image;
+        $sideoldimage                                   = $update_theme->background_side_image;
+
+        if (!is_dir($this->background_path)) {
+            mkdir($this->background_path, 0777);
+        }
+
+        if (!empty($request->file('background_image'))){
+            $path    = base_path().'/public/images/home/background/';
+            $image = $request->file('background_image');
+            $name1 = uniqid().'_background_image_'.$image->getClientOriginalName();
+            $moved          = Image::make($image->getRealPath())->fit(1920, 1080)->orientate()->save($path.$name1);
+
+            if ($moved){
+                $update_theme->background_image= $name1;
+                if (!empty($backgroundoldimage) && file_exists(public_path().'/images/home/background/'.$backgroundoldimage)){
+                    @unlink(public_path().'/images/home/background/'.$backgroundoldimage);
+                }
+            }
+
+        }
+
+
+        if (!empty($request->file('background_side_image'))){
+            $sidepath    = base_path().'/public/images/home/background/';
+            $sideimage = $request->file('background_side_image');
+            $name = uniqid().'_background_side_image_'.$sideimage->getClientOriginalName();
+            $move          = Image::make($sideimage->getRealPath())->fit(700,815)->orientate()->save($sidepath.$name);
+
+            if ($move){
+                $update_theme->background_side_image= $name;
+                if (!empty($sideoldimage) && file_exists(public_path().'/images/home/background/'.$sideoldimage)){
+                    @unlink(public_path().'/images/home/background/'.$sideoldimage);
+                }
+            }
+
+        }
+
+        $status=$update_theme->update();
+
+        if($status){
+            Session::flash('success','Background Section Updated Successfully');
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Background Section could not be Updated');
+        }
+
+
+        return redirect()->back();
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
