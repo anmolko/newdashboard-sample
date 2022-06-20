@@ -141,22 +141,22 @@
                     <div class="hero-21-txt text-center white-color">
 
                         <!-- Title -->
-                        <h2 class="h2-lg">Creativity never goes wrong, all you need is right direction</h2>
+                        <h2 class="h2-lg">title</h2>
 
                         <!-- Text -->
-                        <p class="p-xl">Mauris donec ociis et magnis sapien sagittis sapien tempor gravida
-                        and aliquet suscipit in magna dignissim, porttitor hendrerit
+                        <p class="p-xl"> description
                         </p>
 
                         <div class="domain-search-container">
                             <!-- HERO QUICK FORM -->
-                            <form name="quickform" class="quick-form">
+                            <form name="quickform" class="quick-form" >
 
                                 <!-- Form Inputs -->
                                 <div class="input-group large">
                                     <input type="text" name="domain" class="form-control domain" placeholder="Type your domain address" autocomplete="off" required>
                                     <span class="input-group-btn form-btn">
-                                        <button type="submit" class="btn btn-md btn-stateblue black-hover submit">Search</button>
+                                        <!-- <button type="submit" class="btn btn-md btn-stateblue black-hover submit">Search</button> -->
+                                        <button class="btn btn-md btn-stateblue black-hover submit">Search</button>
                                     </span>
                                 </div>
 
@@ -256,200 +256,95 @@
 
     @endif
 
+    @if(!empty($homepage_info->direction_list_description))
 
-    <!-- CONTENT-5
-    ============================================= -->
-    <section id="content-5" class="content-5 ws-wrapper content-section division">
+    <!-- simple header and description
+       ============================================= -->
+    <section id="content-5" class="content-5 pb-60 ws-wrapper content-section division">
         <div class="container">
+            @if(@$homepage_info->direction_container_color == "grey") 
             <div class="content-5-wrapper bg-whitesmoke">
+            @endif
+
                 <div class="row d-flex align-items-center">
 
-
-                    <!-- TEXT BLOCK -->
-                    <div class="col-md-7 col-lg-6">
-                        <div class="txt-block left-column wow fadeInRight">
-
-                            <!-- Section ID -->
-                            <span class="section-id txt-upcase">Digital Strategy</span>
-
-                            <!-- Title -->
-                            <h2 class="h2-xs">We make your business gain more revenue at a glance</h2>
-
-                            <!-- List -->
-                            <ul class="simple-list">
-
-                                <li class="list-item">
-                                    <p class="p-lg">Fringilla risus, luctus mauris auctor euismod an iaculis luctus
-                                        magna purus pretium ligula purus and quaerat sapien rutrum mauris auctor
-                                    </p>
-                                </li>
-
-                                <li class="list-item">
-                                    <p class="p-lg">Nemo ipsam egestas volute turpis dolores ligula and aliquam quaerat
-                                        at sodales sapien purus
-                                    </p>
-                                </li>
-
-                            </ul>
-
-                        </div>
-                    </div>	<!-- END TEXT BLOCK -->
-
-
-                    <!-- IMAGE BLOCK -->
-                    <div class="col-md-5 col-lg-6">
-                        <div class="img-block right-column wow fadeInLeft">
-                            <img class="img-fluid" src="images/img-17.png" alt="content-image">
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>    <!-- End row -->
-        </div>	   <!-- End container -->
-    </section>	<!-- END CONTENT-5 -->
-
-
-
-
-    <!-- CONTENT-3
-    ============================================= -->
-    <section id="content-3" class="content-3 wide-60 content-section division">
-        <div class="container">
-
-
-            <!-- SECTION TITLE -->
-            <div class="row justify-content-center">
-                <div class="col-lg-10 col-xl-8">
+                    @if(!empty(@$homepage_info->direction_heading) && !empty(@$homepage_info->direction_description))
                     <div class="section-title title-01 mb-70">
 
                         <!-- Title -->
-                        <h2 class="h2-md">Optimized Business Platform</h2>
+                        <h2 class="h2-md">{{@$homepage_info->direction_heading}}</h2>
 
                         <!-- Text -->
-                        <p class="p-xl">Aliquam a augue suscipit, luctus neque purus ipsum neque dolor primis a libero
-                            tempus, blandit and cursus varius and magnis sapien
+                        <p class="p-xl">{{@$homepage_info->direction_description}}
                         </p>
 
                     </div>
-                </div>
-            </div>
+                    @endif
 
-
-            <!-- TOP ROW -->
-            <div class="top-row pb-50">
-                <div class="row d-flex align-items-center">
-
-
-                    <!-- IMAGE BLOCK -->
-                    <div class="col-md-5 col-lg-6">
-                        <div class="img-block left-column wow fadeInRight">
-                            <img class="img-fluid" src="images/img-14.png" alt="content-image">
-                        </div>
-                    </div>
-
+                    @if(@$homepage_info->direction_displaying_side_image == "right") 
 
                     <!-- TEXT BLOCK -->
                     <div class="col-md-7 col-lg-6">
-                        <div class="txt-block right-column wow fadeInLeft">
-
-                            <!-- Section ID -->
-                            <span class="section-id txt-upcase">Totally Optimized</span>
-
-                            <!-- Title -->
-                            <h2 class="h2-xs">More productivity with less effort</h2>
-
-                            <!-- Text -->
-                            <p class="p-lg">Quaerat sodales sapien euismod blandit purus a purus ipsum primis in cubilia
-                                laoreet augue luctus magna dolor luctus and egestas sapien egestas vitae nemo volute
-                            </p>
-
-                            <!-- Text -->
-                            <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and cubilia
-                                laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas
-                            </p>
-
-                        </div>
-                    </div>	<!-- END TEXT BLOCK -->
-
-
-                </div>
-            </div>	<!-- END TOP ROW -->
-
-
-            <!-- BOTTOM ROW -->
-            <div class="bottom-row">
-                <div class="row d-flex align-items-center">
-
-
-                    <!-- TEXT BLOCK -->
-                    <div class="col-md-7 col-lg-6 order-last order-md-2">
                         <div class="txt-block left-column wow fadeInRight">
 
-                            <!-- TEXT BOX -->
-                            <div class="txt-box mb-20">
+                                                      <!-- Title -->
+                            <h2 class="h2-xs">{{@$homepage_info->direction_list_heading}}</h2>
 
-                                <!-- Title -->
-                                <h5 class="h5-lg">Advanced Analytics Review</h5>
-
-                                <!-- Text -->
-                                <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and
-                                    cubilia laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas
-                                    volute and turpis dolores aliquam quaerat sodales a sapien
-                                </p>
-
+                            <div class="p-lg welcome-description"> {!! @$homepage_info->direction_list_description !!}
                             </div>
-
-                            <!-- TEXT BOX -->
-                            <div class="txt-box">
-
-                                <!-- Title -->
-                                <h5 class="h5-lg">Search Engine Optimization (SEO)</h5>
-
-                                <!-- List -->
-                                <ul class="simple-list">
-
-                                    <li class="list-item">
-                                        <p class="p-lg">Fringilla risus, luctus mauris auctor euismod an iaculis luctus
-                                            magna purus pretium ligula purus and quaerat
-                                        </p>
-                                    </li>
-
-                                    <li class="list-item">
-                                        <p class="p-lg">Nemo ipsam egestas volute turpis dolores undo ultrice aliquam quaerat
-                                            at sodales sapien purus
-                                        </p>
-                                    </li>
-
-                                </ul>
-
-                            </div>	<!-- END TEXT BOX -->
+                           
 
                         </div>
                     </div>	<!-- END TEXT BLOCK -->
-
+                    <!-- IMAGE BLOCK -->
+                    <div class="col-md-5 col-lg-6">
+                        <div class="img-block right-column wow fadeInLeft">
+                            <img class="img-fluid" src="<?php if(!empty(@$homepage_info->direction_list_image)){ echo '/images/home/direction/'.@$homepage_info->direction_list_image; } ?>" alt="content-image">
+                        </div>
+                    </div>
+                    @else
 
                     <!-- IMAGE BLOCK -->
-                    <div class="col-md-5 col-lg-6 order-first order-md-2">
+                    <div class="col-md-5 col-lg-6">
                         <div class="img-block right-column wow fadeInLeft">
-                            <img class="img-fluid" src="images/img-15.png" alt="content-image">
+                            <img class="img-fluid" src="<?php if(!empty(@$homepage_info->direction_list_image)){ echo '/images/home/direction/'.@$homepage_info->direction_list_image; } ?>" alt="content-image">
                         </div>
                     </div>
 
+                    <!-- TEXT BLOCK -->
+                    <div class="col-md-7 col-lg-6">
+                        <div class="txt-block left-column wow fadeInRight">
+
+                                                      <!-- Title -->
+                            <h2 class="h2-xs">{{@$homepage_info->direction_list_heading}}</h2>
+
+                            <div class="p-lg welcome-description"> {!! @$homepage_info->direction_list_description !!}
+                            </div>
+                           
+
+                        </div>
+                    </div>	<!-- END TEXT BLOCK -->
+                    
+
+                    @endif
 
                 </div>
-            </div>	<!-- END BOTTOM ROW -->
 
+            @if(@$homepage_info->direction_container_color == "grey") 
+            </div>    <!-- End row -->
+            @endif
 
         </div>	   <!-- End container -->
-    </section>	<!-- END CONTENT-3 -->
+    </section>	<!-- END simple header and description -->
+    @endif
 
 
 
+    @if(!empty($homepage_info->background_image) && !empty($homepage_info->background_side_image))
 
-    <!-- CONTENT-2A
+    <!-- backgroundimage-
     ============================================= -->
-    <section id="content-2a" class="content-2 bg-02 wide-60 content-section division">
+    <section id="content-2a" class="content-2 bg-02 wide-60 content-section division" style="background-image: url({{asset('/images/home/background/'.@$homepage_info->background_image)}});">
         <div class="container">
             <div class="row d-flex align-items-center">
 
@@ -457,7 +352,7 @@
                 <!-- IMAGE BLOCK -->
                 <div class="col-md-5 col-lg-6">
                     <div class="rel img-block left-column wow fadeInRight">
-                        <img class="img-fluid" src="images/img-10.png" alt="content-image">
+                        <img class="img-fluid" src="<?php if(!empty(@$homepage_info->background_side_image)){ echo '/images/home/background/'.@$homepage_info->background_side_image; } ?>" alt="content-image">
                     </div>
                 </div>
 
@@ -467,31 +362,13 @@
                     <div class="txt-block right-column white-color wow fadeInLeft">
 
                         <!-- Section ID -->
-                        <span class="section-id txt-upcase">Monitor Your Growth</span>
+                        <span class="section-id txt-upcase">{{@$homepage_info->background_heading}}</span>
 
                         <!-- Title -->
-                        <h2 class="h2-xs">Committed to top quality and results</h2>
+                        <h2 class="h2-xs">{{@$homepage_info->background_subheading}}</h2>
 
-                        <!-- List -->
-                        <ul class="simple-list">
-
-                            <li class="list-item">
-                                <p class="p-lg">Fringilla risus, luctus mauris orci auctor euismod iaculis luctus
-                                    magna purus pretium ligula purus undo quaerat tempor sapien rutrum mauris quaerat ultrice
-                                </p>
-                            </li>
-
-                            <li class="list-item">
-                                <p class="p-lg">Quaerat sodales sapien euismod purus blandit</p>
-                            </li>
-
-                            <li class="list-item">
-                                <p class="p-lg">Nemo ipsam egestas volute turpis dolores undo ultrice aliquam
-                                    quaerat at sodales sapien purus
-                                </p>
-                            </li>
-
-                        </ul>
+                        <div class="p-lg welcome-description"> {!! @$homepage_info->background_description !!}
+                            </div>
 
                     </div>
                 </div>	<!-- END TEXT BLOCK -->
@@ -499,7 +376,8 @@
 
             </div>	   <!-- End row -->
         </div>	   <!-- End container -->
-    </section>	<!-- END CONTENT-2A -->
+    </section>	<!-- END backgroundimage -->
+    @endif
 
 
     <!-- PRICING-3
