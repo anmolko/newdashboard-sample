@@ -31,6 +31,12 @@
         font-size: 1.125rem;
     }
 
+    .welcome-description ul{
+        margin-top: 0;
+        margin-bottom: 1rem;
+        list-style: disc;
+        padding-left: 2rem;
+    }
     .domain-search-container .input-group {
         max-width: 100% !important;
         margin-left: 0px;
@@ -127,102 +133,128 @@
     ============================================= -->
     <section id="hero-19" class="bg-scroll hero-section division">
         <div class="container">
-        <div class="row d-flex align-items-center">
+            <div class="row d-flex align-items-center">
 
 
-<!-- HERO TEXT -->
-<div class="col-md-10 offset-md-1">
-    <div class="hero-21-txt text-center white-color">
+                <!-- HERO TEXT -->
+                <div class="col-md-10 offset-md-1">
+                    <div class="hero-21-txt text-center white-color">
 
-        <!-- Title -->
-        <h2 class="h2-lg">Creativity never goes wrong, all you need is right direction</h2>
+                        <!-- Title -->
+                        <h2 class="h2-lg">Creativity never goes wrong, all you need is right direction</h2>
 
-        <!-- Text -->
-        <p class="p-xl">Mauris donec ociis et magnis sapien sagittis sapien tempor gravida
-           and aliquet suscipit in magna dignissim, porttitor hendrerit
-        </p>
+                        <!-- Text -->
+                        <p class="p-xl">Mauris donec ociis et magnis sapien sagittis sapien tempor gravida
+                        and aliquet suscipit in magna dignissim, porttitor hendrerit
+                        </p>
 
-        <div class="domain-search-container">
-            <!-- HERO QUICK FORM -->
-            <form name="quickform" class="quick-form">
+                        <div class="domain-search-container">
+                            <!-- HERO QUICK FORM -->
+                            <form name="quickform" class="quick-form">
 
-                <!-- Form Inputs -->
-                <div class="input-group large">
-                    <input type="text" name="domain" class="form-control domain" placeholder="Type your domain address" autocomplete="off" required>
-                    <span class="input-group-btn form-btn">
-                        <button type="submit" class="btn btn-md btn-stateblue black-hover submit">Search</button>
-                    </span>
-                </div>
+                                <!-- Form Inputs -->
+                                <div class="input-group large">
+                                    <input type="text" name="domain" class="form-control domain" placeholder="Type your domain address" autocomplete="off" required>
+                                    <span class="input-group-btn form-btn">
+                                        <button type="submit" class="btn btn-md btn-stateblue black-hover submit">Search</button>
+                                    </span>
+                                </div>
 
-                <!-- Form Message -->
-                <div class="quick-form-msg"><span class="loading"></span></div>
+                                <!-- Form Message -->
+                                <div class="quick-form-msg"><span class="loading"></span></div>
 
-            </form>
+                            </form>
 
-            <!-- Advantages List -->
-            <ul class="advantages mt-35 mb-20">
-                <li class="first-li"><p><span class="domain-type">.com.np</span></p></li>
-                <li ><p><span class="domain-type">.com</span></p></li>
-                <li ><p><span class="domain-type">.net</span></p></li>
-                <li class="last-li"><p><span class="domain-type">.org</span></p></li>
-            </ul>
-        </div>
+                            <!-- Advantages List -->
+                            <ul class="advantages mt-35 mb-20">
+                                <li class="first-li"><p><span class="domain-type">.com.np</span></p></li>
+                                <li ><p><span class="domain-type">.com</span></p></li>
+                                <li ><p><span class="domain-type">.net</span></p></li>
+                                <li class="last-li"><p><span class="domain-type">.org</span></p></li>
+                            </ul>
+                        </div>
 
-    </div>
-</div>	<!-- END HERO TEXT -->
+                    </div>
+                </div>	<!-- END HERO TEXT -->
 
 
-</div>	   <!-- End row -->
+            </div>	   <!-- End row -->
 
         </div>	   <!-- End container -->
     </section>	<!-- END HERO-19 -->
 
 
-    <!-- CONTENT-2
+
+    <!-- Welcome section-2
     ============================================= -->
+    @if(!empty($homepage_info->welcome_description))
     <section id="content-2" class="content-2 wide-60 content-section division">
         <div class="container">
             <div class="row d-flex align-items-center">
 
-
-                <!-- IMAGE BLOCK -->
-                <div class="col-md-5 col-lg-6">
-                    <div class="rel img-block left-column wow fadeInRight">
-                        <img class="img-fluid" src="images/img-16.png" alt="content-image">
+                @if(@$homepage_info->welcome_side_image == "left") 
+                    <!-- IMAGE BLOCK -->
+                    <div class="col-md-5 col-lg-6">
+                        <div class="rel img-block left-column wow fadeInRight">
+                            <img class="img-fluid" src="<?php if(!empty(@$homepage_info->welcome_image)){ echo '/images/home/welcome/'.@$homepage_info->welcome_image; } ?>" alt="content-image">
+                        </div>
                     </div>
-                </div>
 
 
-                <!-- TEXT BLOCK -->
-                <div class="col-md-7 col-lg-6">
-                    <div class="txt-block right-column wow fadeInLeft">
+                    <!-- TEXT BLOCK -->
+                    <div class="col-md-7 col-lg-6">
+                        <div class="txt-block right-column wow fadeInLeft">
 
-                        <!-- Section ID -->
-                        <span class="section-id txt-upcase">Start, Connect, Enjoy</span>
+                            <!-- Section ID -->
+                            <span class="section-id txt-upcase">{{@$homepage_info->welcome_heading}}</span>
 
-                        <!-- Title -->
-                        <h2 class="h2-xs">Start your online business with OLMO</h2>
+                            <!-- Title -->
+                            <h2 class="h2-xs">{{@$homepage_info->welcome_subheading}}</h2>
 
-                        <!-- Text -->
-                        <p class="p-lg">Quaerat sodales sapien euismod blandit purus a purus ipsum primis in cubilia
-                            laoreet augue luctus magna dolor luctus and egestas sapien egestas vitae nemo volute
-                        </p>
+                            <!-- Text -->
+                            <div class="p-lg welcome-description"> {!! @$homepage_info->welcome_description !!}
+                            </div>
 
-                        <!-- Text -->
-                        <p class="p-lg">Quaerat sodales sapien euismod blandit at vitae ipsum primis undo and cubilia
-                            laoreet augue and luctus magna dolor luctus at egestas sapien vitae nemo egestas volute and
-                            turpis dolores aliquam quaerat sodales a sapien
-                        </p>
 
+                        </div>
+                    </div>	<!-- END TEXT BLOCK -->
+
+                @else
+
+                    <!-- TEXT BLOCK -->
+                    <div class="col-md-7 col-lg-6">
+                        <div class="txt-block right-column wow fadeInLeft">
+
+                            <!-- Section ID -->
+                            <span class="section-id txt-upcase">{{@$homepage_info->welcome_heading}}</span>
+
+                            <!-- Title -->
+                            <h2 class="h2-xs">{{@$homepage_info->welcome_subheading}}</h2>
+
+                            <!-- Text -->
+                            <div class="p-lg welcome-description"> {!! @$homepage_info->welcome_description !!}
+                            </div>
+
+
+                        </div>
+                    </div>	<!-- END TEXT BLOCK -->
+                    <!-- IMAGE BLOCK -->
+                    <div class="col-md-5 col-lg-6">
+                        <div class="rel img-block left-column wow fadeInRight">
+                            <img class="img-fluid" src="<?php if(!empty(@$homepage_info->welcome_image)){ echo '/images/home/welcome/'.@$homepage_info->welcome_image; } ?>" alt="content-image">
+                        </div>
                     </div>
-                </div>	<!-- END TEXT BLOCK -->
+
+
+                  
+                @endif
 
 
             </div>	   <!-- End row -->
         </div>	   <!-- End container -->
-    </section>	<!-- END CONTENT-2 -->
+    </section>	<!-- END Welcome section-2 -->
 
-
+    @endif
 
 
     <!-- CONTENT-5
@@ -636,193 +668,6 @@
             </div>    <!-- End statistic-3-wrapper -->
         </div>	   <!-- End container -->
     </section>	<!-- END STATISTIC-3 -->
-
-
-
-
-    <!-- CONTENT-10
-    ============================================= -->
-    <section id="content-10" class="content-10 wide-100 content-section division">
-        <div class="container">
-
-
-            <!-- SECTION TITLE -->
-            <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-8">
-                    <div class="section-title title-02 mb-60">
-
-                        <!-- Section ID -->
-                        <span class="section-id txt-upcase">Your road to success</span>
-
-                        <!-- Title -->
-                        <h2 class="h2-xs">Marketing solutions that fuel your business growth</h2>
-
-                        <!-- Text -->
-                        <p class="p-xl">Aliquam a augue suscipit, luctus neque purus ipsum neque at dolor primis libero
-                            tempus, blandit and cursus varius and magnis sapien
-                        </p>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- IMAGE BLOCK -->
-            <div class="row">
-                <div class="col">
-                    <div class="img-block text-center video-preview">
-
-                        <!-- Play Icon -->
-                        <a class="video-popup1" href="https://www.youtube.com/embed/SZEflIVnhH8">
-                            <div class="video-btn video-btn-xl bg-skyblue ico-90">
-                                <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
-                            </div>
-                        </a>
-
-                        <!-- Preview Image -->
-                        <img class="img-fluid" src="images/seo-07.png" alt="video-preview">
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>	   <!-- End container -->
-    </section>	<!-- END CONTENT-10 -->
-
-
-
-
-    <!-- FEATURES-4
-    ============================================= -->
-    <section id="features-4" class="pb-60 features-section division">
-        <div class="container">
-
-
-            <!-- FEATURES-4 WRAPPER -->
-            <div class="fbox-4-wrapper fbox-4-wide">
-                <div class="row row-cols-1 row-cols-md-2">
-
-
-                    <!-- FEATURE BOX #1 -->
-                    <div class="col">
-                        <div class="fbox-4 pr-25 mb-40 wow fadeInUp">
-
-                            <!-- Icon -->
-                            <div class="fbox-ico">
-                                <div class="ico-65">
-                                    <span class="flaticon-increase-1"></span>
-                                </div>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="fbox-txt">
-
-                                <!-- Title -->
-                                <h5 class="h5-sm">Market Research</h5>
-
-                                <!-- Text -->
-                                <p class="p-lg">Porta semper lacus cursus feugiat primis ultrice ligula risus auctor
-                                    tempus feugiat impedit undo auctor felis augue mauris aoreet tempor
-                                </p>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <!-- FEATURE BOX #2 -->
-                    <div class="col">
-                        <div class="fbox-4 pl-25 mb-40 wow fadeInUp">
-
-                            <!-- Icon -->
-                            <div class="fbox-ico">
-                                <div class="ico-65">
-                                    <span class="flaticon-idea"></span>
-                                </div>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="fbox-txt">
-
-                                <!-- Title -->
-                                <h5 class="h5-sm">User Experience</h5>
-
-                                <!-- Text -->
-                                <p class="p-lg">Porta semper lacus cursus feugiat primis ultrice ligula risus auctor
-                                    tempus feugiat impedit undo auctor felis augue mauris aoreet tempor
-                                </p>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <!-- FEATURE BOX #3 -->
-                    <div class="col">
-                        <div class="fbox-4 pr-25 mb-40 wow fadeInUp">
-
-                            <!-- Icon -->
-                            <div class="fbox-ico">
-                                <div class="ico-65">
-                                    <span class="flaticon-analytics-2"></span>
-                                </div>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="fbox-txt">
-
-                                <!-- Title -->
-                                <h5 class="h5-sm">Digital Marketing</h5>
-
-                                <!-- Text -->
-                                <p class="p-lg">Porta semper lacus cursus feugiat primis ultrice ligula risus auctor
-                                    tempus feugiat impedit undo auctor felis augue mauris aoreet tempor
-                                </p>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <!-- FEATURE BOX #4 -->
-                    <div class="col">
-                        <div class="fbox-4 pl-25 mb-40 wow fadeInUp">
-
-                            <!-- Icon -->
-                            <div class="fbox-ico">
-                                <div class="ico-65">
-                                    <span class="flaticon-reward"></span>
-                                </div>
-                            </div>
-
-                            <!-- Text -->
-                            <div class="fbox-txt">
-
-                                <!-- Title -->
-                                <h5 class="h5-sm">Brand Design Identity</h5>
-
-                                <!-- Text -->
-                                <p class="p-lg">Porta semper lacus cursus feugiat primis ultrice ligula risus auctor
-                                    tempus feugiat impedit undo auctor felis augue mauris aoreet tempor
-                                </p>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>    <!-- END FEATURES-4 WRAPPER -->
-
-
-        </div>     <!-- End container -->
-    </section>	<!-- END FEATURES-4 -->
-
 
 
 

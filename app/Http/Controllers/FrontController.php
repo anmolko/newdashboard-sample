@@ -9,6 +9,7 @@ use App\Models\BlogCategory;
 use App\Models\Career;
 use App\Models\Contact;
 use App\Models\Faq;
+use App\Models\HomePage;
 use App\Models\RequestQuote;
 use App\Models\Setting;
 use App\Models\Service;
@@ -39,9 +40,10 @@ class FrontController extends Controller
     protected $our_work = null;
     protected $request_quote = null;
     protected $testimonial = null;
+    protected $home_page = null;
 
 
-    public function __construct(Testimonial $testimonial,RequestQuote $request_quote,OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
+    public function __construct(HomePage $home_page,Testimonial $testimonial,RequestQuote $request_quote,OurWork $our_work,ApplyJob $apply_job,Career $career, Package $customer_package,ProjectPlan $pojectPlan,Service $service,Faq $faq,Setting $setting,Contact $contact,BlogCategory $bcategory,Blog $blog)
     {
         $this->contact = $contact;
         $this->setting = $setting;
@@ -56,7 +58,8 @@ class FrontController extends Controller
         $this->our_work = $our_work;
         $this->request_quote = $request_quote;
         $this->testimonial = $testimonial;
-
+        $this->home_page = $home_page;
+        
     }
 
 
@@ -65,7 +68,10 @@ class FrontController extends Controller
         $faqs = $this->faq->take(4)->get();
         $testimonials = $this->testimonial->take(7)->get();
         $allpackages = $this->pojectPlan->inRandomOrder()->take(3)->get();
-        return view('welcome',compact('faqs','testimonials','allpackages'));
+        
+        $homepage_info = $this->home_page->first();
+
+        return view('welcome',compact('faqs','testimonials','allpackages','homepage_info'));
     }
 
 

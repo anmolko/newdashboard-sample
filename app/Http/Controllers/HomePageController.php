@@ -17,13 +17,15 @@ class HomePageController extends Controller
      */
     private $home_path;
     private $welcome_path;
-
+    private $direction_path;
+    
     public function __construct()
     {
         $this->middleware('auth');
         $this->home_path   = public_path('/images/home');
         $this->welcome_path   = public_path('/images/home/welcome');
-
+        $this->direction_path   = public_path('/images/home/direction');
+        
     }
 
 
@@ -118,6 +120,7 @@ class HomePageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(Request $request, $id)
     {
         $update_theme                           =  HomePage::find($id);
@@ -151,6 +154,51 @@ class HomePageController extends Controller
         }
         else{
             Session::flash('error','Something Went Wrong. Welcome Section could not be Updated');
+        }
+
+
+        return redirect()->back();
+    }
+
+
+    public function direction(Request $request, $id)
+    {
+        $update_theme                                   =  HomePage::find($id);
+        $update_theme->direction_heading                =  $request->input('direction_heading');
+        $update_theme->direction_description            =  $request->input('direction_description');
+        $update_theme->direction_list_heading           =  $request->input('direction_list_heading');
+        $update_theme->direction_list_description       =  $request->input('direction_list_description');
+        $update_theme->direction_displaying_side_image  =  $request->input('direction_displaying_side_image');
+        $update_theme->direction_container_color        =  $request->input('direction_container_color');
+        $update_theme->updated_by                       =  Auth::user()->id;
+        $oldimage                                       = $update_theme->direction_list_image;
+
+        if (!is_dir($this->direction_path)) {
+            mkdir($this->direction_path, 0777);
+        }
+
+        if (!empty($request->file('direction_list_image'))){
+            $path    = base_path().'/public/images/home/direction/';
+            $image = $request->file('direction_list_image');
+            $name1 = uniqid().'_direction_'.$image->getClientOriginalName();
+            $moved          = Image::make($image->getRealPath())->fit(725, 810)->orientate()->save($path.$name1);
+
+            if ($moved){
+                $update_theme->direction_list_image= $name1;
+                if (!empty($oldimage) && file_exists(public_path().'/images/home/direction/'.$oldimage)){
+                    @unlink(public_path().'/images/home/direction/'.$oldimage);
+                }
+            }
+
+        }
+
+        $status=$update_theme->update();
+
+        if($status){
+            Session::flash('success','Simple Section Updated Successfully');
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Simple  Section could not be Updated');
         }
 
 
