@@ -5,6 +5,12 @@ $(document).ready(function () {
         ordering:  true,
         lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
     });
+
+    if(response !== ''){
+        dataTable.columns( 0 )
+            .search(response)
+            .draw();
+    }
 });
 $(document).on('click','.cs-service-remove', function (e) {
     e.preventDefault();

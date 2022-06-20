@@ -66,7 +66,7 @@ $(function() {
                 }
                 $("#new-unread").append(response.unread+' New');
                 $(div).remove();
-                if(response.service_num == 0){
+                if(response.service_num == 0 && type=='service'){
                     $(mark).remove();
                     var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
                         '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
@@ -75,7 +75,7 @@ $(function() {
                         '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no '+type+' notifications </h6>'+
                         '</div>';
                     $(holder).append(replacement);
-                }else if(response.career_num == 0){
+                }else if(response.career_num == 0 && type=='career'){
                     $(mark).remove();
                     var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
                         '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
@@ -84,7 +84,7 @@ $(function() {
                         '<h6 class="fs-18 fw-semibold lh-base">Hey! You have no '+type+' notifications </h6>'+
                         '</div>';
                     $(holder).append(replacement);
-                }else if(response.other_num == 0){
+                }else if(response.other_num == 0 && type=='others'){
                     $(mark).remove();
                     var replacement = '  <div class="w-25 w-sm-50 pt-3 mx-auto">' +
                         '<img src="/assets/backend/images/svg/bell.svg" class="img-fluid" alt="user-pic">' +
