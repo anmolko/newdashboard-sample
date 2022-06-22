@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -198,7 +198,8 @@ class UserController extends Controller
         $services       = Service::all();
         $blogs          = Blog::all()->take(5);
         $alluser        = User::all()->take(5)->except(Auth::user()->id);
-        return view('backend.user.profile',compact('user','services','blogs','alluser'));
+        $activities     = Activity::orderBy('created_at', 'DESC')->get();
+        return view('backend.user.profile',compact('user','services','blogs','alluser','activities'));
     }
 
     public function alluser(){
