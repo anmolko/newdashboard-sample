@@ -9,8 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Career extends Model
 {
-    use HasFactory;
-    use LogsActivity;
+    use HasFactory, LogsActivity;
 
     protected $table ='careers';
     protected $fillable =['id','name','slug','position','description','feature_image','type','start_date','end_date','salary','status','meta_title','meta_tags','meta_description','created_by','updated_by'];
@@ -30,7 +29,7 @@ class Career extends Model
     {
         return LogOptions::defaults()
             ->useLogName('Career Module')
-            ->logOnly( ['name','slug','position','feature_image','type','end_date','salary','status','meta_title','meta_tags','meta_description',])
+            ->logOnly( ['name','slug','position','feature_image','type','end_date','salary','status','meta_title','meta_tags','meta_description'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
