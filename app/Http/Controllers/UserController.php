@@ -289,7 +289,7 @@ class UserController extends Controller
         $user->twitter        =  $request->input('twitter');
         $status               = $user->update();
         if ($status) {
-            activity('Profile Social Media update')->performedOn($user)->causedBy(Auth::user())->log(" $user->name's social medial profiles has been updated by" . Auth::user()->name );
+            activity('User Module')->performedOn($user)->causedBy(Auth::user())->log(" $user->name's social medial profiles has been updated by" . Auth::user()->name );
 
             $status ='success';
             return response()->json(['status'=>$status,'message'=>'Your socials are updated.']);
