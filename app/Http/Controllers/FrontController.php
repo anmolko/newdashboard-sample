@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Mail\ContactDetail;
 use App\Models\ApplyJob;
 use App\Models\Blog;
 use App\Models\BlogCategory;
@@ -351,19 +351,19 @@ class FrontController extends Controller
         ];
         $status = $this->contact->create($data);
 
-//         $theme_data = Setting::first();
-//             $mail_data = array(
-//                 'fullname'        =>$request->input('name'),
-//                 'message'        =>$request->input('msg'),
-//                 'email'        =>$request->input('email'),
-//                 'subject'        =>$request->input('subject'),
-//                 'address'        =>ucwords($theme_data->address),
-//                 'site_email'        =>ucwords($theme_data->email),
-//                 'site_name'        =>ucwords($theme_data->website_name),
-//                 'phone'        =>ucwords($theme_data->phone),
-//                 'logo'        =>ucwords($theme_data->logo),
-//             );
-// //             Mail::to($theme_data->email)->send(new ContactDetail($mail_data));
+        $theme_data = Setting::first();
+            $data = array(
+                'fullname'        =>$request->input('name'),
+                'message'        =>$request->input('msg'),
+                'email'        =>$request->input('email'),
+                'subject'        =>$request->input('subject'),
+                'address'        =>ucwords($theme_data->address),
+                'site_email'        =>ucwords($theme_data->email),
+                'site_name'        =>ucwords($theme_data->website_name),
+                'phone'        =>ucwords($theme_data->phone),
+                'logo'        =>ucwords($theme_data->logo),
+            );
+            Mail::to($theme_data->email)->send(new ContactDetail($data));
 
             if($status){
                 $confirmed = "success";
