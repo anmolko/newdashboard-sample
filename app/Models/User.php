@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,11 +60,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // protected static $logAttributes = ['*'];
-    protected static $logOnlyDirty = true;
-    protected static $logName = 'User';
-    protected static $recordEvents = ['created','updated'];
-    protected static $logAttributes= ['name', 'email','image','contact','address','gender','user_type'];
+    protected static $recordEvents = ['created','updated','deleted'];
 
     public function getDescriptionForEvent(string $eventName): string
     {
@@ -75,6 +70,7 @@ class User extends Authenticatable
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
+            ->useLogName('User Module')
             ->logOnly(['name', 'email','password','image','contact','address','user_type'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

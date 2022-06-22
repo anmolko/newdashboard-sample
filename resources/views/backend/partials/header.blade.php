@@ -495,13 +495,6 @@
                             <a class="dropdown-item" href="{{route('profile',Auth::user()->slug)}}"><i
                                     class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle">Profile</span></a>
-                            <a class="dropdown-item" href="#"><i
-                                    class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span
-                                    class="align-middle">Messages</span></a>
-                            <a class="dropdown-item" href="#"><i
-                                    class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span
-                                    class="align-middle">Taskboard</span></a>
-                            <div class="dropdown-divider"></div>
 
                             @if(Auth::user()->user_type == 'admin')
                             <a class="dropdown-item" href="{{route('settings.index')}}">
@@ -510,6 +503,7 @@
                                 <span class="align-middle">Settings</span>
                             </a>
                             @endif
+                            <div class="dropdown-divider"></div>
 
                             <form id="logout-form-header" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
