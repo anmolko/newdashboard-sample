@@ -23,7 +23,7 @@ class Blog extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        return "This :subject.title Details has been {$eventName} by :causer.name";
+        return "This :subject.title blog details has been {$eventName} by :causer.name";
     }
 
     public function getActivitylogOptions(): LogOptions

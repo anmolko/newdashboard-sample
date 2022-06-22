@@ -188,7 +188,14 @@ class CareerController extends Controller
     public function destroy($id)
     {
         $delete      = Career::find($id);
-        $ids      = $delete->id;
+        $ids         = $delete->id;
+
+        $relation    = $delete->jobs->count();
+
+        if($relation>0){
+            $status ='error';
+            return response()->json(['status'=>$status,'message'=>'Career could not be removed as it is in use in customer job application!']);
+        }
 
         if (!empty($delete->feature_image) && file_exists(public_path().'/images/career/'.$delete->feature_image)){
             @unlink(public_path().'/images/career/'.$delete->feature_image);
