@@ -24,6 +24,8 @@ use App\Notifications\OtherNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+
 
 class FrontController extends Controller
 {
