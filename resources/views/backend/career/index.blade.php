@@ -147,9 +147,9 @@
                                                                     </button>
                                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableInside" style="">
                                                                         @if($career->status == "active")
-                                                                            <li><a class="dropdown-item change-status" cs-update-route="{{route('career-status.update',$career->id)}}" href="#" cs-status-value="inactive">Inactive</a></li>
+                                                                            <li><a class="dropdown-item change-status" cs-update-route="{{route('career-stat.update',$career->id)}}" href="#" cs-status-value="inactive">Inactive</a></li>
                                                                         @else
-                                                                            <li><a class="dropdown-item change-status" cs-update-route="{{route('career-status.update',$career->id)}}" href="#" cs-status-value="active">Active</a></li>
+                                                                            <li><a class="dropdown-item change-status" cs-update-route="{{route('career-stat.update',$career->id)}}" href="#" cs-status-value="active">Active</a></li>
                                                                         @endif
                                                                     </ul>
                                                                 </div>

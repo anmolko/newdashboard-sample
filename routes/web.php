@@ -177,7 +177,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::put('/career/{careers}', 'App\Http\Controllers\CareerController@update')->name('career.update');
     Route::delete('/career/{careers}', 'App\Http\Controllers\CareerController@destroy')->name('career.destroy');
     Route::get('/career/{careers}/edit', 'App\Http\Controllers\CareerController@edit')->name('career.edit');
-    Route::patch('/career/{status}/update', 'App\Http\Controllers\CareerController@updateStatus')->name('career-status.update');
+    Route::patch('/career/{status}/update', 'App\Http\Controllers\CareerController@updateStatus')->name('career-stat.update');
 
     //project plan
     Route::get('/project-plan', 'App\Http\Controllers\ProjectPlanController@index')->name('project-plan.index');
