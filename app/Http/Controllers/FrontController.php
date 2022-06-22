@@ -235,7 +235,7 @@ class FrontController extends Controller
 // //             Mail::to($theme_data->email)->send(new PackageDetail($mail_data));
 
             if($status){
-                Session::flash('success','Thank you for ordering package !');
+                Session::flash('success','Thank you for ordering package. We will get back to you soon');
                 $confirmed = "success";
                 $plan      = ProjectPlan::find($request->input('project_plan_id'));
                 foreach (User::where('user_type','admin')->get() as $user){

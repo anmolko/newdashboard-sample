@@ -1,6 +1,8 @@
 @extends('frontend.layouts.master')
 @section('title') Our Packages @endsection
 @section('css')
+    <link href="{{asset('assets/frontend/css/toastr.min.css')}}" rel="stylesheet">
+
     <style>
            
     .custom-editor .media{
@@ -173,8 +175,26 @@
 @endsection
 
 @section('js')
+<script src="{{asset('assets/frontend/js/toastr.min.js')}}"></script>
 <script>
 
+    @if(Session::has('success'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.success("{{ session('success') }}");
+  @endif
+
+  @if(Session::has('error'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.error("{{ session('error') }}");
+  @endif
 
   function setOrder(element){
     var plan = $(element).data('plan');
