@@ -27,7 +27,7 @@ class OurWork extends Model
     {
         return LogOptions::defaults()
             ->useLogName('Our Work Module')
-            ->logOnly( ['title','image','work_category_id'])
+            ->logOnly( ['title','work_category_id'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

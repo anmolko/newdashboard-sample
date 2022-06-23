@@ -198,7 +198,7 @@ class UserController extends Controller
         $services       = Service::all();
         $blogs          = Blog::all()->take(5);
         $alluser        = User::all()->take(5)->except(Auth::user()->id);
-        $activities     = Activity::orderBy('created_at', 'DESC')->get();
+        $activities     = Activity::orderBy('created_at', 'DESC')->limit(20)->get();
         return view('backend.user.profile',compact('user','services','blogs','alluser','activities'));
     }
 

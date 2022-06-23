@@ -48,7 +48,7 @@ class LoginController extends Controller
             return redirect()->route('login')->with('error', 'Account not activated. Contact the administrator.');
         }else if($user->status == 1){
             date_default_timezone_set("Asia/Kathmandu");
-            activity('User')->causedBy(Auth::user())->log("The User " . ucfirst(Auth::user()->name). " has signed in the ". ucfirst(Auth::user()->user_type). " dashboard at ". date("h:ia") );
+            activity('User Module')->causedBy(Auth::user())->log("The User " . ucfirst(Auth::user()->name). " has signed in the ". ucfirst(Auth::user()->user_type). " dashboard at ". date("h:ia") );
             return redirect()->intended($this->redirectPath());
         }
     }
@@ -57,7 +57,7 @@ class LoginController extends Controller
     {
         if(Auth::user()){
             date_default_timezone_set("Asia/Kathmandu");
-            activity('User')->causedBy(Auth::user())->log("The User " . ucfirst(Auth::user()->name). " has signed out from the ". ucfirst(Auth::user()->user_type). " dashboard at ". date("h:ia") );
+            activity('User Module')->causedBy(Auth::user())->log("The User " . ucfirst(Auth::user()->name). " has signed out from the ". ucfirst(Auth::user()->user_type). " dashboard at ". date("h:ia") );
         }
 
         $this->guard()->logout();
