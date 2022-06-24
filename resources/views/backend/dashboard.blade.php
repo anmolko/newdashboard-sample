@@ -50,17 +50,17 @@
                                             <form action="javascript:void(0);">
                                                 <div class="row g-3 mb-0 align-items-center">
                                                     <!--end col-->
-                                                    <div class="col-auto">
-                                                        <button type="button" class="btn btn-soft-success"><i
-                                                                class="ri-add-circle-line align-middle me-1"></i>
-                                                            Add Product</button>
-                                                    </div>
+{{--                                                    <div class="col-auto">--}}
+{{--                                                        <button type="button" class="btn btn-soft-success"><i--}}
+{{--                                                                class="ri-add-circle-line align-middle me-1"></i>--}}
+{{--                                                            Add Product</button>--}}
+{{--                                                    </div>--}}
                                                     <!--end col-->
-                                                    <div class="col-auto">
-                                                        <button type="button"
-                                                                class="btn btn-soft-info btn-icon waves-effect waves-light layout-rightside-btn"><i
-                                                                class="ri-pulse-line"></i></button>
-                                                    </div>
+{{--                                                    <div class="col-auto">--}}
+{{--                                                        <button type="button"--}}
+{{--                                                                class="btn btn-soft-info btn-icon waves-effect waves-light layout-rightside-btn"><i--}}
+{{--                                                                class="ri-pulse-line"></i></button>--}}
+{{--                                                    </div>--}}
                                                     <!--end col-->
                                                 </div>
                                                 <!--end row-->

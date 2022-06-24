@@ -26,8 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $allusers = User::take(5)->get();
-        $works    = OurWork::take(5)->latest()->get();
+        $allusers = User::take(7)->get();
+        $works    = OurWork::take(7)->latest()->get();
         $feeds    = Blog::take(5)->latest()->get();
         return view('backend.dashboard', compact('allusers','works','feeds'));
     }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Artisan;
 
 class UserController extends Controller
 {
@@ -374,5 +375,12 @@ class UserController extends Controller
         }
 
     }
+
+    public function cleanactivity(){
+        $activityclean = Artisan::call('activitylog:clean');
+        Session::flash('success','Activity Log older than specified days has been cleaned');
+        return redirect()->back();
+    }
+
 
 }
