@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Sign In | Velzon - Admin & Dashboard Template</title>
+    <title>Sign In | {{@$setting_data->website_name}} - Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft Technology. Lets make IT happen. @endif">
     <meta name="author" content="Canosoft Technology" />
