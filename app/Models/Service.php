@@ -28,7 +28,7 @@ class Service extends Model
     {
         return LogOptions::defaults()
             ->useLogName('Service Module')
-            ->logOnly( ['title','slug','description','sub_description','banner_image','feature_image','call_action_id','meta_title','meta_tags','meta_description'])
+            ->logOnly( ['title','slug','description','sub_description','call_action_id','meta_title','meta_tags','meta_description'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class OurWork extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $table ='our_works';
     protected $fillable =['id','title','image','work_category_id','created_by','updated_by'];
 
@@ -27,7 +28,7 @@ class OurWork extends Model
     {
         return LogOptions::defaults()
             ->useLogName('Our Work Module')
-            ->logOnly( ['title','image','work_category_id'])
+            ->logOnly( ['title','work_category_id'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

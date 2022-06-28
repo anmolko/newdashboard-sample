@@ -76,7 +76,7 @@
                     </button>
 
                     <!-- App Search-->
-                    <form class="app-search d-none d-md-block">
+                    <form class="app-search d-none d-md-block" style="display: none!important;">
                         <div class="position-relative">
                             <input type="text" class="form-control" placeholder="Search..." autocomplete="off"
                                    id="search-options" value="">
@@ -163,7 +163,7 @@
 
                 <div class="d-flex align-items-center">
 
-                    <div class="dropdown d-md-none topbar-head-dropdown header-item">
+                    <div class="dropdown d-md-none topbar-head-dropdown header-item" style="display: none!important;">
                         <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                                 id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">

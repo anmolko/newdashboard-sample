@@ -29,7 +29,7 @@ class Career extends Model
     {
         return LogOptions::defaults()
             ->useLogName('Career Module')
-            ->logOnly( ['name','slug','position','feature_image','type','end_date','salary','status','meta_title','meta_tags','meta_description'])
+            ->logOnly( ['name','slug','position','type','end_date','salary','status','meta_title','meta_tags','meta_description'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

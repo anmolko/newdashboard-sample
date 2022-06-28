@@ -30,7 +30,7 @@ class Blog extends Model
     {
         return LogOptions::defaults()
             ->useLogName('Blog Module')
-            ->logOnly( ['title', 'slug','status','blog_category_id','meta_title','meta_tags','meta_description','image'])
+            ->logOnly( ['title', 'slug','status','blog_category_id','meta_title','meta_tags','meta_description'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

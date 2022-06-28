@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Artisan;
 
 class UserController extends Controller
 {
@@ -198,7 +199,8 @@ class UserController extends Controller
         $services       = Service::all();
         $blogs          = Blog::all()->take(5);
         $alluser        = User::all()->take(5)->except(Auth::user()->id);
-        return view('backend.user.profile',compact('user','services','blogs','alluser'));
+        $activities     = Activity::orderBy('created_at', 'DESC')->limit(20)->get();
+        return view('backend.user.profile',compact('user','services','blogs','alluser','activities'));
     }
 
     public function alluser(){
@@ -373,5 +375,12 @@ class UserController extends Controller
         }
 
     }
+
+    public function cleanactivity(){
+        $activityclean = Artisan::call('activitylog:clean');
+        Session::flash('success','Activity Log older than specified days has been cleaned');
+        return redirect()->back();
+    }
+
 
 }

@@ -223,6 +223,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::get('/career-response/{name}', 'App\Http\Controllers\NotificationController@sendToCareerResponse')->name('career.response');
     Route::get('/customer-package/{name}', 'App\Http\Controllers\NotificationController@sendToPlanResponse')->name('plan.response');
     Route::get('/contact/{name}', 'App\Http\Controllers\NotificationController@sendToContactResponse')->name('contact.response');
+    Route::get('/activitylog/clean', 'App\Http\Controllers\UserController@cleanactivity')->name('user.cleanactivity');
 
 });
 

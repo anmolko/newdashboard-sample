@@ -24,7 +24,7 @@ class Testimonial extends Model
     {
         return LogOptions::defaults()
             ->useLogName('Testimonial Module')
-            ->logOnly( ['name','position','rating','description','image','created_by','updated_by'])
+            ->logOnly( ['name','position','rating','description'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
