@@ -206,6 +206,12 @@ class FrontController extends Controller
         return view('frontend.pages.careers.single',compact('singleCareer'));
     }
 
+     public function page($page)
+    {
+       
+            return abort(404);
+       
+    }
     public function package(){
         $allpackages = $this->pojectPlan->get();
         return view('frontend.pages.package',compact('allpackages'));

@@ -24,9 +24,7 @@ Route::any('/register', function() {
     abort(404);
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/contact-us', 'App\Http\Controllers\FrontController@contact')->name('contact');
 Route::post('/contact-us', 'App\Http\Controllers\FrontController@contactStore')->name('contact.store');
@@ -45,12 +43,12 @@ Route::get('/blog', 'App\Http\Controllers\FrontController@blogs')->name('blog.fr
 Route::get('/faq', 'App\Http\Controllers\FrontController@faq')->name('faq.frontend');
 Route::get('/request-quote', 'App\Http\Controllers\FrontController@getQuote')->name('get-quote');
 Route::post('/request-quote', 'App\Http\Controllers\FrontController@quoteStore')->name('get-quote.store');
+Route::get('/packages', 'App\Http\Controllers\FrontController@package')->name('package.frontend');
 
 Route::get('/domain-registration', 'App\Http\Controllers\FrontController@domainRegistration')->name('domain.frontend');
 Route::get('/career', 'App\Http\Controllers\FrontController@career')->name('career.frontend');
 Route::post('/career', 'App\Http\Controllers\FrontController@careerStore')->name('career.store');
 Route::get('/career/{slug}', 'App\Http\Controllers\FrontController@careerSingle')->name('career.single');
-Route::get('/packages', 'App\Http\Controllers\FrontController@package')->name('package.frontend');
 Route::post('/packages', 'App\Http\Controllers\FrontController@packageStore')->name('package.store');
 Route::get('/works', 'App\Http\Controllers\FrontController@work')->name('work.frontend');
 
