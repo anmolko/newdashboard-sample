@@ -76,6 +76,22 @@ class FrontController extends Controller
         return view('welcome',compact('faqs','testimonials','allpackages','homepage_info'));
     }
 
+    public function domain(Request $request){
+        
+        $domain  = $request->input('domain');
+
+
+      
+
+            $suggestions= suggest_domain($domain);
+            $avaiable = check_domain($domain);
+
+            $confirmed = "success";
+           
+            return response()->json(['confirmed' => $confirmed, 'message' => 'New user added to the list', 'suggestions' => $suggestions]);
+           
+    }
+
 
     public function privacy()
     {
@@ -347,6 +363,8 @@ class FrontController extends Controller
 
     }
 
+
+    
 
     public function contactStore(Request $request)
     {

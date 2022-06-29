@@ -48,6 +48,53 @@ function url_get_contents ($Url) {
   return $output;
 }
 
+if (!function_exists('check_domain')) {
+
+    function check_domain ($domain_name) {
+        if (!function_exists('curl_init')){
+            die('CURL is not installed!');
+        }
+        $reseller_apiurl = 'https://httpapi.com';
+        $ch = curl_init();
+        $resellerid='726885';
+        $reseller_apikey='bVYor9Ou40ZoJ9RvMOKi8oXSeU7w0dtJ';
+        curl_setopt($ch, CURLOPT_URL, $reseller_apiurl .'/api/domains/available.json?auth-userid=' .$resellerid. '&api-key=' . $reseller_apikey .'&domain-name='.$domain_name.'&tlds=com');
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $httpResponse = curl_exec($ch);
+        $json = json_decode($httpResponse, true);
+        return $json;
+    
+      }
+    }
+    
+    if (!function_exists('suggest_domain')) {
+    
+    function suggest_domain ($domain_name) {
+        if (!function_exists('curl_init')){
+            die('CURL is not installed!');
+        }
+        $reseller_apiurl = 'https://httpapi.com';
+        $ch = curl_init();
+        $resellerid='726885';
+        $reseller_apikey='bVYor9Ou40ZoJ9RvMOKi8oXSeU7w0dtJ';
+        curl_setopt($ch, CURLOPT_URL, $reseller_apiurl .'/api/domains/v5/suggest-names.json?auth-userid=' .$resellerid. '&api-key=' . $reseller_apikey .'&keyword='.$domain_name);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $httpResponse = curl_exec($ch);
+        $json = json_decode($httpResponse, true);
+        return $json;
+    
+      }
+    }
+    
+
+
+
 if (!function_exists('greeting_msg')) {
     function greeting_msg(){
         date_default_timezone_set('Asia/kathmandu');

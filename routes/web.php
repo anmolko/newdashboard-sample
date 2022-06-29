@@ -28,6 +28,7 @@ Route::any('/register', function() {
 
 Route::get('/contact-us', 'App\Http\Controllers\FrontController@contact')->name('contact');
 Route::post('/contact-us', 'App\Http\Controllers\FrontController@contactStore')->name('contact.store');
+Route::post('/check-domain', 'App\Http\Controllers\FrontController@domain')->name('domain.check');
 
 
 Route::get('/', 'App\Http\Controllers\FrontController@index')->name('home');

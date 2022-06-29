@@ -149,7 +149,7 @@
 
                         <div class="domain-search-container">
                             <!-- HERO QUICK FORM -->
-                            <form name="quickform" class="quick-form" >
+                            <form name="quickform" class="quick-form domain-form" >
 
                                 <!-- Form Inputs -->
                                 <div class="input-group large">
@@ -754,6 +754,8 @@
         </div>
     </section>	<!-- END CALL TO ACTION-3 -->
 @endsection
-
+@section('js')
+<script src="{{asset('assets/frontend/js/domain-search.js')}}"></script>
+@endsection
 
 
