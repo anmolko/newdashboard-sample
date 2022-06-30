@@ -87,6 +87,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['auth']], function () {
     Route::put('/homepage-setting/{settings}', 'App\Http\Controllers\HomePageController@update')->name('homepage.update');
     Route::put('/homepage-setting/direction/{settings}', 'App\Http\Controllers\HomePageController@direction')->name('homepage.direction');
     Route::put('/homepage-setting/background/{settings}', 'App\Http\Controllers\HomePageController@background')->name('homepage.background');
+    Route::put('/homepage-setting/billboard/{settings}', 'App\Http\Controllers\HomePageController@billboard')->name('homepage.billboard');
 
 
 
