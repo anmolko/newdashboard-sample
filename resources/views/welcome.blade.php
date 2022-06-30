@@ -159,7 +159,7 @@
 
     <!-- HERO-19
     ============================================= -->
-    <section id="hero-19" class="bg-scroll hero-section division">
+    <section id="hero-19" class="bg-scroll hero-section division" style="background-image: url({{asset('/images/home/billboard/'.@$homepage_info->billboard_image)}});">
         <div class="container">
             <div class="row d-flex align-items-center">
 
@@ -169,10 +169,10 @@
                     <div class="hero-21-txt text-center white-color">
 
                         <!-- Title -->
-                        <h2 class="h2-lg">title</h2>
+                        <h2 class="h2-lg">{{@$homepage_info->billboard_title}}</h2>
 
                         <!-- Text -->
-                        <p class="p-xl"> description
+                        <p class="p-xl"> {{@$homepage_info->billboard_description}}
                         </p>
 
                         <div class="domain-search-container">
