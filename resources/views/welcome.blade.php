@@ -125,6 +125,34 @@
         }
     }
 
+    .text-block.collapsed.pressed{
+        display:none;
+    }
+    
+    .text-block{
+        display:block;
+    }
+    
+    .quick-form-msg {
+   
+        text-align: center;
+        text-align: -webkit-center;
+    }
+        
+    .suggestion-title{
+        display:none;
+    }
+    
+    span.suggest-list-domain {
+ 
+    background-color: rgb(47 114 163 / 28%);
+    border: 2px solid rgb(47 114 163 / 22%);
+    margin-right: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 10px;
+   
+}
 </style>
 @endsection
 @section('content')
@@ -161,7 +189,12 @@
                                 </div>
 
                                 <!-- Form Message -->
-                                <div class="quick-form-msg"><span class="loading"></span></div>
+                                <div class="quick-form-msg"><span class="loading"></span>
+                                    
+                                        <button class="switch hero-logo-rounded bg-tra-white mb-20 mt-20 suggestion-title">View All Domain Name Suggestions</button>
+                                   
+                                    <div class="text-block collapsed pressed suggestions" id="suggestions"></div>
+                                </div>
 
                             </form>
 
@@ -755,6 +788,12 @@
     </section>	<!-- END CALL TO ACTION-3 -->
 @endsection
 @section('js')
+<script>
+       $('.switch').on('click', function(e) {
+      $('.text-block').toggleClass("collapsed pressed"); //you can list several class names 
+      e.preventDefault();
+    });
+</script>
 <script src="{{asset('assets/frontend/js/domain-search.js')}}"></script>
 @endsection
 

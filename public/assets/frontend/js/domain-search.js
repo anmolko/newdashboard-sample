@@ -27,8 +27,20 @@ $(document).ready(function() {
                 $(".form-control").removeClass("success");
 					if(d.confirmed == 'success'){ // Message Sent? Show the 'Thank You' message and hide the form
                         $(".name").val(" ");	
-                        $('.loading').fadeIn('slow').html('<font color="#48af4b">'+d.message+'</font>');
+                        $('.loading').fadeIn('slow').html('<font color="#48af4b">'+d.message+'</font></br>');
+                        $(".suggestion-title").css("display", "inline-block");
+                        // console.log(d.suggestions);
+                        
+                        // $('.suggestions').fadeIn('slow').html('<font color="#48af4b">'+d.message+'</font>');
+                        
+                        $.each(d.suggestions, function(index, value){
+                            $("#suggestions").append('<span class="suggest-list-domain">'+value+'</span>');
+                          
+                        });
                     }else{
+                          $(".suggestion-title").css("display", "none");
+                           $("#suggestions").css("display", "none");
+                          
 						$('.loading').fadeIn('slow').html('<font color="#ff5607">'+d.message+'</font>');
                     }
 				}
@@ -39,6 +51,8 @@ $(document).ready(function() {
         $(".form-control").removeClass("success").removeClass("error");
     });
 })
+
+
 
 
 

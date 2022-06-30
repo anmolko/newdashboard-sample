@@ -80,18 +80,29 @@ class FrontController extends Controller
         
         $domain  = $request->input('domain');
 
-
-      
-
-            $suggestions= suggest_domain($domain);
-            $avaiable = check_domain($domain);
-
+        $avaiable = check_domain($domain);
+//         print_r($avaiable);
+//  dd($avaiable);
+        foreach($avaiable as $avb){
+           $message = $avb['status'];
+        }
+   
+        if($message=='available'){
+             $suggestions= suggest_domain($domain);
             $confirmed = "success";
-           
-            return response()->json(['confirmed' => $confirmed, 'message' => 'New user added to the list', 'suggestions' => $suggestions]);
+            foreach($suggestions as $key=>$value){
+                $suggestion[]=$key;
+            }
+          
+            return response()->json(['confirmed' => $confirmed, 'message' => 'Domain name is available to register', 'suggestions' => $suggestion]);
+        }else{
+             $confirmed = "error";
+       
+            return response()->json(['confirmed' => $confirmed, 'message' => 'Sorry ! this domain name is not available']);
+        }
+        
            
     }
-
 
     public function privacy()
     {
