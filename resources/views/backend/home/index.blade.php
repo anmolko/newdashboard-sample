@@ -74,6 +74,13 @@
                                     @if($homesettings !== null)
 
                                     <li class="nav-item">
+                                        <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#billboard-overview"
+                                           role="tab">
+                                            Billboard
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
                                         <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#simple-header-overview"
                                            role="tab">
                                             Simple Header & Description
@@ -189,120 +196,202 @@
 
                         </div>
                         @if($homesettings !== null)
-                            <div class="tab-pane fade" id="simple-header-overview" role="tabpanel">
 
-                            {!! Form::open(['url'=>route('homepage.direction', @$homesettings->id),'id'=>'homesettings-simple-header-form','class'=>'needs-validation','novalidate'=>'','method'=>'PUT','enctype'=>'multipart/form-data']) !!}
-                            
-                            <div class="row  mb-4">
-                                    <div class="col-lg-8">
-                                        <figure class="figure">
-                                            <img src="{{asset('images/default-simple-section.png')}}" class="figure-img img-fluid rounded" alt="...">
-                                            <figcaption class="figure-caption">Output Sample.</figcaption>
-                                        </figure>
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="card-title mb-0">Main Section</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="direction-heading-input">Heading</label>
-                                                    <input type="text" class="form-control" id="direction-heading-input" name="direction_heading" value="{{@$homesettings->direction_heading}}"
-                                                            placeholder="Enter heading">
-                                                </div>
-                                               
-                                                <div class="position-relative">
-                                                    <label> Description</label>
-                                                    <textarea class="form-control"  name="direction_description" placeholder="Enter description" rows="3" >{{@$homesettings->direction_description}}</textarea>
-                                                    <div class="invalid-tooltip">
-                                                        Please enter the  description.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="tab-pane fade" id="billboard-overview" role="tabpanel">
 
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="card-title mb-0">Secondary Section</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="direction-list-heading-input">Heading</label>
-                                                    <input type="text" class="form-control" id="direction-list-heading-input" name="direction_list_heading" value="{{@$homesettings->direction_list_heading}}"
-                                                            placeholder="Enter  heading">
-                                                </div>
-                                               
-                                                <div class="position-relative">
-                                                    <label> Description</label>
-                                                    <textarea class="form-control" id="ckeditor-classic-direction" name="direction_list_description" placeholder="Enter description" rows="3" required>{{@$homesettings->direction_list_description}}</textarea>
-                                                    <div class="invalid-tooltip">
-                                                        Please enter the  description.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end card -->
+                                {!! Form::open(['url'=>route('homepage.billboard', @$homesettings->id),'id'=>'homesettings-billboard-form','class'=>'needs-validation','novalidate'=>'','method'=>'PUT','enctype'=>'multipart/form-data']) !!}
 
-                                    
-                                        
-                                        <!-- end card -->
-                                        <div class="text-end mb-3">
-                                            <button type="submit" class="btn btn-success w-sm">Update Section</button>
-                                        </div>
-                                       
-
-
-                                    </div>
-                                    <!-- end col -->
-
-                                    <div class="col-lg-4">
-                                        <div class="sticky-side-div">
+                                    <div class="row  mb-4">
+                                        <div class="col-lg-8">
+                                            <figure class="figure">
+                                                <img src="{{asset('images/default-billboard-section.png')}}" class="figure-img img-fluid rounded" alt="...">
+                                                <figcaption class="figure-caption">Output Sample.</figcaption>
+                                            </figure>
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5 class="card-title mb-0">Other Details</h5>
+                                                    <h5 class="card-title mb-0">Billboard Section</h5>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="mb-3">
-                                                        <img  id="direction-current-img"  src="{{ (@$homesettings->direction_list_image !== null) ? asset('images/home/direction/'.@$homesettings->direction_list_image) :  asset('images/default-image.jpg') }}" class="position-relative img-fluid img-thumbnail direction-feature-image" >
-                                                        <input  type="file" accept="image/png, image/jpeg" hidden
-                                                            id="direction-current-img-update" onchange="loadbasicFile('direction-current-img-update','direction-current-img',event)"  name="direction_list_image" {{ (@$homesettings->direction_list_image !== null) ? '' :  'required' }}
-                                                        class="profile-foreground-img-file-input" >
-
-                                                        <figcaption class="figure-caption">*use image minimum of 725 x 810px </figcaption>
-                                                        <div class="invalid-feedback" >
-                                                                Please select a image.
-                                                            </div>
-                                                        <label for="direction-current-img-update" class="profile-photo-edit btn btn-light feature-image-button">
-                                                            <i class="ri-image-edit-line align-bottom me-1"></i> Add  Image
-                                                        </label>
+                                                        <label class="form-label" for="billboard-title-input">Title</label>
+                                                        <input type="text" class="form-control" id="billboard-title-input" name="billboard_title" value="{{@$homesettings->billboard_title}}"
+                                                                placeholder="Enter title">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="choices-publish-status-input" class="form-label">Image Alignment</label>
-
-                                                        <select class="form-select" id="choices-publish-status-input" name="direction_displaying_side_image" data-choices data-choices-search-false>
-                                                            <option value="left" @if(@$homesettings->direction_displaying_side_image == "left") selected @endif>Left</option>
-                                                            <option value="right" @if(@$homesettings->direction_displaying_side_image == "right") selected @endif>Right</option>
-                                                        </select>
+                                                
+                                                    <div class="position-relative">
+                                                        <label> Description</label>
+                                                        <textarea class="form-control"  name="billboard_description" placeholder="Enter description" rows="3" >{{@$homesettings->billboard_description}}</textarea>
+                                                        <div class="invalid-tooltip">
+                                                            Please enter the  description.
+                                                        </div>
                                                     </div>
-
-                                                    <div class="mb-3">
-                                                        <label for="choices-publish-status-input" class="form-label">Background Color</label>
-
-                                                        <select class="form-select" id="choices-publish-status-input" name="direction_container_color" data-choices data-choices-search-false>
-                                                            <option value="white" @if(@$homesettings->direction_container_color == "white") selected @endif>White Color</option>
-                                                            <option value="grey" @if(@$homesettings->direction_container_color == "grey") selected @endif>Light Grey color</option>
-                                                        </select>
-                                                    </div>
-                                                    
                                                 </div>
-                                                <!-- end card body -->
                                             </div>
 
+                                        
                                             
+                                            <!-- end card -->
+                                            <div class="text-end mb-3">
+                                                <button type="submit" class="btn btn-success w-sm">Update Section</button>
+                                            </div>
+                                        
+
+
+                                        </div>
+                                        <!-- end col -->
+
+                                        <div class="col-lg-4">
+                                            <div class="sticky-side-div">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="card-title mb-0">Other Details</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="mb-3">
+                                                            <img  id="billboard-current-img"  src="{{ (@$homesettings->billboard_image !== null) ? asset('images/home/billboard/'.@$homesettings->billboard_image) :  asset('images/default-image.jpg') }}" class="position-relative img-fluid img-thumbnail direction-feature-image" >
+                                                            <input  type="file" accept="image/png, image/jpeg" hidden
+                                                                id="billboard-current-img-update" onchange="loadbasicFile('billboard-current-img-update','billboard-current-img',event)"  name="billboard_image" {{ (@$homesettings->billboard_image !== null) ? '' :  'required' }}
+                                                            class="profile-foreground-img-file-input" >
+
+                                                            <figcaption class="figure-caption">*use image minimum of 1920 x 1080px </figcaption>
+                                                            <div class="invalid-feedback" >
+                                                                    Please select a image.
+                                                                </div>
+                                                            <label for="billboard-current-img-update" class="profile-photo-edit btn btn-light feature-image-button">
+                                                                <i class="ri-image-edit-line align-bottom me-1"></i> Add  Image
+                                                            </label>
+                                                        </div>
+                       
+
+                                                        
+                                                    </div>
+                                                    <!-- end card body -->
+                                                </div>
+
+                                                
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            {!! Form::close() !!}
+                                {!! Form::close() !!}
+
+
+                            </div>
+
+                            <div class="tab-pane fade" id="simple-header-overview" role="tabpanel">
+
+                                {!! Form::open(['url'=>route('homepage.direction', @$homesettings->id),'id'=>'homesettings-simple-header-form','class'=>'needs-validation','novalidate'=>'','method'=>'PUT','enctype'=>'multipart/form-data']) !!}
+                                
+                                    <div class="row  mb-4">
+                                        <div class="col-lg-8">
+                                            <figure class="figure">
+                                                <img src="{{asset('images/default-simple-section.png')}}" class="figure-img img-fluid rounded" alt="...">
+                                                <figcaption class="figure-caption">Output Sample.</figcaption>
+                                            </figure>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-0">Main Section</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="direction-heading-input">Heading</label>
+                                                        <input type="text" class="form-control" id="direction-heading-input" name="direction_heading" value="{{@$homesettings->direction_heading}}"
+                                                                placeholder="Enter heading">
+                                                    </div>
+                                                
+                                                    <div class="position-relative">
+                                                        <label> Description</label>
+                                                        <textarea class="form-control"  name="direction_description" placeholder="Enter description" rows="3" >{{@$homesettings->direction_description}}</textarea>
+                                                        <div class="invalid-tooltip">
+                                                            Please enter the  description.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="card-title mb-0">Secondary Section</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="direction-list-heading-input">Heading</label>
+                                                        <input type="text" class="form-control" id="direction-list-heading-input" name="direction_list_heading" value="{{@$homesettings->direction_list_heading}}"
+                                                                placeholder="Enter  heading">
+                                                    </div>
+                                                
+                                                    <div class="position-relative">
+                                                        <label> Description</label>
+                                                        <textarea class="form-control" id="ckeditor-classic-direction" name="direction_list_description" placeholder="Enter description" rows="3" required>{{@$homesettings->direction_list_description}}</textarea>
+                                                        <div class="invalid-tooltip">
+                                                            Please enter the  description.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end card -->
+
+                                        
+                                            
+                                            <!-- end card -->
+                                            <div class="text-end mb-3">
+                                                <button type="submit" class="btn btn-success w-sm">Update Section</button>
+                                            </div>
+                                        
+
+
+                                        </div>
+                                        <!-- end col -->
+
+                                        <div class="col-lg-4">
+                                            <div class="sticky-side-div">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="card-title mb-0">Other Details</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="mb-3">
+                                                            <img  id="direction-current-img"  src="{{ (@$homesettings->direction_list_image !== null) ? asset('images/home/direction/'.@$homesettings->direction_list_image) :  asset('images/default-image.jpg') }}" class="position-relative img-fluid img-thumbnail direction-feature-image" >
+                                                            <input  type="file" accept="image/png, image/jpeg" hidden
+                                                                id="direction-current-img-update" onchange="loadbasicFile('direction-current-img-update','direction-current-img',event)"  name="direction_list_image" {{ (@$homesettings->direction_list_image !== null) ? '' :  'required' }}
+                                                            class="profile-foreground-img-file-input" >
+
+                                                            <figcaption class="figure-caption">*use image minimum of 725 x 810px </figcaption>
+                                                            <div class="invalid-feedback" >
+                                                                    Please select a image.
+                                                                </div>
+                                                            <label for="direction-current-img-update" class="profile-photo-edit btn btn-light feature-image-button">
+                                                                <i class="ri-image-edit-line align-bottom me-1"></i> Add  Image
+                                                            </label>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="choices-publish-status-input" class="form-label">Image Alignment</label>
+
+                                                            <select class="form-select" id="choices-publish-status-input" name="direction_displaying_side_image" data-choices data-choices-search-false>
+                                                                <option value="left" @if(@$homesettings->direction_displaying_side_image == "left") selected @endif>Left</option>
+                                                                <option value="right" @if(@$homesettings->direction_displaying_side_image == "right") selected @endif>Right</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="choices-publish-status-input" class="form-label">Background Color</label>
+
+                                                            <select class="form-select" id="choices-publish-status-input" name="direction_container_color" data-choices data-choices-search-false>
+                                                                <option value="white" @if(@$homesettings->direction_container_color == "white") selected @endif>White Color</option>
+                                                                <option value="grey" @if(@$homesettings->direction_container_color == "grey") selected @endif>Light Grey color</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <!-- end card body -->
+                                                </div>
+
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {!! Form::close() !!}
 
 
                             </div>

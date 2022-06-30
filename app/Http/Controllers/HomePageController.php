@@ -19,6 +19,8 @@ class HomePageController extends Controller
     private $welcome_path;
     private $direction_path;
     private $background_path;
+    private $billboard_path;
+    
     
     public function __construct()
     {
@@ -27,6 +29,7 @@ class HomePageController extends Controller
         $this->welcome_path   = public_path('/images/home/welcome');
         $this->direction_path   = public_path('/images/home/direction');
         $this->background_path   = public_path('/images/home/background');
+        $this->billboard_path   = public_path('/images/home/billboard');
         
     }
 
@@ -156,6 +159,48 @@ class HomePageController extends Controller
         }
         else{
             Session::flash('error','Something Went Wrong. Welcome Section could not be Updated');
+        }
+
+
+        return redirect()->back();
+    }
+
+    
+
+    public function billboard(Request $request, $id)
+    {
+        $update_theme                                   =  HomePage::find($id);
+        $update_theme->billboard_title                  =  $request->input('billboard_title');
+        $update_theme->billboard_description            =  $request->input('billboard_description');
+        $update_theme->updated_by                       =  Auth::user()->id;
+        $oldimage                                       = $update_theme->billboard_image;
+
+        if (!is_dir($this->billboard_path)) {
+            mkdir($this->billboard_path, 0777);
+        }
+
+        if (!empty($request->file('billboard_image'))){
+            $path    = base_path().'/public/images/home/billboard/';
+            $image = $request->file('billboard_image');
+            $name1 = uniqid().'_billboard_'.$image->getClientOriginalName();
+            $moved          = Image::make($image->getRealPath())->fit(1920, 1080)->orientate()->save($path.$name1);
+
+            if ($moved){
+                $update_theme->billboard_image= $name1;
+                if (!empty($oldimage) && file_exists(public_path().'/images/home/billboard/'.$oldimage)){
+                    @unlink(public_path().'/images/home/billboard/'.$oldimage);
+                }
+            }
+
+        }
+
+        $status=$update_theme->update();
+
+        if($status){
+            Session::flash('success','Billboard Section Updated Successfully');
+        }
+        else{
+            Session::flash('error','Something Went Wrong. Billboard Section could not be Updated');
         }
 
 
