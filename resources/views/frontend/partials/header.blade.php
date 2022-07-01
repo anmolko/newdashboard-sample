@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="author" content="Canosoft Technology"/>	
-		<meta name="description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft - Let's make IT happen @endif "/>
+		<meta name="description" content="@if(!empty(@$setting_data->meta_description)) {{ucwords(@$setting_data->meta_description)}} @else Canosoft - Let's make IT happen @endif "/>
 		<meta name="keywords" content="@if(!empty(@$setting_data->meta_tags)) {{@$setting_data->meta_tags}} @else Canosoft - Let's make IT happen @endif ">	
 		<link rel="canonical" href="https://canosoft.com.np/" />
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
