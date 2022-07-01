@@ -8,8 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="author" content="Canosoft Technology"/>	
 		<meta name="description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft - Let's make IT happen @endif "/>
-		<meta name="keywords" content="@if(!empty(@$setting_data->website_keyword)) {{@$setting_data->website_keyword}} @else Canosoft - Let's make IT happen @endif ">	
-		<link rel="canonical" href="" />
+		<meta name="keywords" content="@if(!empty(@$setting_data->meta_tags)) {{@$setting_data->meta_tags}} @else Canosoft - Let's make IT happen @endif ">	
+		<link rel="canonical" href="https://canosoft.com.np/" />
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
 
 			<!-- SITE TITLE -->
@@ -18,11 +18,11 @@
 		@else
             <title>@yield('title') | @if(!empty(@$setting_data->website_name)) {{ucwords(@$setting_data->website_name)}} @else Canosoft - Let's make IT happen @endif </title>
 		@endif			
-		<meta property="og:title" content="Home" />
-		<meta property="og:type" content="article" />
-		<meta property="og:url" content="" />
+		<meta property="og:title" content="@if(!empty(@$setting_data->meta_title)) {{ucwords(@$setting_data->meta_title)}} @else Canosoft - Let's make IT happen @endif" />
+		<meta property="og:type" content="Web Developing" />
+		<meta property="og:url" content="https://canosoft.com.np/" />
 		<meta property="og:site_name" content="Canosoft - Let's make IT happen" />
-		<meta property="og:description" content="@if(!empty(@$setting_data->website_description)) {{ucwords(@$setting_data->website_description)}} @else Canosoft - Let's make IT happen @endif " />
+		<meta property="og:description" content="@if(!empty(@$setting_data->meta_description)) {{ucwords(@$setting_data->meta_description)}} @else Canosoft - Let's make IT happen @endif " />
 
 
   	
@@ -64,6 +64,17 @@
 				color:#2F72A3;
 			}
 		</style>
+		<script src="{{asset('assets/frontend/js/jquery-3.6.0.min.js')}}"></script>
+
+		 <!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id={{@$setting_data->google_analytics}}"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', '{{@$setting_data->google_analytics}}');
+		</script>
         @yield('css')
 
 	</head>

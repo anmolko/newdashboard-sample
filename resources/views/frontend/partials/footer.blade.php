@@ -241,7 +241,6 @@
 		<!-- EXTERNAL SCRIPTS
 		============================================= -->	
 
-		<script src="{{asset('assets/frontend/js/jquery-3.6.0.min.js')}}"></script>
 		<script src="{{asset('assets/frontend/js/bootstrap.min.js')}}"></script>	
 		<script src="{{asset('assets/frontend/js/modernizr.custom.js')}}"></script>
 		<script src="{{asset('assets/frontend/js/jquery.easing.js')}}"></script>
