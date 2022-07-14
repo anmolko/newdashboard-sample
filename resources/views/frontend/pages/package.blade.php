@@ -20,6 +20,10 @@
     .canosoft-listing ul,.canosoft-listing ol {
         font-size: 1.125rem;
     }
+
+    .canosoft-package{
+        font-size: 16px;
+    }
    
     .pull-right {
         float: right;
@@ -102,7 +106,7 @@
                                                 <sup class="validity dark-color"><span>{{$package->price}}</span> / {{@$package->type}}</sup>
                                             </div>	
 
-                                            <div class="canosoft-listing">
+                                            <div class="canosoft-listing canosoft-package">
                                                 {!! @$package->description !!}
 
                                             </div>

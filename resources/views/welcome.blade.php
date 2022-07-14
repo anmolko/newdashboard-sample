@@ -31,6 +31,9 @@
         font-size: 1.125rem;
     }
 
+    .canosoft-package{
+        font-size: 16px;
+    }
     .welcome-description ul{
         margin-top: 0;
         margin-bottom: 1rem;
@@ -469,7 +472,7 @@
                             </div>	
                                         
                             <!-- Plan Features  -->
-                            <div class="canosoft-listing">
+                            <div class="canosoft-listing canosoft-package">
                                 {!! @$package->description !!}
 
                             </div>
