@@ -145,7 +145,7 @@ class TestimonialController extends Controller
     {
         $delete          = Testimonial::find($id);
         $blogid          = $delete->id;
-        $feature         = $delete->feature_image;
+        $feature         = $delete->image;
         if (!empty($feature) && file_exists(public_path().'/images/testimonial/'.$feature)){
             @unlink(public_path().'/images/testimonial/'.$feature);
         }
